@@ -1,0 +1,81 @@
+
+#include "InteractionData.h"
+#include <iostream>
+
+namespace NeutrinoFluxReweight{ 
+  
+  InteractionData::InteractionData(){
+    
+    particle = TDatabasePDG::Instance();
+    Inc_pdg = 0;
+    Prod_pdg= 0;
+    
+    Inc_P     = -1000.;
+    Prod_P    = -1000.;
+    Inc_Mass  = -1000.;
+    Prod_Mass = -1000.;
+    
+    xF      = -1000.;
+    Pz      = -1000.;
+    Theta   = -1000.;
+    Pt      = -1000.;
+    
+    Ecm     = -1000.;
+    Betacm  = -1000.;
+    Gammacm = -1000.;
+    
+    Vol = "NoDefinied";
+    
+  }
+  
+  InteractionData::InteractionData(double incMom[], int incPdg, double prodMom[], int prodPdg, std::string volname, std::string procname){
+
+    particle = TDatabasePDG::Instance();
+    // Z direction along the direction of the incident particle
+    // Cos between incMom and prodMom:
+    // The units are in GeV
+    
+    InteractionData::Inc_pdg  = incPdg;
+    InteractionData::Prod_pdg = prodPdg;
+    
+    InteractionData::Inc_P  = std::sqrt(incMom[0]*incMom[0] + incMom[1]*incMom[1] +incMom[2]*incMom[2]);
+    InteractionData::Prod_P = std::sqrt(prodMom[0]*prodMom[0] + prodMom[1]*prodMom[1] +prodMom[2]*prodMom[2]);
+    
+    double cos_theta = (incMom[0]*prodMom[0]+incMom[1]*prodMom[1]+incMom[2]*prodMom[2])/(Inc_P*Prod_P);
+    double sin_theta = std::sqrt(1.-pow(cos_theta,2.0));
+    
+    //Theta in rads:  
+    InteractionData::Theta = std::acos(cos_theta);
+    
+    InteractionData::Pt = Prod_P*sin_theta;
+    InteractionData::Pz = Prod_P*cos_theta; 
+    
+     
+    InteractionData::Inc_Mass  = particle->GetParticle(Inc_pdg)->Mass();
+    InteractionData::Prod_Mass = particle->GetParticle(Prod_pdg)->Mass();
+
+    //Ecm, gamma:
+    double inc_E_lab = std::sqrt(Inc_P*Inc_P + pow(Inc_Mass,2));
+    InteractionData::Ecm       = std::sqrt(2.*pow(Inc_Mass,2)+2.*inc_E_lab*Inc_Mass); 
+    InteractionData::Betacm    = std::sqrt(pow(inc_E_lab,2)-pow(Inc_Mass,2.0))/(inc_E_lab + Inc_Mass); 
+    InteractionData::Gammacm   = 1./std::sqrt(1.-pow(Betacm,2.0));
+    
+    //xF:
+    double prod_E_lab  = std::sqrt(Prod_P*Prod_P + pow(Prod_Mass,2));
+    double PL          = Gammacm*(Pz-Betacm*prod_E_lab);  // PL is measured in CM frame
+    InteractionData::xF  = PL*2./Ecm;
+    
+    //Volume:
+    InteractionData::Vol = volname;
+
+    //Process:
+    InteractionData::Proc = procname;
+
+  }
+
+  //----------------------------------------------------------------------
+  InteractionData::~InteractionData(){
+    
+  }
+  
+}
