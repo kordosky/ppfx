@@ -47,7 +47,8 @@ namespace NeutrinoFluxReweight{
 	has_mipp = true;
 	mipp_wgt = MIPP_NUMI_Universe->calculateWeight(icd);
 	//	std::cout<<"ReweightDriver "<<mipp_wgt<<std::endl;
-	break;
+	break; // break after the first interaction node
+	// we don't want to compute the same mipp_wgt over and over
       }
     }
     tot_wgt *= mipp_wgt;

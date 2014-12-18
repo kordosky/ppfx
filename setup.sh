@@ -23,7 +23,10 @@ setup(){
     #setup jobsub_client -z /grid/fermiapp/products/common/db
     
     export BOOST=/nusoft/app/externals/boost/v1_55_0/source/boost_1_55_0
-    
-    
+
+    # bash magic pulled off of stack exchange
+    # gets the full path to the location of setup.sh
+    export PPFX_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+    echo "setting PPFX_DIR=${PPFX_DIR}"
 }
 setup

@@ -35,5 +35,14 @@ namespace NeutrinoFluxReweight{
     if (instance == 0) instance = new ExtractInfo;
     return instance;
   }
-  
+
+
+  std::ostream& ExtractInfo::Print(std::ostream& os){
+    std::map<std::string,double>::iterator it=map_info.begin();
+    os<<"===== ExtractInfo ======="<<std::endl;
+    for(; it!=map_info.end(); it++){
+      os<<it->first<<" : "<<it->second<<std::endl;
+    }
+    return os;
+  }  
 };

@@ -16,14 +16,12 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <stdlib.h>
 
 //Some constants::
 
-const char* ntupleDir = "/minerva/data/flux_hadron_samples/flux/g4numi/v4_test"; 
-const char* thisDir = "/minerva/app/users/laliaga/NEW_RW_OUTSIDE_MINERVA2";
-const char* OutputDir = "/minerva/data/users/laliaga/FLUX_PACK/GRID";
 
-const int Nuniverses = 1000;
+const int Nuniverses = 100;
 
 const int NbinsE = 120;
 const double emin   =   0.;
@@ -44,13 +42,32 @@ class Numi2Pdg;
 
 int idx_hel(int pdgdcode);
 
+/*!
+ * Run the reweighting for a single file cnent number of events, for a 
+ * particular MIPP covariance matrix. 
+ *
+ * par_option: select the covariance matrix by passing in the name of the xml file.
+ * beammode: select the beam configuration, i.e., LE010z185i, this is only used to select the input file.
+ * runnumber: select the run number, only used to select the input file
+ * cnent: number of events we want to process from the file.
+ */
 void doRW(const char* par_option,const char* beammode,const char* runnumber, const char* cnent){ 
+
+  const char* ntupleDir = "/minerva/data/flux_hadron_samples/flux/g4numi/v4_test"; 
+  const char* thisDir = getenv("PPFX_DIR");
+  //  const char* OutputDir = "/minerva/data/users/laliaga/FLUX_PACK/GRID";
+  const char* OutputDir=thisDir;
   
   int nent = atoi(cnent);
 
   int irun = atoi(runnumber);
   //  TFile* fOut = new TFile(Form("%s/%s/%s/fOut_%s_%s_%04d.root",OutputDir,beammode,par_option,par_option,beammode,irun),"recreate");
+
+  std::cout<<"Making an output file to store histograms"<<std::endl;
+
   TFile* fOut = new TFile(Form("test%d_%dentries_with1000univ.root",irun,nent),"recreate");
+  std::cout<<"File name: "<<fOut->GetName()<<std::endl;
+
   flxRW::HistoContainer* histos =  flxRW::HistoContainer::getInstance();
   flxRW::ExtractInfo*    info   =  flxRW::ExtractInfo::getInstance();
   
@@ -60,7 +77,8 @@ void doRW(const char* par_option,const char* beammode,const char* runnumber, con
     fOut->mkdir(Form("%s",nuhel[ii]));
     fOut->mkdir(Form("%s_mipp",nuhel[ii]));
   }
-  
+  std::cout<<"Done making the output file"<<std::endl;
+
   TH1D* hnom[Nnuhel];
   TH1D* hnom_mipp[Nnuhel];
   for(int ii=0;ii<Nnuhel;ii++){
@@ -89,9 +107,9 @@ void doRW(const char* par_option,const char* beammode,const char* runnumber, con
   flxRW::CentralValuesAndUncertainties* cvu = flxRW::CentralValuesAndUncertainties::getInstance();;
   flxRW::MIPPNumiYieldsBins*  myb =  flxRW::MIPPNumiYieldsBins::getInstance();
                               
-  cvu->readFromXML(Form("%s/UNCERTAINTIES/Parameters_%s.xml",thisDir,par_option));
-  myb->readPIP_FromXML(Form("%s/BINS/MIPPNumiData_PIP_Bins.xml",thisDir));
-  myb->readPIM_FromXML(Form("%s/BINS/MIPPNumiData_PIM_Bins.xml",thisDir));
+  cvu->readFromXML(Form("%s/uncertainties/Parameters_%s.xml",thisDir,par_option));
+  myb->readPIP_FromXML(Form("%s/data/BINS/MIPPNumiData_PIP_Bins.xml",thisDir));
+  myb->readPIM_FromXML(Form("%s/data/BINS/MIPPNumiData_PIM_Bins.xml",thisDir));
   
   //Classes and variables:
   flxRW::InteractionChainData inter_chain;
@@ -113,6 +131,7 @@ void doRW(const char* par_option,const char* beammode,const char* runnumber, con
     flxRW::ParameterTable univPars=cvu->calculateParsForUniverse(ii+base_universe);
     vec_rws.push_back(new flxRW::ReweightDriver(ii,cvPars,univPars));    
   }
+  std::cout<<"Done configuring universes"<<std::endl;
 
   //  for(int ii=0;ii<Nuniverses;ii++){
   //    vec_rws[ii]->SetUniverseID(ii);
@@ -196,6 +215,7 @@ void doRW(const char* par_option,const char* beammode,const char* runnumber, con
 	}
 	
       }
+      info->Print(std::cout);
       info->CleanInfo(); 
       
     }
@@ -293,6 +313,8 @@ int idx_hel(int pdgcode){
 ////////////////////////////////
 #ifndef __CINT__
 int main(int argc, const char* argv[]){
+  
+
   doRW(argv[1],argv[2],argv[3],argv[4]);
   return 0;
 }

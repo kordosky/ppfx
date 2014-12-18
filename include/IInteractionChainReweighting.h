@@ -8,7 +8,9 @@
 namespace NeutrinoFluxReweight{
 
   /*! \class InteractionChainReweightingInterface
-   *  \brief The interface for classes that reweight a chain of interactions 
+   *  \brief The interface for classes that reweight a chain of interactions, as needed for MIPP.
+   *
+   * There is a 1 to 1 mapping between instances of IInteractionChainReweighting classes and universes (i.e., one object per universe.
    * The constructor for these classes should look like myChainReweighting( ParameterTable& cv_pars, ParameterTable& univ_pars);
    * 
    */  
