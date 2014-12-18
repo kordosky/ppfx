@@ -20,7 +20,7 @@ namespace NeutrinoFluxReweight{
     virtual double calculateWeight(const InteractionData& inter_data);
  
   private:
-    int UnivID;
+    int iUniv;
     ParameterTable cvPars;
     ParameterTable univPars;
   };
