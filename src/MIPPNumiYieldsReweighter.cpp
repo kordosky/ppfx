@@ -12,9 +12,9 @@
 
 namespace NeutrinoFluxReweight{
   
-  MIPPNumiYieldsReweighter::MIPPNumiYieldsReweighter(){
-    
-  }
+  MIPPNumiYieldsReweighter::MIPPNumiYieldsReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars):iUniv(iuniv),cvPars(cv_pars),univPars(univ_pars){ 
+    // do any other necessary initialization    
+}
   MIPPNumiYieldsReweighter::~MIPPNumiYieldsReweighter(){
     
   }
@@ -87,11 +87,7 @@ namespace NeutrinoFluxReweight{
     
     return this_nodes;
   }
-  double MIPPNumiYieldsReweighter::calculateWeight(const InteractionChainData& aa, ParameterTable& cv_pars, ParameterTable& univ_pars){
-    CentralValuesAndUncertainties*  CVU = CentralValuesAndUncertainties::getInstance();
-    CVU->setBaseSeed(99);
-    
-    ParameterTable this_parTable = CVU->calculateParsForUniverse(UnivID);
+  double MIPPNumiYieldsReweighter::calculateWeight(const InteractionChainData& aa){
     
     MIPPNumiYieldsBins*  MIPPbins =  MIPPNumiYieldsBins::getInstance();
     DataHistos*          dtH      =  DataHistos::getInstance();
@@ -114,8 +110,8 @@ namespace NeutrinoFluxReweight{
     sprintf(namepar_sta,"MIPP_NuMI_%s_stats_%d",ptype,binID);
     
     ////////// Testing getting thr cv and substract:
-    ParameterTable cv_parTable   = CVU->getCVPars();
-    std::map<std::string, double> cv_table = cv_parTable.table;
+
+    std::map<std::string, double> cv_table = cvPars.table;
     std::map<std::string, double>::iterator cv_it = cv_table.begin();
     cv_it = cv_table.find(std::string(namepar_sys));
     double data_cv = cv_it->second;
@@ -126,7 +122,7 @@ namespace NeutrinoFluxReweight{
  
     //////////
 
-    std::map<std::string, double> this_table = this_parTable.table;
+    std::map<std::string, double> this_table = univPars.table;
     std::map<std::string, double>::iterator it = this_table.begin();
 
     it = this_table.find(std::string(namepar_sys));
@@ -158,7 +154,7 @@ namespace NeutrinoFluxReweight{
     
     ///Filling info:
     char cunivID[3]; 
-    sprintf(cunivID,"%03d",UnivID);
+    sprintf(cunivID,"%03d",iUniv);
     info->FillInfo("univ" + std::string(cunivID) + "_" + std::string(namepar_sys),data_sys/binC);
     info->FillInfo("univ" + std::string(cunivID) + "_" + std::string(namepar_sta),data_sta/binC);
     ///
@@ -167,7 +163,5 @@ namespace NeutrinoFluxReweight{
     return (data_sys + data_sta - data_cv)/binC;
     
   }
-  void MIPPNumiYieldsReweighter::ConfigureThisUniverse(int iuniv){
-    UnivID = iuniv;
-  }
+
 }

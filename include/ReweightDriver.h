@@ -15,20 +15,29 @@ namespace NeutrinoFluxReweight{
     
   /*! \class ReweightDriver
    *  \brief A class to manage and drive the weight calculation procedure. 
+   *
+   * There is a one-to-one correspondence between ReweightDrivers and universes.
    */
 
   class ReweightDriver{
   public:  
     /*!
+ 
+    */
+    ReweightDriver();
+    
+    void Configure();
+    /*!
+     * Calculate weight for this event, given a set of central value parameters
+     * and a set of randomly varied parameters corresponding to the universe
+     * that this ReweightDriver is responsible for.
+     *
      * - Call mipp_yields on input chain. record interactions covered with a weight in interaction_covered.
      * - Call attenuation on input chain
      * - Call thin target reweighters. 
      *    -# Call na49 for interactions not yet covered. record in interaction_covered
      *    -# ditto. call MIPP, then theory
-    */
-    ReweightDriver();
-    
-    void Configure();
+     */
     double calculateWeight(const InteractionChainData& icd, ParameterTable& cv_pars, ParameterTable& univ_pars);
     void SetUniverseID(int univid);
     

@@ -12,15 +12,15 @@ namespace NeutrinoFluxReweight{
   
   class MIPPNumiYieldsReweighter : public IInteractionChainReweighting{
   public:  
-    MIPPNumiYieldsReweighter();
-    ~MIPPNumiYieldsReweighter();
-    std::vector<bool> canReweight(const InteractionChainData& aa);
-    double calculateWeight(const InteractionChainData& aa, ParameterTable& cv_pars, ParameterTable& univ_pars);
-    void ConfigureThisUniverse(int iuniv); 
-    
+    MIPPNumiYieldsReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars);
+    virtual ~MIPPNumiYieldsReweighter();
+    virtual std::vector<bool> canReweight(const InteractionChainData& aa);
+    virtual double calculateWeight(const InteractionChainData& aa);    
   private:
-    int UnivID;
-    
+    int iUniv;
+    ParameterTable cvPars;
+    ParameterTable univPars;
+
   };
 
 
