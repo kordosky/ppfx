@@ -5,7 +5,7 @@
 
 namespace NeutrinoFluxReweight{
   
-  MIPPNumiKaonsYieldsReweighter::MIPPNumiKaonsYieldsReweighter(){
+  MIPPNumiKaonsYieldsReweighter::MIPPNumiKaonsYieldsReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars): iUniv(iuniv), cvPars(cv_pars), univPars(univ_pars){
     
   }
   MIPPNumiKaonsYieldsReweighter::~MIPPNumiKaonsYieldsReweighter(){
@@ -97,10 +97,8 @@ namespace NeutrinoFluxReweight{
     
     return this_nodes;
   }
-  double MIPPNumiKaonsYieldsReweighter::calculateWeight(const InteractionChainData&, ParameterTable& cv_pars, ParameterTable& univ_pars){
+  double MIPPNumiKaonsYieldsReweighter::calculateWeight(const InteractionChainData& aa){
       return 1.0;
   }
-  void MIPPNumiKaonsYieldsReweighter::ConfigureThisUniverse(int iuniv){
-    UnivID = iuniv;
-  }
+
 }

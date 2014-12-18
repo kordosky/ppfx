@@ -4,7 +4,8 @@
 
 namespace NeutrinoFluxReweight{
   
-  AttenuationReweighter::AttenuationReweighter(){
+  AttenuationReweighter::AttenuationReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars)
+    :iUniv(iuniv),cvPars(cv_pars),univPars(univ_pars){
     
   }
   AttenuationReweighter::~AttenuationReweighter(){
@@ -39,10 +40,8 @@ namespace NeutrinoFluxReweight{
     }  
     return can_rws;
   }
-  double AttenuationReweighter::calculateWeight(const InteractionChainData&, ParameterTable& cv_pars, ParameterTable& univ_pars){
+  double AttenuationReweighter::calculateWeight(const InteractionChainData&){
     return 1.0;
   }
-  void AttenuationReweighter::ConfigureThisUniverse(int iuniv){
-    UnivID = iuniv;
-  }
+
 }
