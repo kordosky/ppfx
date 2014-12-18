@@ -19,14 +19,16 @@ namespace NeutrinoFluxReweight{
   
   class MIPPThinTargetReweighter : public IInteractionReweighting{
   public:  
-    MIPPThinTargetReweighter();
-    ~MIPPThinTargetReweighter();
-    bool canReweight(const InteractionData& aa);
-    double calculateWeight(const InteractionData& inter_data, ParameterTable& cv_pars, ParameterTable& univ_pars);
-    void ConfigureThisUniverse(int iuniv); 
-  private:
-    int UnivID;
+    MIPPThinTargetReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars);
+    virtual ~MIPPThinTargetReweighter();
+    virtual bool canReweight(const InteractionData& aa);
+    virtual double calculateWeight(const InteractionData& inter_data);
     
+  private:
+    int iUniv;
+    ParameterTable cvPars;
+    ParameterTable univPars;
+
   };
 
   

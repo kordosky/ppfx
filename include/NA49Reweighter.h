@@ -13,14 +13,15 @@ namespace NeutrinoFluxReweight{
   
   class NA49Reweighter : public IInteractionReweighting{
   public:  
-    NA49Reweighter();
-    ~NA49Reweighter();
-    bool canReweight(const InteractionData& aa);
-    double calculateWeight(const InteractionData& inter_data, ParameterTable& cv_pars, ParameterTable& univ_pars);
-    void ConfigureThisUniverse(int iuniv);
+    NA49Reweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars);
+    virtual ~NA49Reweighter();
+    virtual bool canReweight(const InteractionData& aa);
+    virtual double calculateWeight(const InteractionData& inter_data);
 
   private:
-     int UnivID;
+    int iUniv;
+    ParameterTable cvPars;
+    ParameterTable univPars;
   };
 
   

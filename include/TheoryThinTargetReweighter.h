@@ -4,12 +4,6 @@
 
 #include "IInteractionReweighting.h"
 
-#include "TH2D.h"
-#include "TH2F.h"
-#include "TH1D.h"
-#include "TH1F.h"
-#include "TFile.h"
-
 #include <vector>
 
 namespace NeutrinoFluxReweight{
@@ -20,15 +14,15 @@ namespace NeutrinoFluxReweight{
   
   class TheoryThinTargetReweighter : public IInteractionReweighting{
   public:  
-    TheoryThinTargetReweighter();
-    ~TheoryThinTargetReweighter();
-    bool canReweight(const InteractionData& aa);
-    double calculateWeight(const InteractionData& inter_data, ParameterTable& cv_pars, ParameterTable& univ_pars);
-    void ConfigureThisUniverse(int iuniv);
-
+    TheoryThinTargetReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars);
+    virtual ~TheoryThinTargetReweighter();
+    virtual bool canReweight(const InteractionData& aa);
+    virtual double calculateWeight(const InteractionData& inter_data);
+ 
   private:
     int UnivID;
-
+    ParameterTable cvPars;
+    ParameterTable univPars;
   };
 
   
