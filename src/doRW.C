@@ -104,16 +104,21 @@ void doRW(const char* par_option,const char* beammode,const char* runnumber, con
   std::vector<flxRW::ReweightDriver*> vec_rws;
   vec_rws.reserve(Nuniverses);
   
+  std::cout<<"Initializing reweight drivers for "<<Nuniverses<<" universes"<<std::endl;
   flxRW::ParameterTable  table_cv;
   flxRW::ParameterTable  table_univ;
-  
+  const int base_universe=1000000;
   for(int ii=0;ii<Nuniverses;ii++){
-    vec_rws.push_back(new flxRW::ReweightDriver());    
+    flxRW::ParameterTable cvPars=cvu->getCVPars();
+    flxRW::ParameterTable univPars=cvu->calculateParsForUniverse(ii+base_universe);
+    vec_rws.push_back(new flxRW::ReweightDriver(ii,cvPars,univPars));    
   }
-  for(int ii=0;ii<Nuniverses;ii++){
-    vec_rws[ii]->SetUniverseID(ii);
-    vec_rws[ii]->Configure();
-  }
+
+  //  for(int ii=0;ii<Nuniverses;ii++){
+  //    vec_rws[ii]->SetUniverseID(ii);
+  //    vec_rws[ii]->Configure();
+  //  }
+
   std::vector<double> wgts;
   for(int ii=0;ii<Nuniverses;ii++){
     wgts.push_back(1.0);
@@ -170,7 +175,7 @@ void doRW(const char* par_option,const char* beammode,const char* runnumber, con
     bool is_mipp = false;    
     
     for(int jj=0;jj<Nuniverses;jj++){
-      wgts[jj] = vec_rws[jj]->calculateWeight(inter_chain,table_cv,table_univ);
+      wgts[jj] = vec_rws[jj]->calculateWeight(inter_chain);
       if(fabs(wgts[jj]-1.0)>1.e-15 && jj==0){is_mipp=true;}
       
       std::map<std::string,double> map_info = info->GetInfo();
