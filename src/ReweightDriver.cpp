@@ -19,17 +19,11 @@ namespace NeutrinoFluxReweight{
 
     ATT_Universe = new AttenuationReweighter(iUniv,cvPars,univPars);
 
-    NA49_Universe = new NA49Reweighter();
-    NA49_Universe->ConfigureThisUniverse(iUniv);
+    NA49_Universe = new NA49Reweighter(iUniv,cvPars,univPars);
     
-    MIPP_THIN_Universe = new MIPPThinTargetReweighter();
-    MIPP_THIN_Universe->ConfigureThisUniverse(iUniv);
+    MIPP_THIN_Universe = new MIPPThinTargetReweighter(iUniv,cvPars,univPars);
 
-    THEORY_Universe = new TheoryThinTargetReweighter();
-    THEORY_Universe->ConfigureThisUniverse(iUniv);
-   
-
-
+    THEORY_Universe = new TheoryThinTargetReweighter(iUniv,cvPars,univPars);
      
   }
   
