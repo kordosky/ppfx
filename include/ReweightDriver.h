@@ -22,11 +22,11 @@ namespace NeutrinoFluxReweight{
   class ReweightDriver{
   public:  
     /*!
- 
+     * the constructor
     */
-    ReweightDriver();
+    ReweightDriver(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars);
     
-    void Configure();
+
     /*!
      * Calculate weight for this event, given a set of central value parameters
      * and a set of randomly varied parameters corresponding to the universe
@@ -38,11 +38,16 @@ namespace NeutrinoFluxReweight{
      *    -# Call na49 for interactions not yet covered. record in interaction_covered
      *    -# ditto. call MIPP, then theory
      */
-    double calculateWeight(const InteractionChainData& icd, ParameterTable& cv_pars, ParameterTable& univ_pars);
-    void SetUniverseID(int univid);
+    double calculateWeight(const InteractionChainData& icd);
     
   private:    
-    int UniverseID;
+    /*!
+     * Configures each of the reweighing tools.
+     */
+    void Configure();
+    int iUniv;
+    ParameterTable cvPars;
+    ParameterTable univPars;
 
     NA49Reweighter* NA49_Universe;
     MIPPThinTargetReweighter* MIPP_THIN_Universe;

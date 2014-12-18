@@ -3,35 +3,37 @@
 
 namespace NeutrinoFluxReweight{
   
-  ReweightDriver::ReweightDriver(){
-    UniverseID = 0;
+  ReweightDriver::ReweightDriver(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars)
+    : iUniv(iuniv), cvPars(cv_pars), univPars(univ_pars)
+  {
+    Configure();
   }
   
   void ReweightDriver::Configure(){
     
     //Creating the vector of reweighters:
 
-    MIPP_NUMI_Universe = new MIPPNumiYieldsReweighter();
-    MIPP_NUMI_Universe->ConfigureThisUniverse(UniverseID);
+    MIPP_NUMI_Universe = new MIPPNumiYieldsReweighter(iUniv,cvPars,univPars);
         
-    MIPP_NUMI_KAONS_Universe = new MIPPNumiKaonsYieldsReweighter();
-    MIPP_NUMI_KAONS_Universe->ConfigureThisUniverse(UniverseID);
+    MIPP_NUMI_KAONS_Universe = new MIPPNumiKaonsYieldsReweighter(iUniv,cvPars,univPars);
+
+    ATT_Universe = new AttenuationReweighter(iUniv,cvPars,univPars);
 
     NA49_Universe = new NA49Reweighter();
-    NA49_Universe->ConfigureThisUniverse(UniverseID);
+    NA49_Universe->ConfigureThisUniverse(iUniv);
     
     MIPP_THIN_Universe = new MIPPThinTargetReweighter();
-    MIPP_THIN_Universe->ConfigureThisUniverse(UniverseID);
+    MIPP_THIN_Universe->ConfigureThisUniverse(iUniv);
 
     THEORY_Universe = new TheoryThinTargetReweighter();
-    THEORY_Universe->ConfigureThisUniverse(UniverseID);
+    THEORY_Universe->ConfigureThisUniverse(iUniv);
    
-    ATT_Universe = new AttenuationReweighter();
-    ATT_Universe->ConfigureThisUniverse(UniverseID);
+
+
      
   }
   
-  double ReweightDriver::calculateWeight(const InteractionChainData& icd, ParameterTable& cv_pars, ParameterTable& univ_pars){
+  double ReweightDriver::calculateWeight(const InteractionChainData& icd){
  
     double tot_wgt = 1.0;
     
@@ -49,7 +51,7 @@ namespace NeutrinoFluxReweight{
     for(int ii=0;ii<interaction_nodes.size();ii++){
       if(interaction_nodes[ii]==true){
 	has_mipp = true;
-	mipp_wgt = MIPP_NUMI_Universe->calculateWeight(icd,cv_pars,univ_pars);
+	mipp_wgt = MIPP_NUMI_Universe->calculateWeight(icd);
 	//	std::cout<<"ReweightDriver "<<mipp_wgt<<std::endl;
 	break;
       }
@@ -123,10 +125,6 @@ namespace NeutrinoFluxReweight{
 
     return tot_wgt;
     
-  }
-  
-  void ReweightDriver::SetUniverseID(int nuniv){
-    UniverseID = nuniv;
   }
   
 };
