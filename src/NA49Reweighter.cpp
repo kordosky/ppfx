@@ -5,7 +5,9 @@
 
 namespace NeutrinoFluxReweight{
   
-  NA49Reweighter::NA49Reweighter(){
+  NA49Reweighter::NA49Reweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars):iUniv(iuniv),cvPars(cv_pars),univPars(univ_pars){
+    
+    // do any other necessary initialization 
     
   }
   
@@ -57,19 +59,14 @@ namespace NeutrinoFluxReweight{
     
   }
   
-  double NA49Reweighter::calculateWeight(const InteractionData& thisid, ParameterTable& cv_pars, ParameterTable& univ_pars){
+  double NA49Reweighter::calculateWeight(const InteractionData& thisid){
     DataHistos*  dtH =  DataHistos::getInstance();
     
     Parameter p1("test1",1.3);
     Parameter p2("test2",-3.5);
     Parameter p3("test3",1.5);
-    cv_pars.setParameter(p1);
-    cv_pars.setParameter(p2);
-    cv_pars.setParameter(p3);
+    
     return 1.0;
   }
   
-  void NA49Reweighter::ConfigureThisUniverse(int iuniv){
-    UnivID = iuniv;
-  }
 }

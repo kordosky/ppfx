@@ -4,7 +4,7 @@
 
 namespace NeutrinoFluxReweight{
   
-  TheoryThinTargetReweighter::TheoryThinTargetReweighter(){
+  TheoryThinTargetReweighter::TheoryThinTargetReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars):iUniv(iuniv),cvPars(cv_pars),univPars(univ_pars){
     
   }
   
@@ -20,13 +20,10 @@ namespace NeutrinoFluxReweight{
     
   }
   
-  double TheoryThinTargetReweighter::calculateWeight(const InteractionData& thisid, ParameterTable& cv_pars, ParameterTable& univ_pars){
+  double TheoryThinTargetReweighter::calculateWeight(const InteractionData& thisid){
     
     return 1.0;
   }
   
-  void TheoryThinTargetReweighter::ConfigureThisUniverse(int iuniv){
-    UnivID = iuniv;
-  }
 
 }

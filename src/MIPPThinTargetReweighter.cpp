@@ -4,7 +4,7 @@
 
 namespace NeutrinoFluxReweight{
   
-  MIPPThinTargetReweighter::MIPPThinTargetReweighter(){
+  MIPPThinTargetReweighter::MIPPThinTargetReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars):iUniv(iuniv),cvPars(cv_pars),univPars(univ_pars){
  
   }
   
@@ -42,11 +42,9 @@ namespace NeutrinoFluxReweight{
     
   }
   
-  double MIPPThinTargetReweighter::calculateWeight(const InteractionData& thisid, ParameterTable& cv_pars, ParameterTable& univ_pars){
+  double MIPPThinTargetReweighter::calculateWeight(const InteractionData& thisid){
 
     return 1.0;
   }
-  void MIPPThinTargetReweighter::ConfigureThisUniverse(int iuniv){
-    UnivID = iuniv;
-  }
+
 }
