@@ -133,33 +133,29 @@ void doRW(const char* par_option,const char* beammode,const char* runnumber, con
   }
   std::cout<<"Done configuring universes"<<std::endl;
 
-  //  for(int ii=0;ii<Nuniverses;ii++){
-  //    vec_rws[ii]->SetUniverseID(ii);
-  //    vec_rws[ii]->Configure();
-  //  }
-
   std::vector<double> wgts;
   for(int ii=0;ii<Nuniverses;ii++){
     wgts.push_back(1.0);
   }
 
-  //  int red_nentries = int(nentries/1000);  
-  std::cout<<"Just running "<<nent<<std::endl;
+
+  std::cout<<"Running over "<<nent<<" entries"<<std::endl;
   
   // for(int ii=0;ii<red_nentries;ii++){  
   for(int ii=0;ii<nent;ii++){  
     //  if(ii%1000==0)std::cout<<ii/1000<<" k evts"<<std::endl;
-    std::cout<<"ii "<<ii<<" evts"<<std::endl;
+    std::cout<<"On entry "<<ii<<std::endl;
     nu->GetEntry(ii);     
 
     // create an interaction chain from the data record
-    InteractionChainData inter_chain(nu);
+    InteractionChainData inter_chain(nu,"le010z","185i");
     
+    // histogram the flux, without any reweighting
     double fluxWGT = (nu->Nimpwt)*(nu->NWtNear[0]);    
     int nuidx = idx_hel(numi2pdg->GetPdg(nu->Ntype));
     if(nuidx>=0)hnom[nuidx]->Fill(nu->NenergyN[0],fluxWGT);
-    bool is_mipp = false;    
     
+    bool is_mipp = false;        
     for(int jj=0;jj<Nuniverses;jj++){
       wgts[jj] = vec_rws[jj]->calculateWeight(inter_chain);
       if(fabs(wgts[jj]-1.0)>1.e-15 && jj==0){is_mipp=true;}
@@ -182,7 +178,7 @@ void doRW(const char* par_option,const char* beammode,const char* runnumber, con
 	}
 	
       }
-      info->Print(std::cout);
+      //      info->Print(std::cout);
       info->CleanInfo(); 
       
     }
