@@ -1,19 +1,20 @@
 
-#include "AttenuationReweighter.h"
+#include "TargetAttenuationReweighter.h"
 #include <iostream>
 
 namespace NeutrinoFluxReweight{
   
-  AttenuationReweighter::AttenuationReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars)
+  TargetAttenuationReweighter::TargetAttenuationReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars)
     :iUniv(iuniv),cvPars(cv_pars),univPars(univ_pars){
     
   }
-  AttenuationReweighter::~AttenuationReweighter(){
+  TargetAttenuationReweighter::~TargetAttenuationReweighter(){
     
   }
-  std::vector<bool> AttenuationReweighter::canReweight(const InteractionChainData& aa){
+  std::vector<bool> 
+  TargetAttenuationReweighter::canReweight(const InteractionChainData& aa){
     std::vector<bool> can_rws;
-    std::vector<InteractionData> vec_inter = aa.interaction_chain;
+    const std::vector<InteractionData>& vec_inter = aa.interaction_chain;
     int ninter = vec_inter.size();
     
     //Looking if there is a proton-Target interaction:
@@ -40,7 +41,7 @@ namespace NeutrinoFluxReweight{
     }  
     return can_rws;
   }
-  double AttenuationReweighter::calculateWeight(const InteractionChainData&){
+  double TargetAttenuationReweighter::calculateWeight(const InteractionChainData&){
     return 1.0;
   }
 

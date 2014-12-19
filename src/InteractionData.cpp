@@ -14,7 +14,13 @@ namespace NeutrinoFluxReweight{
     Prod_P    = -1000.;
     Inc_Mass  = -1000.;
     Prod_Mass = -1000.;
-    
+
+    for(int i=0; i<4; i++){
+      Inc_P4[i]=0;
+      Prod_P4[i]=0;
+      if(i<3) Vtx[i]=0;
+    }
+	
     xF      = -1000.;
     Pz      = -1000.;
     Theta   = -1000.;
@@ -28,7 +34,7 @@ namespace NeutrinoFluxReweight{
     
   }
   
-  InteractionData::InteractionData(double incMom[], int incPdg, double prodMom[], int prodPdg, std::string volname, std::string procname){
+  InteractionData::InteractionData(double incMom[], int incPdg, double prodMom[], int prodPdg, std::string volname, std::string procname, double vtx[]){
 
     particle = TDatabasePDG::Instance();
     // Z direction along the direction of the incident particle
@@ -54,6 +60,7 @@ namespace NeutrinoFluxReweight{
     InteractionData::Inc_Mass  = particle->GetParticle(Inc_pdg)->Mass();
     InteractionData::Prod_Mass = particle->GetParticle(Prod_pdg)->Mass();
 
+
     //Ecm, gamma:
     double inc_E_lab = std::sqrt(Inc_P*Inc_P + pow(Inc_Mass,2));
     InteractionData::Ecm       = std::sqrt(2.*pow(Inc_Mass,2)+2.*inc_E_lab*Inc_Mass); 
@@ -64,12 +71,21 @@ namespace NeutrinoFluxReweight{
     double prod_E_lab  = std::sqrt(Prod_P*Prod_P + pow(Prod_Mass,2));
     double PL          = Gammacm*(Pz-Betacm*prod_E_lab);  // PL is measured in CM frame
     InteractionData::xF  = PL*2./Ecm;
+
+    //4 momenta:
+    Inc_P4[3]=inc_E_lab;
+    Prod_P4[3]=prod_E_lab;
+    for(int i=0; i<3; i++) {Inc_P4[i]=incMom[i]; Prod_P4[i]=prodMom[i];}
+
     
     //Volume:
     InteractionData::Vol = volname;
 
     //Process:
     InteractionData::Proc = procname;
+
+    //Vertex:
+    for(int i=0; i<3; i++) Vtx[i]=vtx[i];
 
   }
 
@@ -78,4 +94,9 @@ namespace NeutrinoFluxReweight{
     
   }
   
+  std::ostream& InteractionData::print(std::ostream& os){
+    
+    return os;
+  }
+
 }

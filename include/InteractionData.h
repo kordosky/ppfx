@@ -6,6 +6,7 @@
 
 #include <string>
 #include <cmath>
+#include <iostream>
 
 namespace NeutrinoFluxReweight{
   
@@ -23,7 +24,7 @@ namespace NeutrinoFluxReweight{
     InteractionData();
 
     //! Constructor given kinematic of the interaction.
-    InteractionData(double incMom[], int incPdg, double prodMom[], int prodPdg, std::string volname, std::string procname);
+    InteractionData(double incMom[], int incPdg, double prodMom[], int prodPdg, std::string volname, std::string procname, double vtx[]);
 
     virtual ~InteractionData();
     
@@ -35,9 +36,18 @@ namespace NeutrinoFluxReweight{
     
     //! Momentum magnitude of the incident particle
     double Inc_P;
-   
+
+    //! Momentum 4 vector of the incident particle, E=p[3]
+    double Inc_P4[4]; 
+
     //! Momentum magnitude of the produced particle
     double Prod_P;
+
+    //! Momentum 4 vector of the produced particle, E=p[3]
+    double Prod_P4[4]; 
+
+    //! Location of the interaction
+    double Vtx[3];
 
     //! Mass of the incident particle
     double Inc_Mass;
@@ -71,6 +81,8 @@ namespace NeutrinoFluxReweight{
 
     //! Interaction process
     std::string Proc;
+
+    std::ostream& print(std::ostream& os);
 
   private:
     TDatabasePDG* particle;

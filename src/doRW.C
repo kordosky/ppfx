@@ -35,7 +35,8 @@ const int Nbins_MIPP_PIP = 124;
 const int Nbins_MIPP_PIM = 119;
 
 
-namespace flxRW = NeutrinoFluxReweight;
+//namespace flxRW = NeutrinoFluxReweight;
+using namespace NeutrinoFluxReweight;
 
 class nu_g4numi;
 class Numi2Pdg;
@@ -68,8 +69,8 @@ void doRW(const char* par_option,const char* beammode,const char* runnumber, con
   TFile* fOut = new TFile(Form("test%d_%dentries_with1000univ.root",irun,nent),"recreate");
   std::cout<<"File name: "<<fOut->GetName()<<std::endl;
 
-  flxRW::HistoContainer* histos =  flxRW::HistoContainer::getInstance();
-  flxRW::ExtractInfo*    info   =  flxRW::ExtractInfo::getInstance();
+  HistoContainer* histos =  HistoContainer::getInstance();
+  ExtractInfo*    info   =  ExtractInfo::getInstance();
   
   fOut->mkdir("nom");
   fOut->mkdir("nom_mipp");
@@ -104,32 +105,31 @@ void doRW(const char* par_option,const char* beammode,const char* runnumber, con
   std::cout<<"Ntrees: "<<ntrees<<", entries: "<<nentries<<std::endl;
   
   //Central Values And Uncertainties:
-  flxRW::CentralValuesAndUncertainties* cvu = flxRW::CentralValuesAndUncertainties::getInstance();;
-  flxRW::MIPPNumiYieldsBins*  myb =  flxRW::MIPPNumiYieldsBins::getInstance();
+  CentralValuesAndUncertainties* cvu = CentralValuesAndUncertainties::getInstance();;
+  MIPPNumiYieldsBins*  myb =  MIPPNumiYieldsBins::getInstance();
                               
   cvu->readFromXML(Form("%s/uncertainties/Parameters_%s.xml",thisDir,par_option));
   myb->readPIP_FromXML(Form("%s/data/BINS/MIPPNumiData_PIP_Bins.xml",thisDir));
   myb->readPIM_FromXML(Form("%s/data/BINS/MIPPNumiData_PIM_Bins.xml",thisDir));
   
   //Classes and variables:
-  flxRW::InteractionChainData inter_chain;
   Numi2Pdg* numi2pdg = new Numi2Pdg(); 
   double incP[3];
   double prodP[3];
   double tarP[3];
   
   //Reweighter drivers:
-  std::vector<flxRW::ReweightDriver*> vec_rws;
+  std::vector<ReweightDriver*> vec_rws;
   vec_rws.reserve(Nuniverses);
   
   std::cout<<"Initializing reweight drivers for "<<Nuniverses<<" universes"<<std::endl;
-  flxRW::ParameterTable  table_cv;
-  flxRW::ParameterTable  table_univ;
+  ParameterTable  table_cv;
+  ParameterTable  table_univ;
   const int base_universe=1000000;
   for(int ii=0;ii<Nuniverses;ii++){
-    flxRW::ParameterTable cvPars=cvu->getCVPars();
-    flxRW::ParameterTable univPars=cvu->calculateParsForUniverse(ii+base_universe);
-    vec_rws.push_back(new flxRW::ReweightDriver(ii,cvPars,univPars));    
+    ParameterTable cvPars=cvu->getCVPars();
+    ParameterTable univPars=cvu->calculateParsForUniverse(ii+base_universe);
+    vec_rws.push_back(new ReweightDriver(ii,cvPars,univPars));    
   }
   std::cout<<"Done configuring universes"<<std::endl;
 
@@ -151,42 +151,9 @@ void doRW(const char* par_option,const char* beammode,const char* runnumber, con
     //  if(ii%1000==0)std::cout<<ii/1000<<" k evts"<<std::endl;
     std::cout<<"ii "<<ii<<" evts"<<std::endl;
     nu->GetEntry(ii);     
-    (inter_chain.interaction_chain).clear();
-    
-    //Hadron that exits the target:    
-    tarP[0] = nu->tpx;
-    tarP[1] = nu->tpy;
-    tarP[2] = nu->tpz;
-    
-    flxRW::TargetData tar(tarP,numi2pdg->GetPdg(nu->tptype));
-    inter_chain.tar_info = tar;
-    
-    //Loop over trajectories:
-    Int_t ntraj = nu->ntrajectory;
-    if(ntraj>10)ntraj = 10;
-    
-    for(int itraj=0;itraj<(ntraj-1);itraj++){
-      
-      incP[0] = nu->pprodpx[itraj+1]/1000.;
-      incP[1] = nu->pprodpy[itraj+1]/1000.;
-      incP[2] = nu->pprodpz[itraj+1]/1000.;
-      
-      Int_t itraj_prod = itraj + 1;
-      Int_t pdg_prod   = nu->pdg[itraj_prod];
-      std::string this_proc = std::string(nu->proc[itraj_prod]);
-      while( (pdg_prod==221) || (pdg_prod==331) || 
-	   (pdg_prod==3212) || (pdg_prod==113) || (pdg_prod==223) ){
-	itraj_prod++;
-	pdg_prod = nu->pdg[itraj_prod];
-      }           
-      
-      prodP[0] = nu->startpx[itraj_prod]/1000.;
-      prodP[1] = nu->startpy[itraj_prod]/1000.;
-      prodP[2] = nu->startpz[itraj_prod]/1000.;
-      
-      flxRW::InteractionData inter(incP,nu->pdg[itraj],prodP,pdg_prod,std::string(nu->fvol[itraj]),this_proc);   
-      (inter_chain.interaction_chain).push_back(inter);
-    }  
+
+    // create an interaction chain from the data record
+    InteractionChainData inter_chain(nu);
     
     double fluxWGT = (nu->Nimpwt)*(nu->NWtNear[0]);    
     int nuidx = idx_hel(numi2pdg->GetPdg(nu->Ntype));

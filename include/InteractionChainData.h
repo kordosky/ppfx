@@ -4,6 +4,7 @@
 #include "InteractionData.h"
 #include "TargetData.h"
 #include <vector>
+#include "nu_g4numi.h" 
 
 namespace NeutrinoFluxReweight{
   
@@ -13,6 +14,13 @@ namespace NeutrinoFluxReweight{
 
   class InteractionChainData{
   public:
+
+    //! boring old default constructor
+    InteractionChainData();
+
+    //! create an interaction chain from the old g4numi nudata structure
+    InteractionChainData(nu_g4numi* nu);
+
     //! vector of neutrino ancestors 
     std::vector<InteractionData> interaction_chain;
     
