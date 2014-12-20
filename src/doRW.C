@@ -114,10 +114,7 @@ void doRW(const char* par_option,const char* beammode,const char* runnumber, con
   
   //Classes and variables:
   Numi2Pdg* numi2pdg = new Numi2Pdg(); 
-  double incP[3];
-  double prodP[3];
-  double tarP[3];
-  
+
   //Reweighter drivers:
   std::vector<ReweightDriver*> vec_rws;
   vec_rws.reserve(Nuniverses);

@@ -1,18 +1,18 @@
 
-#include "TargetAttenuationReweighter.h"
+#include "AttenuationReweighter.h"
 #include <iostream>
 
 namespace NeutrinoFluxReweight{
   
-  TargetAttenuationReweighter::TargetAttenuationReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars)
+  AttenuationReweighter::AttenuationReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars)
     :iUniv(iuniv),cvPars(cv_pars),univPars(univ_pars){
     
   }
-  TargetAttenuationReweighter::~TargetAttenuationReweighter(){
+  AttenuationReweighter::~AttenuationReweighter(){
     
   }
   std::vector<bool> 
-  TargetAttenuationReweighter::canReweight(const InteractionChainData& aa){
+  AttenuationReweighter::canReweight(const InteractionChainData& aa){
     std::vector<bool> can_rws;
     const std::vector<InteractionData>& vec_inter = aa.interaction_chain;
     int ninter = vec_inter.size();
@@ -41,7 +41,7 @@ namespace NeutrinoFluxReweight{
     }  
     return can_rws;
   }
-  double TargetAttenuationReweighter::calculateWeight(const InteractionChainData&){
+  double AttenuationReweighter::calculateWeight(const InteractionChainData&){
     return 1.0;
   }
 
