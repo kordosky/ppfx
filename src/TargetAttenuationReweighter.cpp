@@ -18,7 +18,7 @@ namespace NeutrinoFluxReweight{
     std::vector<bool> can_rws;
     std::vector<InteractionData> vec_inter = aa.interaction_chain;
     int ninter = vec_inter.size();
-    
+
     //Looking if there is a proton-Target interaction:
     for(int ii=0;ii<ninter;ii++){
   

@@ -110,6 +110,16 @@ class nu_g4numi{
   /** hadron off the target pz*/
   Double_t tpz;
 
+  /** hadron off the target exit position x*/
+  Double_t tvx;
+
+  /** hadron off the target exit position y*/
+  Double_t tvy;
+
+  /** hadron off the target exit position z*/
+  Double_t tvz;
+
+
   /** Neutrino parent type \f$ 8: \pi^{+}, 9: \pi^{-}, 11: K^{+}, 12: K^{-}\f$ */
   Int_t tptype;
     

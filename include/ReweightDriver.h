@@ -7,7 +7,7 @@
 
 #include "MIPPNumiYieldsReweighter.h"
 #include "MIPPNumiKaonsYieldsReweighter.h"
-#include "AttenuationReweighter.h"
+#include "TargetAttenuationReweighter.h"
 
 #include "InteractionChainData.h"
 
@@ -55,7 +55,8 @@ namespace NeutrinoFluxReweight{
 
     MIPPNumiYieldsReweighter* MIPP_NUMI_Universe;
     MIPPNumiKaonsYieldsReweighter* MIPP_NUMI_KAONS_Universe;
-    AttenuationReweighter* ATT_Universe;
+    TargetAttenuationReweighter* TARG_ATT_Universe;
+
 
 
   };

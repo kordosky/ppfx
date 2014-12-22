@@ -82,7 +82,7 @@ namespace NeutrinoFluxReweight{
     //! Interaction process
     std::string Proc;
 
-    std::ostream& print(std::ostream& os);
+    std::ostream& print(std::ostream& os) const;
 
   private:
     TDatabasePDG* particle;

@@ -17,7 +17,7 @@ namespace NeutrinoFluxReweight{
         
     MIPP_NUMI_KAONS_Universe = new MIPPNumiKaonsYieldsReweighter(iUniv,cvPars,univPars);
 
-    ATT_Universe = new AttenuationReweighter(iUniv,cvPars,univPars);
+    TARG_ATT_Universe = new TargetAttenuationReweighter(iUniv,cvPars,univPars);
 
     NA49_Universe = new NA49Reweighter(iUniv,cvPars,univPars);
     
@@ -37,7 +37,7 @@ namespace NeutrinoFluxReweight{
 
     //First we look at MIPP and look absorption chain:
     interaction_nodes = MIPP_NUMI_Universe->canReweight(icd);
-    attenuation_nodes = ATT_Universe->canReweight(icd);
+    
 
     //Looking for MIPP:
     double mipp_wgt = 1.0;
@@ -52,6 +52,17 @@ namespace NeutrinoFluxReweight{
       }
     }
     tot_wgt *= mipp_wgt;
+
+    //Looking for target attenuation correction:
+    attenuation_nodes = TARG_ATT_Universe->canReweight(icd);
+    double att_wgt = 1.0;
+    for(int ii=0;ii<attenuation_nodes.size();ii++){
+      if(attenuation_nodes[ii]==true){
+	att_wgt *= TARG_ATT_Universe->calculateWeight(icd);
+	break;
+      }
+    }
+    tot_wgt *= att_wgt;
 
     /*
     //Looking for MIPP kaon extension:
@@ -105,17 +116,7 @@ namespace NeutrinoFluxReweight{
       }
     }
     tot_wgt *= theory_wgt;
-    
-
-    //Looking for attenuation (absorption) correction:
-    double att_wgt = 1.0;
-    for(int ii=0;ii<attenuation_nodes.size();ii++){
-      if(attenuation_nodes[ii]==true){
-	att_wgt *= ATT_Universe->calculateWeight(icd,cv_pars,univ_pars);
-	break;
-      }
-    }
-    tot_wgt *= att_wgt;
+ 
     */
 
     return tot_wgt;

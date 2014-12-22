@@ -1,6 +1,7 @@
 
 #include "InteractionData.h"
 #include <iostream>
+#include <iomanip>
 
 namespace NeutrinoFluxReweight{ 
   
@@ -94,8 +95,24 @@ namespace NeutrinoFluxReweight{
     
   }
   
-  std::ostream& InteractionData::print(std::ostream& os){
-    
+  std::ostream& InteractionData::print(std::ostream& os) const {
+    using namespace std;
+    os<<"in:"<<setw(5)<<Inc_pdg
+      <<"|p3:";
+    for(int i=0; i<3; i++) {
+      os<<setiosflags(ios::fixed) << setprecision(2)<<setw(6)<<Inc_P4[i]<<" ";
+    }
+    os<<"||out:"<<setw(5)<<Prod_pdg
+      <<"|p3:"<<setiosflags(ios::fixed) << setprecision(2);
+    for(int i=0; i<3; i++) {
+      os<<setiosflags(ios::fixed) << setprecision(2)<<setw(6)<<Prod_P4[i]<<" ";
+    }
+    os <<"|v3:";
+    for(int i=0; i<3; i++) {
+      os<<setiosflags(ios::fixed) << setprecision(2)<<setw(5)<<Vtx[i]<<" ";
+    }
+    os<<"xF,pT:"<<xF<<","<<Pt;
+    os<<endl;
     return os;
   }
 

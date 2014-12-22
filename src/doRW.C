@@ -97,6 +97,7 @@ void doRW(const char* par_option,const char* beammode,const char* runnumber, con
   
   //Loading ntuples:
   TChain* chain_in = new TChain("nudata");
+  std::cout<<" Adding ntuple at: "<< Form("%s/%s/g4numiv4_%s_%04d_0001.root",ntupleDir,beammode,beammode,irun)<<std::endl;
   chain_in->Add(Form("%s/%s/g4numiv4_%s_%04d_0001.root",ntupleDir,beammode,beammode,irun));
   
   nu_g4numi* nu = new nu_g4numi(chain_in);
@@ -146,7 +147,8 @@ void doRW(const char* par_option,const char* beammode,const char* runnumber, con
 
     // create an interaction chain from the data record
     InteractionChainData inter_chain(nu,"le010z","185i");
-    
+    inter_chain.print(std::cout);
+
     // histogram the flux, without any reweighting
     double fluxWGT = (nu->Nimpwt)*(nu->NWtNear[0]);    
     int nuidx = idx_hel(numi2pdg->GetPdg(nu->Ntype));

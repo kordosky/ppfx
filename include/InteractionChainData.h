@@ -7,6 +7,7 @@
 #include "nu_g4numi.h" 
 #include "dk2nu.h"
 #include "dkmeta.h"
+#include <iostream>
 
 namespace NeutrinoFluxReweight{
   
@@ -44,6 +45,8 @@ namespace NeutrinoFluxReweight{
     //! The horn configuration. Example: 185i
     std::string horn_config;
 
+    std::ostream& print(std::ostream& os=std::cout) const;
+    
   };
   
   

@@ -2,6 +2,7 @@
 #define TARGETDATA_H
 
 #include <cmath>
+#include <iostream>
 
 namespace NeutrinoFluxReweight{
   
@@ -15,7 +16,7 @@ namespace NeutrinoFluxReweight{
     TargetData();
 
     //! Constructor given kinematic of the hadron.
-    TargetData(double tarMom[],int tarPdg);
+    TargetData(double tarMom[],int tarPdg, double position[]);
 
     virtual ~TargetData();
     
@@ -36,6 +37,17 @@ namespace NeutrinoFluxReweight{
 
     //! Transversal momentum (GeV/c) of the particle 
     double Pt;
+
+    //! The x position of the hadron leaving the target
+    double Vx;
+
+    //! The y position of the hadron leaving the target
+    double Vy;
+
+    //! The z position of the hadron leaving the target
+    double Vz;
+
+    std::ostream& print(std::ostream& os) const;
 
   };
 

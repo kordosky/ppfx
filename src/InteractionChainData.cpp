@@ -15,8 +15,13 @@ namespace NeutrinoFluxReweight{
     tarP[0] = nu->tpx;
     tarP[1] = nu->tpy;
     tarP[2] = nu->tpz;
+    double tarV[3];
+    tarV[0] = nu->tvx;
+    tarV[1] = nu->tvy;
+    tarV[2] = nu->tvz;
+
     static Numi2Pdg numi2pdg;
-    tar_info = TargetData(tarP,numi2pdg.GetPdg(nu->tptype));
+    tar_info = TargetData(tarP,numi2pdg.GetPdg(nu->tptype),tarV);
     
     // loop over trajectories, create InteractionData objects,
     // and add them to the interaction_chain vector
@@ -65,9 +70,13 @@ namespace NeutrinoFluxReweight{
     tarP[0]=nu->tgtexit.tpx;
     tarP[1]=nu->tgtexit.tpy;
     tarP[2]=nu->tgtexit.tpz;
+    double tarV[3];
+    tarV[0]=nu->tgtexit.tvx;
+    tarV[1]=nu->tgtexit.tvy;
+    tarV[2]=nu->tgtexit.tvz;
 
     static Numi2Pdg numi2pdg;
-    tar_info = TargetData(tarP,numi2pdg.GetPdg(nu->tgtexit.tptype));
+    tar_info = TargetData(tarP,numi2pdg.GetPdg(nu->tgtexit.tptype),tarV);
 
     
     // loop over trajectories, create InteractionData objects,
@@ -111,6 +120,21 @@ namespace NeutrinoFluxReweight{
     target_config=meta->tgtcfg;
     horn_config=meta->horncfg;
  
+  }
+
+  std::ostream& InteractionChainData::print(std::ostream& os) const{
+    using namespace std;
+    os<<"==== InteractionChainData ====\n"
+      <<" *config* "<<target_config<<" "<<horn_config
+      <<"\n *target info*\n  ";
+    tar_info.print(os);
+    os<<"\n *ancestors*\n";
+    for(int i=0; i<interaction_chain.size(); i++){
+      os<<"   ";
+      interaction_chain[i].print(os);
+    }
+    os<<endl;
+    return os;
   }
 
 }
