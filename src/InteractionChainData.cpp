@@ -56,6 +56,12 @@ namespace NeutrinoFluxReweight{
       InteractionData inter(incP,nu->pdg[itraj],prodP,pdg_prod,std::string(nu->fvol[itraj]),this_proc,vtx);   
       interaction_chain.push_back(inter);
     }
+    
+    //
+    //nothing to fill for ParticlesThroughVolumesData here. If we are using nudata format
+    //the size of the vector of ParticlesThroughVolumesData objects will be zero.
+    //    
+
     target_config=tgtcfg;
     horn_config=horncfg;
   }
@@ -88,7 +94,6 @@ namespace NeutrinoFluxReweight{
       incP[1] = nu->ancestor[itraj+1].pprodpy/1000.;
       incP[2] = nu->ancestor[itraj+1].pprodpz/1000.;
 
-
       Int_t itraj_prod = itraj + 1;
       Int_t pdg_prod   = nu->ancestor[itraj_prod].pdg;
       std::string this_proc = std::string(nu->ancestor[itraj_prod].proc);
@@ -117,6 +122,38 @@ namespace NeutrinoFluxReweight{
       
     }// end loop over trajectories
    
+    //Filling here the ParticlesThroughVolumesData info:
+    ptv_info.clear();
+    //Looking at IC1 and IC2:
+    int pdg_IC[3]    = {0,0,0};
+    double mom_IC[3] = {0,0,0};
+    for(int ii=0;ii<3;ii++){
+      if(nu->ancestor.size()==3 && ii==3)continue;
+      pdg_IC[ii] = nu->ancestor[nu->ancestor.size()-ii-2].pdg;
+      mom_IC[ii] = sqrt(pow(nu->ancestor[nu->ancestor.size()-ii-2].startpx,2)+
+			pow(nu->ancestor[nu->ancestor.size()-ii-2].startpy,2)+
+			pow(nu->ancestor[nu->ancestor.size()-ii-2].startpz,2));
+    }    
+    double dXd_IC1[3] = {0,0,0};
+    double dXd_IC2[3] = {0,0,0};
+
+    for(int ii=0;ii<(meta->vdblnames).size();ii++){
+      if((meta->vdblnames)[ii].find("parent_IC1")==0)dXd_IC1[0]=(nu->vdbl)[ii];
+      if((meta->vdblnames)[ii].find("parent_IC2")==0)dXd_IC2[0]=(nu->vdbl)[ii];
+      if((meta->vdblnames)[ii].find("granparent_IC1")==0)dXd_IC1[1]=(nu->vdbl)[ii];
+      if((meta->vdblnames)[ii].find("granparent_IC2")==0)dXd_IC2[1]=(nu->vdbl)[ii];
+      if((meta->vdblnames)[ii].find("greatgranparent_IC1")==0)dXd_IC1[2]=(nu->vdbl)[ii];
+      if((meta->vdblnames)[ii].find("greatgranparent_IC2")==0)dXd_IC2[2]=(nu->vdbl)[ii];
+    }      
+    
+    ParticlesThroughVolumesData tmp_ptv_IC1(pdg_IC,dXd_IC1,mom_IC,"IC1");
+    ParticlesThroughVolumesData tmp_ptv_IC2(pdg_IC,dXd_IC2,mom_IC,"IC2");
+    ptv_info.push_back(tmp_ptv_IC1);
+    ptv_info.push_back(tmp_ptv_IC2);
+    
+    ///
+    
+
     target_config=meta->tgtcfg;
     horn_config=meta->horncfg;
  

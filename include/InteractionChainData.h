@@ -3,6 +3,7 @@
 
 #include "InteractionData.h"
 #include "TargetData.h"
+#include "ParticlesThroughVolumesData.h"
 #include <vector>
 #include "nu_g4numi.h" 
 #include "dk2nu.h"
@@ -38,6 +39,9 @@ namespace NeutrinoFluxReweight{
     
     //! Information about the hadron which exited the target
     TargetData tar_info; 
+
+    //! Information about all particles that pass through volumes without interacting
+    std::vector<ParticlesThroughVolumesData>  ptv_info;
 
     //! The target configuration. Example: le010z
     std::string target_config;
