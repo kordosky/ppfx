@@ -7,37 +7,37 @@ namespace NeutrinoFluxReweight{
   ParticlesThroughVolumesData::ParticlesThroughVolumesData(){
    
     //!default values: 
-    pdg[0] = 0;
-    pdg[1] = 0;
-    pdg[2] = 0;
+    Pdgs[0] = 0;
+    Pdgs[1] = 0;
+    Pdgs[2] = 0;
     
-    distXdens[0] = -1.0;
-    distXdens[1] = -1.0;
-    distXdens[2] = -1.0;
+    DistXdens[0] = -1.0;
+    DistXdens[1] = -1.0;
+    DistXdens[2] = -1.0;
 
-    Mom[0] = 0.0;
-    Mom[1] = 0.0;
-    Mom[2] = 0.0;
+    Moms[0] = 0.0;
+    Moms[1] = 0.0;
+    Moms[2] = 0.0;
     
-    vol = "None";
+    Vol = "None";
   }
   
   ParticlesThroughVolumesData::ParticlesThroughVolumesData(int ptv_pdg[], double ptv_distXdens[],double ptv_mom[],std::string ptv_vol){
 
      //!I assumed arrays of dimmension 3:
-    ParticlesThroughVolumesData::pdg[0] = ptv_pdg[0];
-    ParticlesThroughVolumesData::pdg[1] = ptv_pdg[1];
-    ParticlesThroughVolumesData::pdg[2] = ptv_pdg[2];
+    ParticlesThroughVolumesData::Pdgs[0] = ptv_pdg[0];
+    ParticlesThroughVolumesData::Pdgs[1] = ptv_pdg[1];
+    ParticlesThroughVolumesData::Pdgs[2] = ptv_pdg[2];
     
-    ParticlesThroughVolumesData::distXdens[0] = ptv_distXdens[0];
-    ParticlesThroughVolumesData::distXdens[1] = ptv_distXdens[1];
-    ParticlesThroughVolumesData::distXdens[2] = ptv_distXdens[2];
+    ParticlesThroughVolumesData::DistXdens[0] = ptv_distXdens[0];
+    ParticlesThroughVolumesData::DistXdens[1] = ptv_distXdens[1];
+    ParticlesThroughVolumesData::DistXdens[2] = ptv_distXdens[2];
 
-    ParticlesThroughVolumesData::Mom[0] = ptv_mom[0];
-    ParticlesThroughVolumesData::Mom[1] = ptv_mom[1];
-    ParticlesThroughVolumesData::Mom[2] = ptv_mom[2];
+    ParticlesThroughVolumesData::Moms[0] = ptv_mom[0];
+    ParticlesThroughVolumesData::Moms[1] = ptv_mom[1];
+    ParticlesThroughVolumesData::Moms[2] = ptv_mom[2];
     
-    ParticlesThroughVolumesData::vol = ptv_vol;
+    ParticlesThroughVolumesData::Vol = ptv_vol;
     
   }
 
@@ -49,11 +49,11 @@ namespace NeutrinoFluxReweight{
  
     using namespace std;
     
-    os<<"Vol: "<<vol<<endl;
+    os<<"Vol: "<<Vol<<endl;
     for(int ii=0;ii<3;ii++){
-      os<<"pid:"<<setw(5)<<pdg[ii]<<
+      os<<"pid:"<<setw(5)<<Pdgs[ii]<<
 	"|dist, mom: "<<setiosflags(ios::fixed) << setprecision(2);
-      os<<distXdens[ii]<<","<<Mom[ii];
+      os<<DistXdens[ii]<<","<<Moms[ii];
       os<<endl;
     }
     return os;

@@ -21,16 +21,16 @@ namespace NeutrinoFluxReweight{
     virtual ~ParticlesThroughVolumesData();
     
     //! pdg codes of the particles
-    int pdg[];
+    int Pdgs[3];
 
     //! distance multiplied by volume 
-    double distXdens[];
+    double DistXdens[3];
 
     //! Momentum of the particles 
-    double Mom[];
+    double Moms[3];
 
     //! Voulme 
-    std::string vol;
+    std::string Vol;
 
     std::ostream& print(std::ostream& os) const;
 
