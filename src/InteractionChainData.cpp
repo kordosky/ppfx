@@ -133,7 +133,7 @@ namespace NeutrinoFluxReweight{
     int pdg_IC[3]    = {0,0,0};
     double mom_IC[3] = {0,0,0};
     for(int ii=0;ii<3;ii++){
-      if(nu->ancestor.size()==3 && ii==3)continue;
+      if(nu->ancestor.size()==3 && ii==2)continue;
       pdg_IC[ii] = nu->ancestor[nu->ancestor.size()-ii-2].pdg;
       mom_IC[ii] = sqrt(pow(nu->ancestor[nu->ancestor.size()-ii-2].startpx,2)+
 			pow(nu->ancestor[nu->ancestor.size()-ii-2].startpy,2)+
