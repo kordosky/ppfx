@@ -24,7 +24,9 @@ namespace NeutrinoFluxReweight{
     tar_info = TargetData(tarP,numi2pdg.GetPdg(nu->tptype),tarV);
     
     // loop over trajectories, create InteractionData objects,
-    // and add them to the interaction_chain vector
+    // and add them to the interaction_chain vector    
+    //(Note about units: In nudata format, the momentum unit is MeV)
+    
     Int_t ntraj = nu->ntrajectory;
     if(ntraj>10)ntraj = 10;
     for(int itraj=0;itraj<(ntraj-1);itraj++){
@@ -81,18 +83,21 @@ namespace NeutrinoFluxReweight{
     tarV[1]=nu->tgtexit.tvy;
     tarV[2]=nu->tgtexit.tvz;
 
-    static Numi2Pdg numi2pdg;
-    tar_info = TargetData(tarP,numi2pdg.GetPdg(nu->tgtexit.tptype),tarV);
+    // static Numi2Pdg numi2pdg; 
+    // note: in dk2nu, all pids are store in pdg code. 
+    tar_info = TargetData(tarP,nu->tgtexit.tptype,tarV);
 
     
     // loop over trajectories, create InteractionData objects,
     // and add them to the interaction_chain vector
+    // Note about units: In dk2nu format, the momentum unit is GeV
+
     Int_t ntraj = nu->ancestor.size();
     for(int itraj=0;itraj<(ntraj-1);itraj++){
       double incP[3];
-      incP[0] = nu->ancestor[itraj+1].pprodpx/1000.;
-      incP[1] = nu->ancestor[itraj+1].pprodpy/1000.;
-      incP[2] = nu->ancestor[itraj+1].pprodpz/1000.;
+      incP[0] = nu->ancestor[itraj+1].pprodpx;
+      incP[1] = nu->ancestor[itraj+1].pprodpy;
+      incP[2] = nu->ancestor[itraj+1].pprodpz;
 
       Int_t itraj_prod = itraj + 1;
       Int_t pdg_prod   = nu->ancestor[itraj_prod].pdg;
@@ -106,9 +111,9 @@ namespace NeutrinoFluxReweight{
 	pdg_prod = nu->ancestor[itraj_prod].pdg;
       }           
       double prodP[3];
-      prodP[0] = nu->ancestor[itraj_prod].startpx/1000.;
-      prodP[1] = nu->ancestor[itraj_prod].startpy/1000.;
-      prodP[2] = nu->ancestor[itraj_prod].startpz/1000.;
+      prodP[0] = nu->ancestor[itraj_prod].startpx;
+      prodP[1] = nu->ancestor[itraj_prod].startpy;
+      prodP[2] = nu->ancestor[itraj_prod].startpz;
       
       double vtx[3];
       vtx[0]=nu->ancestor[itraj_prod].startx;
@@ -153,10 +158,9 @@ namespace NeutrinoFluxReweight{
     
     ///
     
-
     target_config=meta->tgtcfg;
     horn_config=meta->horncfg;
- 
+    
   }
 
   std::ostream& InteractionChainData::print(std::ostream& os) const{
@@ -169,6 +173,11 @@ namespace NeutrinoFluxReweight{
     for(int i=0; i<interaction_chain.size(); i++){
       os<<"   ";
       interaction_chain[i].print(os);
+    }
+    os<<"\n *Particlethrough volumes:*\n";
+    for(int i=0; i<ptv_info.size(); i++){
+      os<<"   ";
+      ptv_info[i].print(os);
     }
     os<<endl;
     return os;
