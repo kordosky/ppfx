@@ -25,6 +25,8 @@ namespace NeutrinoFluxReweight{
 
     THEORY_Universe = new TheoryThinTargetReweighter(iUniv,cvPars,univPars);
      
+    VOL_ABS_Universe = new AbsorptionReweighter(iUniv,cvPars,univPars);
+
   }
   
   double ReweightDriver::calculateWeight(const InteractionChainData& icd){
@@ -34,6 +36,7 @@ namespace NeutrinoFluxReweight{
     //Boolean flags: 
     std::vector<bool> interaction_nodes;
     std::vector<bool> attenuation_nodes;
+    std::vector<bool> absorption_nodes;
 
     //First we look at MIPP and look absorption chain:
     interaction_nodes = MIPP_NUMI_Universe->canReweight(icd);
@@ -63,6 +66,14 @@ namespace NeutrinoFluxReweight{
       }
     }
     tot_wgt *= att_wgt;
+    
+    //Looking for the correction of the pion absorption in volumes (Al)
+    absorption_nodes = VOL_ABS_Universe->canReweight(icd);
+    double abs_wgt = 1.0;
+    if(attenuation_nodes[0]==true){
+      abs_wgt *= VOL_ABS_Universe->calculateWeight(icd);
+    }
+    tot_wgt *= abs_wgt;
 
     /*
     //Looking for MIPP kaon extension:
