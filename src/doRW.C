@@ -136,7 +136,8 @@ void doRW(const char* input_format,const char* par_option,const char* beammode,c
     chain_meta = new TChain("dkmetaTree");  
     chain_meta->Add(Form("%s/g4numiv5_minerva1_%s_%d_0005.root",tmp_dk2nuDir,beammode,irun));
     dkmeta  = new bsim::DkMeta;
-    chain_meta->SetBranchAddress("dkmeta",&dkmeta);    
+    chain_meta->SetBranchAddress("dkmeta",&dkmeta);
+    chain_meta->GetEntry(0); //all entries are the same     
   }
 
   std::cout<<"Ntrees: "<<ntrees<<", entries: "<<nentries<<std::endl;
@@ -182,7 +183,6 @@ void doRW(const char* input_format,const char* par_option,const char* beammode,c
     if(!is_dk2nu)nu->GetEntry(ii);     
     else{
       chain_evts->GetEntry(ii);     
-      chain_meta->GetEntry(ii);     
     }
     // create an interaction chain from the data record
     InteractionChainData* inter_chain;
