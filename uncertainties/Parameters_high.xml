@@ -1,6 +1,16 @@
 <pars>
 
 <uncorrelated>
+
+    <inel_pipAl_xsec_lowP>
+      <cv> 1.0 </cv>
+      <err> 0.0575 </err> <!-- a 5.8% error -->
+    </inel_pipAl_xsec_lowP>
+    <inel_pipAl_xsec_highP>
+      <cv> 1.0 </cv>
+      <err> 0.068 </err> <!-- a 6.8% error -->
+    </inel_pipAl_xsec_highP>
+
     <inel_pC_xsec_scale>
       <cv> 0.95 </cv>
       <err> 0.04 </err> <!-- a 4% error -->
