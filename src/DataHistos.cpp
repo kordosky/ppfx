@@ -7,13 +7,15 @@ namespace NeutrinoFluxReweight{
   DataHistos* DataHistos::instance = 0;
   
   DataHistos::DataHistos(){
-    const char* dirData = "/minerva/app/users/laliaga/NEW_RW_OUTSIDE_MINERVA2/data"; 
-    
+    const char* ppfxDir = getenv("PPFX_DIR");
+    char dirData[200]= "data"; 
+    sprintf(dirData,"%s/data",ppfxDir);
     DataHistos::fMIPP_NUMI_PI = new TFile(Form("%s/MIPP/fpi_mipp_replica.root",dirData),"read");
     DataHistos::fMIPP_MC = new TFile(Form("%s/MIPP/fmc_tar.root",dirData),"read");
     
     DataHistos::fMIPP_NUMI_K  = new TFile(Form("%s/MIPP/fK_mipp_replica.root",dirData), "read");
     
+    DataHistos::fInelXS_MC = new TFile(Form("%s/MC/InelXS_geant4.root",dirData),"read");
 
     //For MIPP Numi, I fill a vector of yield histograms in this order:
     //pip, pim, kap, kam, k0L
@@ -31,8 +33,6 @@ namespace NeutrinoFluxReweight{
       DataHistos::hMIPP_MC[ii]   = (TH2D*)DataHistos::fMIPP_MC->Get(Form("h2%s",cmipp_numi_parts[ii]));
       
     } 
-
-  
 
     //
 
@@ -73,6 +73,9 @@ namespace NeutrinoFluxReweight{
       tmp_scl.clear(); 
     }
     
+    //Loading the geant4 inelastic cross section for pion on Aluminum
+    DataHistos::hXS_piAl = (TH1D*)DataHistos::fInelXS_MC->Get("pip/hpip_Al");
+
   }
   
   DataHistos::~DataHistos(){ 
