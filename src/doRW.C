@@ -45,7 +45,7 @@ class nu_g4numi;
 class Numi2Pdg;
 
 int idx_hel(int pdgdcode);
-bool check_inputs(const char* input_format,const char* par_option,const char* beammode,const char* runnumber, const char* cnent);
+bool check_inputs(const char* input_rew,const char* input_format,const char* par_option,const char* beammode,const char* runnumber, const char* cnent);
 void print_usage();
 
 /*!
@@ -58,9 +58,9 @@ void print_usage();
  * runnumber: select the run number, only used to select the input file
  * cnent: number of events we want to process from the file.
  */
-void doRW(const char* input_format,const char* par_option,const char* beammode,const char* runnumber, const char* cnent){ 
+void doRW(const char* input_rew,const char* input_format,const char* par_option,const char* beammode,const char* runnumber, const char* cnent){ 
   
-  if(!check_inputs(input_format,par_option,beammode,runnumber,cnent)){
+  if(!check_inputs(input_rew,input_format,par_option,beammode,runnumber,cnent)){
     exit(1);
   }
 
@@ -165,7 +165,7 @@ void doRW(const char* input_format,const char* par_option,const char* beammode,c
   for(int ii=0;ii<Nuniverses;ii++){
     ParameterTable cvPars=cvu->getCVPars();
     ParameterTable univPars=cvu->calculateParsForUniverse(ii+base_universe);
-    vec_rws.push_back(new ReweightDriver(ii,cvPars,univPars));    
+    vec_rws.push_back(new ReweightDriver(ii,cvPars,univPars,std::string(input_rew)));    
   }
   std::cout<<"Done configuring universes"<<std::endl;
   
@@ -329,8 +329,9 @@ int idx_hel(int pdgcode){
 }
 
 void print_usage(){
-  std::cout<<"bin/doRW [input_format] [par_option] [beammode] [runnumber] [cnent]" <<std::endl;
+  std::cout<<"bin/doRW [input_flags] [input_format] [par_option] [beammode] [runnumber] [cnent]" <<std::endl;
   std::cout<<"===================================================================" <<std::endl;
+  std::cout<<"input_flags : a xml file to know which reweither turn on"<<std::endl;
   std::cout<<"input_format: dk2nu or nudata"<<std::endl;
   std::cout<<"par_option  : noCorr, low, ... look at the uncertainty directory"<<std::endl;
   std::cout<<"beammode    : le010z185i or le010z-185i"<<std::endl;
@@ -338,8 +339,13 @@ void print_usage(){
   std::cout<<"cnent       : [>=0]"<<std::endl;  
 }
 
-bool check_inputs(const char* input_format,const char* par_option,const char* beammode,const char* runnumber, const char* cnent){
+bool check_inputs(const char* input_rew,const char* input_format,const char* par_option,const char* beammode,const char* runnumber, const char* cnent){
 
+  //Input reweighter flags:
+  bool good_flags = false;
+  std::string sinput = std::string(input_rew);
+  if(sinput.find(".xml")<50)good_flags = true;
+  
   //input_format:
   bool good_format = false;
   if(strcmp(input_format,"dk2nu")==0 || strcmp(input_format,"nudata")==0)good_format = true;
@@ -360,7 +366,7 @@ bool check_inputs(const char* input_format,const char* par_option,const char* be
   bool good_nent = false;
   if(atoi(cnent)>=0)good_nent = true;
   
-  bool good_args = good_format && good_par && good_bmode && good_runN && good_nent;
+  bool good_args = good_flags && good_format && good_par && good_bmode && good_runN && good_nent;
   if(!good_args){
     std::cout<<"No good arguments"<<std::endl;
     print_usage();
@@ -374,12 +380,12 @@ bool check_inputs(const char* input_format,const char* par_option,const char* be
 #ifndef __CINT__
 int main(int argc, const char* argv[]){
   
-  if(argc!=6){
+  if(argc!=7){
     std::cout<<"We need "<<argc-1<<" arguments to execute this script. Check the help menu:"<<std::endl;
     print_usage();
     exit (1);
   }
-  doRW(argv[1],argv[2],argv[3],argv[4],argv[5]);
+  doRW(argv[1],argv[2],argv[3],argv[4],argv[5],argv[6]);
   return 0;
 }
 #endif

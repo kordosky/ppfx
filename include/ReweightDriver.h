@@ -8,7 +8,6 @@
 #include "MIPPNumiYieldsReweighter.h"
 #include "MIPPNumiKaonsYieldsReweighter.h"
 #include "TargetAttenuationReweighter.h"
-
 #include "AbsorptionReweighter.h"
 
 #include "InteractionChainData.h"
@@ -26,7 +25,7 @@ namespace NeutrinoFluxReweight{
     /*!
      * the constructor
     */
-    ReweightDriver(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars);
+    ReweightDriver(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars,std::string fileIn);
     
 
     /*!
@@ -47,6 +46,10 @@ namespace NeutrinoFluxReweight{
      * Configures each of the reweighing tools.
      */
     void Configure();
+    /*!
+     * Parse the option to select which reweighter use
+     */
+    void ParseOptions();
     int iUniv;
     ParameterTable cvPars;
     ParameterTable univPars;
@@ -60,6 +63,17 @@ namespace NeutrinoFluxReweight{
     TargetAttenuationReweighter* TARG_ATT_Universe;
 
     AbsorptionReweighter* VOL_ABS_Universe;
+    
+    //Flag to select the reweighters:
+    bool doNA49;
+    bool doMIPPThinTarget;
+    bool doTheoryThinTarget;
+    bool doMIPPNumiYields;
+    bool doMIPPNumiKaonsYields;
+    bool doTargetAttenuation;
+    bool doAbsorption;
+    
+    std::string fileOptions;
     
   };
 

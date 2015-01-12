@@ -1,0 +1,15 @@
+<inputs>
+
+  <FlagReweighters>
+
+    <MIPPNumiYields>Yes</MIPPNumiYields>
+    <TargetAttenuation>No</TargetAttenuation>
+    <NA49>No</NA49>
+    <MIPPNumiKaonsYields>No</MIPPNumiKaonsYields>
+    <MIPPThinTarget>No</MIPPThinTarget>
+    <Absorption>No</Absorption>
+    <TheoryThinTarget>No</TheoryThinTarget>
+  </FlagReweighters>
+
+</inputs>
+
