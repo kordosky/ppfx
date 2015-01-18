@@ -6,6 +6,7 @@
 
 #include "HistoContainer.h"
 #include "ExtractInfo.h"
+#include <math.h>
 
 #include <iostream>
 
@@ -21,32 +22,57 @@ namespace NeutrinoFluxReweight{
  
     std::vector<bool> this_nodes;
     double low_val = 1.E-20;    
-    bool passIC = false;
     
     std::vector<ParticlesThroughVolumesData>  vec_ptv = aa.ptv_info;
-    for(int ii=0;ii<vec_ptv.size();ii++){
-      passIC = passIC || (vec_ptv[ii].DistXdens[0]>low_val);
-      passIC = passIC || (vec_ptv[ii].DistXdens[1]>low_val);
-      passIC = passIC || (vec_ptv[ii].DistXdens[2]>low_val);
-    }
+    bool passIC = vec_ptv[0].DistXdens[0] >low_val || vec_ptv[1].DistXdens[0] >low_val;
+    passIC = passIC && abs(vec_ptv[0].Pdgs[0])==211;
+    passIC = passIC && abs(vec_ptv[0].Pdgs[0])==321;
     if(passIC)this_nodes.push_back(passIC);
     return this_nodes;
+
   }
   double AbsorptionReweighter::calculateWeight(const InteractionChainData& aa){
-    /*
-    std::map<std::string, double> cv_table = cvPars.table;
-
-    std::map<std::string, double>::iterator cv_it = cv_table.begin();
-    cv_it = cv_table.find(std::string("inel_pipAl_xsec_lowP"));
-    double shift_low = cv_it->second;
-
-    cv_it = cv_table.begin();
-    cv_it = cv_table.find(std::string("inel_pipAl_xsec_highP"));
-    double shift_high = cv_it->second; 
-
-    std::cout<<shift_low<<" "<<shift_high <<std::endl;
-    */
-    return 1.0;
+    
+    std::map<std::string, double> dsig_table = univPars.table;
+    std::map<std::string, double>::iterator it = dsig_table.begin();
+    
+    std::vector<ParticlesThroughVolumesData>  vec_ptv = aa.ptv_info;
+    std::string namepar;
+    
+    if(abs(vec_ptv[0].Pdgs[0])==211){
+      namepar = "inel_piAl_xsec";
+    }
+    else if(vec_ptv[0].Pdgs[0]==321 && vec_ptv[0].Moms[0]<2.0){
+      namepar = "inel_kapAl_xsec_lowP";
+    }
+    else if(vec_ptv[0].Pdgs[0]==321 && vec_ptv[0].Moms[0]>2.0){
+      namepar = "inel_kapAl_xsec_highP";
+    }
+    else if(vec_ptv[0].Pdgs[0]==-321 && vec_ptv[0].Moms[0]<2.0){
+      namepar = "inel_kamAl_xsec_lowP";
+    }
+    else if(vec_ptv[0].Pdgs[0]==-321 && vec_ptv[0].Moms[0]>2.0){
+      namepar = "inel_kamAl_xsec_lowP";
+    }
+    
+    it = dsig_table.find(std::string(namepar));
+    double shift = it->second;
+    double NA_mb = 6.02E-4;
+    double Al_A = 26.8;
+    double tot_dist = vec_ptv[0].DistXdens[0] + vec_ptv[1].DistXdens[0];
+ 
+    tot_dist /= Al_A;
+    tot_dist *= NA_mb;
+    tot_dist *= shift;
+    
+    double wgt = exp(-1.0*tot_dist);
+    
+    //for now, it will not be allowed to very low and very high weithgs. 
+    if(wgt<0.1 || wgt>10.){
+      // std::cout<<"something weird here. wgt = "<<wgt<<" "<<vec_ptv[0].Pdgs[0]<<" "<<vec_ptv[0].Moms[0]<<" "<<vec_ptv[0].DistXdens[0]<<" "<<vec_ptv[1].DistXdens[0]<<" "<<shift<<" "<<tot_dist<<std::endl;
+      wgt = 1.0;
+    }
+    return wgt;
     
   }
 
