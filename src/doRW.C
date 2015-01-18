@@ -78,32 +78,32 @@ void doRW(const char* input_rew,const char* input_format,const char* par_option,
 
   std::cout<<"Making an output file to store histograms"<<std::endl;
 
-  TFile* fOut = new TFile(Form("test%d_%dentries_with1000univ_%s.root",irun,nent,input_format),"recreate");
+  TFile* fOut = new TFile(Form("test_%s_%s_%s_%s_%s.root",input_format,par_option,beammode,runnumber,cnent),"recreate");
   std::cout<<"File name: "<<fOut->GetName()<<std::endl;
 
   HistoContainer* histos =  HistoContainer::getInstance();
   ExtractInfo*    info   =  ExtractInfo::getInstance();
   
   fOut->mkdir("nom");
-  fOut->mkdir("nom_mipp");
+  fOut->mkdir("nom_corr");
   for(int ii=0;ii<Nnuhel;ii++){
     fOut->mkdir(Form("%s",nuhel[ii]));
-    fOut->mkdir(Form("%s_mipp",nuhel[ii]));
+    fOut->mkdir(Form("%s_corr",nuhel[ii]));
   }
   std::cout<<"Done making the output file"<<std::endl;
 
   TH1D* hnom[Nnuhel];
-  TH1D* hnom_mipp[Nnuhel];
+  TH1D* hnom_corr[Nnuhel];
   for(int ii=0;ii<Nnuhel;ii++){
     hnom[ii] = new TH1D(Form("hnom_%s",nuhel[ii]),"",NbinsE,emin,emax);
-    hnom_mipp[ii] = new TH1D(Form("hnom_mipp_%s",nuhel[ii]),"",NbinsE,emin,emax);
+    hnom_corr[ii] = new TH1D(Form("hnom_corr_%s",nuhel[ii]),"",NbinsE,emin,emax);
   }
-  std::vector<TH1D*> vh_rw[Nnuhel],vh_mipp_rw[Nnuhel];
+  std::vector<TH1D*> vh_rw[Nnuhel],vh_corr_rw[Nnuhel];
   
   for(int ii=0;ii<Nuniverses;ii++){
     for(int jj=0;jj<Nnuhel;jj++){
       vh_rw[jj].push_back(new TH1D(Form("h_rw_%s_%d",nuhel[jj],ii),"",NbinsE,emin,emax));
-      vh_mipp_rw[jj].push_back(new TH1D(Form("h_rw_%s_mipp_%d",nuhel[jj],ii),"",NbinsE,emin,emax));
+      vh_corr_rw[jj].push_back(new TH1D(Form("h_rw_%s_corr_%d",nuhel[jj],ii),"",NbinsE,emin,emax));
     }
   }
   
@@ -173,7 +173,8 @@ void doRW(const char* input_rew,const char* input_format,const char* par_option,
   for(int ii=0;ii<Nuniverses;ii++){
     wgts.push_back(1.0);
   }
-
+  
+  if(nent==-1)nent=nentries;
   std::cout<<"Running over "<<nent<<" entries"<<std::endl;
   
   // for(int ii=0;ii<red_nentries;ii++){  
@@ -210,10 +211,10 @@ void doRW(const char* input_rew,const char* input_format,const char* par_option,
     if(nuidx>=0)hnom[nuidx]->Fill(nuenergy,fluxWGT);
     
     
-    bool is_mipp = false;        
+    bool is_corr = false;        
     for(int jj=0;jj<Nuniverses;jj++){
       wgts[jj] = vec_rws[jj]->calculateWeight(*inter_chain);
-      if(fabs(wgts[jj]-1.0)>1.e-15 && jj==0){is_mipp=true;}
+      if(fabs(wgts[jj]-1.0)>1.e-15 && jj==0){is_corr=true;}
       
       std::map<std::string,double> map_info = info->GetInfo();
       std::map<std::string,double>::iterator it_info;
@@ -222,8 +223,8 @@ void doRW(const char* input_rew,const char* input_format,const char* par_option,
       if(nuidx>=0){
 	vh_rw[nuidx][jj]->Fill(nuenergy,univWGT);
 	
-	if(is_mipp){
-	  vh_mipp_rw[nuidx][jj]->Fill(nuenergy,univWGT);
+	if(is_corr){
+	  vh_corr_rw[nuidx][jj]->Fill(nuenergy,univWGT);
 	  
 	  for(it_info=map_info.begin();it_info!=map_info.end();it_info++){
 	    double checkwgt = fluxWGT*(it_info->second);
@@ -238,7 +239,7 @@ void doRW(const char* input_rew,const char* input_format,const char* par_option,
       
     }
     
-    if(is_mipp && nuidx>=0)hnom_mipp[nuidx]->Fill(nuenergy,fluxWGT);
+    if(is_corr && nuidx>=0)hnom_corr[nuidx]->Fill(nuenergy,fluxWGT);
     
   }
   
@@ -249,17 +250,17 @@ void doRW(const char* input_rew,const char* input_format,const char* par_option,
     fOut->cd("nom");
     hnom[ii]->Write();
     
-    fOut->cd("nom_mipp");
-    hnom_mipp[ii]->Write();
+    fOut->cd("nom_corr");
+    hnom_corr[ii]->Write();
     
     fOut->cd(Form("%s",nuhel[ii]));
     for(int jj=0;jj<Nuniverses;jj++){
       vh_rw[ii][jj]->Write();
     }
 
-    fOut->cd(Form("%s_mipp",nuhel[ii]));
+    fOut->cd(Form("%s_corr",nuhel[ii]));
     for(int jj=0;jj<Nuniverses;jj++){
-      vh_mipp_rw[ii][jj]->Write();
+      vh_corr_rw[ii][jj]->Write();
     }    
 
   }
@@ -344,7 +345,7 @@ bool check_inputs(const char* input_rew,const char* input_format,const char* par
   //Input reweighter flags:
   bool good_flags = false;
   std::string sinput = std::string(input_rew);
-  if(sinput.find(".xml")<50)good_flags = true;
+  if(sinput.find(".xml")<200)good_flags = true;
   
   //input_format:
   bool good_format = false;
@@ -364,7 +365,7 @@ bool check_inputs(const char* input_rew,const char* input_format,const char* par
   if(atoi(runnumber)>=0 && atoi(runnumber)<500)good_runN = true;
   
   bool good_nent = false;
-  if(atoi(cnent)>=0)good_nent = true;
+  if(atoi(cnent)>=-1)good_nent = true;
   
   bool good_args = good_flags && good_format && good_par && good_bmode && good_runN && good_nent;
   if(!good_args){
