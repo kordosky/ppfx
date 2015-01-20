@@ -2,14 +2,26 @@
 
 <uncorrelated>
 
-    <inel_pipAl_xsec_lowP>
-      <cv> 1.0 </cv>
-      <err> 0.0575 </err> <!-- a 5.8% error -->
-    </inel_pipAl_xsec_lowP>
-    <inel_pipAl_xsec_highP>
-      <cv> 1.0 </cv>
-      <err> 0.068 </err> <!-- a 6.8% error -->
-    </inel_pipAl_xsec_highP>
+   <inel_piAl_xsec>
+      <cv> 0.0 </cv>
+      <err> 23.8 </err> <!-- mb -->
+    </inel_piAl_xsec>
+    <inel_kapAl_xsec_lowP>
+      <cv> 0.0 </cv>
+      <err> 83.0 </err> <!-- mb-->
+    </inel_kapAl_xsec_lowP>
+    <inel_kamAl_xsec_lowP>
+      <cv> 0.0 </cv>
+      <err> 49.0 </err> <!-- mb-->
+    </inel_kamAl_xsec_lowP>
+    <inel_kapAl_xsec_highP>
+      <cv> 0.0 </cv>
+      <err> 30.5 </err> <!-- mb-->
+    </inel_kapAl_xsec_highP>
+    <inel_kamAl_xsec_highP>
+      <cv> 0.0 </cv>
+      <err> 30.5 </err> <!-- mb-->
+    </inel_kamAl_xsec_highP>
 
     <inel_pC_xsec_scale>
       <cv> 0.95 </cv>
