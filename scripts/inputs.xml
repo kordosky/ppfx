@@ -1,15 +1,19 @@
 <inputs>
 
   <FlagReweighters>
-
     <MIPPNumiYields>Yes</MIPPNumiYields>
     <TargetAttenuation>No</TargetAttenuation>
     <NA49>No</NA49>
     <MIPPNumiKaonsYields>No</MIPPNumiKaonsYields>
     <MIPPThinTarget>No</MIPPThinTarget>
-    <Absorption>No</Absorption>
+    <Absorption>Yes</Absorption>
     <TheoryThinTarget>No</TheoryThinTarget>
   </FlagReweighters>
+
+   <Settings>
+     <MIPPCorrOption>noCorr</MIPPCorrOption>
+     <NumberOfUniverses>100</NumberOfUniverses>
+   </Settings>
 
 </inputs>
 

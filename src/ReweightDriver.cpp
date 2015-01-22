@@ -84,7 +84,7 @@ namespace NeutrinoFluxReweight{
     interaction_nodes = MIPP_NUMI_Universe->canReweight(icd);
     
     //Looking for MIPP:
-    double mipp_wgt = 1.0;
+    mipp_wgt = 1.0;
     bool has_mipp = false;
     for(int ii=0;ii<interaction_nodes.size();ii++){
       if(interaction_nodes[ii]==true){
@@ -99,7 +99,7 @@ namespace NeutrinoFluxReweight{
 
     //Looking for target attenuation correction:
     attenuation_nodes = TARG_ATT_Universe->canReweight(icd);
-    double att_wgt = 1.0;
+    att_wgt = 1.0;
     for(int ii=0;ii<attenuation_nodes.size();ii++){
       if(attenuation_nodes[ii]==true){
 	att_wgt *= TARG_ATT_Universe->calculateWeight(icd);
@@ -110,7 +110,7 @@ namespace NeutrinoFluxReweight{
     
     //Looking for the correction of the pion absorption in volumes (Al)
     absorption_nodes = VOL_ABS_Universe->canReweight(icd);
-    double abs_wgt = 1.0;
+    abs_wgt = 1.0;
     if(attenuation_nodes[0]==true){
       abs_wgt *= VOL_ABS_Universe->calculateWeight(icd);
     }
@@ -118,7 +118,7 @@ namespace NeutrinoFluxReweight{
 
     
     //Looking for MIPP kaon extension:
-    double mipp_kaons_wgt = 1.0;
+    mipp_kaons_wgt = 1.0;
     if(!has_mipp){
       interaction_nodes = MIPP_NUMI_KAONS_Universe->canReweight(icd);
       for(int ii=0;ii<interaction_nodes.size();ii++){
@@ -131,7 +131,7 @@ namespace NeutrinoFluxReweight{
     if(doMIPPNumiKaonsYields) tot_wgt *= mipp_kaons_wgt;
     
     //Looking for NA49:
-    double na49_wgt = 1.0;
+    na49_wgt = 1.0;
     for(int ii=0;ii<interaction_nodes.size();ii++){
       if(interaction_nodes[ii]==false){
 	bool can_na49 = NA49_Universe->canReweight((icd.interaction_chain)[ii]);
@@ -144,7 +144,7 @@ namespace NeutrinoFluxReweight{
     if(doNA49) tot_wgt *= na49_wgt;
     
     //Looking for thin target MIPP:
-    double mipp_thin_wgt = 1.0;
+    mipp_thin_wgt = 1.0;
     for(int ii=0;ii<interaction_nodes.size();ii++){
       if(interaction_nodes[ii]==false){
 	bool can_mipp_thin = MIPP_THIN_Universe->canReweight((icd.interaction_chain)[ii]);
@@ -157,7 +157,7 @@ namespace NeutrinoFluxReweight{
     if(doMIPPThinTarget) tot_wgt *= mipp_thin_wgt;
     
     //Looking for theory (model) prediction:
-    double theory_wgt = 1.0;
+    theory_wgt = 1.0;
     for(int ii=0;ii<interaction_nodes.size();ii++){
       if(interaction_nodes[ii]==false){
 	bool can_theory = THEORY_Universe->canReweight((icd.interaction_chain)[ii]);

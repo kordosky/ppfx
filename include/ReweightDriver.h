@@ -41,6 +41,21 @@ namespace NeutrinoFluxReweight{
      */
     double calculateWeight(const InteractionChainData& icd);
     
+    /*!  MIPP NuMI yield weight   */
+    double mipp_wgt;
+    /*!  Target attenuation weight   */
+    double att_wgt;
+    /*!  Absorption weight   */
+    double abs_wgt;
+    /*!   MIPP NuMI kaons yield weight   */
+    double mipp_kaons_wgt;
+    /*!   NA49 weight   */
+    double na49_wgt;
+    /*!   MIPP thin target weight   */
+    double mipp_thin_wgt;
+    /*!   Theory (model) prediction weight   */
+    double theory_wgt;
+    
   private:    
     /*!
      * Configures each of the reweighing tools.
