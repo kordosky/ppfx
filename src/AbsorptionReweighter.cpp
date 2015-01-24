@@ -6,7 +6,7 @@
 
 #include "HistoContainer.h"
 #include "ExtractInfo.h"
-#include <math.h>
+#include <cstdlib>
 
 #include <iostream>
 

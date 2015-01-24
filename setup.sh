@@ -22,7 +22,7 @@ setup(){
     #setup jobsub_tools
     #setup jobsub_client -z /grid/fermiapp/products/common/db
     
-    export BOOST=/nusoft/app/externals/boost/v1_55_0/source/boost_1_55_0
+    export BOOSTROOT=/nusoft/app/externals/boost/v1_55_0/source/boost_1_55_0
 
     # bash magic pulled off of stack exchange
     # gets the full path to the location of setup.sh
