@@ -1,6 +1,6 @@
 
-const int Nuniv = 100;
 #include <vector>
+#include <string>
 
 TH1D* getBand(std::vector<TH1D*> vhIn);
 TH1D* getFractionalError(TH1D* hIn);
@@ -15,10 +15,16 @@ void nu_error(const char* fname, const char* nuhel){
   else exit (1);
 
   TFile* fIn = new TFile(Form("%s",fname),"read");
-  TH1D* hnom = (TH1D*)fIn->Get(Form("nom/hnom_%s",nuhel));  
+  TH1D* hnom = (TH1D*)fIn->Get(Form("nom/hnom_%s",nuhel));
   std::vector<TH1D*> vhuniv;
-  for(int ii=0;ii<Nuniv;ii++){
-    vhuniv.push_back((TH1D*)fIn->Get(Form("%s/h_rw_%s_%d",nuhel,nuhel,ii)));
+  
+  TDirectory *udir = fIn->GetDirectory(nuhel);
+  TIter next(udir->GetListOfKeys());
+  TKey* key;
+  while((key= (TKey*)next())){
+    TClass* cl = gROOT->GetClass(key->GetClassName());
+    if(!cl->InheritsFrom("TH1D"))continue;
+    vhuniv.push_back((TH1D*)key->ReadObj());
   }
 
   TH1D* herror = getBand(vhuniv);
