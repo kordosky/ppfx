@@ -129,33 +129,39 @@ namespace NeutrinoFluxReweight{
    
     //Filling here the ParticlesThroughVolumesData info:
     ptv_info.clear();
-    //Looking at IC1 and IC2:
-    int pdg_IC[3]    = {0,0,0};
-    double mom_IC[3] = {0,0,0};
+    //Looking IC, DPIP and DVOL:
+    int pdgs[3];
+    double moms[3];
+    double amount_IC[3],amount_DPIP[3],amount_DVOL[3];
+    for(int ii=0;ii<3;ii++){
+      pdgs[ii] = 0; moms[ii] = 0; 
+      amount_IC[ii] = 0; amount_DPIP[ii] = 0; amount_DVOL[ii] = 0;
+    }
+    
     for(int ii=0;ii<3;ii++){
       if(nu->ancestor.size()==3 && ii==2)continue;
-      pdg_IC[ii] = nu->ancestor[nu->ancestor.size()-ii-2].pdg;
-      mom_IC[ii] = sqrt(pow(nu->ancestor[nu->ancestor.size()-ii-2].startpx,2)+
+      pdgs[ii] = nu->ancestor[nu->ancestor.size()-ii-2].pdg;
+      moms[ii] = sqrt(pow(nu->ancestor[nu->ancestor.size()-ii-2].startpx,2)+
 			pow(nu->ancestor[nu->ancestor.size()-ii-2].startpy,2)+
 			pow(nu->ancestor[nu->ancestor.size()-ii-2].startpz,2));
-    }    
-    double dXd_IC1[3] = {0,0,0};
-    double dXd_IC2[3] = {0,0,0};
-
-    for(int ii=0;ii<(meta->vdblnames).size();ii++){
-      if((meta->vdblnames)[ii].find("parent_IC1")==0)dXd_IC1[0]=(nu->vdbl)[ii];
-      if((meta->vdblnames)[ii].find("parent_IC2")==0)dXd_IC2[0]=(nu->vdbl)[ii];
-      if((meta->vdblnames)[ii].find("granparent_IC1")==0)dXd_IC1[1]=(nu->vdbl)[ii];
-      if((meta->vdblnames)[ii].find("granparent_IC2")==0)dXd_IC2[1]=(nu->vdbl)[ii];
-      if((meta->vdblnames)[ii].find("greatgranparent_IC1")==0)dXd_IC1[2]=(nu->vdbl)[ii];
-      if((meta->vdblnames)[ii].find("greatgranparent_IC2")==0)dXd_IC2[2]=(nu->vdbl)[ii];
-    }      
+      
+      //Amounts:
+      //control:
+      if( (nu->vdbl)[ii] <0 || (nu->vdbl)[ii+3] <0 || (nu->vdbl)[ii+6] <0 || (nu->vdbl)[ii+9] <0){
+	std::cout<< "ERROR FILLING AMOUNT OF MATERIAL CROSSED (In InteractionChainData) !!!" <<std::endl;
+      }
+      amount_IC[ii]   = (nu->vdbl)[ii] + (nu->vdbl)[ii+3];
+      amount_DPIP[ii] = (nu->vdbl)[ii+6];
+      amount_DVOL[ii] = (nu->vdbl)[ii+9];
+    }
     
-    ParticlesThroughVolumesData tmp_ptv_IC1(pdg_IC,dXd_IC1,mom_IC,"IC1");
-    ParticlesThroughVolumesData tmp_ptv_IC2(pdg_IC,dXd_IC2,mom_IC,"IC2");
-    ptv_info.push_back(tmp_ptv_IC1);
-    ptv_info.push_back(tmp_ptv_IC2);
+    ParticlesThroughVolumesData tmp_ptv_IC(pdgs,amount_IC,moms,"IC");
+    ParticlesThroughVolumesData tmp_ptv_DPIP(pdgs,amount_DPIP,moms,"DPIP");
+    ParticlesThroughVolumesData tmp_ptv_DVOL(pdgs,amount_DVOL,moms,"DVOL");
     
+    ptv_info.push_back(tmp_ptv_IC);
+    ptv_info.push_back(tmp_ptv_DPIP);
+    ptv_info.push_back(tmp_ptv_DVOL);
     ///
     
     target_config=meta->tgtcfg;

@@ -30,8 +30,13 @@ namespace NeutrinoFluxReweight{
 
     THEORY_Universe = new TheoryThinTargetReweighter(iUniv,cvPars,univPars);
      
-    VOL_ABS_Universe = new AbsorptionReweighter(iUniv,cvPars,univPars);
+    VOL_ABS_IC_Universe = new AbsorptionICReweighter(iUniv,cvPars,univPars);
+    VOL_ABS_DPIP_Universe = new AbsorptionDPIPReweighter(iUniv,cvPars,univPars);
+    VOL_ABS_DVOL_Universe = new AbsorptionDVOLReweighter(iUniv,cvPars,univPars);
 
+    VOL_ABS_NUCLEON_Universe = new NucleonAbsorptionOutOfTargetReweighter(iUniv,cvPars,univPars);
+    VOL_ABS_OTHER_Universe = new OtherAbsorptionOutOfTargetReweighter(iUniv,cvPars,univPars);
+    
   }
   
   void ReweightDriver::ParseOptions(){
@@ -62,9 +67,25 @@ namespace NeutrinoFluxReweight{
     if(val=="Yes")doMIPPThinTarget = true;
     else  doMIPPThinTarget = false;
 
-    val = options.get<std::string>("Absorption");
-    if(val=="Yes")doAbsorption = true;
-    else  doAbsorption = false;
+    val = options.get<std::string>("AbsorptionIC");
+    if(val=="Yes")doAbsorptionIC = true;
+    else  doAbsorptionIC = false;
+
+    val = options.get<std::string>("AbsorptionDPIP");
+    if(val=="Yes")doAbsorptionDPIP = true;
+    else  doAbsorptionDPIP = false;
+    
+    val = options.get<std::string>("AbsorptionDVOL");
+    if(val=="Yes")doAbsorptionDVOL = true;
+    else  doAbsorptionDVOL = false;
+    
+    val = options.get<std::string>("NucleonAbsorptionOutOfTarget");
+    if(val=="Yes")doAbsorptionNucleon = true;
+    else  doAbsorptionNucleon = false;
+
+    val = options.get<std::string>("OtherAbsorptionOutOfTarget");
+    if(val=="Yes")doAbsorptionOther = true;
+    else  doAbsorptionOther = false;
     
     val = options.get<std::string>("TheoryThinTarget");
     if(val=="Yes")doTheoryThinTarget = true;
@@ -108,15 +129,46 @@ namespace NeutrinoFluxReweight{
     }
     if(doTargetAttenuation) tot_wgt *= att_wgt;
     
-    //Looking for the correction of the pion absorption in volumes (Al)
-    absorption_nodes = VOL_ABS_Universe->canReweight(icd);
-    abs_wgt = 1.0;
+    //Looking for the correction of the pi/K absorption in volumes (Al)
+    absorption_nodes = VOL_ABS_IC_Universe->canReweight(icd);
+    abs_ic_wgt = 1.0;
     if(attenuation_nodes[0]==true){
-      abs_wgt *= VOL_ABS_Universe->calculateWeight(icd);
+      abs_ic_wgt *= VOL_ABS_IC_Universe->calculateWeight(icd);
     }
-    if(doAbsorption)tot_wgt *= abs_wgt;
+    if(doAbsorptionIC)tot_wgt *= abs_ic_wgt;
 
-    
+     //Looking for the correction of the pi/K absorption in volumes (Fe)
+    absorption_nodes = VOL_ABS_DPIP_Universe->canReweight(icd);
+    abs_dpip_wgt = 1.0;
+    if(attenuation_nodes[0]==true){
+      abs_dpip_wgt *= VOL_ABS_DPIP_Universe->calculateWeight(icd);
+    }
+    if(doAbsorptionDPIP)tot_wgt *= abs_dpip_wgt;
+
+    //Looking for the correction of the pi/K absorption in volumes (He)
+    absorption_nodes = VOL_ABS_DVOL_Universe->canReweight(icd);
+    abs_dvol_wgt = 1.0;
+    if(attenuation_nodes[0]==true){
+      abs_dvol_wgt *= VOL_ABS_DVOL_Universe->calculateWeight(icd);
+    }
+    if(doAbsorptionDVOL)tot_wgt *= abs_dvol_wgt;
+
+    //Looking for the correction of nucleons on Al, Fe and He.
+    absorption_nodes = VOL_ABS_NUCLEON_Universe->canReweight(icd);
+    abs_nucleon_wgt = 1.0;
+    if(attenuation_nodes[0]==true){
+      abs_nucleon_wgt *= VOL_ABS_NUCLEON_Universe->calculateWeight(icd);
+    }
+    if(doAbsorptionNucleon)tot_wgt *= abs_nucleon_wgt;
+
+    //Looking for the correction of any other particle on Al, Fe and He.
+    absorption_nodes = VOL_ABS_OTHER_Universe->canReweight(icd);
+    abs_other_wgt = 1.0;
+    if(attenuation_nodes[0]==true){
+      abs_other_wgt *= VOL_ABS_OTHER_Universe->calculateWeight(icd);
+    }
+    if(doAbsorptionOther)tot_wgt *= abs_other_wgt;
+
     //Looking for MIPP kaon extension:
     mipp_kaons_wgt = 1.0;
     if(!has_mipp){

@@ -16,7 +16,7 @@ namespace NeutrinoFluxReweight{
     ParticlesThroughVolumesData();
 
     //! Constructor given the kinematic and distance traveled in the volume.
-    ParticlesThroughVolumesData(int ptv_pdg[], double ptv_distXdens[],double ptv_mom[],std::string ptv_vol);
+    ParticlesThroughVolumesData(int ptv_pdg[], double  ptv_amount_mat[],double ptv_mom[],std::string ptv_vol);
     
     virtual ~ParticlesThroughVolumesData();
     
@@ -24,7 +24,7 @@ namespace NeutrinoFluxReweight{
     int Pdgs[3];
 
     //! distance multiplied by volume 
-    double DistXdens[3];
+    double AmountMat[3];
 
     //! Momentum of the particles 
     double Moms[3];

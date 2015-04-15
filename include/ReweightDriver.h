@@ -8,7 +8,12 @@
 #include "MIPPNumiYieldsReweighter.h"
 #include "MIPPNumiKaonsYieldsReweighter.h"
 #include "TargetAttenuationReweighter.h"
-#include "AbsorptionReweighter.h"
+
+#include "AbsorptionICReweighter.h"
+#include "AbsorptionDPIPReweighter.h"
+#include "AbsorptionDVOLReweighter.h"
+#include "NucleonAbsorptionOutOfTargetReweighter.h"
+#include "OtherAbsorptionOutOfTargetReweighter.h"
 
 #include "InteractionChainData.h"
 
@@ -46,7 +51,11 @@ namespace NeutrinoFluxReweight{
     /*!  Target attenuation weight   */
     double att_wgt;
     /*!  Absorption weight   */
-    double abs_wgt;
+    double abs_ic_wgt;
+    double abs_dpip_wgt;
+    double abs_dvol_wgt;
+    double abs_nucleon_wgt;
+    double abs_other_wgt;
     /*!   MIPP NuMI kaons yield weight   */
     double mipp_kaons_wgt;
     /*!   NA49 weight   */
@@ -77,7 +86,12 @@ namespace NeutrinoFluxReweight{
     MIPPNumiKaonsYieldsReweighter* MIPP_NUMI_KAONS_Universe;
     TargetAttenuationReweighter* TARG_ATT_Universe;
 
-    AbsorptionReweighter* VOL_ABS_Universe;
+    AbsorptionICReweighter*   VOL_ABS_IC_Universe;
+    AbsorptionDPIPReweighter* VOL_ABS_DPIP_Universe;
+    AbsorptionDVOLReweighter* VOL_ABS_DVOL_Universe;
+
+    NucleonAbsorptionOutOfTargetReweighter* VOL_ABS_NUCLEON_Universe;
+    OtherAbsorptionOutOfTargetReweighter* VOL_ABS_OTHER_Universe;
     
     //Flag to select the reweighters:
     bool doNA49;
@@ -86,7 +100,12 @@ namespace NeutrinoFluxReweight{
     bool doMIPPNumiYields;
     bool doMIPPNumiKaonsYields;
     bool doTargetAttenuation;
-    bool doAbsorption;
+
+    bool doAbsorptionIC;
+    bool doAbsorptionDPIP;
+    bool doAbsorptionDVOL;
+    bool doAbsorptionNucleon;
+    bool doAbsorptionOther;
     
     std::string fileOptions;
     

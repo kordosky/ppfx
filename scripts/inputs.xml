@@ -6,12 +6,16 @@
     <NA49>No</NA49>
     <MIPPNumiKaonsYields>No</MIPPNumiKaonsYields>
     <MIPPThinTarget>No</MIPPThinTarget>
-    <Absorption>Yes</Absorption>
+    <AbsorptionIC>Yes</AbsorptionIC>
+    <AbsorptionDPIP>Yes</AbsorptionDPIP>
+    <AbsorptionDVOL>Yes</AbsorptionDVOL>
+    <NucleonAbsorptionOutOfTarget>Yes</NucleonAbsorptionOutOfTarget>
+    <OtherAbsorptionOutOfTarget>Yes</OtherAbsorptionOutOfTarget>
     <TheoryThinTarget>No</TheoryThinTarget>
   </FlagReweighters>
 
    <Settings>
-     <MIPPCorrOption>noCorr</MIPPCorrOption>
+     <MIPPCorrOption>mediumBYDET</MIPPCorrOption>
      <NumberOfUniverses>100</NumberOfUniverses>
    </Settings>
 
