@@ -10,7 +10,7 @@ DK2NU_SRCS= src/dk2nu.cc src/dkmeta.cc
 DK2NU_OBJS = $(DK2NU_SRCS:.cc=.o)
 
 CC	=	g++
-COPTS	=	-fPIC -DLINUX -O0  -g $(shell root-config --cflags)
+COPTS	=	-fPIC -DLINUX -O0  -g $(shell root-config --cflags) $(M32)
 FLAGS   =       -g
 
 all:    lib programs doxy
@@ -19,14 +19,14 @@ lib: libppfx.so libDKLib.so
 
 libppfx.so: $(PPFX_OBJS)
 	if [ ! -d lib ]; then mkdir -p lib; fi
-	$(CC) -shared -o lib/$@ $^
+	$(CC) -shared $(M32) -o lib/$@ $^
 
 programs: $(PROGS)
 	echo making $(PROGS)
 
 $(PROGS): % : src/%.o $(PPFX_OBJS) libDKLib.so
 	if [ ! -d bin ]; then mkdir -p bin; fi
-	$(CC) -Wall -o bin/$@ $< $(PPFX_OBJS) $(DEPLIBS) lib/libDKLib.so
+	$(CC) -Wall $(M32) -o bin/$@ $< $(PPFX_OBJS) $(DEPLIBS) lib/libDKLib.so
 
 %.o: %.cpp
 	$(CC) $(COPTS) $(INCLUDES) -c -o $@ $<

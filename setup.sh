@@ -7,6 +7,7 @@ setup(){
     local TOP=${PWD}
 
     setup -q debug -f Linux+2.6-2.5 root v5_30_00
+    export M32=-m32
 
     if [ -e "/grid/fermiapp/minerva/condor/setup.minerva.condor.sh" ]; then
 	source /grid/fermiapp/minerva/condor/setup.minerva.condor.sh
