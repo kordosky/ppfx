@@ -21,8 +21,9 @@ namespace NeutrinoFluxReweight{
   }
   
   double TheoryThinTargetReweighter::calculateWeight(const InteractionData& thisid){
-    
-    return 1.0;
+
+    std::map<std::string, double> dsig_table = univPars.table;
+    return dsig_table.find("inel_A_scaling")->second;
   }
   
 
