@@ -1,0 +1,104 @@
+<bins>
+<!-- List of bins -->
+  <MIPP_Numi_k_pi>
+  <!-- MIPP inputs are pz and pt ranges (GeV/c) -->
+
+     <MIPP_NuMI_k_pi_0>
+       <pzrange> 20.00000000 24.00000000 </pzrange>
+       <ptrange> 0.00000000 0.20000000 </ptrange>
+     </MIPP_NuMI_k_pi_0>
+     <MIPP_NuMI_k_pi_1>
+       <pzrange> 20.00000000 24.00000000 </pzrange>
+       <ptrange> 0.20000000 0.40000000 </ptrange>
+     </MIPP_NuMI_k_pi_1>
+     <MIPP_NuMI_k_pi_2>
+       <pzrange> 20.00000000 24.00000000 </pzrange>
+       <ptrange> 0.40000000 0.60000000 </ptrange>
+     </MIPP_NuMI_k_pi_2>
+     <MIPP_NuMI_k_pi_3>
+       <pzrange> 20.00000000 24.00000000 </pzrange>
+       <ptrange> 0.60000000 1.00000000 </ptrange>
+     </MIPP_NuMI_k_pi_3>
+     <MIPP_NuMI_k_pi_4>
+       <pzrange> 24.00000000 31.00000000 </pzrange>
+       <ptrange> 0.00000000 0.20000000 </ptrange>
+     </MIPP_NuMI_k_pi_4>
+     <MIPP_NuMI_k_pi_5>
+       <pzrange> 24.00000000 31.00000000 </pzrange>
+       <ptrange> 0.20000000 0.40000000 </ptrange>
+     </MIPP_NuMI_k_pi_5>
+     <MIPP_NuMI_k_pi_6>
+       <pzrange> 24.00000000 31.00000000 </pzrange>
+       <ptrange> 0.40000000 0.60000000 </ptrange>
+     </MIPP_NuMI_k_pi_6>
+     <MIPP_NuMI_k_pi_7>
+       <pzrange> 24.00000000 31.00000000 </pzrange>
+       <ptrange> 0.60000000 1.00000000 </ptrange>
+     </MIPP_NuMI_k_pi_7>
+     <MIPP_NuMI_k_pi_8>
+       <pzrange> 24.00000000 31.00000000 </pzrange>
+       <ptrange> 1.00000000 2.00000000 </ptrange>
+     </MIPP_NuMI_k_pi_8>
+    <MIPP_NuMI_k_pi_9>
+       <pzrange> 31.00000000 42.00000000 </pzrange>
+       <ptrange> 0.00000000 0.20000000 </ptrange>
+    </MIPP_NuMI_k_pi_9>
+    <MIPP_NuMI_k_pi_10>
+       <pzrange> 31.00000000 42.00000000 </pzrange>
+       <ptrange> 0.20000000 0.40000000 </ptrange>
+    </MIPP_NuMI_k_pi_10>
+    <MIPP_NuMI_k_pi_11>
+       <pzrange> 31.00000000 42.00000000 </pzrange>
+       <ptrange> 0.40000000 0.60000000 </ptrange>
+    </MIPP_NuMI_k_pi_11>
+    <MIPP_NuMI_k_pi_12>
+       <pzrange> 31.00000000 42.00000000 </pzrange>
+       <ptrange> 0.60000000 1.00000000 </ptrange>
+    </MIPP_NuMI_k_pi_12>
+    <MIPP_NuMI_k_pi_13>
+       <pzrange> 31.00000000 42.00000000 </pzrange>
+       <ptrange> 1.00000000 2.00000000 </ptrange>
+    </MIPP_NuMI_k_pi_13>
+    <MIPP_NuMI_k_pi_14>
+       <pzrange> 42.00000000 60.00000000 </pzrange>
+       <ptrange> 0.00000000 0.20000000 </ptrange>
+    </MIPP_NuMI_k_pi_14>
+    <MIPP_NuMI_k_pi_15>
+       <pzrange> 42.00000000 60.00000000 </pzrange>
+       <ptrange> 0.20000000 0.40000000 </ptrange>
+    </MIPP_NuMI_k_pi_15>
+    <MIPP_NuMI_k_pi_16>
+       <pzrange> 42.00000000 60.00000000 </pzrange>
+       <ptrange> 0.40000000 0.60000000 </ptrange>
+    </MIPP_NuMI_k_pi_16>
+    <MIPP_NuMI_k_pi_17>
+       <pzrange> 42.00000000 60.00000000 </pzrange>
+       <ptrange> 0.60000000 1.00000000 </ptrange>
+    </MIPP_NuMI_k_pi_17>
+    <MIPP_NuMI_k_pi_18>
+       <pzrange> 42.00000000 60.00000000 </pzrange>
+       <ptrange> 1.00000000 2.00000000 </ptrange>
+    </MIPP_NuMI_k_pi_18>
+    <MIPP_NuMI_k_pi_19>
+       <pzrange> 60.00000000 90.00000000 </pzrange>
+       <ptrange> 0.00000000 0.20000000 </ptrange>
+    </MIPP_NuMI_k_pi_19>
+    <MIPP_NuMI_k_pi_20>
+       <pzrange> 60.00000000 90.00000000 </pzrange>
+       <ptrange> 0.20000000 0.40000000 </ptrange>
+    </MIPP_NuMI_k_pi_20>
+    <MIPP_NuMI_k_pi_21>
+       <pzrange> 60.00000000 90.00000000 </pzrange>
+       <ptrange> 0.40000000 0.60000000 </ptrange>
+    </MIPP_NuMI_k_pi_21>
+    <MIPP_NuMI_k_pi_22>
+       <pzrange> 60.00000000 90.00000000 </pzrange>
+       <ptrange> 0.60000000 1.00000000 </ptrange>
+    </MIPP_NuMI_k_pi_22>
+    <MIPP_NuMI_k_pi_23>
+       <pzrange> 60.00000000 90.00000000 </pzrange>
+       <ptrange> 1.00000000 2.00000000 </ptrange>
+    </MIPP_NuMI_k_pi_23>
+
+  </MIPP_Numi_k_pi>
+</bins>

@@ -118,6 +118,20 @@ namespace NeutrinoFluxReweight{
     }
     if(doMIPPNumiYields) tot_wgt *= mipp_wgt;
 
+    //Looking for MIPP kaon extension:
+    mipp_kaons_wgt = 1.0;
+    if(!has_mipp){
+      interaction_nodes = MIPP_NUMI_KAONS_Universe->canReweight(icd);
+      for(int ii=0;ii<interaction_nodes.size();ii++){
+	if(interaction_nodes[ii]==true){
+	  has_mipp = true;
+	  mipp_kaons_wgt = MIPP_NUMI_KAONS_Universe->calculateWeight(icd);
+	  break;
+	}
+      }
+    }
+    if(doMIPPNumiKaonsYields) tot_wgt *= mipp_kaons_wgt;
+
     //Looking for target attenuation correction:
     attenuation_nodes = TARG_ATT_Universe->canReweight(icd);
     att_wgt = 1.0;
@@ -169,18 +183,7 @@ namespace NeutrinoFluxReweight{
     }
     if(doAbsorptionOther)tot_wgt *= abs_other_wgt;
 
-    //Looking for MIPP kaon extension:
-    mipp_kaons_wgt = 1.0;
-    if(!has_mipp){
-      interaction_nodes = MIPP_NUMI_KAONS_Universe->canReweight(icd);
-      for(int ii=0;ii<interaction_nodes.size();ii++){
-	if(interaction_nodes[ii]==true){
-	  mipp_kaons_wgt = MIPP_NUMI_KAONS_Universe->calculateWeight(icd);
-	  break;
-	}
-      }
-    }
-    if(doMIPPNumiKaonsYields) tot_wgt *= mipp_kaons_wgt;
+    
     
     //Looking for NA49:
     na49_wgt = 1.0;

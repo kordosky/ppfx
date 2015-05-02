@@ -1,5 +1,4 @@
 
-
 #include "MIPPNumiYieldsBins.h"
 #include <set>
 #include <string>
@@ -8,7 +7,6 @@
 
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/xml_parser.hpp>
-
 
 namespace NeutrinoFluxReweight{ 
   
@@ -76,8 +74,36 @@ namespace NeutrinoFluxReweight{
     }
   }
   
-  int MIPPNumiYieldsBins::BinID(double pz,double pt, int pdgcode){
+  void MIPPNumiYieldsBins::readK_PI_FromXML(const char* filename){
+    using boost::property_tree::ptree;
+    ptree top;
     
+    read_xml(filename,top,2); 
+    
+    ptree& binsK_PI = top.get_child("bins.MIPP_Numi_k_pi");
+     
+    ptree::iterator it = binsK_PI.begin();
+    int idx=0;
+    double aux_pzmin,aux_pzmax,aux_ptmin,aux_ptmax;
+
+    for(; it!=binsK_PI.end(); it++){
+      std::string pz_string=it->second.get<std::string>("pzrange");
+      std::string pt_string=it->second.get<std::string>("ptrange");
+      
+      std::stringstream ss1(pz_string);
+      std::stringstream ss2(pt_string);
+      ss1 >> aux_pzmin >> aux_pzmax;
+      ss2 >> aux_ptmin >> aux_ptmax;
+   
+      k_pi_pzmin.push_back(aux_pzmin);
+      k_pi_pzmax.push_back(aux_pzmax);
+      k_pi_ptmin.push_back(aux_ptmin);
+      k_pi_ptmax.push_back(aux_ptmax);
+    }
+  }
+
+  int MIPPNumiYieldsBins::BinID(double pz,double pt, int pdgcode){
+
     int ibinID = -1;
     
     int size = 0;
@@ -98,6 +124,14 @@ namespace NeutrinoFluxReweight{
 	}
       }
       
+    }
+    if(pdgcode==321 || pdgcode==-321){
+      size = k_pi_pzmin.size();
+      for(int ii=0;ii<size;ii++){
+	if(pz>k_pi_pzmin[ii] && pz<k_pi_pzmax[ii] && pt>k_pi_ptmin[ii] && pt<k_pi_ptmax[ii]){
+	  ibinID = ii;
+	}
+      }
     }
     return ibinID;
     

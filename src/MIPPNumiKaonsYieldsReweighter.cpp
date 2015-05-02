@@ -1,6 +1,9 @@
 
 #include "MIPPNumiKaonsYieldsReweighter.h"
 #include "DataHistos.h"
+#include "CentralValuesAndUncertainties.h"
+
+#include "MIPPNumiYieldsBins.h"
 #include <iostream>
 
 namespace NeutrinoFluxReweight{
@@ -12,40 +15,25 @@ namespace NeutrinoFluxReweight{
     
   }
   std::vector<bool> MIPPNumiKaonsYieldsReweighter::canReweight(const InteractionChainData& aa){
- 
-    DataHistos*  dtH =  DataHistos::getInstance();
     
+    MIPPNumiYieldsBins*  MIPPbins =  MIPPNumiYieldsBins::getInstance();
     std::vector<bool> this_nodes;
     for(int ii=0;ii<(aa.interaction_chain).size();ii++){
       this_nodes.push_back(false);
     }
-   
-    //Look for MIPP Numi eventsfor kaons
+    
+    //Look for MIPP Numi events for kaons
     //if the code find a MIPP Numi event, it will look 
     //for how many interaction nodes covers
     //if not, return all nodes false.
     bool is_there_mipp = false;   
     TargetData tar = aa.tar_info;
     
-    int  i_use = -1;
-    //Basic kinematic coveraged by MIPP (Pz,Pt) in GeV/c extended to kaons:
-    bool is_kin_K  = tar.Pz>=20. && tar.Pz<=80. && tar.Pt>=0. && tar.Pt<=0.5;
-
-    if(tar.Tar_pdg ==  321 && is_kin_K)i_use = 2;
-    else if(tar.Tar_pdg == -321 && is_kin_K)i_use = 3;
-    else if(tar.Tar_pdg ==  130 && is_kin_K)i_use = 4;
-    else{
-      return this_nodes;
-    }
-
-    double binC = dtH->hMIPP_NUMI[i_use]->GetBinContent( dtH->hMIPP_NUMI[i_use]->FindBin(tar.Pz,tar.Pt) );
-    if(binC>0){
-      is_there_mipp = true;
-    }
-    else{
-      return this_nodes;
-    }
-
+    //Cheking if the particle is a kaon plus or kaon minus:
+    if(tar.Tar_pdg != 321 && tar.Tar_pdg != -321)return this_nodes;
+    int binID = MIPPbins->BinID(tar.Pz,tar.Pt,tar.Tar_pdg);
+    if(binID<0) return this_nodes;
+    
     //Now that we know that we have a MIPP Numi event, 
     //we will see how many nodes are covered.
     std::vector<InteractionData> this_interactions = aa.interaction_chain; 
@@ -82,7 +70,7 @@ namespace NeutrinoFluxReweight{
 	}	
       }
     }
-
+    
     //more work needs to be done to be sure that we catch a right hadron that exit the target!!
     
     if(pos_inter<0){

@@ -31,6 +31,7 @@ namespace NeutrinoFluxReweight{
     cvu->readFromXML(Form("%s/uncertainties/Parameters_%s.xml",ppfxDir,mippCorrOption.c_str()));
     myb->readPIP_FromXML(Form("%s/data/BINS/MIPPNumiData_PIP_Bins.xml",ppfxDir));
     myb->readPIM_FromXML(Form("%s/data/BINS/MIPPNumiData_PIM_Bins.xml",ppfxDir));
+    myb->readK_PI_FromXML(Form("%s/data/BINS/MIPPNumiData_K_PI_Bins.xml",ppfxDir));
     //Reweighter drivers:
     vec_rws.reserve(Nuniverses);
     std::cout<<"Initializing reweight drivers for "<<Nuniverses<<" universes"<<std::endl;

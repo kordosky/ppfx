@@ -33,6 +33,9 @@ namespace NeutrinoFluxReweight{
     //if not, return all nodes false.
     bool is_there_mipp = false;   
     TargetData tar = aa.tar_info;
+    
+    //Cheking if the particle is a pion plus and pion minus:
+    if(tar.Tar_pdg != 211 && tar.Tar_pdg != -211)return this_nodes;
     int binID = MIPPbins->BinID(tar.Pz,tar.Pt,tar.Tar_pdg);
     if(binID<0) return this_nodes;    
     
