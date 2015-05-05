@@ -31,6 +31,8 @@ namespace NeutrinoFluxReweight{
     
     //Cheking if the particle is a kaon plus or kaon minus:
     if(tar.Tar_pdg != 321 && tar.Tar_pdg != -321)return this_nodes;
+    //beeing more restrict with the coverage:
+    if(tar.Pz<20.0 || tar.Pz>80.0 || tar.Pt>2.0)return this_nodes;
     int binID = MIPPbins->BinID(tar.Pz,tar.Pt,tar.Tar_pdg);
     if(binID<0) return this_nodes;
     
@@ -90,12 +92,15 @@ namespace NeutrinoFluxReweight{
     MIPPNumiYieldsBins*  MIPPbins =  MIPPNumiYieldsBins::getInstance();
     DataHistos*          dtH      =  DataHistos::getInstance();
     double low_value = 1.e-18;      
-
+    
     TargetData tar = aa.tar_info;
+
     if(tar.Tar_pdg != 321 && tar.Tar_pdg != -321)return 1.0;
+    if(tar.Pz<20.0 || tar.Pz>80.0 || tar.Pt>2.0)return 1.0;
+
     int binID = MIPPbins->BinID(tar.Pz,tar.Pt,tar.Tar_pdg);
     if(binID<0){
-      std::cout<<"BINID ZERO:" <<tar.Pz<<" "<<tar.Pt<<" " <<tar.Tar_pdg<<std::endl;
+      std::cout<<"=>Not K covered:" <<tar.Pz<<" "<<tar.Pt<<" " <<tar.Tar_pdg<<std::endl;
       return 1.0;
     }
     //Now looking for pion bin ID:
@@ -103,7 +108,7 @@ namespace NeutrinoFluxReweight{
     if(tar.Tar_pdg == -321)pi_wanted = -211;
     int pi_binID = MIPPbins->BinID(tar.Pz,tar.Pt,pi_wanted);
     if(pi_binID<0){
-      std::cout<<"There is not MIPP pion matching the kaon kinematics "<<pi_wanted<<" "<<tar.Pz<<" "<<tar.Pt<<std::endl;
+      std::cout<<"=>There is not MIPP pion matching the kaon kinematics"<<pi_wanted<<" "<<tar.Pz<<" "<<tar.Pt<<std::endl;
       return 1.0;
     }
     
@@ -156,7 +161,8 @@ namespace NeutrinoFluxReweight{
     //Now, looking for the MC value:
     int i_use = 2;
     if(tar.Tar_pdg == -321)i_use = 3;
-    double binC = dtH->hMIPP_MC[i_use]->GetBinContent(dtH->hMIPP_MC[i_use]->FindBin(tar.Pz,tar.Pt) );
+    int wanted_bin = dtH->hMIPP_MC[i_use]->FindBin(tar.Pz,tar.Pt);
+    double binC = dtH->hMIPP_MC[i_use]->GetBinContent(wanted_bin);
     if(binC<low_value){
       std::cout<<"LOW MC VAL: "<<binC <<std::endl;
       return 1.0;
@@ -171,7 +177,7 @@ namespace NeutrinoFluxReweight{
       std::cout<<"LOW DATA VAL: "<<K_data_cv<<" "<<K_data_univ_sys<<" "<<K_data_univ_sta<<" "<<tar.Tar_pdg<<" "<<tar.Pz<<" "<<tar.Pt<<std::endl;
       return 1.0;
     }
-    
+     
     return (K_data_univ_sys + K_data_univ_sta - K_data_cv)/binC;
 
   }
