@@ -5,6 +5,7 @@
 #include "CentralValuesAndUncertainties.h"
 
 #include "MIPPNumiYieldsBins.h"
+#include "MIPPNumiMC.h"
 #include "HistoContainer.h"
 #include "ExtractInfo.h"
 
@@ -93,6 +94,8 @@ namespace NeutrinoFluxReweight{
   double MIPPNumiYieldsReweighter::calculateWeight(const InteractionChainData& aa){
     
     MIPPNumiYieldsBins*  MIPPbins =  MIPPNumiYieldsBins::getInstance();
+    MIPPNumiMC*  MCval =  MIPPNumiMC::getInstance();
+    
     DataHistos*          dtH      =  DataHistos::getInstance();
     HistoContainer*      histos   =  HistoContainer::getInstance();
     ExtractInfo*         info     =  ExtractInfo::getInstance();
@@ -140,20 +143,19 @@ namespace NeutrinoFluxReweight{
     it = this_table.begin();
     it = this_table.find(std::string(namepar_sta));
     if(it == this_table.end()){
-      std::cout<<"STA NOT FOUD:" << namepar_sta  <<std::endl;
+      std::cout<<"STA NOT FOUND:" << namepar_sta  <<std::endl;
       return 1.0;
     }    
     double data_sta = it->second;
     histos->plot1D(data_sta,"wgt_" + std::string(namepar_sta),"",1000,plot_min,plot_max,1.0);
     
     //Getting MC:
-    int i_use = 0;
-    if(tar.Tar_pdg == -211)i_use = 1;
-    double binC = dtH->hMIPP_MC[i_use]->GetBinContent(dtH->hMIPP_MC[i_use]->FindBin(tar.Pz,tar.Pt) );
+    double binC = MCval->getMCval(tar.Pz,tar.Pt,tar.Tar_pdg);
     if(binC<1.e-18){
       std::cout<<"LOW MC VAL: "<<binC <<std::endl;
       return 1.0;
     }
+    
     
     ///Filling info:
     char cunivID[3]; 

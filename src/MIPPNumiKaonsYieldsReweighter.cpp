@@ -4,6 +4,7 @@
 #include "CentralValuesAndUncertainties.h"
 
 #include "MIPPNumiYieldsBins.h"
+#include "MIPPNumiMC.h"
 #include <iostream>
 
 namespace NeutrinoFluxReweight{
@@ -90,6 +91,7 @@ namespace NeutrinoFluxReweight{
   double MIPPNumiKaonsYieldsReweighter::calculateWeight(const InteractionChainData& aa){
     
     MIPPNumiYieldsBins*  MIPPbins =  MIPPNumiYieldsBins::getInstance();
+    MIPPNumiMC*  MCval =  MIPPNumiMC::getInstance();
     DataHistos*          dtH      =  DataHistos::getInstance();
     double low_value = 1.e-18;      
     
@@ -159,10 +161,7 @@ namespace NeutrinoFluxReweight{
     
 
     //Now, looking for the MC value:
-    int i_use = 2;
-    if(tar.Tar_pdg == -321)i_use = 3;
-    int wanted_bin = dtH->hMIPP_MC[i_use]->FindBin(tar.Pz,tar.Pt);
-    double binC = dtH->hMIPP_MC[i_use]->GetBinContent(wanted_bin);
+    double binC = MCval->getMCval(tar.Pz,tar.Pt,tar.Tar_pdg);
     if(binC<low_value){
       std::cout<<"LOW MC VAL: "<<binC <<std::endl;
       return 1.0;

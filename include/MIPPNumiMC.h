@@ -36,6 +36,7 @@ namespace NeutrinoFluxReweight{
   private:    
     std::vector<double> pip_cv,pim_cv,kap_cv,kam_cv;
     std::vector<double> v_pzmin,v_pzmax,v_ptmin,v_ptmax;
+    bool ranges_already_filled;
     
     static MIPPNumiMC* instance;
     
