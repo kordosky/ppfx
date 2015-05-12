@@ -10,6 +10,8 @@ namespace NeutrinoFluxReweight{
   
   MIPPNumiMC::MIPPNumiMC(){
     ranges_already_filled = false;
+    //I do need to it outside of ppfx, but for now:
+    proton_no_interacting = 0.13288294;
   }
   
   void MIPPNumiMC::pip_mc_from_xml(const char* filename){
@@ -200,8 +202,12 @@ void MIPPNumiMC::kam_mc_from_xml(const char* filename){
 	}
       }  
     }
-
-  return cvmc;
+    
+    //The  values store in the files correspond to the Number of hadron per POT. 
+    // But we are going to trasform to Number of hadron per interaction. 
+    
+   cvmc /=  (1.0-proton_no_interacting);
+   return cvmc;
     
   }
   
