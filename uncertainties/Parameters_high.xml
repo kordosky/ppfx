@@ -25,17 +25,20 @@
 
     <inel_pC_xsec_scale>
       <cv> 0.95 </cv>
-      <err> 0.04 </err> <!-- a 4% error -->
+      <err> 0.04 </err>
     </inel_pC_xsec_scale>
     <inel_piC_xsec_scale>
       <cv> 1.4 </cv>
-      <err> 0.20 </err> <!-- a 20% error -->
+      <err> 0.20 </err>
     </inel_piC_xsec_scale>
     <inel_A_scaling>
       <cv> 1.0 </cv>
       <err> 0.2 </err>
     </inel_A_scaling>
-    <!-- etc. These don't all have to be scale factors. Parameters with units are OK. Downstream code will interpret the meaning of each parameter. --> 
+    <prt_no_interacting>
+      <cv> 0.135 </cv>
+      <err> 0.00405 </err>
+    </prt_no_interacting>
   </uncorrelated>
 
 <uncorrelated_list>

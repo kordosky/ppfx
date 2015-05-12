@@ -35,6 +35,10 @@
       <cv> 1.0 </cv>
       <err> 0.2 </err>
     </inel_A_scaling>
+    <prt_no_interacting>
+      <cv> 0.135 </cv>
+      <err> 0.00405 </err>
+    </prt_no_interacting>
     <!-- etc. These don't all have to be scale factors. Parameters with units are OK. Downstream code will interpret the meaning of each parameter. --> 
   </uncorrelated>
 
