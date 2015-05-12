@@ -148,8 +148,8 @@ void doRW(const char* input_rew,const char* input_format,const char* par_option,
   MIPPNumiYieldsBins*  myb =  MIPPNumiYieldsBins::getInstance();
                               
   cvu->readFromXML(Form("%s/uncertainties/Parameters_%s.xml",thisDir,par_option));
-  myb->readPIP_FromXML(Form("%s/data/BINS/MIPPNumiData_PIP_Bins.xml",thisDir));
-  myb->readPIM_FromXML(Form("%s/data/BINS/MIPPNumiData_PIM_Bins.xml",thisDir));
+  myb->pip_data_from_xml(Form("%s/data/BINS/MIPPNumiData_PIP_Bins.xml",thisDir));
+  myb->pim_data_from_xml(Form("%s/data/BINS/MIPPNumiData_PIM_Bins.xml",thisDir));
   
   //Classes and variables:
   Numi2Pdg* numi2pdg = new Numi2Pdg(); 

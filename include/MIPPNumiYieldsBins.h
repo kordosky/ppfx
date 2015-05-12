@@ -17,22 +17,24 @@ namespace NeutrinoFluxReweight{
     static MIPPNumiYieldsBins* getInstance();
     
     //! Read a xml pip file name to parse the bins
-    void readPIP_FromXML(const char* filename);
+    void pip_data_from_xml(const char* filename);
 
     //! Read a xml pim file name to parse the bins
-    void readPIM_FromXML(const char* filename);
+    void pim_data_from_xml(const char* filename);
 
-    //! Read a xml Kaons over pions file name to parse the bins
-    void readK_PI_FromXML(const char* filename);
+    //! Read a xml kaons over pions file name to parse the bins
+    void k_pi_data_from_xml(const char* filename);
 
-    //! Return the Bin ID for this data
+     //! Return the Bin ID for this data
     int BinID(double pz,double pt, int pdgcode);
     
-    std::vector<double> pip_pzmin, pim_pzmin, k_pi_pzmin;
-    std::vector<double> pip_pzmax, pim_pzmax, k_pi_pzmax;
-    std::vector<double> pip_ptmin, pim_ptmin, k_pi_ptmin;
-    std::vector<double> pip_ptmax, pim_ptmax, k_pi_ptmax;
-
+    std::vector<double> pip_data_pzmin, pim_data_pzmin, k_pi_data_pzmin;
+    std::vector<double> pip_data_pzmax, pim_data_pzmax, k_pi_data_pzmax;
+    std::vector<double> pip_data_ptmin, pim_data_ptmin, k_pi_data_ptmin;
+    std::vector<double> pip_data_ptmax, pim_data_ptmax, k_pi_data_ptmax;
+    
+    
+    
     private:
     static MIPPNumiYieldsBins* instance;
 

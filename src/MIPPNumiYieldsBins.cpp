@@ -15,7 +15,7 @@ namespace NeutrinoFluxReweight{
   MIPPNumiYieldsBins::MIPPNumiYieldsBins(){
   }
   
-  void MIPPNumiYieldsBins::readPIP_FromXML(const char* filename){
+  void MIPPNumiYieldsBins::pip_data_from_xml(const char* filename){
     using boost::property_tree::ptree;
     ptree top;
     
@@ -38,14 +38,14 @@ namespace NeutrinoFluxReweight{
       ss1 >> aux_pzmin >> aux_pzmax;
       ss2 >> aux_ptmin >> aux_ptmax;
    
-      pip_pzmin.push_back(aux_pzmin);
-      pip_pzmax.push_back(aux_pzmax);
-      pip_ptmin.push_back(aux_ptmin);
-      pip_ptmax.push_back(aux_ptmax);
+      pip_data_pzmin.push_back(aux_pzmin);
+      pip_data_pzmax.push_back(aux_pzmax);
+      pip_data_ptmin.push_back(aux_ptmin);
+      pip_data_ptmax.push_back(aux_ptmax);
     }
   }
 
-  void MIPPNumiYieldsBins::readPIM_FromXML(const char* filename){
+  void MIPPNumiYieldsBins::pim_data_from_xml(const char* filename){
     using boost::property_tree::ptree;
     ptree top;
     
@@ -67,14 +67,14 @@ namespace NeutrinoFluxReweight{
       ss1 >> aux_pzmin >> aux_pzmax;
       ss2 >> aux_ptmin >> aux_ptmax;
    
-      pim_pzmin.push_back(aux_pzmin);
-      pim_pzmax.push_back(aux_pzmax);
-      pim_ptmin.push_back(aux_ptmin);
-      pim_ptmax.push_back(aux_ptmax);
+      pim_data_pzmin.push_back(aux_pzmin);
+      pim_data_pzmax.push_back(aux_pzmax);
+      pim_data_ptmin.push_back(aux_ptmin);
+      pim_data_ptmax.push_back(aux_ptmax);
     }
   }
   
-  void MIPPNumiYieldsBins::readK_PI_FromXML(const char* filename){
+  void MIPPNumiYieldsBins::k_pi_data_from_xml(const char* filename){
     using boost::property_tree::ptree;
     ptree top;
     
@@ -95,10 +95,10 @@ namespace NeutrinoFluxReweight{
       ss1 >> aux_pzmin >> aux_pzmax;
       ss2 >> aux_ptmin >> aux_ptmax;
    
-      k_pi_pzmin.push_back(aux_pzmin);
-      k_pi_pzmax.push_back(aux_pzmax);
-      k_pi_ptmin.push_back(aux_ptmin);
-      k_pi_ptmax.push_back(aux_ptmax);
+      k_pi_data_pzmin.push_back(aux_pzmin);
+      k_pi_data_pzmax.push_back(aux_pzmax);
+      k_pi_data_ptmin.push_back(aux_ptmin);
+      k_pi_data_ptmax.push_back(aux_ptmax);
     }
   }
 
@@ -108,27 +108,27 @@ namespace NeutrinoFluxReweight{
     
     int size = 0;
     if(pdgcode==211){
-      size = pip_pzmin.size();
+      size = pip_data_pzmin.size();
       for(int ii=0;ii<size;ii++){
-	if(pz>pip_pzmin[ii] && pz<pip_pzmax[ii] && pt>pip_ptmin[ii] && pt<pip_ptmax[ii]){
+	if(pz>pip_data_pzmin[ii] && pz<pip_data_pzmax[ii] && pt>pip_data_ptmin[ii] && pt<pip_data_ptmax[ii]){
 	  ibinID = ii;
 	}
       }
       
     }
     if(pdgcode==-211){
-      size = pim_pzmin.size();
+      size = pim_data_pzmin.size();
       for(int ii=0;ii<size;ii++){
-	if(pz>pim_pzmin[ii] && pz<pim_pzmax[ii] && pt>pim_ptmin[ii] && pt<pim_ptmax[ii]){
+	if(pz>pim_data_pzmin[ii] && pz<pim_data_pzmax[ii] && pt>pim_data_ptmin[ii] && pt<pim_data_ptmax[ii]){
 	  ibinID = ii;
 	}
       }
       
     }
     if(pdgcode==321 || pdgcode==-321){
-      size = k_pi_pzmin.size();
+      size = k_pi_data_pzmin.size();
       for(int ii=0;ii<size;ii++){
-	if(pz>k_pi_pzmin[ii] && pz<k_pi_pzmax[ii] && pt>k_pi_ptmin[ii] && pt<k_pi_ptmax[ii]){
+	if(pz>k_pi_data_pzmin[ii] && pz<k_pi_data_pzmax[ii] && pt>k_pi_data_ptmin[ii] && pt<k_pi_data_ptmax[ii]){
 	  ibinID = ii;
 	}
       }
