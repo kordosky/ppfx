@@ -2,6 +2,7 @@
 
 <uncorrelated>
 
+<!-- Diff. Data - MC Inelastic Cross section in Al.--> 
     <inel_piAl_xsec>
       <cv> 0.0 </cv>
       <err> 23.8 </err> <!-- mb -->
@@ -22,6 +23,20 @@
       <cv> 0.0 </cv>
       <err> 30.5 </err> <!-- mb-->
     </inel_kamAl_xsec_highP>
+
+<!-- Data cross section in C.--> 
+  <prod_prtC_xsec>
+    <cv> 226.5 </cv>
+    <err> 5.6575 </err> <!-- mb -->
+  </prod_prtC_xsec>
+  <qe_prtC_xsec>
+    <cv> 28.9 </cv>
+    <err> 4.2 </err> <!-- mb -->
+  </qe_prtC_xsec>
+  <inel_piC_xsec>
+    <cv> 1.0 </cv>
+    <err> 0.0352089 </err> <!-- fractional error -->
+  </inel_piC_xsec>
 
     <inel_pC_xsec_scale>
       <cv> 0.95 </cv>
