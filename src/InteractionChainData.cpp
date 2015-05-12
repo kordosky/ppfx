@@ -19,9 +19,9 @@ namespace NeutrinoFluxReweight{
     tarV[0] = nu->tvx;
     tarV[1] = nu->tvy;
     tarV[2] = nu->tvz;
-
+    
     static Numi2Pdg numi2pdg;
-    tar_info = TargetData(tarP,numi2pdg.GetPdg(nu->tptype),tarV);
+    tar_info = TargetData(tarP,numi2pdg.GetPdg(nu->tptype),tarV,-1);
     
     // loop over trajectories, create InteractionData objects,
     // and add them to the interaction_chain vector    
@@ -66,6 +66,7 @@ namespace NeutrinoFluxReweight{
 
     target_config=tgtcfg;
     horn_config=horncfg;
+    playlist = -1;
   }
   
   InteractionChainData::InteractionChainData(bsim::Dk2Nu* nu, 
@@ -82,11 +83,8 @@ namespace NeutrinoFluxReweight{
     tarV[0]=nu->tgtexit.tvx;
     tarV[1]=nu->tgtexit.tvy;
     tarV[2]=nu->tgtexit.tvz;
-
-    // static Numi2Pdg numi2pdg; 
-    // note: in dk2nu, all pids are store in pdg code. 
-    tar_info = TargetData(tarP,nu->tgtexit.tptype,tarV);
-
+    int Nskip = 0;
+    //we will fill tardata after looking into the ancestry for the right index.
     
     // loop over trajectories, create InteractionData objects,
     // and add them to the interaction_chain vector
@@ -94,6 +92,8 @@ namespace NeutrinoFluxReweight{
 
     Int_t ntraj = nu->ancestor.size();
     for(int itraj=0;itraj<(ntraj-1);itraj++){
+      
+      int pdg_inc=nu->ancestor[itraj].pdg;
       double incP[3];
       incP[0] = nu->ancestor[itraj+1].pprodpx;
       incP[1] = nu->ancestor[itraj+1].pprodpy;
@@ -105,9 +105,9 @@ namespace NeutrinoFluxReweight{
       
       // skip over etas and other swiftly decaying particles
       // we are interested in their daughters
-      while( (pdg_prod==221) || (pdg_prod==331) || 
-	   (pdg_prod==3212) || (pdg_prod==113) || (pdg_prod==223) ){
+      while( is_fast_decay(pdg_prod)){
 	itraj_prod++;
+	Nskip++;
 	pdg_prod = nu->ancestor[itraj_prod].pdg;
       }           
       double prodP[3];
@@ -120,13 +120,19 @@ namespace NeutrinoFluxReweight{
       vtx[1]=nu->ancestor[itraj_prod].starty;
       vtx[2]=nu->ancestor[itraj_prod].startz;
       std::string this_vol=nu->ancestor[itraj].ivol;
-      int pdg_inc=nu->ancestor[itraj].pdg;
+      
       InteractionData inter(incP,pdg_inc,prodP,pdg_prod,
 			    this_vol,this_proc,vtx);   
       interaction_chain.push_back(inter);
       
     }// end loop over trajectories
-   
+    if(meta->vintnames.size()==0){
+      tar_info = TargetData(tarP,nu->tgtexit.tptype,tarV,-1);
+    }
+    else{      
+      tar_info = TargetData(tarP,nu->tgtexit.tptype,tarV,nu->vint[0]-Nskip);
+    }
+    
     //Filling here the ParticlesThroughVolumesData info:
     ptv_info.clear();
     //Looking IC, DPIP and DVOL:
@@ -166,6 +172,15 @@ namespace NeutrinoFluxReweight{
     
     target_config=meta->tgtcfg;
     horn_config=meta->horncfg;
+
+    //special tgt configuration for Minerva (exact longitudinal position after survey)
+    //check for other experiments
+    if(meta->vintnames.size()>1){
+      playlist = nu->vint[1];
+    }
+    else{
+      playlist = -1;
+    }
     
   }
 
@@ -187,6 +202,13 @@ namespace NeutrinoFluxReweight{
     }
     os<<endl;
     return os;
+  }
+
+  bool InteractionChainData::is_fast_decay(int pdg){
+    
+    bool fast_decay = false;
+    if( (pdg==221)||(pdg==331)||(pdg==3212)||(pdg==113)||(pdg==223) )fast_decay = true;
+    return fast_decay;
   }
 
 }

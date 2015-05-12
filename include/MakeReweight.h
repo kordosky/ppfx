@@ -9,6 +9,7 @@
 #include "ParameterTable.h"
 #include "CentralValuesAndUncertainties.h"
 #include "MIPPNumiYieldsBins.h"
+#include "MIPPNumiMC.h"
 #include "HistoContainer.h"
 #include "ExtractInfo.h"
 

@@ -34,7 +34,6 @@ namespace NeutrinoFluxReweight{
     //if not, return all nodes false.
     bool is_there_mipp = false;   
     TargetData tar = aa.tar_info;
-    
     //Cheking if the particle is a pion plus and pion minus:
     if(tar.Tar_pdg != 211 && tar.Tar_pdg != -211)return this_nodes;
     int binID = MIPPbins->BinID(tar.Pz,tar.Pt,tar.Tar_pdg);
@@ -44,49 +43,15 @@ namespace NeutrinoFluxReweight{
     //we will see how many nodes are covered.
     std::vector<InteractionData> this_interactions = aa.interaction_chain; 
     
-    //The first hypotesis is the following:
-    //the MIPP particle was born in the last interaction
-    //happens in Carbon.
-    //I need to think how to do it better with dk2nu
-    //perhaps store the ancestry position of the MIPP particle.
-    //and use this here?? 
-
-
-    ///////////////
-    int pos_inter = -1;
-    for(int ii=(this_interactions.size()-1);ii>=0;ii--){
-      bool is_tgt_candidate = this_interactions[ii].Vol == "TGT1" || this_interactions[ii].Vol == "BudalMonitor" || 
-	this_interactions[ii].Vol == "pvTargetMother";
-      if(is_tgt_candidate){
-	pos_inter = ii;
-	break;
-      }
-    }
-    /////
-
-    //In a quick counting , I missed 0.4% events.
-    //Let's assume that the first particle produced 
-    //that match the pdg of "tar" is the wanted particle.
-  
-    if(pos_inter<0){
-      for(int ii=0;ii<this_interactions.size();ii++){
-	if(tar.Tar_pdg == this_interactions[ii].Prod_pdg){
-	  pos_inter = ii;
-	  break;
-	}	
-      }
-    }
-
-    //more work needs to be done to be sure that we catch a right hadron that exit the target!!
-    
-    if(pos_inter<0){
-      std::cout<<"==>>SOMETHING WEIRD WITH MIPP NUMI "<<pos_inter<<" "<<tar.Tar_pdg<<std::endl;
-    }
-    
-    if(pos_inter>=0){
-      for(int ii=0;ii<=pos_inter;ii++){
+    //Now we have the index of the hadron that exit the target in the 
+    //ancesty chain:
+    if(tar.Idx_ancestry>=0){
+      for(int ii=0;ii<=tar.Idx_ancestry;ii++){
 	this_nodes[ii] = true;
       }
+    }
+    else{
+      std::cout<<"==>>SOMETHING WEIRD WITH MIPP NUMI "<<tar.Idx_ancestry<<" "<<tar.Tar_pdg<<std::endl;
     }
     
     return this_nodes;

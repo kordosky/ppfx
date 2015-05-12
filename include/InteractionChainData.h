@@ -49,8 +49,14 @@ namespace NeutrinoFluxReweight{
     //! The horn configuration. Example: 185i
     std::string horn_config;
 
+    //! The tgt playlist (exact position of the target after survey)
+    int playlist;
+
     std::ostream& print(std::ostream& os=std::cout) const;
     
+  private:
+    bool is_fast_decay(int pdg);
+
   };
   
   

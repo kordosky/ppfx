@@ -16,7 +16,7 @@ namespace NeutrinoFluxReweight{
     TargetData();
 
     //! Constructor given kinematic of the hadron.
-    TargetData(double tarMom[],int tarPdg, double position[]);
+    TargetData(double tarMom[],int tarPdg, double position[],int anc_idx);
 
     virtual ~TargetData();
     
@@ -46,6 +46,9 @@ namespace NeutrinoFluxReweight{
 
     //! The z position of the hadron leaving the target
     double Vz;
+
+    //! The index of the hadron leaving the target in the ancestry chain
+    int Idx_ancestry;
 
     std::ostream& print(std::ostream& os) const;
 

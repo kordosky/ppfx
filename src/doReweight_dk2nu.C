@@ -86,8 +86,10 @@ void doReweight_dk2nu(const char* inputFile){
   
   std::cout<<"Ntrees: "<<ntrees<<", entries: "<<nentries<<std::endl;
 
-  for(int ii=0;ii<nentries;ii++){  
-    if(ii%1000==0)std::cout<<ii/1000<<" k evts"<<std::endl;
+  // for(int ii=0;ii<nentries;ii++){  
+  for(int ii=0;ii<10000;ii++){  
+    //   if(ii%1000==0)std::cout<<ii/1000<<" k evts"<<std::endl;
+    if(ii%10==0)std::cout<<ii<<" evts"<<std::endl;
     chain_evts->GetEntry(ii);     
     makerew->calculateWeights(dk2nu,dkmeta);
     
@@ -99,7 +101,16 @@ void doReweight_dk2nu(const char* inputFile){
     
     bool is_corr = false;   
     std::vector<double> wgts = makerew->GetTotalWeights();
-
+    std::vector<double> wgts_mipp_pi   = makerew->GetWeights("MIPPNumiYields");
+    std::vector<double> wgts_mipp_K    = makerew->GetWeights("MIPPNumiKaonsYields");
+    std::vector<double> wgts_abs_ic    = makerew->GetWeights("AbsorptionIC");
+    std::vector<double> wgts_abs_dpip  = makerew->GetWeights("AbsorptionDPIP");
+    std::vector<double> wgts_abs_dvol  = makerew->GetWeights("AbsorptionDVOL");
+    std::vector<double> wgts_abs_nucl  = makerew->GetWeights("NucleonAbsorptionOutOfTarget");
+    std::vector<double> wgts_abs_oth   = makerew->GetWeights("OtherAbsorptionOutOfTarget");
+    std::vector<double> wgts_abs_the   = makerew->GetWeights("TheoryThinTarget");
+    
+    
     for(int jj=0;jj<wgts.size();jj++){
       if(fabs(wgts[jj]-1.0)>1.e-15 && jj==0){is_corr=true;}
       

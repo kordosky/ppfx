@@ -25,14 +25,23 @@ namespace NeutrinoFluxReweight{
     //Getting MIPP binning and the correlation parameters:
     CentralValuesAndUncertainties* cvu = CentralValuesAndUncertainties::getInstance();;
     MIPPNumiYieldsBins*  myb =  MIPPNumiYieldsBins::getInstance(); 
+    MIPPNumiMC*  mymc =  MIPPNumiMC::getInstance(); 
     const char* ppfxDir = getenv("PPFX_DIR");
     
     std::cout<<"Initializing correlation parameters"<<std::endl;
     cvu->readFromXML(Form("%s/uncertainties/Parameters_%s.xml",ppfxDir,mippCorrOption.c_str()));
-    std::cout<<"Initializing bin data convenctions"<<std::endl;
+
+    std::cout<<"Initializing bin data conventions"<<std::endl;
     myb->pip_data_from_xml(Form("%s/data/BINS/MIPPNumiData_PIP_Bins.xml",ppfxDir));
     myb->pim_data_from_xml(Form("%s/data/BINS/MIPPNumiData_PIM_Bins.xml",ppfxDir));
     myb->k_pi_data_from_xml(Form("%s/data/BINS/MIPPNumiData_K_PI_Bins.xml",ppfxDir));
+
+    std::cout<<"Initializing MC values"<<std::endl;
+    mymc->pip_mc_from_xml(Form("%s/data/MIPP/MIPPNuMI_MC_PIP.xml",ppfxDir));
+    mymc->pim_mc_from_xml(Form("%s/data/MIPP/MIPPNuMI_MC_PIM.xml",ppfxDir));
+    mymc->kap_mc_from_xml(Form("%s/data/MIPP/MIPPNuMI_MC_KAP.xml",ppfxDir));
+    mymc->kam_mc_from_xml(Form("%s/data/MIPP/MIPPNuMI_MC_KAM.xml",ppfxDir));
+
     //Reweighter drivers:
     vec_rws.reserve(Nuniverses);
     std::cout<<"Initializing reweight drivers for "<<Nuniverses<<" universes"<<std::endl;

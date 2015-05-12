@@ -18,9 +18,11 @@ namespace NeutrinoFluxReweight{
     Vy      = -1000.;
     Vz      = -1000.;
     
+    Idx_ancestry = -1;
+
   }
   
-  TargetData::TargetData(double tarMom[],int tarPdg, double position[]){
+  TargetData::TargetData(double tarMom[],int tarPdg, double position[],int anc_idx){
 
     TargetData::Tar_pdg = tarPdg;
     
@@ -34,6 +36,7 @@ namespace NeutrinoFluxReweight{
     TargetData::Vy  = position[1];
     TargetData::Vz  = position[2];
   
+    Idx_ancestry = anc_idx; 
   }
 
   //----------------------------------------------------------------------

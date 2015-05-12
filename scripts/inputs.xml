@@ -4,14 +4,14 @@
     <MIPPNumiYields>Yes</MIPPNumiYields>
     <TargetAttenuation>No</TargetAttenuation>
     <NA49>No</NA49>
-    <MIPPNumiKaonsYields>No</MIPPNumiKaonsYields>
+    <MIPPNumiKaonsYields>Yes</MIPPNumiKaonsYields>
     <MIPPThinTarget>No</MIPPThinTarget>
     <AbsorptionIC>Yes</AbsorptionIC>
     <AbsorptionDPIP>Yes</AbsorptionDPIP>
     <AbsorptionDVOL>Yes</AbsorptionDVOL>
     <NucleonAbsorptionOutOfTarget>Yes</NucleonAbsorptionOutOfTarget>
     <OtherAbsorptionOutOfTarget>Yes</OtherAbsorptionOutOfTarget>
-    <TheoryThinTarget>No</TheoryThinTarget>
+    <TheoryThinTarget>Yes</TheoryThinTarget>
   </FlagReweighters>
 
    <Settings>
