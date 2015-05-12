@@ -15,6 +15,7 @@ namespace NeutrinoFluxReweight{
   
   MIPPNumiYieldsReweighter::MIPPNumiYieldsReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars):iUniv(iuniv),cvPars(cv_pars),univPars(univ_pars){ 
     // do any other necessary initialization    
+    
 }
   MIPPNumiYieldsReweighter::~MIPPNumiYieldsReweighter(){
     
@@ -51,7 +52,7 @@ namespace NeutrinoFluxReweight{
       }
     }
     else{
-      std::cout<<"==>>SOMETHING WEIRD WITH MIPP NUMI "<<tar.Idx_ancestry<<" "<<tar.Tar_pdg<<std::endl;
+      //  std::cout<<"==>>SOMETHING WEIRD WITH MIPP NUMI "<<tar.Idx_ancestry<<" "<<tar.Tar_pdg<<std::endl;
     }
     
     return this_nodes;
@@ -80,7 +81,7 @@ namespace NeutrinoFluxReweight{
     sprintf(namepar_sys,"MIPP_NuMI_%s_sys_%d",ptype,binID);
     sprintf(namepar_sta,"MIPP_NuMI_%s_stats_%d",ptype,binID);
     
-    ////////// Testing getting thr cv and substract:
+    ////////// Testing getting the cv and substract:
 
     std::map<std::string, double> cv_table = cvPars.table;
     std::map<std::string, double>::iterator cv_it = cv_table.begin();
@@ -98,7 +99,7 @@ namespace NeutrinoFluxReweight{
 
     it = this_table.find(std::string(namepar_sys));
     if(it == this_table.end()){
-      std::cout<<"SYS NOT FOUND:" << namepar_sys  <<std::endl;
+      std::cout<<"SYS NOT FOUND: " << namepar_sys  <<std::endl;
       return 1.0;    
     }
     double data_sys = it->second;
@@ -108,11 +109,22 @@ namespace NeutrinoFluxReweight{
     it = this_table.begin();
     it = this_table.find(std::string(namepar_sta));
     if(it == this_table.end()){
-      std::cout<<"STA NOT FOUND:" << namepar_sta  <<std::endl;
+      std::cout<<"STA NOT FOUND: " << namepar_sta  <<std::endl;
       return 1.0;
     }    
     double data_sta = it->second;
     histos->plot1D(data_sta,"wgt_" + std::string(namepar_sta),"",1000,plot_min,plot_max,1.0);
+    
+    it = this_table.begin();
+    it = this_table.find("prt_no_interacting");
+    if(it == this_table.end()){
+      std::cout<<"PROTON NOT INTERACTING IN THE TARGET NOT FOUND: " << "prt_no_interacting"  <<std::endl;
+      return 1.0;    
+    }
+    double prt_no_inter = it->second;
+    data_sys /= (1.0-prt_no_inter);
+    data_sta /= (1.0-prt_no_inter);
+    data_cv  /= (1.0-prt_no_inter);
     
     //Getting MC:
     double binC = MCval->getMCval(tar.Pz,tar.Pt,tar.Tar_pdg);
@@ -120,8 +132,7 @@ namespace NeutrinoFluxReweight{
       std::cout<<"LOW MC VAL: "<<binC <<std::endl;
       return 1.0;
     }
-    
-    
+      
     ///Filling info:
     char cunivID[3]; 
     sprintf(cunivID,"%03d",iUniv);

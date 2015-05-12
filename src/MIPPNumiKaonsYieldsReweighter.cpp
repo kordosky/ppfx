@@ -10,7 +10,7 @@
 namespace NeutrinoFluxReweight{
   
   MIPPNumiKaonsYieldsReweighter::MIPPNumiKaonsYieldsReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars): iUniv(iuniv), cvPars(cv_pars), univPars(univ_pars){
-    
+  
   }
   MIPPNumiKaonsYieldsReweighter::~MIPPNumiKaonsYieldsReweighter(){
     
@@ -49,7 +49,7 @@ namespace NeutrinoFluxReweight{
       }
     }
     else{
-      std::cout<<"==>>SOMETHING WEIRD WITH MIPP NUMI "<<tar.Idx_ancestry<<" "<<tar.Tar_pdg<<std::endl;
+      //      std::cout<<"==>>SOMETHING WEIRD WITH MIPP NUMI "<<tar.Idx_ancestry<<" "<<tar.Tar_pdg<<std::endl;
     }
     
     return this_nodes;
@@ -137,7 +137,18 @@ namespace NeutrinoFluxReweight{
     double K_data_cv = data_cv_pi*data_cv_kp;
     double K_data_univ_sys = data_univ_pi_sys*data_univ_kp_sys;
     double K_data_univ_sta = data_univ_pi_sta*data_univ_kp_sta;
-
+    //Going from POT -> interactions:
+    it = this_table.begin();
+    it = this_table.find("prt_no_interacting");
+    if(it == this_table.end()){
+      std::cout<<"PROTON NOT INTERACTING IN THE TARGET NOT FOUND: " << "prt_no_interacting"  <<std::endl;
+      return 1.0;    
+    }
+    double prt_no_inter = it->second;
+    K_data_cv       /= (1.0-prt_no_inter);
+    K_data_univ_sys /= (1.0-prt_no_inter);
+    K_data_univ_sta /= (1.0-prt_no_inter);
+    
     if(K_data_cv<low_value || K_data_univ_sys<low_value || K_data_univ_sta<low_value){
       std::cout<<"LOW DATA VAL: "<<K_data_cv<<" "<<K_data_univ_sys<<" "<<K_data_univ_sta<<" "<<tar.Tar_pdg<<" "<<tar.Pz<<" "<<tar.Pt<<std::endl;
       return 1.0;
