@@ -97,27 +97,28 @@ namespace NeutrinoFluxReweight{
     double tot_wgt = 1.0;
     
     //Boolean flags: 
-    std::vector<bool> interaction_nodes;
-    std::vector<bool> attenuation_nodes;
-    std::vector<bool> absorption_nodes;
+    const int nnodes=icd.interaction_chain.size();
+    std::vector<bool> interaction_nodes(nnodes,false);
+    std::vector<bool> attenuation_nodes(nnodes,false);
+    std::vector<bool> absorption_nodes(nnodes,false);
 
     //First we look at MIPP and look absorption chain:
-    interaction_nodes = MIPP_NUMI_Universe->canReweight(icd);
+    if(doMIPPNuMIYields){
+      interaction_nodes = MIPP_NUMI_Universe->canReweight(icd);
     
-    //Looking for MIPP:
-    mipp_wgt = 1.0;
-    bool has_mipp = false;
-    for(int ii=0;ii<interaction_nodes.size();ii++){
-      if(interaction_nodes[ii]==true){
-	has_mipp = true;
-	mipp_wgt = MIPP_NUMI_Universe->calculateWeight(icd);
-	//	std::cout<<"ReweightDriver "<<mipp_wgt<<std::endl;
-	break; // break after the first interaction node
-	// we don't want to compute the same mipp_wgt over and over
+      //Looking for MIPP:
+      mipp_wgt = 1.0;
+      bool has_mipp = false;
+      for(int ii=0;ii<interaction_nodes.size();ii++){
+	if(interaction_nodes[ii]==true){
+	  has_mipp = true;
+	  mipp_wgt = MIPP_NUMI_Universe->calculateWeight(icd);
+	  //	std::cout<<"ReweightDriver "<<mipp_wgt<<std::endl;
+	  break; // break after the first interaction node
+	  // we don't want to compute the same mipp_wgt over and over
+	}
       }
     }
-    if(doMIPPNumiYields) tot_wgt *= mipp_wgt;
-
     //Looking for MIPP kaon extension:
     mipp_kaons_wgt = 1.0;
     if(!has_mipp){
