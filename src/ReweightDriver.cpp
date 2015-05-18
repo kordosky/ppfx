@@ -103,12 +103,13 @@ namespace NeutrinoFluxReweight{
     std::vector<bool> absorption_nodes(nnodes,false);
 
     //First we look at MIPP and look absorption chain:
-    if(doMIPPNuMIYields){
+    bool has_mipp = false;
+    if(doMIPPNumiYields){
       interaction_nodes = MIPP_NUMI_Universe->canReweight(icd);
     
       //Looking for MIPP:
       mipp_wgt = 1.0;
-      bool has_mipp = false;
+
       for(int ii=0;ii<interaction_nodes.size();ii++){
 	if(interaction_nodes[ii]==true){
 	  has_mipp = true;
