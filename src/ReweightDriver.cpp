@@ -102,133 +102,164 @@ namespace NeutrinoFluxReweight{
     std::vector<bool> attenuation_nodes(nnodes,false);
     std::vector<bool> absorption_nodes(nnodes,false);
 
-    //First we look at MIPP and look absorption chain:
-    bool has_mipp = false;
-    if(doMIPPNumiYields){
-      interaction_nodes = MIPP_NUMI_Universe->canReweight(icd);
-    
-      //Looking for MIPP:
-      mipp_wgt = 1.0;
+    /// ----- PROCESS INTERACTION NODES ----- ///
 
-      for(int ii=0;ii<interaction_nodes.size();ii++){
-	if(interaction_nodes[ii]==true){
-	  has_mipp = true;
-	  mipp_wgt = MIPP_NUMI_Universe->calculateWeight(icd);
-	  //	std::cout<<"ReweightDriver "<<mipp_wgt<<std::endl;
-	  break; // break after the first interaction node
-	  // we don't want to compute the same mipp_wgt over and over
+    // First we look at MIPP and look absorption chain:
+
+    mipp_wgt = 1.0;
+
+    if(doMIPPNumiYields)
+    {
+	interaction_nodes = MIPP_NUMI_Universe->canReweight(icd);
+	//Looking for MIPP (no MIPP for first interaction = no MIPP at all)
+	if (interaction_nodes[0])
+	{
+	    mipp_wgt = MIPP_NUMI_Universe->calculateWeight(icd);
+	    tot_wgt *= mipp_wgt;
 	}
-      }
     }
-    //Looking for MIPP kaon extension:
+
+    // Looking for MIPP kaon extension:
+
     mipp_kaons_wgt = 1.0;
-    if(!has_mipp){
-      interaction_nodes = MIPP_NUMI_KAONS_Universe->canReweight(icd);
-      for(int ii=0;ii<interaction_nodes.size();ii++){
-	if(interaction_nodes[ii]==true){
-	  has_mipp = true;
-	  mipp_kaons_wgt = MIPP_NUMI_KAONS_Universe->calculateWeight(icd);
-	  break;
+
+    if (doMIPPNumiKaonsYields and not interaction_nodes[0])
+    {
+	interaction_nodes = MIPP_NUMI_KAONS_Universe->canReweight(icd);
+	//Looking for MIPP (no MIPP for first interaction = no MIPP at all)
+	if (interaction_nodes[0])
+	{
+	    mipp_kaons_wgt = MIPP_NUMI_KAONS_Universe->calculateWeight(icd);
+	    tot_wgt *= mipp_kaons_wgt;
 	}
-      }
     }
-    if(doMIPPNumiKaonsYields) tot_wgt *= mipp_kaons_wgt;
+
+    // Loop over interaction and apply reweighter for those not covered by MIPP
+
+    na49_wgt = 1.0;
+    mipp_thin_wgt = 1.0;
+    theory_wgt = 1.0;
+
+    for(int ii = 0; ii < interaction_nodes.size(); ii++)
+    {
+	if (not interaction_nodes[ii])
+	{
+	    if (doNA49 and NA49_Universe->canReweight ((icd.interaction_chain)[ii]))
+	    {
+		na49_wgt *= NA49_Universe->calculateWeight ((icd.interaction_chain)[ii]);
+		interaction_nodes[ii] = true;
+	    }
+	    else if (doMIPPThinTarget and MIPP_THIN_Universe->canReweight((icd.interaction_chain)[ii]))
+	    {
+		mipp_thin_wgt *= MIPP_THIN_Universe->calculateWeight ((icd.interaction_chain)[ii]);
+		interaction_nodes[ii] = true;
+	    }
+	    else if (doTheoryThinTarget and THEORY_Universe->canReweight ((icd.interaction_chain)[ii]))
+	    {
+		theory_wgt *= THEORY_Universe->calculateWeight ((icd.interaction_chain)[ii]);
+		interaction_nodes[ii] = true;
+	    }
+	}
+    }
+
+    tot_wgt *= na49_wgt * mipp_thin_wgt * theory_wgt;
+
+    /// ----- PROCESS ATTENUATION NODES ----- ///
 
     //Looking for target attenuation correction:
-    attenuation_nodes = TARG_ATT_Universe->canReweight(icd);
+
     att_wgt = 1.0;
-    for(int ii=0;ii<attenuation_nodes.size();ii++){
-      if(attenuation_nodes[ii]==true){
-	att_wgt *= TARG_ATT_Universe->calculateWeight(icd);
-	break;
-      }
+
+    if (doTargetAttenuation)
+    {
+	attenuation_nodes = TARG_ATT_Universe->canReweight (icd);
+
+	// if there is at least one attenuation mode true
+	if (std::find (attenuation_nodes.begin(), attenuation_nodes.end(), true) != attenuation_nodes.end())
+	{
+	    att_wgt = TARG_ATT_Universe->calculateWeight (icd);
+	    tot_wgt *= att_wgt;
+	}
     }
-    if(doTargetAttenuation) tot_wgt *= att_wgt;
+
+    /// ----- PROCESS ABSORPTION NODES ----- ///
     
     //Looking for the correction of the pi/K absorption in volumes (Al)
-    absorption_nodes = VOL_ABS_IC_Universe->canReweight(icd);
-    abs_ic_wgt = 1.0;
-    if(attenuation_nodes[0]==true){
-      abs_ic_wgt *= VOL_ABS_IC_Universe->calculateWeight(icd);
-    }
-    if(doAbsorptionIC)tot_wgt *= abs_ic_wgt;
 
-     //Looking for the correction of the pi/K absorption in volumes (Fe)
-    absorption_nodes = VOL_ABS_DPIP_Universe->canReweight(icd);
-    abs_dpip_wgt = 1.0;
-    if(attenuation_nodes[0]==true){
-      abs_dpip_wgt *= VOL_ABS_DPIP_Universe->calculateWeight(icd);
+    abs_ic_wgt = 1.0;
+
+    if (doAbsorptionIC)
+    {
+	absorption_nodes = VOL_ABS_IC_Universe->canReweight (icd);
+
+	if(absorption_nodes[0])
+	{
+	    abs_ic_wgt *= VOL_ABS_IC_Universe->calculateWeight (icd);
+	    tot_wgt *= abs_ic_wgt;
+	}
     }
-    if(doAbsorptionDPIP)tot_wgt *= abs_dpip_wgt;
+
+    //Looking for the correction of the pi/K absorption in volumes (Fe)
+
+    abs_dpip_wgt = 1.0;
+
+    if (doAbsorptionDPIP)
+    {
+	absorption_nodes = VOL_ABS_DPIP_Universe->canReweight (icd);
+	
+	if (absorption_nodes[0])
+	{
+	    abs_dpip_wgt *= VOL_ABS_DPIP_Universe->calculateWeight (icd);
+	    tot_wgt *= abs_dpip_wgt;
+	}
+    }
 
     //Looking for the correction of the pi/K absorption in volumes (He)
-    absorption_nodes = VOL_ABS_DVOL_Universe->canReweight(icd);
+
     abs_dvol_wgt = 1.0;
-    if(attenuation_nodes[0]==true){
-      abs_dvol_wgt *= VOL_ABS_DVOL_Universe->calculateWeight(icd);
+
+    if (doAbsorptionDVOL)
+    {
+	absorption_nodes = VOL_ABS_DVOL_Universe->canReweight (icd);
+	
+	if(absorption_nodes[0])
+	{
+	    abs_dvol_wgt *= VOL_ABS_DVOL_Universe->calculateWeight (icd);
+	    tot_wgt *= abs_dvol_wgt;
+	}
     }
-    if(doAbsorptionDVOL)tot_wgt *= abs_dvol_wgt;
 
     //Looking for the correction of nucleons on Al, Fe and He.
-    absorption_nodes = VOL_ABS_NUCLEON_Universe->canReweight(icd);
+
     abs_nucleon_wgt = 1.0;
-    if(attenuation_nodes[0]==true){
-      abs_nucleon_wgt *= VOL_ABS_NUCLEON_Universe->calculateWeight(icd);
+
+    if (doAbsorptionNucleon)
+    {
+	absorption_nodes = VOL_ABS_NUCLEON_Universe->canReweight (icd);
+
+	if (absorption_nodes[0])
+	{
+	    abs_nucleon_wgt *= VOL_ABS_NUCLEON_Universe->calculateWeight (icd);
+	    tot_wgt *= abs_nucleon_wgt;
+	}
     }
-    if(doAbsorptionNucleon)tot_wgt *= abs_nucleon_wgt;
 
     //Looking for the correction of any other particle on Al, Fe and He.
-    absorption_nodes = VOL_ABS_OTHER_Universe->canReweight(icd);
-    abs_other_wgt = 1.0;
-    if(attenuation_nodes[0]==true){
-      abs_other_wgt *= VOL_ABS_OTHER_Universe->calculateWeight(icd);
-    }
-    if(doAbsorptionOther)tot_wgt *= abs_other_wgt;
 
-    
-    
-    //Looking for NA49:
-    na49_wgt = 1.0;
-    for(int ii=0;ii<interaction_nodes.size();ii++){
-      if(interaction_nodes[ii]==false){
-	bool can_na49 = NA49_Universe->canReweight((icd.interaction_chain)[ii]);
-	if(can_na49){
-	  interaction_nodes[ii]= true;
-	  na49_wgt *= NA49_Universe->calculateWeight((icd.interaction_chain)[ii]);
+    abs_other_wgt = 1.0;
+
+    if (doAbsorptionOther)
+    {
+	absorption_nodes = VOL_ABS_OTHER_Universe->canReweight (icd);
+	
+	if (absorption_nodes[0])
+	{
+	    abs_other_wgt *= VOL_ABS_OTHER_Universe->calculateWeight (icd);
+	    tot_wgt *= abs_other_wgt;
 	}
-      }
     }
-    if(doNA49) tot_wgt *= na49_wgt;
-    
-    //Looking for thin target MIPP:
-    mipp_thin_wgt = 1.0;
-    for(int ii=0;ii<interaction_nodes.size();ii++){
-      if(interaction_nodes[ii]==false){
-	bool can_mipp_thin = MIPP_THIN_Universe->canReweight((icd.interaction_chain)[ii]);
-	if(can_mipp_thin){
-	  interaction_nodes[ii]= true;
-	  mipp_thin_wgt *= MIPP_THIN_Universe->calculateWeight((icd.interaction_chain)[ii]);
-	}
-      }
-    }
-    if(doMIPPThinTarget) tot_wgt *= mipp_thin_wgt;
-    
-    //Looking for theory (model) prediction:
-    theory_wgt = 1.0;
-    for(int ii=0;ii<interaction_nodes.size();ii++){
-      if(interaction_nodes[ii]==false){
-	bool can_theory = THEORY_Universe->canReweight((icd.interaction_chain)[ii]);
-	if(can_theory){
-	  interaction_nodes[ii]= true;
-	  theory_wgt *= THEORY_Universe->calculateWeight((icd.interaction_chain)[ii]);
-	}
-      }
-    }
-    if(doTheoryThinTarget) tot_wgt *= theory_wgt;
 
     return tot_wgt;
-    
-  }
-  
-};
+}
 
+};
