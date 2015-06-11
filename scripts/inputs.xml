@@ -2,10 +2,10 @@
 
   <FlagReweighters>
     <MIPPNumiYields>Yes</MIPPNumiYields>
-    <TargetAttenuation>No</TargetAttenuation>
-    <NA49>No</NA49>
+    <TargetAttenuation>Yes</TargetAttenuation>
+    <NA49>Yes</NA49>
     <MIPPNumiKaonsYields>Yes</MIPPNumiKaonsYields>
-    <MIPPThinTarget>No</MIPPThinTarget>
+    <MIPPThinTarget>Yes</MIPPThinTarget>
     <AbsorptionIC>Yes</AbsorptionIC>
     <AbsorptionDPIP>Yes</AbsorptionDPIP>
     <AbsorptionDVOL>Yes</AbsorptionDVOL>
@@ -20,4 +20,5 @@
    </Settings>
 
 </inputs>
+
 
