@@ -21,7 +21,9 @@ namespace NeutrinoFluxReweight{
     std::vector< std::vector<TH2F*> > hNA49Scl; 
     
     TH1D* hXS_piAl;
-
+    TH1D* hXS_prtC;
+    TH1D* hXS_piC;
+    
   private:
     static DataHistos* instance;
     TFile* fMIPP_NUMI_PI;
