@@ -95,9 +95,9 @@ namespace NeutrinoFluxReweight{
       
       int pdg_inc=nu->ancestor[itraj].pdg;
       double incP[3];
-      incP[0] = nu->ancestor[itraj+1].pprodpx;
-      incP[1] = nu->ancestor[itraj+1].pprodpy;
-      incP[2] = nu->ancestor[itraj+1].pprodpz;
+      incP[0] = nu->ancestor[itraj].pprodpx;
+      incP[1] = nu->ancestor[itraj].pprodpy;
+      incP[2] = nu->ancestor[itraj].pprodpz;
 
       Int_t itraj_prod = itraj + 1;
       Int_t pdg_prod   = nu->ancestor[itraj_prod].pdg;
@@ -119,7 +119,7 @@ namespace NeutrinoFluxReweight{
       vtx[0]=nu->ancestor[itraj_prod].startx;
       vtx[1]=nu->ancestor[itraj_prod].starty;
       vtx[2]=nu->ancestor[itraj_prod].startz;
-      std::string this_vol=nu->ancestor[itraj].ivol;
+      std::string this_vol=nu->ancestor[itraj_prod].ivol;
       
       InteractionData inter(incP,pdg_inc,prodP,pdg_prod,
 			    this_vol,this_proc,vtx);   

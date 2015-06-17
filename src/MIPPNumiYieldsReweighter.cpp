@@ -23,7 +23,6 @@ namespace NeutrinoFluxReweight{
   std::vector<bool> MIPPNumiYieldsReweighter::canReweight(const InteractionChainData& aa){
  
     MIPPNumiYieldsBins*  MIPPbins =  MIPPNumiYieldsBins::getInstance();
-
     std::vector<bool> this_nodes;
     for(int ii=0;ii<(aa.interaction_chain).size();ii++){
       this_nodes.push_back(false);
@@ -47,7 +46,7 @@ namespace NeutrinoFluxReweight{
     //Now we have the index of the hadron that exit the target in the 
     //ancesty chain:
     if(tar.Idx_ancestry>=0){
-      for(int ii=0;ii<=tar.Idx_ancestry;ii++){
+      for(int ii=0;ii<tar.Idx_ancestry;ii++){
 	this_nodes[ii] = true;
       }
     }

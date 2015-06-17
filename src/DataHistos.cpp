@@ -75,6 +75,8 @@ namespace NeutrinoFluxReweight{
     
     //Loading the geant4 inelastic cross section for pion on Aluminum
     DataHistos::hXS_piAl = (TH1D*)DataHistos::fInelXS_MC->Get("pip/hpip_Al");
+    DataHistos::hXS_prtC = (TH1D*)DataHistos::fInelXS_MC->Get("prt/hprt_C");
+    DataHistos::hXS_piC  = (TH1D*)DataHistos::fInelXS_MC->Get("pip/hpip_C");
 
   }
   

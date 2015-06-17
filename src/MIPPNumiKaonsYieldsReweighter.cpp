@@ -44,7 +44,7 @@ namespace NeutrinoFluxReweight{
     //Now we have the index of the hadron that exit the target in the 
     //ancesty chain:
     if(tar.Idx_ancestry>=0){
-      for(int ii=0;ii<=tar.Idx_ancestry;ii++){
+      for(int ii=0;ii<tar.Idx_ancestry;ii++){
 	this_nodes[ii] = true;
       }
     }
