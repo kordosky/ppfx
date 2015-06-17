@@ -1,0 +1,25 @@
+<inputs>
+
+  <FlagReweighters>
+    <MIPPNumiYields>Yes</MIPPNumiYields>
+    <MIPPNumiKaonsYields>Yes</MIPPNumiKaonsYields>
+    <AbsorptionIC>Yes</AbsorptionIC>
+    <AbsorptionDPIP>Yes</AbsorptionDPIP>
+    <AbsorptionDVOL>Yes</AbsorptionDVOL>
+    <NucleonAbsorptionOutOfTarget>Yes</NucleonAbsorptionOutOfTarget>
+    <OtherAbsorptionOutOfTarget>Yes</OtherAbsorptionOutOfTarget>
+    <OtherTarget>Yes</OtherTarget>
+    <TA>Yes</TA>
+    <TS>Yes</TS>
+    <MIPPThinTarget>No</MIPPThinTarget>
+    <NA49>No</NA49>
+    </FlagReweighters>
+
+   <Settings>
+     <MIPPCorrOption>mediumBYDET</MIPPCorrOption>
+     <NumberOfUniverses>100</NumberOfUniverses>
+   </Settings>
+
+</inputs>
+
+
