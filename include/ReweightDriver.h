@@ -67,6 +67,7 @@ namespace NeutrinoFluxReweight{
     double abs_dvol_wgt;
     double abs_nucleon_wgt;
     double abs_other_wgt;
+    double tot_abs_wgt;
        
     /*!   NA49 weight   */
     double na49_wgt;
