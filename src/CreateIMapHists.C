@@ -2,6 +2,8 @@
 //#include "CreateHists.h"
 
 #include "CommonIMapIncludes.h"
+#include "FillIMapHists.h"
+#include <iostream>
 
 using namespace std;
 
@@ -84,17 +86,20 @@ int CreateHists(const char* output_filename, const char* filename, int elow, int
 	name_hists(& hists, out_file);
 
 	//Make an object of many neutrino ancestral lines	from the ntuples
-	cout << "Creating NeutrinoEvent object" << endl;
-// MAK 6/24/15: NeutrinoEventChain needs to be reimplemented to work with PPFX datastructures
-//	NeutrinoEventChain t(filename);
+	cout << "Opening flux ntuples" << endl;
 
+	TChain* tdk2nu   = new TChain("dk2nuTree");  
+	TChain* tdkmeta   = new TChain("dkmetaTree");  
+	tdk2nu->Add(filename);
+	tdkmeta->Add(filename);
 	//Loop over the neutrinos and fill histos
-	cout << "Looping over NeutrinoEvents" << endl;	
-//	t.Loop(&hists, elow, ehigh, nu_id, NA49cuts, MIPPcuts);
+	cout << "Filling histograms" << endl;	
+	FillIMapHistsOpts opts;
+	FillIMapHists(tdk2nu, tdkmeta, &hists, &opts);
 
 	//Scale the histos
 	cout << "Scaling Histos" << endl;
-  scale_hists(& hists);
+	scale_hists(& hists);
  
 	//Write hists
  	cout << "Writing Histos" << endl;	
@@ -129,7 +134,7 @@ void make_directories(TFile *f){
 //------Energy_Volumes
 //Produced
 //---particle_i
-
+  using namespace IMap;
     f->mkdir("Projectile");
     f->mkdir("Produced");
 
@@ -156,8 +161,8 @@ void make_directories(TFile *f){
 // ----------------------------------------------
 void name_hists(HistList * hists, TFile * out_file){
 		
-		char namefile[100];
-    
+  char namefile[100];
+  using namespace IMap;
     // ----------------------------------------------
     // Make Histos in Projectile/
     // ----------------------------------------------
@@ -308,7 +313,8 @@ void scale_hists(HistList * hists){
 // ----------------------------------------------
 void write_hists(HistList * hists, TFile * out_file){
     
-		char namefile[100];
+  char namefile[100];
+  using namespace IMap;
     for(int j=0;j<9;j++)
     {
         sprintf(namefile,"Projectile/%s",popparticle[j]);
