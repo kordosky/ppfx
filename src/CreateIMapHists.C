@@ -70,12 +70,13 @@ int CreateHists(const char* output_filename, const char* filename, int elow, int
 	TH2D * h_in_vs_mat = NULL;
 
 	//collect histos in a list
-	HistList hists = {hmat, hvol, hmatbkw, hxfpt_tot, henergytotal, hkepop_tot, htmpop_tot, 
-					hxfpt, henergymaterial, henergyvolume, hkepop, htmpop, h_in_vs_mat};
+	HistList hists = {hmat, hvol, hmatbkw, hxfpt_tot, henergytotal, 
+			  hkepop_tot, htmpop_tot, hxfpt, henergymaterial, 
+			  henergyvolume, hkepop, htmpop, h_in_vs_mat};
 
 	//make root file
 	cout << "Making output file " << output_filename << endl;
-  TFile *out_file= new TFile(output_filename,"RECREATE");
+	TFile *out_file= new TFile(output_filename,"RECREATE");
 	
 	//make directories in the output root file.	
 	cout << "Making directories in " << output_filename << endl;
@@ -95,6 +96,8 @@ int CreateHists(const char* output_filename, const char* filename, int elow, int
 	//Loop over the neutrinos and fill histos
 	cout << "Filling histograms" << endl;	
 	FillIMapHistsOpts opts;
+	opts.elow=elow; opts.ehigh=ehigh; opts.nuid=nu_id;
+	opts.cut_na49=NA49cuts; opts.cut_mipp=MIPPcuts;
 	FillIMapHists(tdk2nu, tdkmeta, &hists, &opts);
 
 	//Scale the histos

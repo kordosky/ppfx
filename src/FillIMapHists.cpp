@@ -1,6 +1,8 @@
 #include "FillIMapHists.h"
 #include "InteractionChainData.h"
 #include "InteractionData.h"
+#include "TDatabasePDG.h"
+#include "TParticlePDG.h"
 #include <iostream>
 
 void FillIMapHists(TChain* tdk2nu, TChain* tdkmeta, HistList* hists, const FillIMapHistsOpts* opts){
@@ -27,6 +29,7 @@ void FillIMapHists(TChain* tdk2nu, TChain* tdkmeta, HistList* hists, const FillI
 
 double FillOneEntry(bsim::Dk2Nu* dk2nu, bsim::DkMeta* dkmeta, HistList* hists, const FillIMapHistsOpts* opts){
   double weight=0.0;
+  TDatabasePDG* pdg = TDatabasePDG::Instance();
   // check that the neutrino is of the requested type and that
   // the energy is within range
   const int nu_type=dk2nu->decay.ntype;
@@ -58,7 +61,9 @@ double FillOneEntry(bsim::Dk2Nu* dk2nu, bsim::DkMeta* dkmeta, HistList* hists, c
 	       <<" at for interaction "<<iinter<<std::endl;
     }
     // fill a 2D histogram of projectile vs. material
-    hists->_h_in_vs_mat->Fill(IMap::materials[mv_idx],interdata.Vol.c_str(),weight);
+    const string proj_name=pdg->GetParticle(interdata.Inc_pdg)->GetName();
+    const string prod_name=pdg->GetParticle(interdata.Prod_pdg)->GetName();
+    hists->_h_in_vs_mat->Fill(IMap::materials[mv_idx],proj_name.c_str(),weight);
 
   }
   
