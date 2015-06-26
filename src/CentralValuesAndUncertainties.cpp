@@ -149,14 +149,16 @@ namespace NeutrinoFluxReweight{
       decomp=new TDecompChol(covariance_matrices[ii],0.0);
       
       bool isPosDef=decomp->Decompose();
-      TMatrixD thisMx = decomp->GetU();
+      TMatrixD MxU = decomp->GetU();
       delete decomp;
-      int nmat = thisMx.GetNcols();
+      TMatrixD MxV(MxU); 
+      MxV.Transpose(MxU);
+      int nmat = MxV.GetNcols();
       TVectorD vsigma(nmat);
       for(int jj=0;jj<nmat;jj++){
 	vsigma[jj]=cvfactor*(r3->Gaus(0.0,1.0));
       }   
-      TVectorD vecDShift = thisMx*vsigma;
+      TVectorD vecDShift = MxV*vsigma;
       
       std::map<std::string, double> tb = (correlated_par_tables[ii]).table;
       std::map<std::string, double>::iterator it_tb = tb.begin();
