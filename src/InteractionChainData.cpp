@@ -95,6 +95,23 @@ namespace NeutrinoFluxReweight{
       
       int pdg_inc=nu->ancestor[itraj].pdg;
       double incP[3];
+      // itraj is the index of the projectile in each interaction.
+      // one can find out what it did by looking at
+      //       ancestor[itraj+1].proc
+      // since 'proc' records the process which made the particle.
+      //
+      // Unfortunately, the pprod variables in g4numi v5 are needlessly complicated
+      //
+      // (1) If the particle at itraj *interacts* then pprod seems to hold
+      // the momentum of the particle just before the interaction
+      // 
+      // (2) If the particle at itraj *decays* then pprod seems to hold the
+      // momentum of the particle at itraj-1, just before it interacts
+      //
+      // (3) If the particle at itraj is the *result of a decay*, then pprod holds
+      // something that looks like the momentum of the parent.
+      //
+      // Generally for hadron production studies, the second case isn't interesting
       incP[0] = nu->ancestor[itraj].pprodpx;
       incP[1] = nu->ancestor[itraj].pprodpy;
       incP[2] = nu->ancestor[itraj].pprodpz;

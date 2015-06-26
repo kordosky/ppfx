@@ -48,26 +48,75 @@ double FillOneEntry(bsim::Dk2Nu* dk2nu, bsim::DkMeta* dkmeta, HistList* hists, c
     
     const NeutrinoFluxReweight::InteractionData& interdata
       =icd.interaction_chain[iinter];
+
+    // check to see if this entry is a decay
+    if(interdata.Proc=="Decay") continue; // if so, don't histogram
     
     //////////////////////// TBD ////////////////////////////////////////
     // would check here if this interaction is covered by NA49, MIPP, etc
     /////////////////////////////////////////////////////////////////////
+
 
     // get an index into the large arrays listing the volume names
     // and the material of each volume.
     int mv_idx=FindIndexFromVolume(interdata.Vol);
     if(mv_idx==-1){
       std::cout<<"Skipping unknown volume "<< interdata.Vol
-	       <<" at for interaction "<<iinter<<std::endl;
+	       <<" for interaction "<<iinter<<std::endl;
     }
     // fill a 2D histogram of projectile vs. material
     const string proj_name=pdg->GetParticle(interdata.Inc_pdg)->GetName();
     const string prod_name=pdg->GetParticle(interdata.Prod_pdg)->GetName();
     hists->_h_in_vs_mat->Fill(IMap::materials[mv_idx],proj_name.c_str(),weight);
 
+    // figure out if the produced particle is one that we want
+    // to record in histograms
+    // The list of such particles is in IMap::popparticle
+    // the strange name is apparently a contraction: "popular particles"
+    const int prod_pop_idx=FindIndexFromParticleName(prod_name);
+    const int proj_pop_idx=FindIndexFromParticleName(proj_name);
+
+    // look at things from the produced particles standpoint
+    if(prod_pop_idx!=-1){ // for each of the commonly produced particles.
+
+      // histogram kinetic energy, 3-momentum, and xF,pT
+      const double produced_KE=interdata.Prod_P4[3]-interdata.Prod_Mass;
+      hists->_hkepop_tot[prod_pop_idx]->Fill(produced_KE,weight);
+      hists->_htmpop_tot[prod_pop_idx]->Fill(interdata.Prod_P,weight);
+      hists->_hxfpt_tot[prod_pop_idx]->Fill(interdata.xF,interdata.Pt,weight);
+
+      // histogram the material that the interaction occured in
+      // along with the projectile that made the particle in question
+      hists->_hmatbkw[prod_pop_idx]->Fill(IMap::materials[mv_idx],proj_name.c_str(),weight);
+      
+      // now, dig deeper
+      if(proj_pop_idx!=-1){ // for each of the common *projectiles*
+	// histogram kinetic energy, 3-momentum, and xF,pT
+	// of the produced particle
+	hists->_hkepop[prod_pop_idx][proj_pop_idx]->Fill(produced_KE,weight);
+	hists->_htmpop[prod_pop_idx][proj_pop_idx]->Fill(interdata.Prod_P,weight);
+	hists->_hxfpt[prod_pop_idx][proj_pop_idx]->Fill(interdata.xF,interdata.Pt,weight);
+      }
+    }
+    
+    // now look at things from the projectile's standpoint
+    if(proj_pop_idx!=-1){ // for each of the common projectiles
+      // histogram the kinetic energy of the projectile
+      const double projectile_KE=interdata.Inc_P4[3]-interdata.Inc_Mass;
+      hists->_henergytotal[proj_pop_idx]->Fill(projectile_KE,weight);
+      // histogram the volume/material and the produced particle
+      hists->_hmat[proj_pop_idx]->Fill(IMap::materials[mv_idx],prod_name.c_str(),weight);
+      hists->_hvol[proj_pop_idx]->Fill(IMap::volume[mv_idx],prod_name.c_str(),weight);
+      // histogram the energy of the projectile for each volume
+      // This may be overkill!
+      hists->_henergyvolume[mv_idx][proj_pop_idx]->Fill(projectile_KE,weight);
+      if(projectile_KE>118 and proj_pop_idx==1){
+	std::cout<<"Oh noes!"<<std::endl;
+      }
+    }
+
   }
   
-
   // the end
   return weight;
 }
@@ -79,3 +128,11 @@ int FindIndexFromVolume(const std::string& wanted){
   }
   return -1;
 }
+
+int FindIndexFromParticleName(const std::string& wanted){
+  for(int i=0; i<IMap::npop; i++){
+    if(wanted== std::string(IMap::popparticle[i])) return i;
+  }
+  return -1;
+}
+

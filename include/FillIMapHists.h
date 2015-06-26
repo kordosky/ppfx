@@ -35,4 +35,6 @@ double FillOneEntry(bsim::Dk2Nu* dk2nu, bsim::DkMeta* dkmeta, HistList* hists, c
 
 int FindIndexFromVolume(const std::string& volname);
 
+int FindIndexFromParticleName(const std::string& wanted);
+
 #endif // FILLIMAPHISTS_H

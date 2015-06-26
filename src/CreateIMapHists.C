@@ -14,7 +14,6 @@ void name_hists(HistList * hists, TFile * out_file);
 void scale_hists(HistList * hists);
 void write_hists(HistList * hists, TFile * out_file);
 
-
 int main( int argc, char *argv[])
 {
   //! Default parameters
@@ -51,20 +50,20 @@ int main( int argc, char *argv[])
 int CreateHists(const char* output_filename, const char* filename, int elow, int ehigh, int nu_id=56, bool NA49cuts=false, bool MIPPcuts=false)
 {
 	//single array histos	
-	vector<TH2D *> hmat(9);
-	vector<TH2D *> hvol(9);
-	vector<TH2D *> hmatbkw(9);
-	vector<TH2D *> hxfpt_tot(9);
-	vector<TH1F *> henergytotal(9);
-	vector<TH1F *> hkepop_tot(9);
-	vector<TH1F *> htmpop_tot(9);
+	vector<TH2D *> hmat(IMap::npop);
+	vector<TH2D *> hvol(IMap::npop);
+	vector<TH2D *> hmatbkw(IMap::npop);
+	vector<TH2D *> hxfpt_tot(IMap::npop);
+	vector<TH1F *> henergytotal(IMap::npop);
+	vector<TH1F *> hkepop_tot(IMap::npop);
+	vector<TH1F *> htmpop_tot(IMap::npop);
 
 	//double array histos
-	vector< vector<TH2D *> > hxfpt(9, vector<TH2D*>(9));;
-	vector< vector<TH1F *> > henergymaterial(5, vector<TH1F*>(9));;
-	vector< vector<TH1F *> > henergyvolume(193, vector<TH1F*>(9));;
-	vector< vector<TH1F *> > hkepop(9, vector<TH1F*>(9));;
-	vector< vector<TH1F *> > htmpop(9, vector<TH1F*>(9));;
+	vector< vector<TH2D *> > hxfpt(IMap::npop, vector<TH2D*>(IMap::npop));
+	vector< vector<TH1F *> > henergymaterial(IMap::nspecialmat, vector<TH1F*>(IMap::npop));
+	vector< vector<TH1F *> > henergyvolume(IMap::nvol, vector<TH1F*>(IMap::npop));
+	vector< vector<TH1F *> > hkepop(IMap::npop, vector<TH1F*>(IMap::npop));
+	vector< vector<TH1F *> > htmpop(IMap::npop, vector<TH1F*>(IMap::npop));
   
 	//individual histos
 	TH2D * h_in_vs_mat = NULL;
@@ -124,7 +123,7 @@ int CreateHists(const char* output_filename, const char* filename, int elow, int
 
 
 
-static const char* matlist[5] = {"Iron","Aluminum","Carbon","Helium","Steel"};
+
 
 
 // ----------------------------------------------
@@ -141,7 +140,7 @@ void make_directories(TFile *f){
     f->mkdir("Projectile");
     f->mkdir("Produced");
 
-    for(int j=0;j<9;j++){
+    for(int j=0;j<IMap::npop;j++){
       f->cd("Projectile");
       // Projectile/{particle}
       gDirectory->mkdir(popparticle[j]);
@@ -152,7 +151,7 @@ void make_directories(TFile *f){
       gDirectory->mkdir("Energy_Volumes");
     }
     
-		for(int j=0;j<9;j++){
+    for(int j=0;j<IMap::npop;j++){
       f->cd("Produced");
       // Produced/{particle}
       gDirectory->mkdir(popparticle[j]);
@@ -180,7 +179,7 @@ void name_hists(HistList * hists, TFile * out_file){
     // Will be in Projectile/h_in_vs_mat
     hists->_h_in_vs_mat = new TH2D("h_in_vs_mat",";material ; incident particle",50,0,50,50,0,50);
     
-    for(int k=0;k<9;k++)
+    for(int k=0;k<IMap::npop;k++)
     {
         sprintf(namefile,"Projectile/%s",popparticle[k]);
         out_file->cd(namefile);
@@ -204,8 +203,8 @@ void name_hists(HistList * hists, TFile * out_file){
         sprintf(namefile,"Projectile/%s/Energy_Materials",popparticle[k]);
         out_file->cd(namefile);
         
-        for(int i=0;i<5;i++)
-        {
+        for(int i=0;i<IMap::nspecialmat;i++)
+	 {
             sprintf(namefile,"henergy%s%s",popparticle[k],matlist[i]);
             // Projectile/{particle}/Energy_Materials/henergy{particle}{material}
             hists->_henergymaterial[i][k] = new TH1F(namefile,"",1000,0,200);
@@ -214,18 +213,18 @@ void name_hists(HistList * hists, TFile * out_file){
             hists->_henergymaterial[i][k]->GetXaxis()->SetTitle("Energy (GeV)");
             hists->_henergymaterial[i][k]->GetYaxis()->SetTitle("Event Counts");
 	
-				}
+	 }
         
         sprintf(namefile,"Projectile/%s/Energy_Volumes",popparticle[k]);
         out_file->cd(namefile);
         
-        for(int i=0;i<193;i++)
+        for(int i=0;i<IMap::nvol;i++)
         {
             
-            sprintf(namefile,"henergy%s%s",popparticle[k],vol_list[i]);
+	  sprintf(namefile,"henergy%s%s",popparticle[k],IMap::volume[i]);
             // Projectile/{particle}/Energy_Volumes/henergy{particle}{volume}
             hists->_henergyvolume[i][k]=new TH1F(namefile,"",1000,0,200);
-            sprintf(namefile,"%s in %s",popparticle[k],vol_list[i]);
+            sprintf(namefile,"%s in %s",popparticle[k],IMap::volume[i]);
 						hists->_henergyvolume[i][k]->SetTitle(namefile);
             hists->_henergyvolume[i][k]->GetXaxis()->SetTitle("Energy (GeV)");
             hists->_henergyvolume[i][k]->GetYaxis()->SetTitle("Event Counts");
@@ -244,7 +243,7 @@ void name_hists(HistList * hists, TFile * out_file){
     // hkepop[9][9]
     // htmpop[9][9]
     // hxfpt[9][9]
-    for(int j=0;j<9;j++)
+    for(int j=0;j<IMap::npop;j++)
     {
         sprintf(namefile,"Produced/%s",popparticle[j]);
         out_file->cd(namefile);
@@ -261,7 +260,7 @@ void name_hists(HistList * hists, TFile * out_file){
         // Produced/{particle}/hxfpt{particle}
         hists->_hxfpt_tot[j]=new TH2D(namefile,"",500,-1,1,100,0,2);
         
-        for(int k=0;k<9;k++)
+        for(int k=0;k<IMap::npop;k++)
         {
             sprintf(namefile,"hke%s_%s",popparticle[j],popparticle[k]);
             // Produced/{particle}/hke{particle}_{other particle}
@@ -287,7 +286,7 @@ void scale_hists(HistList * hists){
     
     hists->_h_in_vs_mat->Scale(1./total_weight);
     // loop over all particle-specific histograms
-    for(int j=0;j<9;j++)
+    for(int j=0;j<IMap::npop;j++)
     {
       hists->_hmat[j]->Scale(1./total_weight);
       hists->_hvol[j]->Scale(1./total_weight);
@@ -296,14 +295,14 @@ void scale_hists(HistList * hists){
       hists->_hkepop_tot[j]->Scale(1./total_weight);
       hists->_htmpop_tot[j]->Scale(1./total_weight);
       hists->_hxfpt_tot[j]->Scale(1./total_weight);
-      for(int k=0;k<9;k++)
+      for(int k=0;k<IMap::npop;k++)
       {
         hists->_hkepop[j][k]->Scale(1./total_weight);
         hists->_htmpop[j][k]->Scale(1./total_weight);
         hists->_hxfpt[j][k]->Scale(1./total_weight);
       } // for(int k=0;k<9;k++)
       // Loop over materials
-      for(int m=0;m<5;m++)
+      for(int m=0;m<IMap::nspecialmat;m++)
       {
         hists->_henergymaterial[m][j]->Scale(1./total_weight);
       } // for(int m=0;m<5;m++)
@@ -318,7 +317,7 @@ void write_hists(HistList * hists, TFile * out_file){
     
   char namefile[100];
   using namespace IMap;
-    for(int j=0;j<9;j++)
+  for(int j=0;j<IMap::npop;j++)
     {
         sprintf(namefile,"Projectile/%s",popparticle[j]);
         out_file->cd(namefile);
@@ -327,7 +326,7 @@ void write_hists(HistList * hists, TFile * out_file){
         hists->_henergytotal[j]->Write();
         
         gDirectory->cd("Energy_Materials");
-        for(int m=0;m<5;m++)
+        for(int m=0;m<IMap::nspecialmat;m++)
         {
             
             hists->_henergymaterial[m][j]->Write();
@@ -335,14 +334,14 @@ void write_hists(HistList * hists, TFile * out_file){
         }
         gDirectory->cd("..");
         gDirectory->cd("Energy_Volumes");
-        for(int m=0;m<193;m++)
+        for(int m=0;m<IMap::nvol;m++)
         {
             hists->_henergyvolume[m][j]->Write();
         }
     }
     
     
-    for(int j=0;j<9;j++)
+  for(int j=0;j<IMap::npop;j++)
     {
         sprintf(namefile,"Produced/%s",popparticle[j]);
         out_file->cd(namefile);
@@ -351,7 +350,7 @@ void write_hists(HistList * hists, TFile * out_file){
         hists->_htmpop_tot[j]->Write();
         hists->_hxfpt_tot[j]->Write();
         
-        for(int k=0;k<9;k++)
+        for(int k=0;k<IMap::npop;k++)
         {
             hists->_hkepop[j][k]->Write();
             hists->_htmpop[j][k]->Write();
@@ -362,5 +361,5 @@ void write_hists(HistList * hists, TFile * out_file){
   // Save the h_in_vs_mat histogram in Projectile/h_in_vs_mat
   out_file->cd("Projectile");
   hists->_h_in_vs_mat->Write();
-
+  
 }
