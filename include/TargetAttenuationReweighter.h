@@ -19,7 +19,7 @@ namespace NeutrinoFluxReweight{
     TargetAttenuationReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars);
     virtual ~TargetAttenuationReweighter();
     virtual std::vector<bool> canReweight(const InteractionChainData& aa);
-    virtual double calculateWeight(const InteractionChainData&);
+    virtual double calculateWeight(const InteractionChainData& aa);
     /*!
      * Uses the input target configuration to figure out and return
      * the upstream edge of the 1st budal monitor.
@@ -27,6 +27,9 @@ namespace NeutrinoFluxReweight{
      * not a digit, and then interpret the rest as an offset from the 000z position
      */
     static double targetStartZ(const std::string& tgtcfg);
+
+    //!Get the additional shift for the Minerva playlist if this is defined
+    static double shiftPlaylist(const int ipl);
 
     //! does the configuration correspond to the ME beam?
     static bool isME(const std::string& tgtcfg);

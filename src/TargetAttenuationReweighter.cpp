@@ -4,6 +4,8 @@
 #include <locale>
 #include <cstdlib>
 #include <stdexcept>
+#include "DataHistos.h"
+#include "MIPPNumiYieldsBins.h"
 
 namespace NeutrinoFluxReweight{
   
@@ -41,17 +43,146 @@ namespace NeutrinoFluxReweight{
 	}
       }
     }  
+
     return can_rws;
   }
-  double TargetAttenuationReweighter::calculateWeight(const InteractionChainData&){
-    return 1.0;
+  double TargetAttenuationReweighter::calculateWeight(const InteractionChainData& aa){
+
+    double wgt =1.0;
+
+    //Some constants:
+    const double graphite_density=1.78;// g/cc
+    const double avog_x_mb2cm2 = 6.02214e-4; //useful constant
+    const double graphite_A    = 12.01; // g/mole    
+
+    std::vector<InteractionData> vec_inter = aa.interaction_chain;
+
+    //Finding the Data and MC total cross sections:    
+    DataHistos* dtH = DataHistos::getInstance();
+    MIPPNumiYieldsBins*  MIPPbins =  MIPPNumiYieldsBins::getInstance();
+   
+    bool there_is_MIPP  = false;
+    bool it_is_survival = false;
+    
+    //MIPP:
+    TargetData tar = aa.tar_info;
+    int binID = MIPPbins->BinID(tar.Pz,tar.Pt,tar.Tar_pdg);   
+    TH1D* hzpos;
+    if(binID>=0){
+       if(tar.Tar_pdg == 211 || tar.Tar_pdg ==- 211){
+	there_is_MIPP = true;
+	if(tar.Tar_pdg == 211)hzpos = dtH->hzpostgt_pip[binID];
+	if(tar.Tar_pdg ==-211)hzpos = dtH->hzpostgt_pim[binID];
+       }
+       else if(tar.Tar_pdg == 321){
+	 int aux_binID = MIPPbins->BinID(tar.Pz,tar.Pt,211);
+	 if(aux_binID>=0){
+	   there_is_MIPP = true;
+	   //I substrcted 78 because we store in DataHistos, the kaon histograms stored 
+	   // start at P>20 GeV/c and we are using bin ID pin convention here.
+	   hzpos = dtH->hzpostgt_kap[aux_binID-78];
+	 }
+       }
+       else if(tar.Tar_pdg == -321){
+	 int aux_binID = MIPPbins->BinID(tar.Pz,tar.Pt,-211);
+	 if(aux_binID>=0){
+	   there_is_MIPP = true;
+	   hzpos = dtH->hzpostgt_kam[aux_binID-78];
+	 }
+       }
+       else{
+	std::cout<<"=> There is an in MIPPNumiYieldsBins"<<std::endl;
+      }
+    }
+    
+    //Survival:
+    if(!there_is_MIPP && vec_inter[0].Vol!="BudalMonitor" && vec_inter[0].Vol!="TGT1"){
+      it_is_survival = true;
+    }
+        
+    std::map<std::string, double> this_table = univPars.table;
+    std::map<std::string, double>::iterator it;
+
+    double delta_sigma = 0.0; // sigma_data - sigma_mc
+    double ratio_sigma = 0.0; // sigma_data / sigma_mc
+    std::string par_name = "";
+    
+    par_name = "prod_prtC_xsec";
+    it = this_table.begin();
+    it = this_table.find(par_name);
+    delta_sigma  = it->second;
+	
+    par_name = "qe_prtC_xsec";
+    it = this_table.begin();
+    it = this_table.find(par_name);
+    delta_sigma  += it->second; 
+    
+    int binprtC = (dtH->hXS_prtC)->FindBin(vec_inter[0].Inc_P);
+    double mcval = (dtH->hXS_prtC)->GetBinContent(binprtC);
+    if(mcval<1.e-12){
+      throw std::runtime_error("MC Cross section is zero... check!");
+    }
+    ratio_sigma = delta_sigma / mcval;
+    delta_sigma -= mcval;
+    
+    //Finding the target penetration for the primary proton beam:
+   
+    double startZ        = targetStartZ(aa.target_config) + shiftPlaylist(aa.playlist);
+    double endZ = (vec_inter[0].Vtx)[2];
+    double totmatZ = 0.;  //this will be the amount of material passed. 
+
+    if( isLE(aa.target_config) ){
+      //check:
+      if(vec_inter[0].Vol=="BudalMonitor"){
+	if(endZ<startZ || endZ>(startZ+2.0))std::cout<<"Potential error => startZ, endZ: "<<startZ<<" "<<endZ<<std::endl;   
+    }
+    totmatZ = getTargetPenetrationLE(startZ,endZ,startZ);
+    }
+    else if( isME(aa.target_config) ){ 
+      totmatZ = getTargetPenetrationME(startZ,endZ,startZ);
+    }
+    else{
+      throw std::runtime_error("cannot determine if it's LE or ME beam");
+    }
+
+    totmatZ *= avog_x_mb2cm2;
+    totmatZ /= graphite_A;
+    totmatZ *= graphite_density;
+
+    //Calculating the weight:
+    if(there_is_MIPP){
+      int nbins = hzpos->GetXaxis()->GetNbins();
+      double integral_mc = 0;
+      double integral_wt = 0;
+      for(int ib=1;ib<=nbins;ib++){
+	double cont = hzpos->GetBinContent(ib);
+	double crr  = hzpos->GetXaxis()->GetBinCenter(ib);
+	integral_mc += cont;	
+	integral_wt += cont*ratio_sigma*exp(-1.0*crr*avog_x_mb2cm2*graphite_density*delta_sigma/graphite_A);
+      }
+      if(integral_wt<=0 || integral_mc<=0){
+	throw std::runtime_error("yield is zero or negative... check!");
+      }     
+      double norm = integral_mc/integral_wt;
+      wgt = norm*ratio_sigma*exp(-1.0*totmatZ*delta_sigma);
+    }
+    else if(it_is_survival){
+      wgt = exp(-1.0*totmatZ*delta_sigma);
+    }
+    else{
+      wgt = ratio_sigma*exp(-1.0*totmatZ*delta_sigma);
+    }
+
+    return wgt;
+    
   }
 
   double TargetAttenuationReweighter::targetStartZ(const std::string& tgtcfg){
+    //check this (Leo)
     double z0=-51.1; // position of the upstream edge of the budal monitor in 000z config
     // check to see if we are in LE config and adjust accordingly
     if( isLE(tgtcfg) ) {
-      z0=-51.1; // determined by ntuple tomography
+      z0=-51.72; // determined by ntuple tomography
       // check to see if we are in ME config and adjust accordingly
     }else if( isME(tgtcfg) ){ 
       z0=-143.3; // determined by ntuple tomography
@@ -64,6 +195,7 @@ namespace NeutrinoFluxReweight{
     std::string just_nums;
     for (int i=0; i<tgtcfg.length(); ++i) {
       if(isdigit(tgtcfg[i])) just_nums.push_back(tgtcfg[i]);
+      if(tgtcfg[i]=='z') break;
     }
     // now convert the string to a number
     double dz=atof(just_nums.c_str());
@@ -80,8 +212,46 @@ namespace NeutrinoFluxReweight{
     return tgtcfg.find("ME")||tgtcfg.find("me")||tgtcfg.find("Me");
   }
 
-
-
+  double TargetAttenuationReweighter::shiftPlaylist(const int ipl){
+    //Minerva definies dk2nu.vint[1] as the playlist ID.
+    //If this variable is not filled, then the value is filled as -1 in InteractionChainData
+    //If the experiment definied dk2nu.vint[1], this function needs to be remade.
+    double shift_for_playlist = 0;    
+    if( ipl == -1 ){
+      shift_for_playlist = 0.;
+    }
+    else if( ipl == 0 || ipl == 1 ){
+      shift_for_playlist = 0.50;
+    }
+    else if( ipl == 7 || ipl == 10 || ipl == 6 ){
+      shift_for_playlist = 0.82;
+    }
+    else if( ipl == 9 ){
+      shift_for_playlist = -0.40;
+    }
+    else if( ipl == 13){
+      shift_for_playlist =  0.83;
+    }
+    else if( ipl == 5 ){
+      shift_for_playlist =  1.15;
+    }
+    else if( ipl == 2 || ipl == 3 ){
+      shift_for_playlist = 0.43;
+    }
+    else if( ipl == 11 || ipl == 12 ){
+      shift_for_playlist = 0.83;
+    }
+    else if( ipl == 4 ){
+      shift_for_playlist = 0.43;
+    }
+    else if( ipl == 8 ){
+      shift_for_playlist = - 0.09;
+    }
+    
+    return shift_for_playlist;
+    
+  }
+  
   double TargetAttenuationReweighter::getTargetPenetrationLE(double z_start, double z_end, double z0_budal)
   {
     /*!
@@ -97,18 +267,19 @@ namespace NeutrinoFluxReweight{
     // start z.
     // coordinate here in cm
     const int nfins=48;
-    const double us_edges[nfins]={25.4484, 42.1683, 44.1983, 46.2283, 48.2583,
-			       50.2883, 52.3183, 54.3483, 56.3783,
-			       58.4083, 60.4383, 62.4683, 64.4983,
-			       66.5283, 68.5583, 70.5883, 72.6183,
-			       74.6483, 76.6783, 78.7083, 80.7383,
-			       82.7683, 84.7983, 86.8283, 88.8583,
-			       90.8883, 92.9183, 94.9483, 96.9783,
-			       99.0083, 101.038,  103.068,  105.098,
-			       107.128,  109.158,  111.188,  113.218,
-			       115.248,  117.278,  119.308,  121.338,
-			       123.368,  125.398,  127.428,  129.458,
-			       131.488,  133.518,  135.548};
+    const double us_edges[nfins]={25.4484,   42.1683,   44.1983,   46.2283, 48.2583,
+				  50.2883,   52.3183,   54.3483,   56.3783,
+				  58.4083,   60.4383,   62.4683,   64.4983,
+				  66.5283,   68.5583,   70.5883,   72.6183,
+				  74.6483,   76.6783,   78.7083,   80.7383,
+				  82.7683,   84.7983,   86.8283,   88.8583,
+				  90.8883,   92.9183,   94.9483,   96.9783,
+				  99.0083,  101.0383,  103.0683,  105.0983,
+				  107.1283, 109.1583,  111.1883,  113.2183,
+				  115.2483, 117.2783,  119.3083,  121.3383,
+				  123.3683, 125.3983,  127.4283,  129.4583,
+				  131.4883, 133.5183,  135.5483};
+    
     const double budal_us_edge=us_edges[0]; // fin[0] is the budal
     const double fin_width=2.0;
 
@@ -125,18 +296,18 @@ namespace NeutrinoFluxReweight{
     // in which a trajectory starts in the target
     // we will end up subtracting this from the material between
     // z_up and z_end to get the material traversed.
-    const double graphite_density=2.7;// g/cc
+
     double mat_start=0.0;
     for(int ifin=0; ifin<nfins; ifin++){
       const double fin_us_edge=us_edges[ifin]+z_trans;
       const double fin_ds_edge=fin_us_edge+fin_width;
       if(z_start<=fin_us_edge) break; // no more material to add up
       else if(z_start<fin_ds_edge){ // z_start in this fin
-	mat_start+=(z_start-fin_us_edge)*graphite_density;
+	mat_start+=(z_start-fin_us_edge);
 	break;
       }
       else{ // z_start after this fin (z_start>fin_ds_edge)
-	mat_start+=fin_width*graphite_density;
+	mat_start+=fin_width;
       }
     }
     
@@ -147,11 +318,11 @@ namespace NeutrinoFluxReweight{
       const double fin_ds_edge=fin_us_edge+fin_width;
       if(z_end<=fin_us_edge) break; // no more material to add up
       else if(z_end<fin_ds_edge){ // z_end in this fin
-	mat_end+=(z_end-fin_us_edge)*graphite_density;
+	mat_end+=(z_end-fin_us_edge);
 	break;
       }
       else{ // z_end after this fin (z_end>fin_ds_edge)
-	mat_end+=fin_width*graphite_density;
+	mat_end+=fin_width;
       }
     }
     double mat_traversed=mat_end-mat_start;
@@ -222,18 +393,17 @@ namespace NeutrinoFluxReweight{
     // in which a trajectory starts in the target
     // we will end up subtracting this from the material between
     // z_up and z_end to get the material traversed.
-    const double graphite_density=2.7;// g/cc
     double mat_start=0.0;
     for(int ifin=0; ifin<nfins; ifin++){
       const double fin_us_edge=us_edges[ifin]+z_trans;
       const double fin_ds_edge=ds_edges[ifin]+z_trans;
       if(z_start<=fin_us_edge) break; // no more material to add up
       else if(z_start<fin_ds_edge){ // z_start in this fin
-	mat_start+=(z_start-fin_us_edge)*graphite_density;
+	mat_start+=(z_start-fin_us_edge);
 	break;
       }
       else{ // z_start after this fin (z_start>fin_ds_edge)
-	mat_start+=(fin_ds_edge-fin_us_edge)*graphite_density;
+	mat_start+=(fin_ds_edge-fin_us_edge);
       }
     }
     
@@ -244,11 +414,11 @@ namespace NeutrinoFluxReweight{
       const double fin_ds_edge=ds_edges[ifin]+z_trans;
       if(z_end<=fin_us_edge) break; // no more material to add up
       else if(z_end<fin_ds_edge){ // z_end in this fin
-	mat_end+=(z_end-fin_us_edge)*graphite_density;
+	mat_end+=(z_end-fin_us_edge);
 	break;
       }
       else{ // z_end after this fin (z_end>fin_ds_edge)
-	mat_end+=(fin_ds_edge-fin_us_edge)*graphite_density;
+	mat_end+=(fin_ds_edge-fin_us_edge);
       }
     }
     double mat_traversed=mat_end-mat_start;
