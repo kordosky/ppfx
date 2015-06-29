@@ -7,11 +7,25 @@
 #include "dkmeta.h"
 #include <string>
 
+#include "MIPPNumiKaonsYieldsReweighter.h"
+#include "MIPPNumiYieldsReweighter.h"
+#include "NA49Reweighter.h"
+#include "MIPPThinTargetReweighter.h"
+
 
 struct FillIMapHistsOpts {
   float elow, ehigh;
   Int_t nuid;
   bool cut_na49, cut_mipp;
+};
+
+struct FillIMapHistsReweighters {
+
+  NeutrinoFluxReweight::MIPPNumiYieldsReweighter* NumiPions;
+  NeutrinoFluxReweight::MIPPNumiKaonsYieldsReweighter* NumiKaons; 
+  NeutrinoFluxReweight::NA49Reweighter* NA49;
+  NeutrinoFluxReweight::MIPPThinTargetReweighter* ThinKaons;
+
 };
 
 
@@ -30,7 +44,7 @@ void FillIMapHists(TChain* tdk2nu, TChain* dkmeta, HistList* hists, const FillIM
  * which is zero if the event was skipped, but otherwise corresponds
  * to the product of the decay and importance weights.
  */
-double FillOneEntry(bsim::Dk2Nu* dk2nu, bsim::DkMeta* dkmeta, HistList* hists, const FillIMapHistsOpts* opts);
+double FillOneEntry(bsim::Dk2Nu* dk2nu, bsim::DkMeta* dkmeta, HistList* hists, const FillIMapHistsOpts* opts, FillIMapHistsReweighters* reweighters);
 
 
 int FindIndexFromVolume(const std::string& volname);

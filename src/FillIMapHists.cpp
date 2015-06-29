@@ -1,12 +1,15 @@
 #include "FillIMapHists.h"
 #include "InteractionChainData.h"
 #include "InteractionData.h"
+#include "CentralValuesAndUncertainties.h"
+#include "MIPPNumiYieldsBins.h"
+#include "MIPPNumiMC.h"
 #include "TDatabasePDG.h"
 #include "TParticlePDG.h"
 #include <iostream>
 
 void FillIMapHists(TChain* tdk2nu, TChain* tdkmeta, HistList* hists, const FillIMapHistsOpts* opts){
-  
+  using namespace NeutrinoFluxReweight;
   
   // setup the event loop, filling Dk2Nu and DkMeta objects
   bsim::Dk2Nu*  dk2nu  = new bsim::Dk2Nu;  
@@ -16,18 +19,56 @@ void FillIMapHists(TChain* tdk2nu, TChain* tdkmeta, HistList* hists, const FillI
   Long64_t ntrees    = tdk2nu->GetNtrees();
   tdkmeta->SetBranchAddress("dkmeta",&dkmeta);
 
+  ////////////////////// initializing reweighters ///////////////////////////
+  //
+  // here, we need to initialize the reweighers
+  // and pass them into FillOneEntry
+  // so it can use them to determine if a particular interaction
+  // or chain of interactions can be reweighted
+
+  ///// Confused? 
+  ///// All this business with xml files, parameter tables
+  ///// and the like is simply needed to ensure correct operation
+  ///// of the reweight drivers, specifically the MIPP ones,
+  ///// which call MIPPNumiYieldsBins::getInstance(); and
+  ///// expect the result to be initialized.
+  CentralValuesAndUncertainties* cvu = CentralValuesAndUncertainties::getInstance();;
+  MIPPNumiYieldsBins*  myb =  MIPPNumiYieldsBins::getInstance(); 
+  MIPPNumiMC*  mymc =  MIPPNumiMC::getInstance(); 
+  const char* ppfxDir = getenv("PPFX_DIR");
+  cvu->readFromXML(Form("%s/uncertainties/Parameters_uhighBYDET.xml",ppfxDir));
+  myb->pip_data_from_xml(Form("%s/data/BINS/MIPPNumiData_PIP_Bins.xml",ppfxDir));
+  myb->pim_data_from_xml(Form("%s/data/BINS/MIPPNumiData_PIM_Bins.xml",ppfxDir));
+  myb->k_pi_data_from_xml(Form("%s/data/BINS/MIPPNumiData_K_PI_Bins.xml",ppfxDir));
+  mymc->pip_mc_from_xml(Form("%s/data/MIPP/MIPPNuMI_MC_PIP.xml",ppfxDir));
+  mymc->pim_mc_from_xml(Form("%s/data/MIPP/MIPPNuMI_MC_PIM.xml",ppfxDir));
+  mymc->kap_mc_from_xml(Form("%s/data/MIPP/MIPPNuMI_MC_KAP.xml",ppfxDir));
+  mymc->kam_mc_from_xml(Form("%s/data/MIPP/MIPPNuMI_MC_KAM.xml",ppfxDir));
+  
+  ParameterTable cvPars=cvu->getCVPars();
+  const int iUniv=99;
+  ParameterTable univPars=cvu->calculateParsForUniverse(iUniv);
+
+  ////// now make the reweighters after doing all that stuff above 
+  FillIMapHistsReweighters reweighters;
+  reweighters.NumiPions = new MIPPNumiYieldsReweighter(iUniv,cvPars,univPars);
+  reweighters.NumiKaons = new MIPPNumiKaonsYieldsReweighter(iUniv,cvPars,univPars);
+  reweighters.NA49 = new NA49Reweighter(iUniv,cvPars,univPars);    
+  reweighters.ThinKaons = new MIPPThinTargetReweighter(iUniv,cvPars,univPars);
+  //////////////////// done initializing reweighers ////////////////////////
+
 
   std::cout<<"FillIMapHists looping over "<<ntrees<<" trees with a total of "<<nentries<<" entries."<<std::endl;
   for(Long64_t ientry=0;ientry<nentries;ientry++){
     tdk2nu->GetEntry(ientry);
     tdkmeta->GetEntry(ientry);    
   
-    FillOneEntry(dk2nu,dkmeta,hists,opts); 
+    FillOneEntry(dk2nu,dkmeta,hists,opts,&reweighters); 
   }
 }
 
 
-double FillOneEntry(bsim::Dk2Nu* dk2nu, bsim::DkMeta* dkmeta, HistList* hists, const FillIMapHistsOpts* opts){
+double FillOneEntry(bsim::Dk2Nu* dk2nu, bsim::DkMeta* dkmeta, HistList* hists, const FillIMapHistsOpts* opts, FillIMapHistsReweighters* reweighters){
   double weight=0.0;
   TDatabasePDG* pdg = TDatabasePDG::Instance();
   // check that the neutrino is of the requested type and that
@@ -44,6 +85,10 @@ double FillOneEntry(bsim::Dk2Nu* dk2nu, bsim::DkMeta* dkmeta, HistList* hists, c
   
   NeutrinoFluxReweight::InteractionChainData icd(dk2nu,dkmeta);
   const int ninter=icd.interaction_chain.size();
+  std::vector<bool> numi_pion_nodes=reweighters->NumiPions->canReweight(icd);
+  std::vector<bool> numi_kaon_nodes=reweighters->NumiKaons->canReweight(icd);
+  
+
   for(int iinter=0; iinter<ninter; iinter++){
     
     const NeutrinoFluxReweight::InteractionData& interdata
@@ -52,10 +97,17 @@ double FillOneEntry(bsim::Dk2Nu* dk2nu, bsim::DkMeta* dkmeta, HistList* hists, c
     // check to see if this entry is a decay
     if(interdata.Proc=="Decay") continue; // if so, don't histogram
     
-    //////////////////////// TBD ////////////////////////////////////////
-    // would check here if this interaction is covered by NA49, MIPP, etc
     /////////////////////////////////////////////////////////////////////
-
+    // check here if this interaction is covered by NA49, MIPP, etc
+    /////////////////////////////////////////////////////////////////////
+    if(opts->cut_mipp && numi_pion_nodes[iinter]) continue;
+    if(opts->cut_mipp && numi_kaon_nodes[iinter]) continue;
+    // at the time of this writing, the NA49 reweigher handles 
+    // pion, proton and kaon production by protons
+    bool covered_by_na49 = reweighters->NA49->canReweight(interdata);
+    if(opts->cut_na49 && covered_by_na49) continue;
+    bool covered_by_thin_kaons = reweighters->ThinKaons->canReweight(interdata);
+    if(opts->cut_na49 && covered_by_thin_kaons) continue;
 
     // get an index into the large arrays listing the volume names
     // and the material of each volume.
