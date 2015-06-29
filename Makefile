@@ -5,6 +5,7 @@ INCLUDES = -I./include -I$(shell root-config --incdir) -I$(BOOSTROOT)
 DEPLIBS=$(shell root-config --libs) -lEG
 DK2NU_INCLUDES= include/dk2nu.h include/dkmeta.h include/LinkDef.h
 DK2NU_SRCS= src/dk2nu.cc src/dkmeta.cc
+DK2NU_OBJS := $(patsubst %.cc, %.o, $(DK2NU_SRCS) ) 
 CC	=	g++
 
 COPTS	=	-fPIC -DLINUX -O0  -g $(shell root-config --cflags) $(M32)
@@ -34,13 +35,19 @@ $(PROGS): % : src/%.o $(OBJS_LIB) libDKLib.so libppfx.so
 %.o: %.cpp
 	$(CC) $(COPTS) $(INCLUDES) -c -o $@ $<
 
+%.o: %.cc
+	$(CC) $(COPTS) $(INCLUDES) -c -o $@ $<
+
 %.o: %.C
+	$(CC) $(COPTS) $(INCLUDES) -c -o $@ $<
+
+%.o: %.cxx
 	$(CC) $(COPTS) $(INCLUDES) -c -o $@ $<
 
 DKDict.cxx: $(DK2NU_INCLUDES)
 	rootcint -f $@ -c $(FLAGS) -p ${INCLUDES} $^
 
-libDKLib.so: DKDict.cxx $(DK2NU_SRCS)
+libDKLib.so: DKDict.o $(DK2NU_OBJS)
 	g++ -shared -o$@ `root-config --ldflags` $(FLAGS) ${INCLUDES} $^
 	mv $@ lib
 	mv DKDict* lib
