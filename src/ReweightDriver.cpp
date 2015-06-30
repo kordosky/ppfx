@@ -162,6 +162,7 @@ namespace NeutrinoFluxReweight{
       if(attenuation_nodes[0]==true){
 	att_wgt *= TARG_ATT_Universe->calculateWeight(icd);
       }
+      tot_wgt *= att_wgt;
     }
     
     //ABS:
@@ -267,10 +268,7 @@ namespace NeutrinoFluxReweight{
     }
     if(doTheoryThinTarget) tot_wgt *= theory_wgt;
     */
-    
-    
-    
-    
+      
     return tot_wgt;
 }
 
