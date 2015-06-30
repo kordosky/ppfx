@@ -24,6 +24,11 @@ namespace NeutrinoFluxReweight{
     TH1D* hXS_prtC;
     TH1D* hXS_piC;
     
+    std::vector<TH1D*> hzpostgt_pip;
+    std::vector<TH1D*> hzpostgt_pim;
+    std::vector<TH1D*> hzpostgt_kap;
+    std::vector<TH1D*> hzpostgt_kam;
+
   private:
     static DataHistos* instance;
     TFile* fMIPP_NUMI_PI;
@@ -33,8 +38,8 @@ namespace NeutrinoFluxReweight{
     std::vector<TFile*> fMCscale;
 
     TFile* fMIPP_MC;
-    TFile* fInelXS_MC;
-    
+    TFile* fInelXS_MC;   
+    TFile* fzpos_tgt_MC;
     
   };
   
