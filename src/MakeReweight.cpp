@@ -82,10 +82,8 @@ namespace NeutrinoFluxReweight{
       map_rew_wgts["MIPPNumiYields"].push_back(vec_rws[ii]->mipp_wgt);
       map_rew_wgts["MIPPNumiKaonsYields"].push_back(vec_rws[ii]->mipp_kaons_wgt);
       
-      //      map_rew_wgts["TargetAttenuation"].push_back(vec_rws[ii]->att_wgt);
-      map_rew_wgts["TA"].push_back(vec_rws[ii]->att_wgt);
-      map_rew_wgts["TS"].push_back(vec_rws[ii]->sur_wgt);
-      
+      map_rew_wgts["TargetAttenuation"].push_back(vec_rws[ii]->att_wgt);
+            
       map_rew_wgts["AbsorptionIC"].push_back(vec_rws[ii]->abs_ic_wgt);
       map_rew_wgts["AbsorptionDPIP"].push_back(vec_rws[ii]->abs_dpip_wgt);
       map_rew_wgts["AbsorptionDVOL"].push_back(vec_rws[ii]->abs_dvol_wgt);

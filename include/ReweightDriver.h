@@ -15,8 +15,6 @@
 #include "NucleonAbsorptionOutOfTargetReweighter.h"
 #include "OtherAbsorptionOutOfTargetReweighter.h"
 
-#include "tmp_TSRew.h"
-#include "tmp_TARew.h"
 #include "OtherReweighter.h"
 
 #include "InteractionChainData.h"
@@ -57,9 +55,7 @@ namespace NeutrinoFluxReweight{
     double mipp_kaons_wgt;
     
     /*!  Target attenuation weight   */
-    //double att_wgt;
     double att_wgt;
-    double sur_wgt;
 
     /*!  Absorption weight   */
     double abs_ic_wgt;
@@ -95,9 +91,7 @@ namespace NeutrinoFluxReweight{
     MIPPNumiYieldsReweighter* MIPP_NUMI_Universe;
     MIPPNumiKaonsYieldsReweighter* MIPP_NUMI_KAONS_Universe;
     
-    //    TargetAttenuationReweighter* TARG_ATT_Universe;
-    tmp_TSRew* tmp_TSRew_Universe;
-    tmp_TARew* tmp_TARew_Universe;
+    TargetAttenuationReweighter* TARG_ATT_Universe;
     
     AbsorptionICReweighter*   VOL_ABS_IC_Universe;
     AbsorptionDPIPReweighter* VOL_ABS_DPIP_Universe;
@@ -115,9 +109,7 @@ namespace NeutrinoFluxReweight{
     bool doMIPPNumiYields;
     bool doMIPPNumiKaonsYields;
 
-    //    bool doTargetAttenuation;
-    bool doTA;
-    bool doTS;
+    bool doTargetAttenuation;
     
     bool doAbsorptionIC;
     bool doAbsorptionDPIP;

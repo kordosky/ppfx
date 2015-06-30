@@ -21,10 +21,8 @@ namespace NeutrinoFluxReweight{
     MIPP_NUMI_Universe = new MIPPNumiYieldsReweighter(iUniv,cvPars,univPars);
     MIPP_NUMI_KAONS_Universe = new MIPPNumiKaonsYieldsReweighter(iUniv,cvPars,univPars);
 
-    //    TARG_ATT_Universe = new TargetAttenuationReweighter(iUniv,cvPars,univPars);
-    tmp_TSRew_Universe = new tmp_TSRew(iUniv,cvPars,univPars);
-    tmp_TARew_Universe = new tmp_TARew(iUniv,cvPars,univPars);
-
+    TARG_ATT_Universe = new TargetAttenuationReweighter(iUniv,cvPars,univPars);
+    
     VOL_ABS_IC_Universe = new AbsorptionICReweighter(iUniv,cvPars,univPars);
     VOL_ABS_DPIP_Universe = new AbsorptionDPIPReweighter(iUniv,cvPars,univPars);
     VOL_ABS_DVOL_Universe = new AbsorptionDVOLReweighter(iUniv,cvPars,univPars);
@@ -54,20 +52,10 @@ namespace NeutrinoFluxReweight{
     val = options.get<std::string>("MIPPNumiKaonsYields");
     if(val=="Yes")doMIPPNumiKaonsYields = true;
     else  doMIPPNumiKaonsYields = false;
-
-    /*
+    
     val = options.get<std::string>("TargetAttenuation");
     if(val=="Yes")doTargetAttenuation = true;
-    else doTargetAttenuation = false;
-    */
-
-    val = options.get<std::string>("TA");
-    if(val=="Yes")doTA = true;
-    else  doTA = false;
-
-    val = options.get<std::string>("TS");
-    if(val=="Yes")doTS = true;
-    else  doTS = false;
+    else doTargetAttenuation = false;    
 
     val = options.get<std::string>("AbsorptionIC");
     if(val=="Yes")doAbsorptionIC = true;
@@ -167,34 +155,15 @@ namespace NeutrinoFluxReweight{
     }
 
     //Looking for target attenuation correction:
-    /*
-      attenuation_nodes = TARG_ATT_Universe->canReweight(icd);
     att_wgt = 1.0;
-    for(int ii=0;ii<attenuation_nodes.size();ii++){
-      if(attenuation_nodes[ii]==true){
+    if(doTargetAttenuation){
+      attenuation_nodes = TARG_ATT_Universe->canReweight(icd);   
+      //we just see for the first position (prmary proton)
+      if(attenuation_nodes[0]==true){
 	att_wgt *= TARG_ATT_Universe->calculateWeight(icd);
-	break;
       }
     }
-    if(doTargetAttenuation) tot_wgt *= att_wgt;
-    */
-
-    //tgt survival:
-    sur_wgt = 1.0;
-    if(doTS){
-      attenuation_nodes = tmp_TSRew_Universe->canReweight(icd);
-      if (attenuation_nodes[0]==true)sur_wgt *= tmp_TSRew_Universe->calculateWeight(icd);   
-      tot_wgt *= sur_wgt;
-    }
     
-    //tgt att:
-    att_wgt = 1.0;
-    if(doTA){
-      attenuation_nodes = tmp_TARew_Universe->canReweight(icd);
-      if (attenuation_nodes[0]==true)att_wgt *= tmp_TARew_Universe->calculateWeight(icd);  
-      tot_wgt *= att_wgt;
-    }
-        
     //ABS:
     tot_abs_wgt = 1.0;
     
