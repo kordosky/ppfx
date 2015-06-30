@@ -54,6 +54,14 @@ namespace NeutrinoFluxReweight{
       vec_wgts.push_back(1.0);
     }
     
+    //Central Value driver:
+    //by convention, we use universe -1 to hold the cv. It is in agreement with CentralValueAndUncertainties  
+    const int cv_id = -1;
+    ParameterTable cvPars=cvu->getCVPars();
+    ParameterTable univPars=cvu->calculateParsForUniverse(cv_id);
+    cv_rw = new ReweightDriver(cv_id,cvPars,univPars,fileOptions);  
+    cv_wgt = 1.0;
+
     std::cout<<"Done configuring universes"<<std::endl;
 
   }
@@ -74,8 +82,8 @@ namespace NeutrinoFluxReweight{
   /////
   void MakeReweight::doTheJob(InteractionChainData* icd){
   
+    //universe calculation:
     map_rew_wgts.clear();
-
     for(int ii=0;ii<Nuniverses;ii++){
       vec_wgts[ii] = vec_rws[ii]->calculateWeight(*icd);
 
@@ -95,8 +103,11 @@ namespace NeutrinoFluxReweight{
       map_rew_wgts["MIPPThinTarget"].push_back(vec_rws[ii]->mipp_thin_wgt);
       //      map_rew_wgts["TheoryThinTarget"].push_back(vec_rws[ii]->theory_wgt);
       map_rew_wgts["Other"].push_back(vec_rws[ii]->other_wgt);
-
     }
+    
+    //cv calculation:
+    cv_wgt = cv_rw->calculateWeight(*icd);
+    
   }
   ////
   std::vector<double> MakeReweight::GetWeights(std::string nameReweighter){
@@ -110,6 +121,10 @@ namespace NeutrinoFluxReweight{
    
   }
   ////
+  double MakeReweight::GetCVWeight(){   
+    return cv_wgt;
+  }
+  ///
   int  MakeReweight::GetNumberOfUniversesUsed(){
     return Nuniverses;
   }

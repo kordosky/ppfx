@@ -43,10 +43,15 @@ namespace NeutrinoFluxReweight{
     void calculateWeights(nu_g4numi* nu, const char* tgtcfg, const char* horncfg);
     //! create an interaction chain from the new dk2nu(dkmeta) format
     void calculateWeights(bsim::Dk2Nu* nu, bsim::DkMeta* meta);
-    
+    //! total weights
     std::vector<double> GetTotalWeights();
+    //! number of universes used in this run
     int GetNumberOfUniversesUsed();
+    //! get the vector of the weights for a given reweighter
     std::vector<double> GetWeights(std::string nameReweighter);
+    //! get the cv weights
+    double GetCVWeight();
+    
   private:    
     /*!
      * Inititalize the job and configurethe ReweighterDrivier
@@ -63,6 +68,9 @@ namespace NeutrinoFluxReweight{
     std::vector<ReweightDriver*> vec_rws;
     std::vector<double> vec_wgts;
     std::map<std::string,std::vector<double> > map_rew_wgts;
+    //cv:
+    ReweightDriver* cv_rw;
+    double cv_wgt;
 
   };
 
