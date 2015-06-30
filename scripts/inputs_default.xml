@@ -9,14 +9,13 @@
     <NucleonAbsorptionOutOfTarget>Yes</NucleonAbsorptionOutOfTarget>
     <OtherAbsorptionOutOfTarget>Yes</OtherAbsorptionOutOfTarget>
     <OtherTarget>Yes</OtherTarget>
-    <TA>Yes</TA>
-    <TS>Yes</TS>
+    <TargetAttenuation>Yes</TargetAttenuation>
     <MIPPThinTarget>No</MIPPThinTarget>
     <NA49>No</NA49>
     </FlagReweighters>
 
    <Settings>
-     <MIPPCorrOption>mediumBYDET</MIPPCorrOption>
+     <MIPPCorrOption>default</MIPPCorrOption>
      <NumberOfUniverses>100</NumberOfUniverses>
    </Settings>
 
