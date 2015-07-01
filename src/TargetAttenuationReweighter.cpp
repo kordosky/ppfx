@@ -182,7 +182,7 @@ namespace NeutrinoFluxReweight{
     double z0=-51.1; // position of the upstream edge of the budal monitor in 000z config
     // check to see if we are in LE config and adjust accordingly
     if( isLE(tgtcfg) ) {
-      z0=-51.72; // determined by ntuple tomography
+      z0=-61.72; // determined by ntuple tomography
       // check to see if we are in ME config and adjust accordingly
     }else if( isME(tgtcfg) ){ 
       z0=-143.3; // determined by ntuple tomography
