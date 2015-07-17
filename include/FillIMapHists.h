@@ -32,8 +32,10 @@ struct FillIMapHistsReweighters {
 /*! \fn FillIMapHists
  * \brief Fills the interaction map hists, looping over dk2nu input
  * Loop over the events in the Dk2Nu chain passed in and  call FillOneEntry()
+ * returns the total weight = total number of neutrino interactions which 
+ * were used to fill the plots (non integer since g4numi is a weighted MC)
  */
-void FillIMapHists(TChain* tdk2nu, TChain* dkmeta, HistList* hists, const FillIMapHistsOpts* opts);
+double FillIMapHists(TChain* tdk2nu, TChain* dkmeta, HistList* hists, const FillIMapHistsOpts* opts);
 
 /*! \fn FillOneEntry
  * \brief Fill hists with the data inside of the dk2nu and dkmeta ntuples

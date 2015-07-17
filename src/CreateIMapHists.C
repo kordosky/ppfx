@@ -4,6 +4,7 @@
 #include "CommonIMapIncludes.h"
 #include "FillIMapHists.h"
 #include <iostream>
+#include <getopt.h>
 
 using namespace std;
 
@@ -11,11 +12,12 @@ using namespace std;
 int CreateHists(const char* output_filename, const char* filename, int elow, int ehigh, int nu_id, bool NA49cuts, bool MIPPcuts);
 void make_directories(TFile *f);
 void name_hists(HistList * hists, TFile * out_file);
-void scale_hists(HistList * hists);
+void scale_hists(HistList * hists, double total_weight=1);
 void write_hists(HistList * hists, TFile * out_file);
 
-int main( int argc, char *argv[])
+int main( int argc, char *argv[]) 
 {
+
   //! Default parameters
   std::vector<std::string> par;
   par.push_back("CreateHists.cpp");
@@ -49,7 +51,7 @@ int main( int argc, char *argv[])
 
 int CreateHists(const char* output_filename, const char* filename, int elow, int ehigh, int nu_id=56, bool NA49cuts=false, bool MIPPcuts=false)
 {
-	//single array histos	
+        //single array histos	
 	vector<TH2D *> hmat(IMap::npop);
 	vector<TH2D *> hvol(IMap::npop);
 	vector<TH2D *> hmatbkw(IMap::npop);
@@ -97,17 +99,18 @@ int CreateHists(const char* output_filename, const char* filename, int elow, int
 	FillIMapHistsOpts opts;
 	opts.elow=elow; opts.ehigh=ehigh; opts.nuid=nu_id;
 	opts.cut_na49=NA49cuts; opts.cut_mipp=MIPPcuts;
-	FillIMapHists(tdk2nu, tdkmeta, &hists, &opts);
-
+	double total_weight=FillIMapHists(tdk2nu, tdkmeta, &hists, &opts);
+	
+	cout<< "Total weight: "<<total_weight<<endl;
 	//Scale the histos
 	cout << "Scaling Histos" << endl;
-	scale_hists(& hists);
+	scale_hists(& hists,total_weight);
  
 	//Write hists
  	cout << "Writing Histos" << endl;	
 	write_hists(& hists, out_file);
     
-  out_file->Close();
+	out_file->Close();
 	
 	return 0;
 
@@ -178,6 +181,9 @@ void name_hists(HistList * hists, TFile * out_file){
     
     // Will be in Projectile/h_in_vs_mat
     hists->_h_in_vs_mat = new TH2D("h_in_vs_mat",";material ; incident particle",50,0,50,50,0,50);
+
+    hists->_h_nint_vs_enu = new TH2D("h_nint_vs_enu","all interactions;neutrino energy (GeV); number of interactions",120,0,120,20,-0.5,19.5);
+    hists->_h_nint_vs_enu_cuts=new TH2D("h_nint_vs_enu_cuts", "interactions not covered by HP;neutrino energy (GeV); number of interactions",120,0,120,20,-0.5,19.5) ;
     
     for(int k=0;k<IMap::npop;k++)
     {
@@ -280,11 +286,11 @@ void name_hists(HistList * hists, TFile * out_file){
 // ----------------------------------------------
 // Scale all histograms by the total weight
 // ----------------------------------------------
-void scale_hists(HistList * hists){
+void scale_hists(HistList * hists, double total_weight){
 		
-		double total_weight = 1.0;
-    
     hists->_h_in_vs_mat->Scale(1./total_weight);
+    hists->_h_nint_vs_enu->Scale(1./total_weight);
+    hists->_h_nint_vs_enu_cuts->Scale(1./total_weight);
     // loop over all particle-specific histograms
     for(int j=0;j<IMap::npop;j++)
     {
@@ -356,10 +362,13 @@ void write_hists(HistList * hists, TFile * out_file){
             hists->_htmpop[j][k]->Write();
             hists->_hxfpt[j][k]->Write();
         }
-		}
+    }
 
   // Save the h_in_vs_mat histogram in Projectile/h_in_vs_mat
   out_file->cd("Projectile");
   hists->_h_in_vs_mat->Write();
+
+  hists->_h_nint_vs_enu->Write();
+  hists->_h_nint_vs_enu_cuts->Write();
   
 }

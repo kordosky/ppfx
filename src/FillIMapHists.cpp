@@ -7,8 +7,9 @@
 #include "TDatabasePDG.h"
 #include "TParticlePDG.h"
 #include <iostream>
+#include <math.h>
 
-void FillIMapHists(TChain* tdk2nu, TChain* tdkmeta, HistList* hists, const FillIMapHistsOpts* opts){
+double FillIMapHists(TChain* tdk2nu, TChain* tdkmeta, HistList* hists, const FillIMapHistsOpts* opts){
   using namespace NeutrinoFluxReweight;
   
   // setup the event loop, filling Dk2Nu and DkMeta objects
@@ -59,14 +60,17 @@ void FillIMapHists(TChain* tdk2nu, TChain* tdkmeta, HistList* hists, const FillI
 
 
   std::cout<<"FillIMapHists looping over "<<ntrees<<" trees with a total of "<<nentries<<" entries."<<std::endl;
+  double total_weight=0.0;
   for(Long64_t ientry=0;ientry<nentries;ientry++){
     tdk2nu->GetEntry(ientry);
     tdkmeta->GetEntry(ientry);    
   
-    FillOneEntry(dk2nu,dkmeta,hists,opts,&reweighters); 
+    total_weight+=FillOneEntry(dk2nu,dkmeta,hists,opts,&reweighters); 
   }
+  return total_weight;
 }
 
+//#define DEBUG
 
 double FillOneEntry(bsim::Dk2Nu* dk2nu, bsim::DkMeta* dkmeta, HistList* hists, const FillIMapHistsOpts* opts, FillIMapHistsReweighters* reweighters){
   double weight=0.0;
@@ -74,32 +78,66 @@ double FillOneEntry(bsim::Dk2Nu* dk2nu, bsim::DkMeta* dkmeta, HistList* hists, c
   // check that the neutrino is of the requested type and that
   // the energy is within range
   const int nu_type=dk2nu->decay.ntype;
+  const int nuray_idx=1; // this corresponds to the location of minerva
+  const double enu=dk2nu->nuray[nuray_idx].E; // energy at MINOS ND
+
+#ifdef DEBUG
+  std::cout<<"FillOneEntry() for nu_type= "<<nu_type
+	   <<" and energy "<<enu<<std::endl;
+#endif
   // setting opts.nuid=0 will result in all neutrino species being plotted
-  if( opts->nuid!=0 && nu_type!= opts->nuid) return weight;
-  const double enu=dk2nu->nuray[0].E; // energy at MINOS ND
-  if(enu<opts->elow || enu>opts->ehigh) return weight;
-  
-  const double nwtnear=dk2nu->nuray[0].wgt;
+  if( (opts->nuid!=0 && nu_type!= opts->nuid) 
+      || (enu<opts->elow || enu>opts->ehigh) ){
+#ifdef DEBUG
+    std::cout<<"Fails cut on nu_type or energy"<<std::endl;
+#endif 
+    return 0;
+  }
+  const double nwtnear=dk2nu->nuray[nuray_idx].wgt;
   const double nimpwt=dk2nu->decay.nimpwt;
   weight=nwtnear*nimpwt;
-  
+
+
+  /*
+  if(isnan(weight)){
+    std::cout<<"Encountered a NaN weight, dk2nu follows"<<std::endl;
+    std::cout<<(*dk2nu)<<std::endl;    
+  }
+  */
   NeutrinoFluxReweight::InteractionChainData icd(dk2nu,dkmeta);
   const int ninter=icd.interaction_chain.size();
   std::vector<bool> numi_pion_nodes=reweighters->NumiPions->canReweight(icd);
   std::vector<bool> numi_kaon_nodes=reweighters->NumiKaons->canReweight(icd);
+
+#ifdef DEBUG
+  std::cout<<"Passes energy cut and has a weight of "<<weight
+	   <<" with "<<ninter<<" entries in ancestry chain"<<std::endl;
+#endif 
+
+  int ninter_all=0; // a variable to count all non-Decay interactions
+  int ninter_cuts=0;// ... and only those passing the MIPP/NA49/etc cuts
   
 
   for(int iinter=0; iinter<ninter; iinter++){
     
     const NeutrinoFluxReweight::InteractionData& interdata
       =icd.interaction_chain[iinter];
-
+#ifdef DEBUG
+    std::cout<<"Processing interaction "<<iinter<<endl;
+    interdata.print(std::cout);
+#endif 
     // check to see if this entry is a decay
-    if(interdata.Proc=="Decay") continue; // if so, don't histogram
-    
+    if(interdata.Proc=="Decay"){
+#ifdef DEBUG
+      std::cout<<"   This is a decay, skip it"<<std::endl;
+#endif
+      continue; // if so, don't histogram
+    }
+    ninter_all++;
     /////////////////////////////////////////////////////////////////////
     // check here if this interaction is covered by NA49, MIPP, etc
     /////////////////////////////////////////////////////////////////////
+    
     if(opts->cut_mipp && numi_pion_nodes[iinter]) continue;
     if(opts->cut_mipp && numi_kaon_nodes[iinter]) continue;
     // at the time of this writing, the NA49 reweigher handles 
@@ -108,7 +146,7 @@ double FillOneEntry(bsim::Dk2Nu* dk2nu, bsim::DkMeta* dkmeta, HistList* hists, c
     if(opts->cut_na49 && covered_by_na49) continue;
     bool covered_by_thin_kaons = reweighters->ThinKaons->canReweight(interdata);
     if(opts->cut_na49 && covered_by_thin_kaons) continue;
-
+    ninter_cuts++;
     // get an index into the large arrays listing the volume names
     // and the material of each volume.
     int mv_idx=FindIndexFromVolume(interdata.Vol);
@@ -127,6 +165,11 @@ double FillOneEntry(bsim::Dk2Nu* dk2nu, bsim::DkMeta* dkmeta, HistList* hists, c
     // the strange name is apparently a contraction: "popular particles"
     const int prod_pop_idx=FindIndexFromParticleName(prod_name);
     const int proj_pop_idx=FindIndexFromParticleName(proj_name);
+#ifdef DEBUG
+    std::cout<<"   Projectile: "<<proj_name<<" with popidx "<<proj_pop_idx<<std::endl;
+    std::cout<<"   Produced  : "<<prod_name<<" with popidx "<<prod_pop_idx<<std::endl;
+#endif
+    
 
     // look at things from the produced particles standpoint
     if(prod_pop_idx!=-1){ // for each of the commonly produced particles.
@@ -161,13 +204,17 @@ double FillOneEntry(bsim::Dk2Nu* dk2nu, bsim::DkMeta* dkmeta, HistList* hists, c
       hists->_hvol[proj_pop_idx]->Fill(IMap::volume[mv_idx],prod_name.c_str(),weight);
       // histogram the energy of the projectile for each volume
       // This may be overkill!
-      hists->_henergyvolume[mv_idx][proj_pop_idx]->Fill(projectile_KE,weight);
+      if(mv_idx!=-1) hists->_henergyvolume[mv_idx][proj_pop_idx]->Fill(projectile_KE,weight);
       if(projectile_KE>118 and proj_pop_idx==1){
 	std::cout<<"Oh noes!"<<std::endl;
       }
     }
 
   }
+
+  // now fill the # of interactions vs enu
+  hists->_h_nint_vs_enu->Fill(enu,ninter_all,weight);
+  hists->_h_nint_vs_enu_cuts->Fill(enu,ninter_cuts,weight);
   
   // the end
   return weight;

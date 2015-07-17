@@ -29,7 +29,7 @@ $(PROGS): % : src/%.o $(OBJS_LIB) libDKLib.so libppfx.so
 	if [ ! -d bin ]; then mkdir -p bin; fi
 
 
-	$(CC) -Wall $(M32) -o bin/$@ $< $(PPFX_OBJS) $(DEPLIBS) lib/libDKLib.so lib/libppfx.so
+	$(CC) -Wall $(M32) -o bin/$@ $< $(PPFX_OBJS) $(DEPLIBS) -L$(PPFX_DIR)/lib -lDKLib -lppfx
 
 
 %.o: %.cpp

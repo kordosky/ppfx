@@ -44,6 +44,8 @@ struct HistList{
 	
 	//individual histos
   TH2D * _h_in_vs_mat;	
+  TH2D * _h_nint_vs_enu;
+  TH2D * _h_nint_vs_enu_cuts;
 };
 
 namespace IMap {
