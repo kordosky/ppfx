@@ -26,15 +26,15 @@ namespace NeutrinoFluxReweight{
   
       //first interaction:
       if(ii==0){
-	bool is_tgt_int = vec_inter[0].Vol == "BudalMonitor" || vec_inter[0].Vol == "TGT1";
+	bool is_tgt_int = vec_inter[0].Vol == "BudalMonitor" || vec_inter[0].Vol == "TGT1" || vec_inter[0].Vol == "Budal_HFVS"  || vec_inter[0].Vol == "Budal_VFHS";
 	if(is_tgt_int)can_rws.push_back(true);
 	else if(vec_inter[0].Inc_pdg == 2212)can_rws.push_back(true);
 	else can_rws.push_back(false);
       }
       //Absorption in the target:
       else{
-	bool starts_tgt = vec_inter[ii-1].Vol == "BudalMonitor" || vec_inter[ii-1].Vol == "TGT1";
-	bool ends_tgt   = vec_inter[ii].Vol   == "BudalMonitor" || vec_inter[ii].Vol   == "TGT1";
+	bool starts_tgt = vec_inter[ii-1].Vol == "BudalMonitor" || vec_inter[ii-1].Vol == "TGT1" || vec_inter[ii-1].Vol == "Budal_HFVS"  || vec_inter[ii-1].Vol == "Budal_VFHS";
+	bool ends_tgt   = vec_inter[ii].Vol   == "BudalMonitor" || vec_inter[ii].Vol   == "TGT1" || vec_inter[ii-1].Vol == "Budal_HFVS"  || vec_inter[ii-1].Vol == "Budal_VFHS";
 	if(starts_tgt && ends_tgt){
 	  can_rws.push_back(true);
 	}
@@ -67,39 +67,49 @@ namespace NeutrinoFluxReweight{
     //MIPP:
     TargetData tar = aa.tar_info;
     int binID = MIPPbins->BinID(tar.Pz,tar.Pt,tar.Tar_pdg);   
+    bool is_le = isLE(aa.target_config);
+    bool is_me = isLE(aa.target_config);
+    if( !is_le &&  !is_me ){
+      throw std::runtime_error("cannot determine if it's LE or ME beam");
+    }
+
     TH1D* hzpos;
     if(binID>=0){
        if(tar.Tar_pdg == 211 || tar.Tar_pdg ==- 211){
 	there_is_MIPP = true;
-	if(tar.Tar_pdg == 211)hzpos = dtH->hzpostgt_pip[binID];
-	if(tar.Tar_pdg ==-211)hzpos = dtH->hzpostgt_pim[binID];
+	if(tar.Tar_pdg == 211 && is_le)hzpos = dtH->hzpostgt_pip_le[binID];
+	if(tar.Tar_pdg == 211 && is_me)hzpos = dtH->hzpostgt_pip_me[binID];
+	if(tar.Tar_pdg ==-211 && is_le)hzpos = dtH->hzpostgt_pim_le[binID];
+	if(tar.Tar_pdg ==-211 && is_me)hzpos = dtH->hzpostgt_pim_me[binID];
        }
        else if(tar.Tar_pdg == 321){
 	 int aux_binID = MIPPbins->BinID(tar.Pz,tar.Pt,211);
 	 if(aux_binID>=0){
 	   there_is_MIPP = true;
-	   //I substrcted 78 because we store in DataHistos, the kaon histograms stored 
-	   // start at P>20 GeV/c and we are using bin ID pin convention here.
-	   hzpos = dtH->hzpostgt_kap[aux_binID-78];
+	   //I substracted 78 because we store all histos in DataHistos but the kaon histograms make 
+	   // sense after P>20 GeV/c and we are using bin ID convention here.
+	   if(is_le)hzpos = dtH->hzpostgt_kap_le[aux_binID-78];
+	   if(is_me)hzpos = dtH->hzpostgt_kap_me[aux_binID-78];
 	 }
        }
        else if(tar.Tar_pdg == -321){
 	 int aux_binID = MIPPbins->BinID(tar.Pz,tar.Pt,-211);
 	 if(aux_binID>=0){
 	   there_is_MIPP = true;
-	   hzpos = dtH->hzpostgt_kam[aux_binID-78];
+	   if(is_le)hzpos = dtH->hzpostgt_kam_le[aux_binID-78];
+	   if(is_me)hzpos = dtH->hzpostgt_kam_me[aux_binID-78];
 	 }
        }
        else{
-	std::cout<<"=> There is an in MIPPNumiYieldsBins"<<std::endl;
-      }
+	 std::cout<<"=> There is an in MIPPNumiYieldsBins"<<std::endl;
+       }
     }
     
     //Survival:
-    if(!there_is_MIPP && vec_inter[0].Vol!="BudalMonitor" && vec_inter[0].Vol!="TGT1"){
+    if(!there_is_MIPP && vec_inter[0].Vol!="BudalMonitor" && vec_inter[0].Vol!="TGT1" && vec_inter[0].Vol!="Budal_HFVS" && vec_inter[0].Vol!="Budal_VFHS"){
       it_is_survival = true;
     }
-        
+    
     std::map<std::string, double> this_table = univPars.table;
     std::map<std::string, double>::iterator it;
 
@@ -131,20 +141,21 @@ namespace NeutrinoFluxReweight{
     double endZ = (vec_inter[0].Vtx)[2];
     double totmatZ = 0.;  //this will be the amount of material passed. 
 
-    if( isLE(aa.target_config) ){
-      //check:
+    if( is_le){
+      //check of initial z position:
       if(vec_inter[0].Vol=="BudalMonitor"){
-	if(endZ<startZ || endZ>(startZ+2.0))std::cout<<"Potential error => startZ, endZ: "<<startZ<<" "<<endZ<<std::endl;   
+	if(endZ<startZ || endZ>(startZ+2.0))std::cout<<"Potential error of BudalMonitor=> startZ, endZ: "<<startZ<<" "<<endZ<<std::endl;   
+      }
+      totmatZ = getTargetPenetrationLE(startZ,endZ,startZ);
     }
-    totmatZ = getTargetPenetrationLE(startZ,endZ,startZ);
-    }
-    else if( isME(aa.target_config) ){ 
+    else if( is_me ){ 
+      //check of initial z position:
+      if(vec_inter[0].Vol=="Budal_HFVS"){
+	if(endZ<startZ || endZ>(startZ+2.4))std::cout<<"Potential error of Budal_HFVS => startZ, endZ: "<<startZ<<" "<<endZ<<std::endl;   
+      }
       totmatZ = getTargetPenetrationME(startZ,endZ,startZ);
-    }
-    else{
-      throw std::runtime_error("cannot determine if it's LE or ME beam");
-    }
-
+    }   
+    
     totmatZ *= avog_x_mb2cm2;
     totmatZ /= graphite_A;
     totmatZ *= graphite_density;
@@ -182,7 +193,7 @@ namespace NeutrinoFluxReweight{
     double z0=-51.1; // position of the upstream edge of the budal monitor in 000z config
     // check to see if we are in LE config and adjust accordingly
     if( isLE(tgtcfg) ) {
-      z0=-61.72; // determined by ntuple tomography
+      z0=-51.72; // determined by ntuple tomography
       // check to see if we are in ME config and adjust accordingly
     }else if( isME(tgtcfg) ){ 
       z0=-143.3; // determined by ntuple tomography
