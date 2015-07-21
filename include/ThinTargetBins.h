@@ -16,33 +16,33 @@ namespace NeutrinoFluxReweight{
     ThinTargetBins();
     static ThinTargetBins* getInstance();
     
-    //! Read a NA49 pip xml file name to parse the bins
-    void pip_na49_from_xml(const char* filename);
+    //! Read a data pip xml file name to parse the bins
+    void pip_data_from_xml(const char* filename);
 
-    //! Read a NA49 pim xml file name to parse the bins
-    void pim_na49_from_xml(const char* filename);
+    //! Read a data pim xml file name to parse the bins
+    void pim_data_from_xml(const char* filename);
 
-    //! Read a NA49 kap xml file name to parse the bins
-    void kap_na49_from_xml(const char* filename);
+    //! Read a data kap xml file name to parse the bins
+    void kap_data_from_xml(const char* filename);
     
-    //! Read a NA49 kam xml file name to parse the bins
-    void kam_na49_from_xml(const char* filename);
+    //! Read a data kam xml file name to parse the bins
+    void kam_data_from_xml(const char* filename);
     
-    //! Read a NA49 prt xml file name to parse the bins
-    void prt_na49_from_xml(const char* filename);
+    //! Read a data prt xml file name to parse the bins
+    void prt_data_from_xml(const char* filename);
     
-    //! Read a NA49 neu xml file name to parse the bins
-    void neu_na49_from_xml(const char* filename);
+    //! Read a data neu xml file name to parse the bins
+    void neu_data_from_xml(const char* filename);
 
      //! Return the Bin ID for this data
     int BinID(double pz, double pt,int pdgcode);
     
-    std::vector<double> pip_na49_pzmin, pip_na49_pzmax, pip_na49_ptmin, pip_na49_ptmax;
-    std::vector<double> pim_na49_pzmin, pim_na49_pzmax, pim_na49_ptmin, pim_na49_ptmax;
-    std::vector<double> kap_na49_pzmin, kap_na49_pzmax, kap_na49_ptmin, kap_na49_ptmax;
-    std::vector<double> kam_na49_pzmin, kam_na49_pzmax, kam_na49_ptmin, kam_na49_ptmax;
-    std::vector<double> prt_na49_pzmin, prt_na49_pzmax, prt_na49_ptmin, prt_na49_ptmax;
-    std::vector<double> neu_na49_pzmin, neu_na49_pzmax, neu_na49_ptmin, neu_na49_ptmax;
+    std::vector<double> pip_data_pzmin, pip_data_pzmax, pip_data_ptmin, pip_data_ptmax;
+    std::vector<double> pim_data_pzmin, pim_data_pzmax, pim_data_ptmin, pim_data_ptmax;
+    std::vector<double> kap_data_pzmin, kap_data_pzmax, kap_data_ptmin, kap_data_ptmax;
+    std::vector<double> kam_data_pzmin, kam_data_pzmax, kam_data_ptmin, kam_data_ptmax;
+    std::vector<double> prt_data_pzmin, prt_data_pzmax, prt_data_ptmin, prt_data_ptmax;
+    std::vector<double> neu_data_pzmin, neu_data_pzmax, neu_data_ptmin, neu_data_ptmax;
     
   private:
     static ThinTargetBins* instance;
