@@ -18,8 +18,8 @@ namespace NeutrinoFluxReweight{
     
     //Creating the vector of reweighters:
     
-    MIPP_NUMI_Universe = new MIPPNumiYieldsReweighter(iUniv,cvPars,univPars);
-    MIPP_NUMI_KAONS_Universe = new MIPPNumiKaonsYieldsReweighter(iUniv,cvPars,univPars);
+    MIPP_NUMI_PION_Universe = new MIPPNumiPionYieldsReweighter(iUniv,cvPars,univPars);
+    MIPP_NUMI_KAON_Universe = new MIPPNumiKaonYieldsReweighter(iUniv,cvPars,univPars);
 
     TARG_ATT_Universe = new TargetAttenuationReweighter(iUniv,cvPars,univPars);
     
@@ -45,13 +45,13 @@ namespace NeutrinoFluxReweight{
     read_xml(fileOptions.c_str(),top,2); // option 2 removes comment strings
     ptree& options = top.get_child("inputs.FlagReweighters");
 
-    val = options.get<std::string>("MIPPNumiYields");
-    if(val=="Yes")doMIPPNumiYields = true;
-    else doMIPPNumiYields = false;
+    val = options.get<std::string>("MIPPNumiPionYields");
+    if(val=="Yes")doMIPPNumiPionYields = true;
+    else doMIPPNumiPionYields = false;
 
-    val = options.get<std::string>("MIPPNumiKaonsYields");
-    if(val=="Yes")doMIPPNumiKaonsYields = true;
-    else  doMIPPNumiKaonsYields = false;
+    val = options.get<std::string>("MIPPNumiKaonYields");
+    if(val=="Yes")doMIPPNumiKaonYields = true;
+    else  doMIPPNumiKaonYields = false;
     
     val = options.get<std::string>("TargetAttenuation");
     if(val=="Yes")doTargetAttenuation = true;
@@ -110,31 +110,31 @@ namespace NeutrinoFluxReweight{
     
     //First we look at MIPP and look absorption chain:
     bool has_mipp = false;
-    mipp_wgt = 1.0;
-    if(doMIPPNumiYields){
-      interaction_nodes = MIPP_NUMI_Universe->canReweight(icd);
+    mipp_pion_wgt = 1.0;
+    if(doMIPPNumiPionYields){
+      interaction_nodes = MIPP_NUMI_PION_Universe->canReweight(icd);
       for(int ii=0;ii<interaction_nodes.size();ii++){
 	if(interaction_nodes[ii]==true){
 	  has_mipp = true;
-	  mipp_wgt = MIPP_NUMI_Universe->calculateWeight(icd);
+	  mipp_pion_wgt = MIPP_NUMI_PION_Universe->calculateWeight(icd);
 	  break; 
 	}
       }
-      tot_wgt *= mipp_wgt;
+      tot_wgt *= mipp_pion_wgt;
     }
 
-    mipp_kaons_wgt = 1.0;
-    if(!has_mipp && doMIPPNumiKaonsYields){
-      interaction_nodes = MIPP_NUMI_KAONS_Universe->canReweight(icd);
+    mipp_kaon_wgt = 1.0;
+    if(!has_mipp && doMIPPNumiKaonYields){
+      interaction_nodes = MIPP_NUMI_KAON_Universe->canReweight(icd);
 
       for(int ii=0;ii<interaction_nodes.size();ii++){
 	if(interaction_nodes[ii]==true){
 	  has_mipp = true;
-	  mipp_kaons_wgt = MIPP_NUMI_KAONS_Universe->calculateWeight(icd);
+	  mipp_kaon_wgt = MIPP_NUMI_KAON_Universe->calculateWeight(icd);
 	  break; 
 	}
       }
-      tot_wgt *= mipp_kaons_wgt;
+      tot_wgt *= mipp_kaon_wgt;
     }
     
     other_wgt = 1.0;

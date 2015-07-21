@@ -1,10 +1,10 @@
 <inputs>
 
   <FlagReweighters>
-    <MIPPNumiYields>Yes</MIPPNumiYields>
+    <MIPPNumiPionYields>Yes</MIPPNumiPionYields>
     <TargetAttenuation>Yes</TargetAttenuation>
     <NA49>Yes</NA49>
-    <MIPPNumiKaonsYields>Yes</MIPPNumiKaonsYields>
+    <MIPPNumiKaonYields>Yes</MIPPNumiKaonYields>
     <MIPPThinTarget>Yes</MIPPThinTarget>
     <AbsorptionIC>Yes</AbsorptionIC>
     <AbsorptionDPIP>Yes</AbsorptionDPIP>

@@ -52,8 +52,8 @@ double FillIMapHists(TChain* tdk2nu, TChain* tdkmeta, HistList* hists, const Fil
 
   ////// now make the reweighters after doing all that stuff above 
   FillIMapHistsReweighters reweighters;
-  reweighters.NumiPions = new MIPPNumiYieldsReweighter(iUniv,cvPars,univPars);
-  reweighters.NumiKaons = new MIPPNumiKaonsYieldsReweighter(iUniv,cvPars,univPars);
+  reweighters.NumiPions = new MIPPNumiPionYieldsReweighter(iUniv,cvPars,univPars);
+  reweighters.NumiKaons = new MIPPNumiKaonYieldsReweighter(iUniv,cvPars,univPars);
   reweighters.NA49 = new NA49Reweighter(iUniv,cvPars,univPars);    
   reweighters.ThinKaons = new MIPPThinTargetReweighter(iUniv,cvPars,univPars);
   //////////////////// done initializing reweighers ////////////////////////

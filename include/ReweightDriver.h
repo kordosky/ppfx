@@ -5,8 +5,8 @@
 #include "MIPPThinTargetReweighter.h"
 #include "TheoryThinTargetReweighter.h"
 
-#include "MIPPNumiYieldsReweighter.h"
-#include "MIPPNumiKaonsYieldsReweighter.h"
+#include "MIPPNumiPionYieldsReweighter.h"
+#include "MIPPNumiKaonYieldsReweighter.h"
 #include "TargetAttenuationReweighter.h"
 
 #include "AbsorptionICReweighter.h"
@@ -49,10 +49,10 @@ namespace NeutrinoFluxReweight{
     double calculateWeight(const InteractionChainData& icd);
     
     /*!  MIPP NuMI yield weight   */
-    double mipp_wgt;
+    double mipp_pion_wgt;
 
      /*!   MIPP NuMI kaons yield weight   */
-    double mipp_kaons_wgt;
+    double mipp_kaon_wgt;
     
     /*!  Target attenuation weight   */
     double att_wgt;
@@ -88,8 +88,8 @@ namespace NeutrinoFluxReweight{
     ParameterTable cvPars;
     ParameterTable univPars;
 
-    MIPPNumiYieldsReweighter* MIPP_NUMI_Universe;
-    MIPPNumiKaonsYieldsReweighter* MIPP_NUMI_KAONS_Universe;
+    MIPPNumiPionYieldsReweighter* MIPP_NUMI_PION_Universe;
+    MIPPNumiKaonYieldsReweighter* MIPP_NUMI_KAON_Universe;
     
     TargetAttenuationReweighter* TARG_ATT_Universe;
     
@@ -106,8 +106,8 @@ namespace NeutrinoFluxReweight{
     //    TheoryThinTargetReweighter* THEORY_Universe;
 
     //Flag to select the reweighters:
-    bool doMIPPNumiYields;
-    bool doMIPPNumiKaonsYields;
+    bool doMIPPNumiPionYields;
+    bool doMIPPNumiKaonYields;
 
     bool doTargetAttenuation;
     

@@ -1,8 +1,8 @@
 <inputs>
 
   <FlagReweighters>
-    <MIPPNumiYields>Yes</MIPPNumiYields>
-    <MIPPNumiKaonsYields>Yes</MIPPNumiKaonsYields>
+    <MIPPNumiPionYields>Yes</MIPPNumiPionYields>
+    <MIPPNumiKaonYields>Yes</MIPPNumiKaonYields>
     <AbsorptionIC>Yes</AbsorptionIC>
     <AbsorptionDPIP>Yes</AbsorptionDPIP>
     <AbsorptionDVOL>Yes</AbsorptionDVOL>

@@ -87,8 +87,8 @@ namespace NeutrinoFluxReweight{
     for(int ii=0;ii<Nuniverses;ii++){
       vec_wgts[ii] = vec_rws[ii]->calculateWeight(*icd);
 
-      map_rew_wgts["MIPPNumiYields"].push_back(vec_rws[ii]->mipp_wgt);
-      map_rew_wgts["MIPPNumiKaonsYields"].push_back(vec_rws[ii]->mipp_kaons_wgt);
+      map_rew_wgts["MIPPNumiPionYields"].push_back(vec_rws[ii]->mipp_pion_wgt);
+      map_rew_wgts["MIPPNumiKaonYields"].push_back(vec_rws[ii]->mipp_kaon_wgt);
       
       map_rew_wgts["TargetAttenuation"].push_back(vec_rws[ii]->att_wgt);
             

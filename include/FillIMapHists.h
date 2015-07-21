@@ -7,8 +7,8 @@
 #include "dkmeta.h"
 #include <string>
 
-#include "MIPPNumiKaonsYieldsReweighter.h"
-#include "MIPPNumiYieldsReweighter.h"
+#include "MIPPNumiKaonYieldsReweighter.h"
+#include "MIPPNumiPionYieldsReweighter.h"
 #include "NA49Reweighter.h"
 #include "MIPPThinTargetReweighter.h"
 
@@ -21,8 +21,8 @@ struct FillIMapHistsOpts {
 
 struct FillIMapHistsReweighters {
 
-  NeutrinoFluxReweight::MIPPNumiYieldsReweighter* NumiPions;
-  NeutrinoFluxReweight::MIPPNumiKaonsYieldsReweighter* NumiKaons; 
+  NeutrinoFluxReweight::MIPPNumiPionYieldsReweighter* NumiPions;
+  NeutrinoFluxReweight::MIPPNumiKaonYieldsReweighter* NumiKaons; 
   NeutrinoFluxReweight::NA49Reweighter* NA49;
   NeutrinoFluxReweight::MIPPThinTargetReweighter* ThinKaons;
 

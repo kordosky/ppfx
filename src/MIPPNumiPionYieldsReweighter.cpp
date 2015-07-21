@@ -1,6 +1,5 @@
 
-
-#include "MIPPNumiYieldsReweighter.h"
+#include "MIPPNumiPionYieldsReweighter.h"
 #include "DataHistos.h"
 #include "CentralValuesAndUncertainties.h"
 
@@ -13,14 +12,14 @@
 
 namespace NeutrinoFluxReweight{
   
-  MIPPNumiYieldsReweighter::MIPPNumiYieldsReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars):iUniv(iuniv),cvPars(cv_pars),univPars(univ_pars){ 
+  MIPPNumiPionYieldsReweighter::MIPPNumiPionYieldsReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars):iUniv(iuniv),cvPars(cv_pars),univPars(univ_pars){ 
     // do any other necessary initialization    
     
 }
-  MIPPNumiYieldsReweighter::~MIPPNumiYieldsReweighter(){
+  MIPPNumiPionYieldsReweighter::~MIPPNumiPionYieldsReweighter(){
     
   }
-  std::vector<bool> MIPPNumiYieldsReweighter::canReweight(const InteractionChainData& aa){
+  std::vector<bool> MIPPNumiPionYieldsReweighter::canReweight(const InteractionChainData& aa){
  
     MIPPNumiYieldsBins*  MIPPbins =  MIPPNumiYieldsBins::getInstance();
     std::vector<bool> this_nodes;
@@ -56,7 +55,7 @@ namespace NeutrinoFluxReweight{
     
     return this_nodes;
   }
-  double MIPPNumiYieldsReweighter::calculateWeight(const InteractionChainData& aa){
+  double MIPPNumiPionYieldsReweighter::calculateWeight(const InteractionChainData& aa){
     
     MIPPNumiYieldsBins*  MIPPbins =  MIPPNumiYieldsBins::getInstance();
     MIPPNumiMC*  MCval =  MIPPNumiMC::getInstance();
