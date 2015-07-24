@@ -16,7 +16,7 @@
 
    <Settings>
      <MIPPCorrOption>default</MIPPCorrOption>
-     <NumberOfUniverses>1</NumberOfUniverses>
+     <NumberOfUniverses>100</NumberOfUniverses>
    </Settings>
 
 </inputs>

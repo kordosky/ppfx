@@ -107,7 +107,7 @@ namespace NeutrinoFluxReweight{
     MIPPThinTargetReweighter* MIPP_THIN_Universe;
     //    TheoryThinTargetReweighter* THEORY_Universe;
 
-    ThinTargetpCPionReweighter* test_thin_univ;
+    //    ThinTargetpCPionReweighter* test_thin_univ;
 
     //Flag to select the reweighters:
     bool doMIPPNumiPionYields;
