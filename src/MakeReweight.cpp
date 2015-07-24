@@ -25,16 +25,18 @@ namespace NeutrinoFluxReweight{
     //Getting MIPP binning and the correlation parameters:
     CentralValuesAndUncertainties* cvu = CentralValuesAndUncertainties::getInstance();;
     MIPPNumiYieldsBins*  myb =  MIPPNumiYieldsBins::getInstance(); 
+    ThinTargetBins*  thinbin =  ThinTargetBins::getInstance(); 
     MIPPNumiMC*  mymc =  MIPPNumiMC::getInstance(); 
     const char* ppfxDir = getenv("PPFX_DIR");
     
     std::cout<<"Initializing correlation parameters"<<std::endl;
     cvu->readFromXML(Form("%s/uncertainties/Parameters_%s.xml",ppfxDir,mippCorrOption.c_str()));
-
+    
     std::cout<<"Initializing bin data conventions"<<std::endl;
     myb->pip_data_from_xml(Form("%s/data/BINS/MIPPNumiData_PIP_Bins.xml",ppfxDir));
     myb->pim_data_from_xml(Form("%s/data/BINS/MIPPNumiData_PIM_Bins.xml",ppfxDir));
     myb->k_pi_data_from_xml(Form("%s/data/BINS/MIPPNumiData_K_PI_Bins.xml",ppfxDir));
+    thinbin->pC_pi_from_xml(Form("%s/data/BINS/ThinTarget_pC_pi_Bins.xml",ppfxDir));
 
     std::cout<<"Initializing MC values"<<std::endl;
     mymc->pip_mc_from_xml(Form("%s/data/MIPP/MIPPNuMI_MC_PIP.xml",ppfxDir));

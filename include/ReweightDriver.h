@@ -17,6 +17,8 @@
 
 #include "OtherReweighter.h"
 
+#include "ThinTargetpCPionReweighter.h"
+
 #include "InteractionChainData.h"
 
 namespace NeutrinoFluxReweight{
@@ -104,6 +106,8 @@ namespace NeutrinoFluxReweight{
     NA49Reweighter* NA49_Universe;
     MIPPThinTargetReweighter* MIPP_THIN_Universe;
     //    TheoryThinTargetReweighter* THEORY_Universe;
+
+    ThinTargetpCPionReweighter* test_thin_univ;
 
     //Flag to select the reweighters:
     bool doMIPPNumiPionYields;

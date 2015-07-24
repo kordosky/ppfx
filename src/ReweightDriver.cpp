@@ -35,6 +35,8 @@ namespace NeutrinoFluxReweight{
     //    THEORY_Universe = new TheoryThinTargetReweighter(iUniv,cvPars,univPars);
     OTHER_Universe = new OtherReweighter(iUniv,cvPars,univPars); 
     
+    test_thin_univ = new ThinTargetpCPionReweighter(iUniv,cvPars,univPars); 
+
   }
   
   void ReweightDriver::ParseOptions(){
@@ -99,6 +101,9 @@ namespace NeutrinoFluxReweight{
   double ReweightDriver::calculateWeight(const InteractionChainData& icd){
 
     double tot_wgt = 1.0;
+    
+    //test:
+    std::cout<<"test cv "<<test_thin_univ->calculateWeight((icd.interaction_chain)[0])<<std::endl;
     
     //Boolean flags: 
     const int nnodes=icd.interaction_chain.size();

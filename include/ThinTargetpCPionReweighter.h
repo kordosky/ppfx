@@ -3,8 +3,7 @@
 #define THINTARGETPCPIONREWEIGHTER_H
 
 #include "IInteractionReweighting.h"
-
-#include <vector>
+#include "ParameterTable.h"
 
 namespace NeutrinoFluxReweight{
   
