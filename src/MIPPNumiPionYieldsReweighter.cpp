@@ -5,8 +5,6 @@
 
 #include "MIPPNumiYieldsBins.h"
 #include "MIPPNumiMC.h"
-//#include "HistoContainer.h"
-//#include "ExtractInfo.h"
 
 #include <iostream>
 
@@ -61,8 +59,6 @@ namespace NeutrinoFluxReweight{
     MIPPNumiMC*  MCval =  MIPPNumiMC::getInstance();
     
     DataHistos*          dtH      =  DataHistos::getInstance();
-    //    HistoContainer*      histos   =  HistoContainer::getInstance();
-    //ExtractInfo*         info     =  ExtractInfo::getInstance();
     
     TargetData tar = aa.tar_info;
     int binID = MIPPbins->BinID(tar.Pz,tar.Pt,tar.Tar_pdg);
@@ -79,19 +75,12 @@ namespace NeutrinoFluxReweight{
     sprintf(namepar_sys,"MIPP_NuMI_%s_sys_%d",ptype,binID);
     sprintf(namepar_sta,"MIPP_NuMI_%s_stats_%d",ptype,binID);
     
-    ////////// Testing getting the cv and substract:
-
     std::map<std::string, double> cv_table = cvPars.table;
     std::map<std::string, double>::iterator cv_it = cv_table.begin();
+    
     cv_it = cv_table.find(std::string(namepar_sys));
     double data_cv = cv_it->second;
-
-    //for plots: data_cv +- 50% of the cv.
-    //    double plot_min = 0.5*data_cv;
-    // double plot_max = 1.5*data_cv;
- 
-    //////////
-
+    
     std::map<std::string, double> this_table = univPars.table;
     std::map<std::string, double>::iterator it = this_table.begin();
 
@@ -102,8 +91,6 @@ namespace NeutrinoFluxReweight{
     }
     double data_sys = it->second;
     
-    //    histos->plot1D(data_sys,"wgt_" + std::string(namepar_sys),"",1000,plot_min,plot_max,1.0);
-
     it = this_table.begin();
     it = this_table.find(std::string(namepar_sta));
     if(it == this_table.end()){
@@ -111,7 +98,6 @@ namespace NeutrinoFluxReweight{
       return 1.0;
     }    
     double data_sta = it->second;
-    //    histos->plot1D(data_sta,"wgt_" + std::string(namepar_sta),"",1000,plot_min,plot_max,1.0);
     
     it = this_table.begin();
     it = this_table.find("prt_no_interacting");
@@ -131,14 +117,6 @@ namespace NeutrinoFluxReweight{
       return 1.0;
     }
       
-    ///Filling info:
-    /* 
-    char cunivID[3]; 
-    sprintf(cunivID,"%03d",iUniv);
-    info->FillInfo("univ" + std::string(cunivID) + "_" + std::string(namepar_sys),data_sys/binC);
-    info->FillInfo("univ" + std::string(cunivID) + "_" + std::string(namepar_sta),data_sta/binC);
-    */
-    
     return (data_sys + data_sta - data_cv)/binC;
     
   }

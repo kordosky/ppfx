@@ -39,10 +39,11 @@ namespace NeutrinoFluxReweight{
     
     static double getTargetPenetrationLE(double z_start, double z_end, double z0_budal);
     static double getTargetPenetrationME(double z_start, double z_end, double z0_budal);
+     const ParameterTable& cvPars;
+     const ParameterTable& univPars;
   private:
     int iUniv;
-    ParameterTable cvPars;
-    ParameterTable univPars;
+   
   };
 
   

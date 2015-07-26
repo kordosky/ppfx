@@ -18,24 +18,22 @@ namespace NeutrinoFluxReweight{
     
     //Creating the vector of reweighters:
     
-    MIPP_NUMI_PION_Universe = new MIPPNumiPionYieldsReweighter(iUniv,cvPars,univPars);
-    MIPP_NUMI_KAON_Universe = new MIPPNumiKaonYieldsReweighter(iUniv,cvPars,univPars);
+    if(doMIPPNumiPionYields)MIPP_NUMI_PION_Universe = new MIPPNumiPionYieldsReweighter(iUniv,cvPars,univPars);
+    if(doMIPPNumiKaonYields)MIPP_NUMI_KAON_Universe = new MIPPNumiKaonYieldsReweighter(iUniv,cvPars,univPars);
 
-    TARG_ATT_Universe = new TargetAttenuationReweighter(iUniv,cvPars,univPars);
+    if(doTargetAttenuation)TARG_ATT_Universe = new TargetAttenuationReweighter(iUniv,cvPars,univPars);
     
-    VOL_ABS_IC_Universe = new AbsorptionICReweighter(iUniv,cvPars,univPars);
-    VOL_ABS_DPIP_Universe = new AbsorptionDPIPReweighter(iUniv,cvPars,univPars);
-    VOL_ABS_DVOL_Universe = new AbsorptionDVOLReweighter(iUniv,cvPars,univPars);
-    VOL_ABS_NUCLEON_Universe = new NucleonAbsorptionOutOfTargetReweighter(iUniv,cvPars,univPars);
-    VOL_ABS_OTHER_Universe = new OtherAbsorptionOutOfTargetReweighter(iUniv,cvPars,univPars);
+    if(doAbsorptionIC)VOL_ABS_IC_Universe = new AbsorptionICReweighter(iUniv,cvPars,univPars);
+    if(doAbsorptionDPIP)VOL_ABS_DPIP_Universe = new AbsorptionDPIPReweighter(iUniv,cvPars,univPars);
+    if(doAbsorptionDVOL)VOL_ABS_DVOL_Universe = new AbsorptionDVOLReweighter(iUniv,cvPars,univPars);
+    if(doAbsorptionNucleon)VOL_ABS_NUCLEON_Universe = new NucleonAbsorptionOutOfTargetReweighter(iUniv,cvPars,univPars);
+    if(doAbsorptionOther)VOL_ABS_OTHER_Universe = new OtherAbsorptionOutOfTargetReweighter(iUniv,cvPars,univPars);
 
-    NA49_Universe = new NA49Reweighter(iUniv,cvPars,univPars);    
-    MIPP_THIN_Universe = new MIPPThinTargetReweighter(iUniv,cvPars,univPars);
-
-    //    THEORY_Universe = new TheoryThinTargetReweighter(iUniv,cvPars,univPars);
-    OTHER_Universe = new OtherReweighter(iUniv,cvPars,univPars); 
+    if(doNA49)NA49_Universe = new NA49Reweighter(iUniv,cvPars,univPars);    
+    if(doMIPPThinTarget)MIPP_THIN_Universe = new MIPPThinTargetReweighter(iUniv,cvPars,univPars);
     
-    //    test_thin_univ = new ThinTargetpCPionReweighter(iUniv,cvPars,univPars); 
+    //  THEORY_Universe = new TheoryThinTargetReweighter(iUniv,cvPars,univPars);
+    if(doOther)OTHER_Universe = new OtherReweighter(iUniv,cvPars,univPars);
 
   }
   

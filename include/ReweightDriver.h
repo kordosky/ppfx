@@ -87,8 +87,8 @@ namespace NeutrinoFluxReweight{
      */
     void ParseOptions();
     int iUniv;
-    ParameterTable cvPars;
-    ParameterTable univPars;
+    const ParameterTable& cvPars;
+    const ParameterTable& univPars;
 
     MIPPNumiPionYieldsReweighter* MIPP_NUMI_PION_Universe;
     MIPPNumiKaonYieldsReweighter* MIPP_NUMI_KAON_Universe;

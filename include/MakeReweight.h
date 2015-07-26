@@ -52,7 +52,8 @@ namespace NeutrinoFluxReweight{
     std::vector<double> GetWeights(std::string nameReweighter);
     //! get the cv weights
     double GetCVWeight();
-    
+    std::vector<ParameterTable> cvPars,univPars;
+
   private:    
     /*!
      * Inititalize the job and configurethe ReweighterDrivier

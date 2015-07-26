@@ -4,8 +4,6 @@
 #include "DataHistos.h"
 #include "CentralValuesAndUncertainties.h"
 
-#include "HistoContainer.h"
-#include "ExtractInfo.h"
 #include <cstdlib>
 
 #include <iostream>

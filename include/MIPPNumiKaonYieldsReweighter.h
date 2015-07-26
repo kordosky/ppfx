@@ -20,11 +20,12 @@ namespace NeutrinoFluxReweight{
     //! calculate a weight for this interaction chain given the central value parameters and the parameters for this universe. The weight is something like: f(cv)/f(MC) * f(univ)/f(cv) where cv in this case  corresponds to the best value of the parameter, given the data. If univ_pars=cv_pars then we are calculating a central value weight. Note, canReweight() should be called to determine which elements of the chain are covered by the weight returned by calculateWeight()
     virtual double calculateWeight(const InteractionChainData& aa);
  
+    const ParameterTable& cvPars;
+    const ParameterTable& univPars;
+
   private:
     int iUniv;
-    ParameterTable cvPars;
-    ParameterTable univPars;
-    
+        
   };
 
 

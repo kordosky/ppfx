@@ -49,19 +49,23 @@ namespace NeutrinoFluxReweight{
     std::cout<<"Initializing reweight drivers for "<<Nuniverses<<" universes"<<std::endl;
  
     const int base_universe=1000000;
+    cvPars.reserve(Nuniverses+1);
+    univPars.reserve(Nuniverses+1);
     for(int ii=0;ii<Nuniverses;ii++){
-      ParameterTable cvPars=cvu->getCVPars();
-      ParameterTable univPars=cvu->calculateParsForUniverse(ii+base_universe);
-      vec_rws.push_back(new ReweightDriver(ii,cvPars,univPars,fileOptions));  
+      cvPars.push_back(cvu->getCVPars());
+      univPars.push_back(cvu->calculateParsForUniverse(ii+base_universe));
+      vec_rws.push_back(new ReweightDriver(ii,cvPars[ii],univPars[ii],fileOptions));
       vec_wgts.push_back(1.0);
     }
     
     //Central Value driver:
     //by convention, we use universe -1 to hold the cv. It is in agreement with CentralValueAndUncertainties  
     const int cv_id = -1;
-    ParameterTable cvPars=cvu->getCVPars();
-    ParameterTable univPars=cvu->calculateParsForUniverse(cv_id);
-    cv_rw = new ReweightDriver(cv_id,cvPars,univPars,fileOptions);  
+
+    cvPars.push_back(cvu->getCVPars());
+    univPars.push_back(cvu->calculateParsForUniverse(cv_id));
+    cv_rw = new ReweightDriver(cv_id,cvPars[Nuniverses],univPars[Nuniverses],fileOptions); 
+
     cv_wgt = 1.0;
 
     std::cout<<"Done configuring universes"<<std::endl;
