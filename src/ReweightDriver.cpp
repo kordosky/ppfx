@@ -21,20 +21,23 @@ namespace NeutrinoFluxReweight{
     if(doMIPPNumiPionYields)MIPP_NUMI_PION_Universe = new MIPPNumiPionYieldsReweighter(iUniv,cvPars,univPars);
     if(doMIPPNumiKaonYields)MIPP_NUMI_KAON_Universe = new MIPPNumiKaonYieldsReweighter(iUniv,cvPars,univPars);
 
-    if(doTargetAttenuation)TARG_ATT_Universe = new TargetAttenuationReweighter(iUniv,cvPars,univPars);
-    
+    if(doTargetAttenuation)TARG_ATT_Universe = new TargetAttenuationReweighter(iUniv,cvPars,univPars);    
     if(doAbsorptionIC)VOL_ABS_IC_Universe = new AbsorptionICReweighter(iUniv,cvPars,univPars);
     if(doAbsorptionDPIP)VOL_ABS_DPIP_Universe = new AbsorptionDPIPReweighter(iUniv,cvPars,univPars);
     if(doAbsorptionDVOL)VOL_ABS_DVOL_Universe = new AbsorptionDVOLReweighter(iUniv,cvPars,univPars);
     if(doAbsorptionNucleon)VOL_ABS_NUCLEON_Universe = new NucleonAbsorptionOutOfTargetReweighter(iUniv,cvPars,univPars);
     if(doAbsorptionOther)VOL_ABS_OTHER_Universe = new OtherAbsorptionOutOfTargetReweighter(iUniv,cvPars,univPars);
 
-    if(doNA49)NA49_Universe = new NA49Reweighter(iUniv,cvPars,univPars);    
-    if(doMIPPThinTarget)MIPP_THIN_Universe = new MIPPThinTargetReweighter(iUniv,cvPars,univPars);
-    
-    //  THEORY_Universe = new TheoryThinTargetReweighter(iUniv,cvPars,univPars);
+    if(doThinTargetpCPion)THINTARGET_PC_PION_Universe = new ThinTargetpCPionReweighter(iUniv,cvPars,univPars);
     if(doOther)OTHER_Universe = new OtherReweighter(iUniv,cvPars,univPars);
 
+
+    //now used now in hp wgts:
+    if(doNA49)NA49_Universe = new NA49Reweighter(iUniv,cvPars,univPars);    
+    if(doMIPPThinTarget)MIPP_THIN_Universe = new MIPPThinTargetReweighter(iUniv,cvPars,univPars);
+    //  THEORY_Universe = new TheoryThinTargetReweighter(iUniv,cvPars,univPars);
+    //
+    
   }
   
   void ReweightDriver::ParseOptions(){
@@ -77,6 +80,15 @@ namespace NeutrinoFluxReweight{
     if(val=="Yes")doAbsorptionOther = true;
     else  doAbsorptionOther = false;
     
+    val = options.get<std::string>("ThinTargetpCPion");
+    if(val=="Yes")doThinTargetpCPion = true;
+    else  doThinTargetpCPion = false;
+    
+    val = options.get<std::string>("OtherTarget");
+    if(val=="Yes")doOther = true;
+    else  doOther = false;
+    
+    ///Not used in hp weights:
     val = options.get<std::string>("NA49");
     if(val=="Yes")doNA49 = true;
     else  doNA49 = false;
@@ -90,18 +102,13 @@ namespace NeutrinoFluxReweight{
     if(val=="Yes")doTheoryThinTarget = true;
     else  doTheoryThinTarget = false;
     */
-    
-    val = options.get<std::string>("OtherTarget");
-    if(val=="Yes")doOther = true;
-    else  doOther = false;
+    ////////////
+   
 
   }
   double ReweightDriver::calculateWeight(const InteractionChainData& icd){
 
     double tot_wgt = 1.0;
-    
-    //test:
-    //    std::cout<<"test cv "<<test_thin_univ->calculateWeight((icd.interaction_chain)[0])<<std::endl;
     
     //Boolean flags: 
     const int nnodes=icd.interaction_chain.size();
@@ -140,6 +147,24 @@ namespace NeutrinoFluxReweight{
       tot_wgt *= mipp_kaon_wgt;
     }
     
+    pC_pi_wgt = 1.0;
+    if(doThinTargetpCPion){
+      for(int ii=(interaction_nodes.size()-1);ii>=0;ii--){	
+	if(interaction_nodes[ii]==false){
+	  bool is_rew = THINTARGET_PC_PION_Universe->canReweight((icd.interaction_chain)[ii]);
+	  if(is_rew){
+	    double rewval = THINTARGET_PC_PION_Universe->calculateWeight((icd.interaction_chain)[ii]);
+	    pC_pi_wgt *= rewval;
+	    interaction_nodes[ii]=true;
+	  }
+	}
+	else{
+	  break;
+	} 
+      }
+      tot_wgt *= pC_pi_wgt;
+    }
+
     other_wgt = 1.0;
     if(doOther){
       for(int ii=(interaction_nodes.size()-1);ii>=0;ii--){	
@@ -148,6 +173,7 @@ namespace NeutrinoFluxReweight{
 	  if(is_rew){
 	    double rewval = OTHER_Universe->calculateWeight((icd.interaction_chain)[ii]);
 	    other_wgt *= rewval;
+	    interaction_nodes[ii]=true;
 	  }
 	}
 	else{
@@ -156,7 +182,7 @@ namespace NeutrinoFluxReweight{
       }
       tot_wgt *= other_wgt;
     }
-
+    
     //Looking for target attenuation correction:
     att_wgt = 1.0;
     if(doTargetAttenuation){

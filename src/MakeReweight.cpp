@@ -96,19 +96,22 @@ namespace NeutrinoFluxReweight{
       map_rew_wgts["MIPPNumiPionYields"].push_back(vec_rws[ii]->mipp_pion_wgt);
       map_rew_wgts["MIPPNumiKaonYields"].push_back(vec_rws[ii]->mipp_kaon_wgt);
       
-      map_rew_wgts["TargetAttenuation"].push_back(vec_rws[ii]->att_wgt);
-            
+      map_rew_wgts["TargetAttenuation"].push_back(vec_rws[ii]->att_wgt);            
       map_rew_wgts["AbsorptionIC"].push_back(vec_rws[ii]->abs_ic_wgt);
       map_rew_wgts["AbsorptionDPIP"].push_back(vec_rws[ii]->abs_dpip_wgt);
       map_rew_wgts["AbsorptionDVOL"].push_back(vec_rws[ii]->abs_dvol_wgt);
       map_rew_wgts["AbsorptionNucleon"].push_back(vec_rws[ii]->abs_nucleon_wgt);
       map_rew_wgts["AbsorptionOther"].push_back(vec_rws[ii]->abs_other_wgt);
       map_rew_wgts["TotalAbsorption"].push_back(vec_rws[ii]->tot_abs_wgt);
+      
+      map_rew_wgts["ThinTargetpCPion"].push_back(vec_rws[ii]->pC_pi_wgt);
+      map_rew_wgts["Other"].push_back(vec_rws[ii]->other_wgt);
 
+      //now usedin hp weights:
       map_rew_wgts["NA49"].push_back(vec_rws[ii]->na49_wgt);
       map_rew_wgts["MIPPThinTarget"].push_back(vec_rws[ii]->mipp_thin_wgt);
       //      map_rew_wgts["TheoryThinTarget"].push_back(vec_rws[ii]->theory_wgt);
-      map_rew_wgts["Other"].push_back(vec_rws[ii]->other_wgt);
+      
     }
     
     //cv calculation:

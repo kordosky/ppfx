@@ -3,13 +3,15 @@
   <FlagReweighters>
     <MIPPNumiPionYields>Yes</MIPPNumiPionYields>
     <MIPPNumiKaonYields>Yes</MIPPNumiKaonYields>
+    <TargetAttenuation>Yes</TargetAttenuation>
     <AbsorptionIC>Yes</AbsorptionIC>
     <AbsorptionDPIP>Yes</AbsorptionDPIP>
     <AbsorptionDVOL>Yes</AbsorptionDVOL>
     <NucleonAbsorptionOutOfTarget>Yes</NucleonAbsorptionOutOfTarget>
     <OtherAbsorptionOutOfTarget>Yes</OtherAbsorptionOutOfTarget>
+    <ThinTargetpCPion>Yes</ThinTargetpCPion>
     <OtherTarget>Yes</OtherTarget>
-    <TargetAttenuation>Yes</TargetAttenuation>
+
     <MIPPThinTarget>No</MIPPThinTarget>
     <NA49>No</NA49>
     </FlagReweighters>
