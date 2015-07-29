@@ -31,7 +31,6 @@ namespace NeutrinoFluxReweight{
     if(doThinTargetpCPion)THINTARGET_PC_PION_Universe = new ThinTargetpCPionReweighter(iUniv,cvPars,univPars);
     if(doOther)OTHER_Universe = new OtherReweighter(iUniv,cvPars,univPars);
 
-
     //now used now in hp wgts:
     if(doNA49)NA49_Universe = new NA49Reweighter(iUniv,cvPars,univPars);    
     if(doMIPPThinTarget)MIPP_THIN_Universe = new MIPPThinTargetReweighter(iUniv,cvPars,univPars);
@@ -164,7 +163,6 @@ namespace NeutrinoFluxReweight{
       }
       tot_wgt *= pC_pi_wgt;
     }
-
     other_wgt = 1.0;
     if(doOther){
       for(int ii=(interaction_nodes.size()-1);ii>=0;ii--){	
@@ -182,7 +180,7 @@ namespace NeutrinoFluxReweight{
       }
       tot_wgt *= other_wgt;
     }
-    
+
     //Looking for target attenuation correction:
     att_wgt = 1.0;
     if(doTargetAttenuation){
@@ -193,7 +191,7 @@ namespace NeutrinoFluxReweight{
       }
       tot_wgt *= att_wgt;
     }
-    
+
     //ABS:
     tot_abs_wgt = 1.0;
     
@@ -297,7 +295,10 @@ namespace NeutrinoFluxReweight{
     }
     if(doTheoryThinTarget) tot_wgt *= theory_wgt;
     */
-      
+    if(tot_wgt!=tot_wgt){
+      std::cout<<"Alert nan total wgt... check!!!"<<std::endl;
+      return 1.0;
+    }
     return tot_wgt;
 }
 
