@@ -35,7 +35,7 @@ namespace NeutrinoFluxReweight{
     TFile* fMIPP_NUMI_K;
     TFile* fNA49_piK;
     TFile* fNA49_prt;
-    std::vector<TFile*> fMCscale;
+    std::vector<TFile*> fNA49scale;
 
     TFile* fMIPP_MC;
     TFile* fInelXS_MC;   

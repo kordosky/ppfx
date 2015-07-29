@@ -36,16 +36,16 @@ namespace NeutrinoFluxReweight{
       DataHistos::hMIPP_MC[ii]   = (TH2D*)DataHistos::fMIPP_MC->Get(Form("h2%s",cmipp_numi_parts[ii]));
       
     } 
-
-    //
-
+    
     //For NA49 and scaling values, the order will be:
     //pip, pim, kap, kam, prt
     const int Nna49 = 5;
     const char* cna49_parts[Nna49] = {"pip","pim","kap","kam","prt"};
     const char* CNA49_PARTS[Nna49] = {"PIP","PIM","KAP","KAM","PRT"};
+   
     const int Nscale = 11;
     const int mom_scale[Nscale] = {12,20,31,40,50,60,70,80,100,120,158};
+  
     const int Nmc = 12;
     const int mom_mc[Nmc] = {12,20,31,40,50,60,70,80,90,100,110,120};
     
@@ -53,7 +53,7 @@ namespace NeutrinoFluxReweight{
     DataHistos::fNA49_prt = new TFile(Form("%s/NA49/data_pC_prt_XS.root",dirData));
     
     for(Int_t ipart=0;ipart<Nna49;ipart++){
-      DataHistos::fMCscale.push_back(new TFile(Form("%s/SCALING/%s_escaling.root",dirData,cna49_parts[ipart])));
+      DataHistos::fNA49scale.push_back(new TFile(Form("%s/SCALING/%s_scaling.root",dirData,cna49_parts[ipart])));
     }
     
     //Loading NA49 Data:  
@@ -70,7 +70,7 @@ namespace NeutrinoFluxReweight{
     for(Int_t ipart=0;ipart<Nna49;ipart++){
       std::vector<TH2F*> tmp_scl;
       for(int imom=0;imom<Nscale;imom++){
-	tmp_scl.push_back((TH2F*)DataHistos::fMCscale[ipart]->Get(Form("xF_pT_%dGeV",mom_scale[imom])));
+	tmp_scl.push_back((TH2F*)DataHistos::fNA49scale[ipart]->Get(Form("xF_pT_%dGeV",mom_scale[imom])));
       }
       hNA49Scl.push_back(tmp_scl);
       tmp_scl.clear(); 
