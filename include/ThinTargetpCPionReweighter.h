@@ -17,9 +17,11 @@ namespace NeutrinoFluxReweight{
     virtual ~ThinTargetpCPionReweighter();
     virtual bool canReweight(const InteractionData& aa);
     virtual double calculateWeight(const InteractionData& inter_data);
+    double calculateDataScale(int inc_pdg, double inc_mom, int prod_pdg,double xf, double pt);
+    double calculateMCProd(double inc_mom);
     const ParameterTable& cvPars;
     const ParameterTable& univPars;
-
+    
   private:
     int iUniv;
     
@@ -28,3 +30,5 @@ namespace NeutrinoFluxReweight{
   
 };
 #endif
+
+
