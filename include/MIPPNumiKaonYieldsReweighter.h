@@ -25,7 +25,10 @@ namespace NeutrinoFluxReweight{
 
   private:
     int iUniv;
-        
+    float prt_no_inter;
+    std::vector<float> vbin_datacv_pip, vbin_datacv_pim, vbin_datasys_pip, vbin_datasys_pim, vbin_datasta_pip, vbin_datasta_pim;
+    std::vector<float> vbin_datacv_kap_pip, vbin_datacv_kam_pim, vbin_datasys_kap_pip, vbin_datasys_kam_pim, vbin_datasta_kap_pip, vbin_datasta_kam_pim;
+    
   };
 
 

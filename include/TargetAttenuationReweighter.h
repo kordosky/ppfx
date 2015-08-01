@@ -43,7 +43,7 @@ namespace NeutrinoFluxReweight{
      const ParameterTable& univPars;
   private:
     int iUniv;
-   
+    float prod_prtC_xsec, qe_prtC_xsec;
   };
 
   

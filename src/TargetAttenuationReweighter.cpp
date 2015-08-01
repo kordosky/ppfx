@@ -12,6 +12,10 @@ namespace NeutrinoFluxReweight{
   TargetAttenuationReweighter::TargetAttenuationReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars)
     :iUniv(iuniv),cvPars(cv_pars),univPars(univ_pars){
     
+     std::map<std::string, double> this_table = univPars.table;
+     prod_prtC_xsec = this_table["prod_prtC_xsec"];
+     qe_prtC_xsec   = this_table["qe_prtC_xsec"];
+     
   }
   TargetAttenuationReweighter::~TargetAttenuationReweighter(){
     
@@ -110,22 +114,11 @@ namespace NeutrinoFluxReweight{
       it_is_survival = true;
     }
     
-    std::map<std::string, double> this_table = univPars.table;
-    std::map<std::string, double>::iterator it;
-
     double delta_sigma = 0.0; // sigma_data - sigma_mc
     double ratio_sigma = 0.0; // sigma_data / sigma_mc
-    std::string par_name = "";
-    
-    par_name = "prod_prtC_xsec";
-    it = this_table.begin();
-    it = this_table.find(par_name);
-    delta_sigma  = it->second;
-	
-    par_name = "qe_prtC_xsec";
-    it = this_table.begin();
-    it = this_table.find(par_name);
-    delta_sigma  += it->second; 
+
+    delta_sigma  = prod_prtC_xsec;
+    delta_sigma  += qe_prtC_xsec; 
     
     int binprtC = (dtH->hXS_prtC)->FindBin(vec_inter[0].Inc_P);
     double mcval = (dtH->hXS_prtC)->GetBinContent(binprtC);

@@ -26,7 +26,9 @@ namespace NeutrinoFluxReweight{
  
   private:
     int iUniv;
-    
+    float inel_piAl_xsec; 
+    float inel_kapAl_xsec_lowP, inel_kapAl_xsec_highP;
+    float inel_kamAl_xsec_lowP, inel_kamAl_xsec_highP;
 
   };
 

@@ -24,7 +24,7 @@ namespace NeutrinoFluxReweight{
     const ParameterTable& univPars;
   private:
     int iUniv;
-    
+    float inel_piAl_xsec;
 
   };
 

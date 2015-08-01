@@ -24,6 +24,7 @@ namespace NeutrinoFluxReweight{
     
   private:
     int iUniv;
+    std::vector<float> vbin_data_pip,vbin_data_pim;
     
   };
 

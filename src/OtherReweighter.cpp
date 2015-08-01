@@ -6,6 +6,9 @@ namespace NeutrinoFluxReweight{
   
   OtherReweighter::OtherReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars):iUniv(iuniv),cvPars(cv_pars),univPars(univ_pars){
     
+    std::map<std::string, double> dsig_table = univPars.table;
+    inel_A_scaling = dsig_table["inel_A_scaling"];
+    
   }
   
    OtherReweighter::~OtherReweighter(){
@@ -21,9 +24,9 @@ namespace NeutrinoFluxReweight{
   }
   
   double OtherReweighter::calculateWeight(const InteractionData& thisid){
-
-    std::map<std::string, double> dsig_table = univPars.table;
-    return dsig_table.find("inel_A_scaling")->second;
+    
+    return inel_A_scaling;
+    
   }
   
 

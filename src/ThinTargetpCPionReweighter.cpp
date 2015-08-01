@@ -10,6 +10,40 @@ namespace NeutrinoFluxReweight{
   
   ThinTargetpCPionReweighter::ThinTargetpCPionReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars):iUniv(iuniv),cvPars(cv_pars),univPars(univ_pars){
     
+    std::map<std::string, double> cv_table   = cvPars.table;
+    std::map<std::string, double> univ_table = univPars.table;
+    
+    double univ_data_prod_xs = univ_table["prod_prtC_xsec"];
+    double cv_data_prod_xs = cv_table["prod_prtC_xsec"];
+    
+    //the number of bins needs to be written from the xmls files 
+    char namepar[100];
+    for(int ii=0;ii<9801;ii++){
+      
+      sprintf(namepar,"ThinTarget_pC_%s_sys_%d","pip",ii);
+      double data_cv  = cv_table[std::string(namepar)];
+      double data_sys = univ_table[std::string(namepar)];
+      sprintf(namepar,"ThinTarget_pC_%s_stats_%d","pip",ii);
+      double data_sta = univ_table[std::string(namepar)];
+      
+      data_cv  /= cv_data_prod_xs;
+      data_sys /= univ_data_prod_xs;
+      data_sta /= univ_data_prod_xs;      
+      vbin_data_pip.push_back(data_sta + data_sys - data_cv);
+      
+      sprintf(namepar,"ThinTarget_pC_%s_sys_%d","pim",ii);
+      data_cv  = cv_table[std::string(namepar)];
+      data_sys = univ_table[std::string(namepar)];
+      sprintf(namepar,"ThinTarget_pC_%s_stats_%d","pim",ii);
+      data_sta = univ_table[std::string(namepar)];
+      
+      data_cv  /= cv_data_prod_xs;
+      data_sys /= univ_data_prod_xs;
+      data_sta /= univ_data_prod_xs;      
+      vbin_data_pim.push_back(data_sta + data_sys - data_cv);
+      
+    }    
+    
   }
   
    ThinTargetpCPionReweighter::~ThinTargetpCPionReweighter(){
@@ -34,48 +68,29 @@ namespace NeutrinoFluxReweight{
     
     ThinTargetBins*  Thinbins =  ThinTargetBins::getInstance();
     int bin = Thinbins->BinID_pC_X(aa.xF,aa.Pt,aa.Prod_pdg);
-
+    
     if(bin<0)return wgt;;
-    
-    const char* ptype = "pip";
-    if(aa.Prod_pdg == -211)ptype = "pim"; 
-    char namepar_sys[100];
-    char namepar_sta[100];
-    sprintf(namepar_sys,"ThinTarget_pC_%s_sys_%d",ptype,bin);
-    sprintf(namepar_sta,"ThinTarget_pC_%s_stats_%d",ptype,bin);
-
-    std::map<std::string, double> cv_table   = cvPars.table;
-    std::map<std::string, double> univ_table = univPars.table;
-    std::map<std::string, double>::iterator it;
-    
-    it = cv_table.find(std::string(namepar_sys));
-    double data_cv = it->second;
-    it = univ_table.find(std::string(namepar_sys));
-    double data_sys = it->second;
-    it = univ_table.find(std::string(namepar_sta));
-    double data_sta = it->second;
-    
+      
     //Calculating the scale:
     double data_scale = calculateDataScale(aa.Inc_pdg,aa.Inc_P,aa.Prod_pdg,aa.xF,aa.Pt);
-
-    data_cv  *= data_scale;
-    data_sys *= data_scale;
-    data_sta *= data_scale;
     
-    //dividing over the production cross section:
-    it = univ_table.find("prod_prtC_xsec");
-    double data_prod_xs = it->second;
-    data_cv  /= 226.5;
-    data_sys /= data_prod_xs;
-    data_sta /= data_prod_xs;
-
+    if(aa.Prod_pdg == 211)vbin_data_pip[bin]  *= data_scale;
+    else if(aa.Prod_pdg ==-211)vbin_data_pim[bin]  *= data_scale;
+    else{
+      std::cout<<"Wrong input, pdg_prod: "<< aa.Prod_pdg  <<std::endl;
+      return wgt;
+    }
+    
     ThinTargetMC*  mc =  ThinTargetMC::getInstance();
     double mc_cv = mc->getMCval_pC_X(aa.Inc_P,aa.xF,aa.Pt,aa.Prod_pdg);
     
     mc_cv /= calculateMCProd(aa.Inc_P);
     
-     if(mc_cv<1.e-12)return wgt;
-    wgt = (data_sys + data_sta - data_cv)/mc_cv;
+    if(mc_cv<1.e-12)return wgt;
+    
+    if(aa.Prod_pdg == 211)wgt = vbin_data_pip[bin]/mc_cv;
+    if(aa.Prod_pdg == 211)wgt = vbin_data_pip[bin]/mc_cv;
+    
     return wgt;
   }
   
@@ -135,7 +150,7 @@ namespace NeutrinoFluxReweight{
     double scl_hi  = dtH->hNA49Scl[idx_part][idx_hip]->GetBinContent(binid);
     double scl_m   =  scl_low + (inc_mom-double(moms[idx_lowp]))*(scl_hi-scl_low)/(double(moms[idx_hip])-double(moms[idx_lowp]));
     if(scl_ref158<1.e-10){
-      std::cout<<"ref158 zero!!! "<<scl_ref158<<std::endl;
+      // std::cout<<"ref158 zero!!! "<<scl_ref158<<std::endl;
       return 1.0;
     }
     scaling_violation = scl_m/scl_ref158;

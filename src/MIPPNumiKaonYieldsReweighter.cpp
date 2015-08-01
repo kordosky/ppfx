@@ -11,6 +11,61 @@ namespace NeutrinoFluxReweight{
   
   MIPPNumiKaonYieldsReweighter::MIPPNumiKaonYieldsReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars): iUniv(iuniv), cvPars(cv_pars), univPars(univ_pars){
   
+     std::map<std::string, double> univ_table = univPars.table;
+     std::map<std::string, double> cv_table = cvPars.table;
+     float prt_no_inter = univ_table["prt_no_interacting"];
+     
+     std::vector<float> vbin_data_pip,vbin_data_pim;
+     std::vector<float> vbin_data_kap_pip,vbin_data_kam_pim;
+
+     char namepar[100];
+     for(int ii=0;ii<124;ii++){
+      sprintf(namepar,"MIPP_NuMI_%s_sys_%d","pip",ii);
+      double data_cv  = cv_table[std::string(namepar)];
+      double data_sys = univ_table[std::string(namepar)];
+      sprintf(namepar,"MIPP_NuMI_%s_stats_%d","pip",ii);
+      double data_sta = univ_table[std::string(namepar)];
+      data_sys /= (1.0-prt_no_inter);
+      data_sta /= (1.0-prt_no_inter);
+      data_cv  /= (1.0-prt_no_inter);
+      vbin_datacv_pip.push_back(data_cv);
+      vbin_datasys_pip.push_back(data_sys);
+      vbin_datasta_pip.push_back(data_sta);
+     }
+     
+     for(int ii=0;ii<119;ii++){
+      sprintf(namepar,"MIPP_NuMI_%s_sys_%d","pim",ii);
+      double data_cv  = cv_table[std::string(namepar)];
+      double data_sys = univ_table[std::string(namepar)];
+      sprintf(namepar,"MIPP_NuMI_%s_stats_%d","pim",ii);
+      double data_sta = univ_table[std::string(namepar)];
+      data_sys /= (1.0-prt_no_inter);
+      data_sta /= (1.0-prt_no_inter);
+      data_cv  /= (1.0-prt_no_inter);
+      vbin_datacv_pim.push_back(data_cv);
+      vbin_datasys_pim.push_back(data_sys);
+      vbin_datasta_pim.push_back(data_sta);
+     }
+    for(int ii=0;ii<24;ii++){
+      sprintf(namepar,"MIPP_NuMI_%s_sys_%d","kap_pip",ii);
+      double data_cv  = cv_table[std::string(namepar)];
+      double data_sys = univ_table[std::string(namepar)];
+      sprintf(namepar,"MIPP_NuMI_%s_stats_%d","kap_pip",ii);
+      double data_sta = univ_table[std::string(namepar)];
+      vbin_datacv_kap_pip.push_back(data_cv);
+      vbin_datasys_kap_pip.push_back(data_sys);
+      vbin_datasta_kap_pip.push_back(data_sta);
+      
+      sprintf(namepar,"MIPP_NuMI_%s_sys_%d","kam_pim",ii);
+      data_cv  = cv_table[std::string(namepar)];
+      data_sys = univ_table[std::string(namepar)];
+      sprintf(namepar,"MIPP_NuMI_%s_stats_%d","kam_pim",ii);
+      data_sta = univ_table[std::string(namepar)];
+      vbin_datacv_kam_pim.push_back(data_cv);
+      vbin_datasys_kam_pim.push_back(data_sys);
+      vbin_datasta_kam_pim.push_back(data_sta);
+    } 
+    
   }
   MIPPNumiKaonYieldsReweighter::~MIPPNumiKaonYieldsReweighter(){
     
@@ -58,7 +113,6 @@ namespace NeutrinoFluxReweight{
     
     MIPPNumiYieldsBins*  MIPPbins =  MIPPNumiYieldsBins::getInstance();
     MIPPNumiMC*  MCval =  MIPPNumiMC::getInstance();
-    DataHistos*          dtH      =  DataHistos::getInstance();
     double low_value = 1.e-18;      
     
     TargetData tar = aa.tar_info;
@@ -68,7 +122,7 @@ namespace NeutrinoFluxReweight{
 
     int binID = MIPPbins->BinID(tar.Pz,tar.Pt,tar.Tar_pdg);
     if(binID<0){
-      std::cout<<"=>Not K covered:" <<tar.Pz<<" "<<tar.Pt<<" " <<tar.Tar_pdg<<std::endl;
+      //std::cout<<"=>Not K covered:" <<tar.Pz<<" "<<tar.Pt<<" " <<tar.Tar_pdg<<std::endl;
       return 1.0;
     }
     //Now looking for pion bin ID:
@@ -76,85 +130,42 @@ namespace NeutrinoFluxReweight{
     if(tar.Tar_pdg == -321)pi_wanted = -211;
     int pi_binID = MIPPbins->BinID(tar.Pz,tar.Pt,pi_wanted);
     if(pi_binID<0){
-      std::cout<<"=>There is not MIPP pion matching the kaon kinematics"<<pi_wanted<<" "<<tar.Pz<<" "<<tar.Pt<<std::endl;
+      //std::cout<<"=>There is not MIPP pion matching the kaon kinematics"<<pi_wanted<<" "<<tar.Pz<<" "<<tar.Pt<<std::endl;
       return 1.0;
     }
     
-    const char* pitype = "pip";
-    const char* kptype   = "kap_pip";
-    if(tar.Tar_pdg == -321){
-      pitype = "pim"; 
-      kptype = "kam_pim";
-    }
-    char namepar_pi_sys[100]; char namepar_pi_sta[100];
-    char namepar_kp_sys[100]; char namepar_kp_sta[100];
-    sprintf(namepar_pi_sys,"MIPP_NuMI_%s_sys_%d",pitype,pi_binID);
-    sprintf(namepar_kp_sys,"MIPP_NuMI_%s_sys_%d",kptype,binID);
-    sprintf(namepar_pi_sta,"MIPP_NuMI_%s_stats_%d",pitype,pi_binID);
-    sprintf(namepar_kp_sta,"MIPP_NuMI_%s_stats_%d",kptype,binID);
-    
-    ///CV:
-    std::map<std::string, double> cv_table = cvPars.table;
-    std::map<std::string, double>::iterator cv_it = cv_table.begin();
-    
-    cv_it = cv_table.begin();    
-    cv_it = cv_table.find(std::string(namepar_pi_sys));
-    double data_cv_pi = cv_it->second;
-    
-    cv_it = cv_table.begin();
-    cv_it = cv_table.find(std::string(namepar_kp_sys));
-    double data_cv_kp = cv_it->second;
-    
-    //UNIV:
-    std::map<std::string, double> this_table = univPars.table;
-    std::map<std::string, double>::iterator it = this_table.begin();
-
-    it = this_table.begin();
-    it = this_table.find(std::string(namepar_pi_sys));
-    double data_univ_pi_sys = it->second;
-    
-    it = this_table.begin();
-    it = this_table.find(std::string(namepar_kp_sys));
-    double data_univ_kp_sys = it->second;
-
-    it = this_table.begin();
-    it = this_table.find(std::string(namepar_pi_sta));
-    double data_univ_pi_sta = it->second;
-
-    it = this_table.begin();
-    it = this_table.find(std::string(namepar_kp_sta));
-    double data_univ_kp_sta = it->second;
-    
-
     //Now, looking for the MC value:
     double binC = MCval->getMCval(tar.Pz,tar.Pt,tar.Tar_pdg);
     if(binC<low_value){
-      std::cout<<"LOW MC VAL: "<<binC <<std::endl;
+      //std::cout<<"LOW MC VAL: "<<binC <<std::endl;
       return 1.0;
     }
 
-    //First assumption: no correlation at all between Sharon & Jon results:
-    double K_data_cv = data_cv_pi*data_cv_kp;
-    double K_data_univ_sys = data_univ_pi_sys*data_univ_kp_sys;
-    double K_data_univ_sta = data_univ_pi_sta*data_univ_kp_sta;
-    //Going from POT -> interactions:
-    it = this_table.begin();
-    it = this_table.find("prt_no_interacting");
-    if(it == this_table.end()){
-      std::cout<<"PROTON NOT INTERACTING IN THE TARGET NOT FOUND: " << "prt_no_interacting"  <<std::endl;
-      return 1.0;    
-    }
-    double prt_no_inter = it->second;
-    K_data_cv       /= (1.0-prt_no_inter);
-    K_data_univ_sys /= (1.0-prt_no_inter);
-    K_data_univ_sta /= (1.0-prt_no_inter);
+    float K_data_cv  = -1.0;
+    float K_data_sys = -1.0;
+    float K_data_sta = -1.0;
+    float K_data     = -1.0;
     
-    if(K_data_cv<low_value || K_data_univ_sys<low_value || K_data_univ_sta<low_value){
-      std::cout<<"LOW DATA VAL: "<<K_data_cv<<" "<<K_data_univ_sys<<" "<<K_data_univ_sta<<" "<<tar.Tar_pdg<<" "<<tar.Pz<<" "<<tar.Pt<<std::endl;
+    if(tar.Tar_pdg == 321){
+      K_data_cv  = vbin_datacv_pip[pi_binID] *vbin_datacv_kap_pip[binID];
+      K_data_sys = vbin_datasys_pip[pi_binID]*vbin_datasys_kap_pip[binID];
+      K_data_sta = vbin_datasta_pip[pi_binID]*vbin_datasta_kap_pip[binID];
+      K_data = K_data_sys + K_data_sta - K_data_cv;
+      
+    }
+    else if(tar.Tar_pdg ==-321){
+      K_data_cv  = vbin_datacv_pim[pi_binID] *vbin_datacv_kam_pim[binID];
+      K_data_sys = vbin_datasys_pim[pi_binID]*vbin_datasys_kam_pim[binID];
+      K_data_sta = vbin_datasta_pim[pi_binID]*vbin_datasta_kam_pim[binID];
+      K_data = K_data_sys + K_data_sta - K_data_cv;
+    }
+    //check:
+    if(K_data_cv<low_value || K_data_sys<low_value || K_data_sta<low_value || K_data<low_value){
+      //std::cout<<"LOW DATA VAL: "<<K_data_cv<<" "<<K_data_sys<<" "<<K_data_sta<<" "<<tar.Tar_pdg<<" "<<tar.Pz<<" "<<tar.Pt<<std::endl;
       return 1.0;
     }
-     
-    return (K_data_univ_sys + K_data_univ_sta - K_data_cv)/binC;
+    
+    return double(K_data)/binC;
 
   }
 

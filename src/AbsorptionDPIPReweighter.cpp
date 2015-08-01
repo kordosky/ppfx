@@ -11,7 +11,14 @@
 namespace NeutrinoFluxReweight{
   
   AbsorptionDPIPReweighter::AbsorptionDPIPReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars):iUniv(iuniv),cvPars(cv_pars),univPars(univ_pars){ 
-    // do any other necessary initialization    
+    
+    std::map<std::string, double> dsig_table = univPars.table;
+    inel_piAl_xsec = dsig_table["inel_piAl_xsec"];
+    inel_kapAl_xsec_lowP  = dsig_table["inel_kapAl_xsec_lowP"];
+    inel_kapAl_xsec_highP = dsig_table["inel_kapAl_xsec_highP"];
+    inel_kamAl_xsec_lowP  = dsig_table["inel_kamAl_xsec_lowP"];
+    inel_kamAl_xsec_highP = dsig_table["inel_kamAl_xsec_highP"];
+    
   }
   AbsorptionDPIPReweighter::~AbsorptionDPIPReweighter(){
     
@@ -34,9 +41,6 @@ namespace NeutrinoFluxReweight{
     
   }
   double AbsorptionDPIPReweighter::calculateWeight(const InteractionChainData& aa){
-   
-    std::map<std::string, double> dsig_table = univPars.table;
-    std::map<std::string, double>::iterator it = dsig_table.begin();
     
     std::vector<ParticlesThroughVolumesData>  vec_ptv = aa.ptv_info;
     std::string namepar;
@@ -47,31 +51,17 @@ namespace NeutrinoFluxReweight{
     int index_vol   = 1;
     
     for(int ii=0;ii<3;ii++){
-
+      float shift = 0.0;
       tot_dist = vec_ptv[index_vol].AmountMat[ii];
       if(tot_dist<low_val)continue;
       if(abs(vec_ptv[index_vol].Pdgs[ii])!=321 && abs(vec_ptv[index_vol].Pdgs[ii])!=211)continue;
       
-      if(abs(vec_ptv[index_vol].Pdgs[ii])==211){
-	namepar = "inel_piAl_xsec";
-	 }
-      else if(vec_ptv[index_vol].Pdgs[ii]==321 && vec_ptv[index_vol].Moms[ii]<2.0){
-	namepar = "inel_kapAl_xsec_lowP";
-      }
-      else if(vec_ptv[index_vol].Pdgs[ii]==321 && vec_ptv[index_vol].Moms[ii]>2.0){
-	namepar = "inel_kapAl_xsec_highP";
-      }
-      else if(vec_ptv[index_vol].Pdgs[ii]==-321 && vec_ptv[index_vol].Moms[ii]<2.0){
-	namepar = "inel_kamAl_xsec_lowP";
-      }
-      else if(vec_ptv[index_vol].Pdgs[ii]==-321 && vec_ptv[index_vol].Moms[ii]>2.0){
-	namepar = "inel_kamAl_xsec_highP";
-      }
-
-      it = dsig_table.begin();
-      it = dsig_table.find(std::string(namepar));
-      double shift = it->second;
-    
+      if(abs(vec_ptv[index_vol].Pdgs[ii])== 211)shift = inel_piAl_xsec;
+      else if(vec_ptv[index_vol].Pdgs[ii]== 321 && vec_ptv[index_vol].Moms[ii]<2.0)shift = inel_kapAl_xsec_lowP;
+      else if(vec_ptv[index_vol].Pdgs[ii]== 321 && vec_ptv[index_vol].Moms[ii]>2.0)shift = inel_kapAl_xsec_highP;
+      else if(vec_ptv[index_vol].Pdgs[ii]==-321 && vec_ptv[index_vol].Moms[ii]<2.0)shift = inel_kamAl_xsec_lowP;
+      else if(vec_ptv[index_vol].Pdgs[ii]==-321 && vec_ptv[index_vol].Moms[ii]>2.0)shift = inel_kamAl_xsec_highP;
+      
       tot_dist *= NA_mb;
       tot_dist *= shift;
       

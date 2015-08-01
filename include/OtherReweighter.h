@@ -24,7 +24,7 @@ namespace NeutrinoFluxReweight{
 
   private:
     int iUniv;
-    
+    float inel_A_scaling;
   };
 
   

@@ -11,7 +11,10 @@
 namespace NeutrinoFluxReweight{
   
   NucleonAbsorptionOutOfTargetReweighter::NucleonAbsorptionOutOfTargetReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars):iUniv(iuniv),cvPars(cv_pars),univPars(univ_pars){ 
-    // do any other necessary initialization    
+
+    std::map<std::string, double> dsig_table = univPars.table;
+    inel_piAl_xsec = dsig_table["inel_piAl_xsec"];
+
   }
   NucleonAbsorptionOutOfTargetReweighter::~NucleonAbsorptionOutOfTargetReweighter(){
     
@@ -37,13 +40,8 @@ namespace NeutrinoFluxReweight{
   }
   double NucleonAbsorptionOutOfTargetReweighter::calculateWeight(const InteractionChainData& aa){
     
-    std::map<std::string, double> dsig_table = univPars.table;
-    std::map<std::string, double>::iterator it = dsig_table.begin();
-    
     std::vector<ParticlesThroughVolumesData>  vec_ptv = aa.ptv_info;
-    std::string namepar = "inel_piAl_xsec";
-    it = dsig_table.find(std::string(namepar));
-    double shift = it->second;
+    double shift = inel_piAl_xsec;
     
     double NA_mb    = 6.02E-4;
     double wgt      = 1.0;
