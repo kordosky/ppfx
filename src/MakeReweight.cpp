@@ -105,6 +105,7 @@ namespace NeutrinoFluxReweight{
       map_rew_wgts["TotalAbsorption"].push_back(vec_rws[ii]->tot_abs_wgt);
       
       map_rew_wgts["ThinTargetpCPion"].push_back(vec_rws[ii]->pC_pi_wgt);
+      map_rew_wgts["ThinTargetnCPion"].push_back(vec_rws[ii]->nC_pi_wgt);
       map_rew_wgts["Other"].push_back(vec_rws[ii]->other_wgt);
 
       //now usedin hp weights:

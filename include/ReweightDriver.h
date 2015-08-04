@@ -18,6 +18,7 @@
 #include "OtherReweighter.h"
 
 #include "ThinTargetpCPionReweighter.h"
+#include "ThinTargetnCPionReweighter.h"
 
 #include "InteractionChainData.h"
 
@@ -69,6 +70,9 @@ namespace NeutrinoFluxReweight{
        
     /*! Thin target proton on carbon producing pions weights   */
     double pC_pi_wgt;
+
+    /*! Thin target neutron on carbon producing pions weights   */
+    double nC_pi_wgt;
     
      /*!   Any other hadronic interaction not corrected yet   */
     double other_wgt;
@@ -106,6 +110,7 @@ namespace NeutrinoFluxReweight{
     OtherAbsorptionOutOfTargetReweighter* VOL_ABS_OTHER_Universe;
     
     ThinTargetpCPionReweighter* THINTARGET_PC_PION_Universe;
+    ThinTargetnCPionReweighter* THINTARGET_NC_PION_Universe;
     OtherReweighter* OTHER_Universe;
 
     //Now used now to calculate HP weigts::
@@ -126,6 +131,7 @@ namespace NeutrinoFluxReweight{
     bool doAbsorptionOther;
     
     bool doThinTargetpCPion;
+    bool doThinTargetnCPion;
     bool doOther;
     
     //now used now in hp wgts:
