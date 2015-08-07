@@ -18,13 +18,15 @@ namespace NeutrinoFluxReweight{
     virtual bool canReweight(const InteractionData& aa);
     virtual double calculateWeight(const InteractionData& inter_data);
     double calculateDataScale(int inc_pdg, double inc_mom, int prod_pdg,double xf, double pt);
-    double calculateMCProd(double inc_mom);
-    const ParameterTable& cvPars;
-    const ParameterTable& univPars;
+    double calculateMCProd(double inc_mom);    
     
   private:
     int iUniv;
+    const ParameterTable& cvPars;
+    const ParameterTable& univPars;
+    
     std::vector<float> vbin_data_pip,vbin_data_pim;
+    std::vector<float> bart_vbin_data_pip,bart_vbin_data_pim;
     
   };
 

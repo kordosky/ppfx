@@ -10,6 +10,11 @@ namespace NeutrinoFluxReweight{
   
   ThinTargetpCPionReweighter::ThinTargetpCPionReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars):iUniv(iuniv),cvPars(cv_pars),univPars(univ_pars){
     
+    vbin_data_pip.reserve(9801);
+    vbin_data_pim.reserve(9801);
+    bart_vbin_data_pip.reserve(909);
+    bart_vbin_data_pim.reserve(909);
+
     std::map<std::string, double> cv_table   = cvPars.table;
     std::map<std::string, double> univ_table = univPars.table;
     
@@ -43,6 +48,22 @@ namespace NeutrinoFluxReweight{
       vbin_data_pim.push_back(data_sta + data_sys - data_cv);
       
     }    
+    for(int ii=0;ii<540;ii++){
+      
+      sprintf(namepar,"ThinTargetBarton_pC_%s_%d","pip",ii);
+      
+      double data_err = univ_table[std::string(namepar)];
+      data_err /= univ_data_prod_xs;
+      bart_vbin_data_pip.push_back(data_err);
+      
+      sprintf(namepar,"ThinTargetBarton_pC_%s_%d","pim",ii);
+      data_err = univ_table[std::string(namepar)];
+      
+      data_err /= univ_data_prod_xs;
+      
+      bart_vbin_data_pim.push_back(data_err);
+      
+    } 
     
   }
   
@@ -57,39 +78,40 @@ namespace NeutrinoFluxReweight{
     if(aa.Vol != "TGT1" && aa.Vol != "BudalMonitor")return false;
     
     ThinTargetBins*  Thinbins =  ThinTargetBins::getInstance();
-    int bin = Thinbins->BinID_pC_X(aa.xF,aa.Pt,aa.Prod_pdg);
-    if(bin<0)return false;
-    if(bin>=0)return true;
+    int bin      = Thinbins->BinID_pC_X(aa.xF,aa.Pt,aa.Prod_pdg);
+    int bart_bin = Thinbins->barton_BinID_pC_X(aa.xF,aa.Pt,aa.Prod_pdg);
+    
+    if(bin<0 && bart_bin<0)return false;
+    else return true;
   }
   
   double ThinTargetpCPionReweighter::calculateWeight(const InteractionData& aa){
     
     double wgt = 1.0;
-    
     ThinTargetBins*  Thinbins =  ThinTargetBins::getInstance();
     int bin = Thinbins->BinID_pC_X(aa.xF,aa.Pt,aa.Prod_pdg);
-    
-    if(bin<0)return wgt;;
+    int bart_bin = Thinbins->barton_BinID_pC_X(aa.xF,aa.Pt,aa.Prod_pdg);
+    if(bin<0 && bart_bin<0)return wgt;
       
     //Calculating the scale:
     double data_scale = calculateDataScale(aa.Inc_pdg,aa.Inc_P,aa.Prod_pdg,aa.xF,aa.Pt);
-    
-    if(aa.Prod_pdg == 211)vbin_data_pip[bin]  *= data_scale;
-    else if(aa.Prod_pdg ==-211)vbin_data_pim[bin]  *= data_scale;
+    double dataval = -1;
+    if(aa.Prod_pdg == 211 && bin>=0)           dataval = vbin_data_pip[bin];
+    else if(aa.Prod_pdg == 211 && bart_bin>=0) dataval = bart_vbin_data_pip[bart_bin];
+    else if(aa.Prod_pdg == -211 && bin>=0)     dataval = vbin_data_pim[bin];
+    else if(aa.Prod_pdg == -211 && bart_bin>=0)dataval = bart_vbin_data_pim[bart_bin];
     else{
-      std::cout<<"Wrong input, pdg_prod: "<< aa.Prod_pdg  <<std::endl;
+      //  std::cout<<"Something is wrong, pdg_prod: "<< aa.Prod_pdg  <<std::endl;
       return wgt;
     }
+    dataval *= data_scale;
     
     ThinTargetMC*  mc =  ThinTargetMC::getInstance();
     double mc_cv = mc->getMCval_pC_X(aa.Inc_P,aa.xF,aa.Pt,aa.Prod_pdg);
-    
     mc_cv /= calculateMCProd(aa.Inc_P);
-    
     if(mc_cv<1.e-12)return wgt;
     
-    if(aa.Prod_pdg == 211)wgt = vbin_data_pip[bin]/mc_cv;
-    if(aa.Prod_pdg == 211)wgt = vbin_data_pip[bin]/mc_cv;
+    wgt = dataval/mc_cv;
     
     return wgt;
   }
