@@ -5,9 +5,9 @@
 namespace NeutrinoFluxReweight{
   
   ThinTargetnCPionReweighter::ThinTargetnCPionReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars):iUniv(iuniv),cvPars(cv_pars),univPars(univ_pars){
-    
+
     tt_pCPionRew = new ThinTargetpCPionReweighter(iUniv,cvPars,univPars);
-    
+
   }
   
    ThinTargetnCPionReweighter::~ThinTargetnCPionReweighter(){
@@ -30,8 +30,10 @@ namespace NeutrinoFluxReweight{
   }
   
   double ThinTargetnCPionReweighter::calculateWeight(const InteractionData& thisid){
-
-    return tt_pCPionRew->calculateWeight(*aux_aa);
+    
+    double wgt = tt_pCPionRew->calculateWeight(*aux_aa);
+    
+    return wgt;
       
   }
   
