@@ -19,6 +19,7 @@ namespace NeutrinoFluxReweight{
 
   CentralValuesAndUncertainties::CentralValuesAndUncertainties(){
     r3=new TRandom3(0);
+    baseSeed = 0;
   }
   
   void CentralValuesAndUncertainties::readFromXML(const char* filename){
