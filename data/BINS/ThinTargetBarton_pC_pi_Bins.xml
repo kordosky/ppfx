@@ -1,0 +1,2170 @@
+
+<bins>
+<!-- List of bins -->
+ 
+    <ThinTargetBarton_pC_pi>
+ 
+       <ThinTargetBarton_pC_pi_0>
+          <xfrange>0.502500000 0.507500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_0>
+       <ThinTargetBarton_pC_pi_1>
+          <xfrange>0.502500000 0.507500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_1>
+       <ThinTargetBarton_pC_pi_2>
+          <xfrange>0.502500000 0.507500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_2>
+       <ThinTargetBarton_pC_pi_3>
+          <xfrange>0.502500000 0.507500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_3>
+       <ThinTargetBarton_pC_pi_4>
+          <xfrange>0.502500000 0.507500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_4>
+       <ThinTargetBarton_pC_pi_5>
+          <xfrange>0.502500000 0.507500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_5>
+       <ThinTargetBarton_pC_pi_6>
+          <xfrange>0.502500000 0.507500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_6>
+       <ThinTargetBarton_pC_pi_7>
+          <xfrange>0.502500000 0.507500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_7>
+       <ThinTargetBarton_pC_pi_8>
+          <xfrange>0.502500000 0.507500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_8>
+       <ThinTargetBarton_pC_pi_9>
+          <xfrange>0.507500000 0.512500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_9>
+       <ThinTargetBarton_pC_pi_10>
+          <xfrange>0.507500000 0.512500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_10>
+       <ThinTargetBarton_pC_pi_11>
+          <xfrange>0.507500000 0.512500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_11>
+       <ThinTargetBarton_pC_pi_12>
+          <xfrange>0.507500000 0.512500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_12>
+       <ThinTargetBarton_pC_pi_13>
+          <xfrange>0.507500000 0.512500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_13>
+       <ThinTargetBarton_pC_pi_14>
+          <xfrange>0.507500000 0.512500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_14>
+       <ThinTargetBarton_pC_pi_15>
+          <xfrange>0.507500000 0.512500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_15>
+       <ThinTargetBarton_pC_pi_16>
+          <xfrange>0.507500000 0.512500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_16>
+       <ThinTargetBarton_pC_pi_17>
+          <xfrange>0.507500000 0.512500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_17>
+       <ThinTargetBarton_pC_pi_18>
+          <xfrange>0.512500000 0.517500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_18>
+       <ThinTargetBarton_pC_pi_19>
+          <xfrange>0.512500000 0.517500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_19>
+       <ThinTargetBarton_pC_pi_20>
+          <xfrange>0.512500000 0.517500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_20>
+       <ThinTargetBarton_pC_pi_21>
+          <xfrange>0.512500000 0.517500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_21>
+       <ThinTargetBarton_pC_pi_22>
+          <xfrange>0.512500000 0.517500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_22>
+       <ThinTargetBarton_pC_pi_23>
+          <xfrange>0.512500000 0.517500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_23>
+       <ThinTargetBarton_pC_pi_24>
+          <xfrange>0.512500000 0.517500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_24>
+       <ThinTargetBarton_pC_pi_25>
+          <xfrange>0.512500000 0.517500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_25>
+       <ThinTargetBarton_pC_pi_26>
+          <xfrange>0.512500000 0.517500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_26>
+       <ThinTargetBarton_pC_pi_27>
+          <xfrange>0.517500000 0.522500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_27>
+       <ThinTargetBarton_pC_pi_28>
+          <xfrange>0.517500000 0.522500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_28>
+       <ThinTargetBarton_pC_pi_29>
+          <xfrange>0.517500000 0.522500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_29>
+       <ThinTargetBarton_pC_pi_30>
+          <xfrange>0.517500000 0.522500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_30>
+       <ThinTargetBarton_pC_pi_31>
+          <xfrange>0.517500000 0.522500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_31>
+       <ThinTargetBarton_pC_pi_32>
+          <xfrange>0.517500000 0.522500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_32>
+       <ThinTargetBarton_pC_pi_33>
+          <xfrange>0.517500000 0.522500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_33>
+       <ThinTargetBarton_pC_pi_34>
+          <xfrange>0.517500000 0.522500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_34>
+       <ThinTargetBarton_pC_pi_35>
+          <xfrange>0.517500000 0.522500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_35>
+       <ThinTargetBarton_pC_pi_36>
+          <xfrange>0.522500000 0.527500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_36>
+       <ThinTargetBarton_pC_pi_37>
+          <xfrange>0.522500000 0.527500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_37>
+       <ThinTargetBarton_pC_pi_38>
+          <xfrange>0.522500000 0.527500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_38>
+       <ThinTargetBarton_pC_pi_39>
+          <xfrange>0.522500000 0.527500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_39>
+       <ThinTargetBarton_pC_pi_40>
+          <xfrange>0.522500000 0.527500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_40>
+       <ThinTargetBarton_pC_pi_41>
+          <xfrange>0.522500000 0.527500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_41>
+       <ThinTargetBarton_pC_pi_42>
+          <xfrange>0.522500000 0.527500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_42>
+       <ThinTargetBarton_pC_pi_43>
+          <xfrange>0.522500000 0.527500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_43>
+       <ThinTargetBarton_pC_pi_44>
+          <xfrange>0.522500000 0.527500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_44>
+       <ThinTargetBarton_pC_pi_45>
+          <xfrange>0.527500000 0.532500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_45>
+       <ThinTargetBarton_pC_pi_46>
+          <xfrange>0.527500000 0.532500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_46>
+       <ThinTargetBarton_pC_pi_47>
+          <xfrange>0.527500000 0.532500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_47>
+       <ThinTargetBarton_pC_pi_48>
+          <xfrange>0.527500000 0.532500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_48>
+       <ThinTargetBarton_pC_pi_49>
+          <xfrange>0.527500000 0.532500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_49>
+       <ThinTargetBarton_pC_pi_50>
+          <xfrange>0.527500000 0.532500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_50>
+       <ThinTargetBarton_pC_pi_51>
+          <xfrange>0.527500000 0.532500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_51>
+       <ThinTargetBarton_pC_pi_52>
+          <xfrange>0.527500000 0.532500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_52>
+       <ThinTargetBarton_pC_pi_53>
+          <xfrange>0.527500000 0.532500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_53>
+       <ThinTargetBarton_pC_pi_54>
+          <xfrange>0.532500000 0.537500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_54>
+       <ThinTargetBarton_pC_pi_55>
+          <xfrange>0.532500000 0.537500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_55>
+       <ThinTargetBarton_pC_pi_56>
+          <xfrange>0.532500000 0.537500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_56>
+       <ThinTargetBarton_pC_pi_57>
+          <xfrange>0.532500000 0.537500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_57>
+       <ThinTargetBarton_pC_pi_58>
+          <xfrange>0.532500000 0.537500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_58>
+       <ThinTargetBarton_pC_pi_59>
+          <xfrange>0.532500000 0.537500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_59>
+       <ThinTargetBarton_pC_pi_60>
+          <xfrange>0.532500000 0.537500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_60>
+       <ThinTargetBarton_pC_pi_61>
+          <xfrange>0.532500000 0.537500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_61>
+       <ThinTargetBarton_pC_pi_62>
+          <xfrange>0.532500000 0.537500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_62>
+       <ThinTargetBarton_pC_pi_63>
+          <xfrange>0.537500000 0.542500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_63>
+       <ThinTargetBarton_pC_pi_64>
+          <xfrange>0.537500000 0.542500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_64>
+       <ThinTargetBarton_pC_pi_65>
+          <xfrange>0.537500000 0.542500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_65>
+       <ThinTargetBarton_pC_pi_66>
+          <xfrange>0.537500000 0.542500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_66>
+       <ThinTargetBarton_pC_pi_67>
+          <xfrange>0.537500000 0.542500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_67>
+       <ThinTargetBarton_pC_pi_68>
+          <xfrange>0.537500000 0.542500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_68>
+       <ThinTargetBarton_pC_pi_69>
+          <xfrange>0.537500000 0.542500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_69>
+       <ThinTargetBarton_pC_pi_70>
+          <xfrange>0.537500000 0.542500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_70>
+       <ThinTargetBarton_pC_pi_71>
+          <xfrange>0.537500000 0.542500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_71>
+       <ThinTargetBarton_pC_pi_72>
+          <xfrange>0.542500000 0.547500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_72>
+       <ThinTargetBarton_pC_pi_73>
+          <xfrange>0.542500000 0.547500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_73>
+       <ThinTargetBarton_pC_pi_74>
+          <xfrange>0.542500000 0.547500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_74>
+       <ThinTargetBarton_pC_pi_75>
+          <xfrange>0.542500000 0.547500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_75>
+       <ThinTargetBarton_pC_pi_76>
+          <xfrange>0.542500000 0.547500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_76>
+       <ThinTargetBarton_pC_pi_77>
+          <xfrange>0.542500000 0.547500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_77>
+       <ThinTargetBarton_pC_pi_78>
+          <xfrange>0.542500000 0.547500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_78>
+       <ThinTargetBarton_pC_pi_79>
+          <xfrange>0.542500000 0.547500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_79>
+       <ThinTargetBarton_pC_pi_80>
+          <xfrange>0.542500000 0.547500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_80>
+       <ThinTargetBarton_pC_pi_81>
+          <xfrange>0.547500000 0.552500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_81>
+       <ThinTargetBarton_pC_pi_82>
+          <xfrange>0.547500000 0.552500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_82>
+       <ThinTargetBarton_pC_pi_83>
+          <xfrange>0.547500000 0.552500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_83>
+       <ThinTargetBarton_pC_pi_84>
+          <xfrange>0.547500000 0.552500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_84>
+       <ThinTargetBarton_pC_pi_85>
+          <xfrange>0.547500000 0.552500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_85>
+       <ThinTargetBarton_pC_pi_86>
+          <xfrange>0.547500000 0.552500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_86>
+       <ThinTargetBarton_pC_pi_87>
+          <xfrange>0.547500000 0.552500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_87>
+       <ThinTargetBarton_pC_pi_88>
+          <xfrange>0.547500000 0.552500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_88>
+       <ThinTargetBarton_pC_pi_89>
+          <xfrange>0.547500000 0.552500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_89>
+       <ThinTargetBarton_pC_pi_90>
+          <xfrange>0.552500000 0.557500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_90>
+       <ThinTargetBarton_pC_pi_91>
+          <xfrange>0.552500000 0.557500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_91>
+       <ThinTargetBarton_pC_pi_92>
+          <xfrange>0.552500000 0.557500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_92>
+       <ThinTargetBarton_pC_pi_93>
+          <xfrange>0.552500000 0.557500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_93>
+       <ThinTargetBarton_pC_pi_94>
+          <xfrange>0.552500000 0.557500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_94>
+       <ThinTargetBarton_pC_pi_95>
+          <xfrange>0.552500000 0.557500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_95>
+       <ThinTargetBarton_pC_pi_96>
+          <xfrange>0.552500000 0.557500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_96>
+       <ThinTargetBarton_pC_pi_97>
+          <xfrange>0.552500000 0.557500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_97>
+       <ThinTargetBarton_pC_pi_98>
+          <xfrange>0.552500000 0.557500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_98>
+       <ThinTargetBarton_pC_pi_99>
+          <xfrange>0.557500000 0.562500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_99>
+       <ThinTargetBarton_pC_pi_100>
+          <xfrange>0.557500000 0.562500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_100>
+       <ThinTargetBarton_pC_pi_101>
+          <xfrange>0.557500000 0.562500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_101>
+       <ThinTargetBarton_pC_pi_102>
+          <xfrange>0.557500000 0.562500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_102>
+       <ThinTargetBarton_pC_pi_103>
+          <xfrange>0.557500000 0.562500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_103>
+       <ThinTargetBarton_pC_pi_104>
+          <xfrange>0.557500000 0.562500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_104>
+       <ThinTargetBarton_pC_pi_105>
+          <xfrange>0.557500000 0.562500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_105>
+       <ThinTargetBarton_pC_pi_106>
+          <xfrange>0.557500000 0.562500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_106>
+       <ThinTargetBarton_pC_pi_107>
+          <xfrange>0.557500000 0.562500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_107>
+       <ThinTargetBarton_pC_pi_108>
+          <xfrange>0.562500000 0.567500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_108>
+       <ThinTargetBarton_pC_pi_109>
+          <xfrange>0.562500000 0.567500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_109>
+       <ThinTargetBarton_pC_pi_110>
+          <xfrange>0.562500000 0.567500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_110>
+       <ThinTargetBarton_pC_pi_111>
+          <xfrange>0.562500000 0.567500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_111>
+       <ThinTargetBarton_pC_pi_112>
+          <xfrange>0.562500000 0.567500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_112>
+       <ThinTargetBarton_pC_pi_113>
+          <xfrange>0.562500000 0.567500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_113>
+       <ThinTargetBarton_pC_pi_114>
+          <xfrange>0.562500000 0.567500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_114>
+       <ThinTargetBarton_pC_pi_115>
+          <xfrange>0.562500000 0.567500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_115>
+       <ThinTargetBarton_pC_pi_116>
+          <xfrange>0.562500000 0.567500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_116>
+       <ThinTargetBarton_pC_pi_117>
+          <xfrange>0.567500000 0.572500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_117>
+       <ThinTargetBarton_pC_pi_118>
+          <xfrange>0.567500000 0.572500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_118>
+       <ThinTargetBarton_pC_pi_119>
+          <xfrange>0.567500000 0.572500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_119>
+       <ThinTargetBarton_pC_pi_120>
+          <xfrange>0.567500000 0.572500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_120>
+       <ThinTargetBarton_pC_pi_121>
+          <xfrange>0.567500000 0.572500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_121>
+       <ThinTargetBarton_pC_pi_122>
+          <xfrange>0.567500000 0.572500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_122>
+       <ThinTargetBarton_pC_pi_123>
+          <xfrange>0.567500000 0.572500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_123>
+       <ThinTargetBarton_pC_pi_124>
+          <xfrange>0.567500000 0.572500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_124>
+       <ThinTargetBarton_pC_pi_125>
+          <xfrange>0.567500000 0.572500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_125>
+       <ThinTargetBarton_pC_pi_126>
+          <xfrange>0.572500000 0.577500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_126>
+       <ThinTargetBarton_pC_pi_127>
+          <xfrange>0.572500000 0.577500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_127>
+       <ThinTargetBarton_pC_pi_128>
+          <xfrange>0.572500000 0.577500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_128>
+       <ThinTargetBarton_pC_pi_129>
+          <xfrange>0.572500000 0.577500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_129>
+       <ThinTargetBarton_pC_pi_130>
+          <xfrange>0.572500000 0.577500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_130>
+       <ThinTargetBarton_pC_pi_131>
+          <xfrange>0.572500000 0.577500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_131>
+       <ThinTargetBarton_pC_pi_132>
+          <xfrange>0.572500000 0.577500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_132>
+       <ThinTargetBarton_pC_pi_133>
+          <xfrange>0.572500000 0.577500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_133>
+       <ThinTargetBarton_pC_pi_134>
+          <xfrange>0.572500000 0.577500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_134>
+       <ThinTargetBarton_pC_pi_135>
+          <xfrange>0.577500000 0.582500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_135>
+       <ThinTargetBarton_pC_pi_136>
+          <xfrange>0.577500000 0.582500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_136>
+       <ThinTargetBarton_pC_pi_137>
+          <xfrange>0.577500000 0.582500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_137>
+       <ThinTargetBarton_pC_pi_138>
+          <xfrange>0.577500000 0.582500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_138>
+       <ThinTargetBarton_pC_pi_139>
+          <xfrange>0.577500000 0.582500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_139>
+       <ThinTargetBarton_pC_pi_140>
+          <xfrange>0.577500000 0.582500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_140>
+       <ThinTargetBarton_pC_pi_141>
+          <xfrange>0.577500000 0.582500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_141>
+       <ThinTargetBarton_pC_pi_142>
+          <xfrange>0.577500000 0.582500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_142>
+       <ThinTargetBarton_pC_pi_143>
+          <xfrange>0.577500000 0.582500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_143>
+       <ThinTargetBarton_pC_pi_144>
+          <xfrange>0.582500000 0.587500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_144>
+       <ThinTargetBarton_pC_pi_145>
+          <xfrange>0.582500000 0.587500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_145>
+       <ThinTargetBarton_pC_pi_146>
+          <xfrange>0.582500000 0.587500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_146>
+       <ThinTargetBarton_pC_pi_147>
+          <xfrange>0.582500000 0.587500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_147>
+       <ThinTargetBarton_pC_pi_148>
+          <xfrange>0.582500000 0.587500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_148>
+       <ThinTargetBarton_pC_pi_149>
+          <xfrange>0.582500000 0.587500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_149>
+       <ThinTargetBarton_pC_pi_150>
+          <xfrange>0.582500000 0.587500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_150>
+       <ThinTargetBarton_pC_pi_151>
+          <xfrange>0.582500000 0.587500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_151>
+       <ThinTargetBarton_pC_pi_152>
+          <xfrange>0.582500000 0.587500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_152>
+       <ThinTargetBarton_pC_pi_153>
+          <xfrange>0.587500000 0.592500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_153>
+       <ThinTargetBarton_pC_pi_154>
+          <xfrange>0.587500000 0.592500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_154>
+       <ThinTargetBarton_pC_pi_155>
+          <xfrange>0.587500000 0.592500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_155>
+       <ThinTargetBarton_pC_pi_156>
+          <xfrange>0.587500000 0.592500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_156>
+       <ThinTargetBarton_pC_pi_157>
+          <xfrange>0.587500000 0.592500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_157>
+       <ThinTargetBarton_pC_pi_158>
+          <xfrange>0.587500000 0.592500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_158>
+       <ThinTargetBarton_pC_pi_159>
+          <xfrange>0.587500000 0.592500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_159>
+       <ThinTargetBarton_pC_pi_160>
+          <xfrange>0.587500000 0.592500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_160>
+       <ThinTargetBarton_pC_pi_161>
+          <xfrange>0.587500000 0.592500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_161>
+       <ThinTargetBarton_pC_pi_162>
+          <xfrange>0.592500000 0.597500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_162>
+       <ThinTargetBarton_pC_pi_163>
+          <xfrange>0.592500000 0.597500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_163>
+       <ThinTargetBarton_pC_pi_164>
+          <xfrange>0.592500000 0.597500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_164>
+       <ThinTargetBarton_pC_pi_165>
+          <xfrange>0.592500000 0.597500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_165>
+       <ThinTargetBarton_pC_pi_166>
+          <xfrange>0.592500000 0.597500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_166>
+       <ThinTargetBarton_pC_pi_167>
+          <xfrange>0.592500000 0.597500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_167>
+       <ThinTargetBarton_pC_pi_168>
+          <xfrange>0.592500000 0.597500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_168>
+       <ThinTargetBarton_pC_pi_169>
+          <xfrange>0.592500000 0.597500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_169>
+       <ThinTargetBarton_pC_pi_170>
+          <xfrange>0.592500000 0.597500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_170>
+       <ThinTargetBarton_pC_pi_171>
+          <xfrange>0.597500000 0.602500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_171>
+       <ThinTargetBarton_pC_pi_172>
+          <xfrange>0.597500000 0.602500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_172>
+       <ThinTargetBarton_pC_pi_173>
+          <xfrange>0.597500000 0.602500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_173>
+       <ThinTargetBarton_pC_pi_174>
+          <xfrange>0.597500000 0.602500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_174>
+       <ThinTargetBarton_pC_pi_175>
+          <xfrange>0.597500000 0.602500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_175>
+       <ThinTargetBarton_pC_pi_176>
+          <xfrange>0.597500000 0.602500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_176>
+       <ThinTargetBarton_pC_pi_177>
+          <xfrange>0.597500000 0.602500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_177>
+       <ThinTargetBarton_pC_pi_178>
+          <xfrange>0.597500000 0.602500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_178>
+       <ThinTargetBarton_pC_pi_179>
+          <xfrange>0.597500000 0.602500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_179>
+       <ThinTargetBarton_pC_pi_180>
+          <xfrange>0.602500000 0.607500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_180>
+       <ThinTargetBarton_pC_pi_181>
+          <xfrange>0.602500000 0.607500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_181>
+       <ThinTargetBarton_pC_pi_182>
+          <xfrange>0.602500000 0.607500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_182>
+       <ThinTargetBarton_pC_pi_183>
+          <xfrange>0.602500000 0.607500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_183>
+       <ThinTargetBarton_pC_pi_184>
+          <xfrange>0.602500000 0.607500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_184>
+       <ThinTargetBarton_pC_pi_185>
+          <xfrange>0.602500000 0.607500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_185>
+       <ThinTargetBarton_pC_pi_186>
+          <xfrange>0.602500000 0.607500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_186>
+       <ThinTargetBarton_pC_pi_187>
+          <xfrange>0.602500000 0.607500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_187>
+       <ThinTargetBarton_pC_pi_188>
+          <xfrange>0.602500000 0.607500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_188>
+       <ThinTargetBarton_pC_pi_189>
+          <xfrange>0.607500000 0.612500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_189>
+       <ThinTargetBarton_pC_pi_190>
+          <xfrange>0.607500000 0.612500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_190>
+       <ThinTargetBarton_pC_pi_191>
+          <xfrange>0.607500000 0.612500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_191>
+       <ThinTargetBarton_pC_pi_192>
+          <xfrange>0.607500000 0.612500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_192>
+       <ThinTargetBarton_pC_pi_193>
+          <xfrange>0.607500000 0.612500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_193>
+       <ThinTargetBarton_pC_pi_194>
+          <xfrange>0.607500000 0.612500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_194>
+       <ThinTargetBarton_pC_pi_195>
+          <xfrange>0.607500000 0.612500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_195>
+       <ThinTargetBarton_pC_pi_196>
+          <xfrange>0.607500000 0.612500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_196>
+       <ThinTargetBarton_pC_pi_197>
+          <xfrange>0.607500000 0.612500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_197>
+       <ThinTargetBarton_pC_pi_198>
+          <xfrange>0.612500000 0.617500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_198>
+       <ThinTargetBarton_pC_pi_199>
+          <xfrange>0.612500000 0.617500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_199>
+       <ThinTargetBarton_pC_pi_200>
+          <xfrange>0.612500000 0.617500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_200>
+       <ThinTargetBarton_pC_pi_201>
+          <xfrange>0.612500000 0.617500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_201>
+       <ThinTargetBarton_pC_pi_202>
+          <xfrange>0.612500000 0.617500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_202>
+       <ThinTargetBarton_pC_pi_203>
+          <xfrange>0.612500000 0.617500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_203>
+       <ThinTargetBarton_pC_pi_204>
+          <xfrange>0.612500000 0.617500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_204>
+       <ThinTargetBarton_pC_pi_205>
+          <xfrange>0.612500000 0.617500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_205>
+       <ThinTargetBarton_pC_pi_206>
+          <xfrange>0.612500000 0.617500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_206>
+       <ThinTargetBarton_pC_pi_207>
+          <xfrange>0.617500000 0.622500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_207>
+       <ThinTargetBarton_pC_pi_208>
+          <xfrange>0.617500000 0.622500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_208>
+       <ThinTargetBarton_pC_pi_209>
+          <xfrange>0.617500000 0.622500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_209>
+       <ThinTargetBarton_pC_pi_210>
+          <xfrange>0.617500000 0.622500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_210>
+       <ThinTargetBarton_pC_pi_211>
+          <xfrange>0.617500000 0.622500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_211>
+       <ThinTargetBarton_pC_pi_212>
+          <xfrange>0.617500000 0.622500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_212>
+       <ThinTargetBarton_pC_pi_213>
+          <xfrange>0.617500000 0.622500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_213>
+       <ThinTargetBarton_pC_pi_214>
+          <xfrange>0.617500000 0.622500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_214>
+       <ThinTargetBarton_pC_pi_215>
+          <xfrange>0.617500000 0.622500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_215>
+       <ThinTargetBarton_pC_pi_216>
+          <xfrange>0.622500000 0.627500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_216>
+       <ThinTargetBarton_pC_pi_217>
+          <xfrange>0.622500000 0.627500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_217>
+       <ThinTargetBarton_pC_pi_218>
+          <xfrange>0.622500000 0.627500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_218>
+       <ThinTargetBarton_pC_pi_219>
+          <xfrange>0.622500000 0.627500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_219>
+       <ThinTargetBarton_pC_pi_220>
+          <xfrange>0.622500000 0.627500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_220>
+       <ThinTargetBarton_pC_pi_221>
+          <xfrange>0.622500000 0.627500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_221>
+       <ThinTargetBarton_pC_pi_222>
+          <xfrange>0.622500000 0.627500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_222>
+       <ThinTargetBarton_pC_pi_223>
+          <xfrange>0.622500000 0.627500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_223>
+       <ThinTargetBarton_pC_pi_224>
+          <xfrange>0.622500000 0.627500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_224>
+       <ThinTargetBarton_pC_pi_225>
+          <xfrange>0.627500000 0.632500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_225>
+       <ThinTargetBarton_pC_pi_226>
+          <xfrange>0.627500000 0.632500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_226>
+       <ThinTargetBarton_pC_pi_227>
+          <xfrange>0.627500000 0.632500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_227>
+       <ThinTargetBarton_pC_pi_228>
+          <xfrange>0.627500000 0.632500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_228>
+       <ThinTargetBarton_pC_pi_229>
+          <xfrange>0.627500000 0.632500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_229>
+       <ThinTargetBarton_pC_pi_230>
+          <xfrange>0.627500000 0.632500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_230>
+       <ThinTargetBarton_pC_pi_231>
+          <xfrange>0.627500000 0.632500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_231>
+       <ThinTargetBarton_pC_pi_232>
+          <xfrange>0.627500000 0.632500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_232>
+       <ThinTargetBarton_pC_pi_233>
+          <xfrange>0.627500000 0.632500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_233>
+       <ThinTargetBarton_pC_pi_234>
+          <xfrange>0.632500000 0.637500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_234>
+       <ThinTargetBarton_pC_pi_235>
+          <xfrange>0.632500000 0.637500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_235>
+       <ThinTargetBarton_pC_pi_236>
+          <xfrange>0.632500000 0.637500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_236>
+       <ThinTargetBarton_pC_pi_237>
+          <xfrange>0.632500000 0.637500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_237>
+       <ThinTargetBarton_pC_pi_238>
+          <xfrange>0.632500000 0.637500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_238>
+       <ThinTargetBarton_pC_pi_239>
+          <xfrange>0.632500000 0.637500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_239>
+       <ThinTargetBarton_pC_pi_240>
+          <xfrange>0.632500000 0.637500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_240>
+       <ThinTargetBarton_pC_pi_241>
+          <xfrange>0.632500000 0.637500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_241>
+       <ThinTargetBarton_pC_pi_242>
+          <xfrange>0.632500000 0.637500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_242>
+       <ThinTargetBarton_pC_pi_243>
+          <xfrange>0.637500000 0.642500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_243>
+       <ThinTargetBarton_pC_pi_244>
+          <xfrange>0.637500000 0.642500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_244>
+       <ThinTargetBarton_pC_pi_245>
+          <xfrange>0.637500000 0.642500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_245>
+       <ThinTargetBarton_pC_pi_246>
+          <xfrange>0.637500000 0.642500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_246>
+       <ThinTargetBarton_pC_pi_247>
+          <xfrange>0.637500000 0.642500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_247>
+       <ThinTargetBarton_pC_pi_248>
+          <xfrange>0.637500000 0.642500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_248>
+       <ThinTargetBarton_pC_pi_249>
+          <xfrange>0.637500000 0.642500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_249>
+       <ThinTargetBarton_pC_pi_250>
+          <xfrange>0.637500000 0.642500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_250>
+       <ThinTargetBarton_pC_pi_251>
+          <xfrange>0.637500000 0.642500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_251>
+       <ThinTargetBarton_pC_pi_252>
+          <xfrange>0.642500000 0.647500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_252>
+       <ThinTargetBarton_pC_pi_253>
+          <xfrange>0.642500000 0.647500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_253>
+       <ThinTargetBarton_pC_pi_254>
+          <xfrange>0.642500000 0.647500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_254>
+       <ThinTargetBarton_pC_pi_255>
+          <xfrange>0.642500000 0.647500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_255>
+       <ThinTargetBarton_pC_pi_256>
+          <xfrange>0.642500000 0.647500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_256>
+       <ThinTargetBarton_pC_pi_257>
+          <xfrange>0.642500000 0.647500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_257>
+       <ThinTargetBarton_pC_pi_258>
+          <xfrange>0.642500000 0.647500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_258>
+       <ThinTargetBarton_pC_pi_259>
+          <xfrange>0.642500000 0.647500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_259>
+       <ThinTargetBarton_pC_pi_260>
+          <xfrange>0.642500000 0.647500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_260>
+       <ThinTargetBarton_pC_pi_261>
+          <xfrange>0.647500000 0.652500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_261>
+       <ThinTargetBarton_pC_pi_262>
+          <xfrange>0.647500000 0.652500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_262>
+       <ThinTargetBarton_pC_pi_263>
+          <xfrange>0.647500000 0.652500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_263>
+       <ThinTargetBarton_pC_pi_264>
+          <xfrange>0.647500000 0.652500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_264>
+       <ThinTargetBarton_pC_pi_265>
+          <xfrange>0.647500000 0.652500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_265>
+       <ThinTargetBarton_pC_pi_266>
+          <xfrange>0.647500000 0.652500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_266>
+       <ThinTargetBarton_pC_pi_267>
+          <xfrange>0.647500000 0.652500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_267>
+       <ThinTargetBarton_pC_pi_268>
+          <xfrange>0.647500000 0.652500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_268>
+       <ThinTargetBarton_pC_pi_269>
+          <xfrange>0.647500000 0.652500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_269>
+       <ThinTargetBarton_pC_pi_270>
+          <xfrange>0.652500000 0.657500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_270>
+       <ThinTargetBarton_pC_pi_271>
+          <xfrange>0.652500000 0.657500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_271>
+       <ThinTargetBarton_pC_pi_272>
+          <xfrange>0.652500000 0.657500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_272>
+       <ThinTargetBarton_pC_pi_273>
+          <xfrange>0.652500000 0.657500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_273>
+       <ThinTargetBarton_pC_pi_274>
+          <xfrange>0.652500000 0.657500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_274>
+       <ThinTargetBarton_pC_pi_275>
+          <xfrange>0.652500000 0.657500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_275>
+       <ThinTargetBarton_pC_pi_276>
+          <xfrange>0.652500000 0.657500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_276>
+       <ThinTargetBarton_pC_pi_277>
+          <xfrange>0.652500000 0.657500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_277>
+       <ThinTargetBarton_pC_pi_278>
+          <xfrange>0.652500000 0.657500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_278>
+       <ThinTargetBarton_pC_pi_279>
+          <xfrange>0.657500000 0.662500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_279>
+       <ThinTargetBarton_pC_pi_280>
+          <xfrange>0.657500000 0.662500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_280>
+       <ThinTargetBarton_pC_pi_281>
+          <xfrange>0.657500000 0.662500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_281>
+       <ThinTargetBarton_pC_pi_282>
+          <xfrange>0.657500000 0.662500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_282>
+       <ThinTargetBarton_pC_pi_283>
+          <xfrange>0.657500000 0.662500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_283>
+       <ThinTargetBarton_pC_pi_284>
+          <xfrange>0.657500000 0.662500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_284>
+       <ThinTargetBarton_pC_pi_285>
+          <xfrange>0.657500000 0.662500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_285>
+       <ThinTargetBarton_pC_pi_286>
+          <xfrange>0.657500000 0.662500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_286>
+       <ThinTargetBarton_pC_pi_287>
+          <xfrange>0.657500000 0.662500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_287>
+       <ThinTargetBarton_pC_pi_288>
+          <xfrange>0.662500000 0.667500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_288>
+       <ThinTargetBarton_pC_pi_289>
+          <xfrange>0.662500000 0.667500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_289>
+       <ThinTargetBarton_pC_pi_290>
+          <xfrange>0.662500000 0.667500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_290>
+       <ThinTargetBarton_pC_pi_291>
+          <xfrange>0.662500000 0.667500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_291>
+       <ThinTargetBarton_pC_pi_292>
+          <xfrange>0.662500000 0.667500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_292>
+       <ThinTargetBarton_pC_pi_293>
+          <xfrange>0.662500000 0.667500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_293>
+       <ThinTargetBarton_pC_pi_294>
+          <xfrange>0.662500000 0.667500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_294>
+       <ThinTargetBarton_pC_pi_295>
+          <xfrange>0.662500000 0.667500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_295>
+       <ThinTargetBarton_pC_pi_296>
+          <xfrange>0.662500000 0.667500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_296>
+       <ThinTargetBarton_pC_pi_297>
+          <xfrange>0.667500000 0.672500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_297>
+       <ThinTargetBarton_pC_pi_298>
+          <xfrange>0.667500000 0.672500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_298>
+       <ThinTargetBarton_pC_pi_299>
+          <xfrange>0.667500000 0.672500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_299>
+       <ThinTargetBarton_pC_pi_300>
+          <xfrange>0.667500000 0.672500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_300>
+       <ThinTargetBarton_pC_pi_301>
+          <xfrange>0.667500000 0.672500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_301>
+       <ThinTargetBarton_pC_pi_302>
+          <xfrange>0.667500000 0.672500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_302>
+       <ThinTargetBarton_pC_pi_303>
+          <xfrange>0.667500000 0.672500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_303>
+       <ThinTargetBarton_pC_pi_304>
+          <xfrange>0.667500000 0.672500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_304>
+       <ThinTargetBarton_pC_pi_305>
+          <xfrange>0.667500000 0.672500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_305>
+       <ThinTargetBarton_pC_pi_306>
+          <xfrange>0.672500000 0.677500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_306>
+       <ThinTargetBarton_pC_pi_307>
+          <xfrange>0.672500000 0.677500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_307>
+       <ThinTargetBarton_pC_pi_308>
+          <xfrange>0.672500000 0.677500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_308>
+       <ThinTargetBarton_pC_pi_309>
+          <xfrange>0.672500000 0.677500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_309>
+       <ThinTargetBarton_pC_pi_310>
+          <xfrange>0.672500000 0.677500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_310>
+       <ThinTargetBarton_pC_pi_311>
+          <xfrange>0.672500000 0.677500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_311>
+       <ThinTargetBarton_pC_pi_312>
+          <xfrange>0.672500000 0.677500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_312>
+       <ThinTargetBarton_pC_pi_313>
+          <xfrange>0.672500000 0.677500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_313>
+       <ThinTargetBarton_pC_pi_314>
+          <xfrange>0.672500000 0.677500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_314>
+       <ThinTargetBarton_pC_pi_315>
+          <xfrange>0.677500000 0.682500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_315>
+       <ThinTargetBarton_pC_pi_316>
+          <xfrange>0.677500000 0.682500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_316>
+       <ThinTargetBarton_pC_pi_317>
+          <xfrange>0.677500000 0.682500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_317>
+       <ThinTargetBarton_pC_pi_318>
+          <xfrange>0.677500000 0.682500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_318>
+       <ThinTargetBarton_pC_pi_319>
+          <xfrange>0.677500000 0.682500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_319>
+       <ThinTargetBarton_pC_pi_320>
+          <xfrange>0.677500000 0.682500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_320>
+       <ThinTargetBarton_pC_pi_321>
+          <xfrange>0.677500000 0.682500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_321>
+       <ThinTargetBarton_pC_pi_322>
+          <xfrange>0.677500000 0.682500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_322>
+       <ThinTargetBarton_pC_pi_323>
+          <xfrange>0.677500000 0.682500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_323>
+       <ThinTargetBarton_pC_pi_324>
+          <xfrange>0.682500000 0.687500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_324>
+       <ThinTargetBarton_pC_pi_325>
+          <xfrange>0.682500000 0.687500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_325>
+       <ThinTargetBarton_pC_pi_326>
+          <xfrange>0.682500000 0.687500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_326>
+       <ThinTargetBarton_pC_pi_327>
+          <xfrange>0.682500000 0.687500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_327>
+       <ThinTargetBarton_pC_pi_328>
+          <xfrange>0.682500000 0.687500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_328>
+       <ThinTargetBarton_pC_pi_329>
+          <xfrange>0.682500000 0.687500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_329>
+       <ThinTargetBarton_pC_pi_330>
+          <xfrange>0.682500000 0.687500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_330>
+       <ThinTargetBarton_pC_pi_331>
+          <xfrange>0.682500000 0.687500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_331>
+       <ThinTargetBarton_pC_pi_332>
+          <xfrange>0.682500000 0.687500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_332>
+       <ThinTargetBarton_pC_pi_333>
+          <xfrange>0.687500000 0.692500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_333>
+       <ThinTargetBarton_pC_pi_334>
+          <xfrange>0.687500000 0.692500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_334>
+       <ThinTargetBarton_pC_pi_335>
+          <xfrange>0.687500000 0.692500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_335>
+       <ThinTargetBarton_pC_pi_336>
+          <xfrange>0.687500000 0.692500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_336>
+       <ThinTargetBarton_pC_pi_337>
+          <xfrange>0.687500000 0.692500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_337>
+       <ThinTargetBarton_pC_pi_338>
+          <xfrange>0.687500000 0.692500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_338>
+       <ThinTargetBarton_pC_pi_339>
+          <xfrange>0.687500000 0.692500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_339>
+       <ThinTargetBarton_pC_pi_340>
+          <xfrange>0.687500000 0.692500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_340>
+       <ThinTargetBarton_pC_pi_341>
+          <xfrange>0.687500000 0.692500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_341>
+       <ThinTargetBarton_pC_pi_342>
+          <xfrange>0.692500000 0.697500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_342>
+       <ThinTargetBarton_pC_pi_343>
+          <xfrange>0.692500000 0.697500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_343>
+       <ThinTargetBarton_pC_pi_344>
+          <xfrange>0.692500000 0.697500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_344>
+       <ThinTargetBarton_pC_pi_345>
+          <xfrange>0.692500000 0.697500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_345>
+       <ThinTargetBarton_pC_pi_346>
+          <xfrange>0.692500000 0.697500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_346>
+       <ThinTargetBarton_pC_pi_347>
+          <xfrange>0.692500000 0.697500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_347>
+       <ThinTargetBarton_pC_pi_348>
+          <xfrange>0.692500000 0.697500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_348>
+       <ThinTargetBarton_pC_pi_349>
+          <xfrange>0.692500000 0.697500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_349>
+       <ThinTargetBarton_pC_pi_350>
+          <xfrange>0.692500000 0.697500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_350>
+       <ThinTargetBarton_pC_pi_351>
+          <xfrange>0.697500000 0.702500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_351>
+       <ThinTargetBarton_pC_pi_352>
+          <xfrange>0.697500000 0.702500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_352>
+       <ThinTargetBarton_pC_pi_353>
+          <xfrange>0.697500000 0.702500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_353>
+       <ThinTargetBarton_pC_pi_354>
+          <xfrange>0.697500000 0.702500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_354>
+       <ThinTargetBarton_pC_pi_355>
+          <xfrange>0.697500000 0.702500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_355>
+       <ThinTargetBarton_pC_pi_356>
+          <xfrange>0.697500000 0.702500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_356>
+       <ThinTargetBarton_pC_pi_357>
+          <xfrange>0.697500000 0.702500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_357>
+       <ThinTargetBarton_pC_pi_358>
+          <xfrange>0.697500000 0.702500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_358>
+       <ThinTargetBarton_pC_pi_359>
+          <xfrange>0.697500000 0.702500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_359>
+       <ThinTargetBarton_pC_pi_360>
+          <xfrange>0.702500000 0.707500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_360>
+       <ThinTargetBarton_pC_pi_361>
+          <xfrange>0.702500000 0.707500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_361>
+       <ThinTargetBarton_pC_pi_362>
+          <xfrange>0.702500000 0.707500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_362>
+       <ThinTargetBarton_pC_pi_363>
+          <xfrange>0.702500000 0.707500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_363>
+       <ThinTargetBarton_pC_pi_364>
+          <xfrange>0.702500000 0.707500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_364>
+       <ThinTargetBarton_pC_pi_365>
+          <xfrange>0.702500000 0.707500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_365>
+       <ThinTargetBarton_pC_pi_366>
+          <xfrange>0.702500000 0.707500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_366>
+       <ThinTargetBarton_pC_pi_367>
+          <xfrange>0.702500000 0.707500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_367>
+       <ThinTargetBarton_pC_pi_368>
+          <xfrange>0.702500000 0.707500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_368>
+       <ThinTargetBarton_pC_pi_369>
+          <xfrange>0.707500000 0.712500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_369>
+       <ThinTargetBarton_pC_pi_370>
+          <xfrange>0.707500000 0.712500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_370>
+       <ThinTargetBarton_pC_pi_371>
+          <xfrange>0.707500000 0.712500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_371>
+       <ThinTargetBarton_pC_pi_372>
+          <xfrange>0.707500000 0.712500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_372>
+       <ThinTargetBarton_pC_pi_373>
+          <xfrange>0.707500000 0.712500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_373>
+       <ThinTargetBarton_pC_pi_374>
+          <xfrange>0.707500000 0.712500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_374>
+       <ThinTargetBarton_pC_pi_375>
+          <xfrange>0.707500000 0.712500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_375>
+       <ThinTargetBarton_pC_pi_376>
+          <xfrange>0.707500000 0.712500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_376>
+       <ThinTargetBarton_pC_pi_377>
+          <xfrange>0.707500000 0.712500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_377>
+       <ThinTargetBarton_pC_pi_378>
+          <xfrange>0.712500000 0.717500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_378>
+       <ThinTargetBarton_pC_pi_379>
+          <xfrange>0.712500000 0.717500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_379>
+       <ThinTargetBarton_pC_pi_380>
+          <xfrange>0.712500000 0.717500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_380>
+       <ThinTargetBarton_pC_pi_381>
+          <xfrange>0.712500000 0.717500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_381>
+       <ThinTargetBarton_pC_pi_382>
+          <xfrange>0.712500000 0.717500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_382>
+       <ThinTargetBarton_pC_pi_383>
+          <xfrange>0.712500000 0.717500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_383>
+       <ThinTargetBarton_pC_pi_384>
+          <xfrange>0.712500000 0.717500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_384>
+       <ThinTargetBarton_pC_pi_385>
+          <xfrange>0.712500000 0.717500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_385>
+       <ThinTargetBarton_pC_pi_386>
+          <xfrange>0.712500000 0.717500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_386>
+       <ThinTargetBarton_pC_pi_387>
+          <xfrange>0.717500000 0.722500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_387>
+       <ThinTargetBarton_pC_pi_388>
+          <xfrange>0.717500000 0.722500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_388>
+       <ThinTargetBarton_pC_pi_389>
+          <xfrange>0.717500000 0.722500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_389>
+       <ThinTargetBarton_pC_pi_390>
+          <xfrange>0.717500000 0.722500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_390>
+       <ThinTargetBarton_pC_pi_391>
+          <xfrange>0.717500000 0.722500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_391>
+       <ThinTargetBarton_pC_pi_392>
+          <xfrange>0.717500000 0.722500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_392>
+       <ThinTargetBarton_pC_pi_393>
+          <xfrange>0.717500000 0.722500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_393>
+       <ThinTargetBarton_pC_pi_394>
+          <xfrange>0.717500000 0.722500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_394>
+       <ThinTargetBarton_pC_pi_395>
+          <xfrange>0.717500000 0.722500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_395>
+       <ThinTargetBarton_pC_pi_396>
+          <xfrange>0.722500000 0.727500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_396>
+       <ThinTargetBarton_pC_pi_397>
+          <xfrange>0.722500000 0.727500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_397>
+       <ThinTargetBarton_pC_pi_398>
+          <xfrange>0.722500000 0.727500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_398>
+       <ThinTargetBarton_pC_pi_399>
+          <xfrange>0.722500000 0.727500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_399>
+       <ThinTargetBarton_pC_pi_400>
+          <xfrange>0.722500000 0.727500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_400>
+       <ThinTargetBarton_pC_pi_401>
+          <xfrange>0.722500000 0.727500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_401>
+       <ThinTargetBarton_pC_pi_402>
+          <xfrange>0.722500000 0.727500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_402>
+       <ThinTargetBarton_pC_pi_403>
+          <xfrange>0.722500000 0.727500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_403>
+       <ThinTargetBarton_pC_pi_404>
+          <xfrange>0.722500000 0.727500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_404>
+       <ThinTargetBarton_pC_pi_405>
+          <xfrange>0.727500000 0.732500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_405>
+       <ThinTargetBarton_pC_pi_406>
+          <xfrange>0.727500000 0.732500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_406>
+       <ThinTargetBarton_pC_pi_407>
+          <xfrange>0.727500000 0.732500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_407>
+       <ThinTargetBarton_pC_pi_408>
+          <xfrange>0.727500000 0.732500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_408>
+       <ThinTargetBarton_pC_pi_409>
+          <xfrange>0.727500000 0.732500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_409>
+       <ThinTargetBarton_pC_pi_410>
+          <xfrange>0.727500000 0.732500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_410>
+       <ThinTargetBarton_pC_pi_411>
+          <xfrange>0.727500000 0.732500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_411>
+       <ThinTargetBarton_pC_pi_412>
+          <xfrange>0.727500000 0.732500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_412>
+       <ThinTargetBarton_pC_pi_413>
+          <xfrange>0.727500000 0.732500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_413>
+       <ThinTargetBarton_pC_pi_414>
+          <xfrange>0.732500000 0.737500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_414>
+       <ThinTargetBarton_pC_pi_415>
+          <xfrange>0.732500000 0.737500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_415>
+       <ThinTargetBarton_pC_pi_416>
+          <xfrange>0.732500000 0.737500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_416>
+       <ThinTargetBarton_pC_pi_417>
+          <xfrange>0.732500000 0.737500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_417>
+       <ThinTargetBarton_pC_pi_418>
+          <xfrange>0.732500000 0.737500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_418>
+       <ThinTargetBarton_pC_pi_419>
+          <xfrange>0.732500000 0.737500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_419>
+       <ThinTargetBarton_pC_pi_420>
+          <xfrange>0.732500000 0.737500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_420>
+       <ThinTargetBarton_pC_pi_421>
+          <xfrange>0.732500000 0.737500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_421>
+       <ThinTargetBarton_pC_pi_422>
+          <xfrange>0.732500000 0.737500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_422>
+       <ThinTargetBarton_pC_pi_423>
+          <xfrange>0.737500000 0.742500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_423>
+       <ThinTargetBarton_pC_pi_424>
+          <xfrange>0.737500000 0.742500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_424>
+       <ThinTargetBarton_pC_pi_425>
+          <xfrange>0.737500000 0.742500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_425>
+       <ThinTargetBarton_pC_pi_426>
+          <xfrange>0.737500000 0.742500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_426>
+       <ThinTargetBarton_pC_pi_427>
+          <xfrange>0.737500000 0.742500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_427>
+       <ThinTargetBarton_pC_pi_428>
+          <xfrange>0.737500000 0.742500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_428>
+       <ThinTargetBarton_pC_pi_429>
+          <xfrange>0.737500000 0.742500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_429>
+       <ThinTargetBarton_pC_pi_430>
+          <xfrange>0.737500000 0.742500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_430>
+       <ThinTargetBarton_pC_pi_431>
+          <xfrange>0.737500000 0.742500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_431>
+       <ThinTargetBarton_pC_pi_432>
+          <xfrange>0.742500000 0.747500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_432>
+       <ThinTargetBarton_pC_pi_433>
+          <xfrange>0.742500000 0.747500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_433>
+       <ThinTargetBarton_pC_pi_434>
+          <xfrange>0.742500000 0.747500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_434>
+       <ThinTargetBarton_pC_pi_435>
+          <xfrange>0.742500000 0.747500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_435>
+       <ThinTargetBarton_pC_pi_436>
+          <xfrange>0.742500000 0.747500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_436>
+       <ThinTargetBarton_pC_pi_437>
+          <xfrange>0.742500000 0.747500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_437>
+       <ThinTargetBarton_pC_pi_438>
+          <xfrange>0.742500000 0.747500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_438>
+       <ThinTargetBarton_pC_pi_439>
+          <xfrange>0.742500000 0.747500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_439>
+       <ThinTargetBarton_pC_pi_440>
+          <xfrange>0.742500000 0.747500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_440>
+       <ThinTargetBarton_pC_pi_441>
+          <xfrange>0.747500000 0.752500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_441>
+       <ThinTargetBarton_pC_pi_442>
+          <xfrange>0.747500000 0.752500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_442>
+       <ThinTargetBarton_pC_pi_443>
+          <xfrange>0.747500000 0.752500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_443>
+       <ThinTargetBarton_pC_pi_444>
+          <xfrange>0.747500000 0.752500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_444>
+       <ThinTargetBarton_pC_pi_445>
+          <xfrange>0.747500000 0.752500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_445>
+       <ThinTargetBarton_pC_pi_446>
+          <xfrange>0.747500000 0.752500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_446>
+       <ThinTargetBarton_pC_pi_447>
+          <xfrange>0.747500000 0.752500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_447>
+       <ThinTargetBarton_pC_pi_448>
+          <xfrange>0.747500000 0.752500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_448>
+       <ThinTargetBarton_pC_pi_449>
+          <xfrange>0.747500000 0.752500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_449>
+       <ThinTargetBarton_pC_pi_450>
+          <xfrange>0.752500000 0.757500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_450>
+       <ThinTargetBarton_pC_pi_451>
+          <xfrange>0.752500000 0.757500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_451>
+       <ThinTargetBarton_pC_pi_452>
+          <xfrange>0.752500000 0.757500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_452>
+       <ThinTargetBarton_pC_pi_453>
+          <xfrange>0.752500000 0.757500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_453>
+       <ThinTargetBarton_pC_pi_454>
+          <xfrange>0.752500000 0.757500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_454>
+       <ThinTargetBarton_pC_pi_455>
+          <xfrange>0.752500000 0.757500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_455>
+       <ThinTargetBarton_pC_pi_456>
+          <xfrange>0.752500000 0.757500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_456>
+       <ThinTargetBarton_pC_pi_457>
+          <xfrange>0.752500000 0.757500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_457>
+       <ThinTargetBarton_pC_pi_458>
+          <xfrange>0.752500000 0.757500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_458>
+       <ThinTargetBarton_pC_pi_459>
+          <xfrange>0.757500000 0.762500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_459>
+       <ThinTargetBarton_pC_pi_460>
+          <xfrange>0.757500000 0.762500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_460>
+       <ThinTargetBarton_pC_pi_461>
+          <xfrange>0.757500000 0.762500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_461>
+       <ThinTargetBarton_pC_pi_462>
+          <xfrange>0.757500000 0.762500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_462>
+       <ThinTargetBarton_pC_pi_463>
+          <xfrange>0.757500000 0.762500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_463>
+       <ThinTargetBarton_pC_pi_464>
+          <xfrange>0.757500000 0.762500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_464>
+       <ThinTargetBarton_pC_pi_465>
+          <xfrange>0.757500000 0.762500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_465>
+       <ThinTargetBarton_pC_pi_466>
+          <xfrange>0.757500000 0.762500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_466>
+       <ThinTargetBarton_pC_pi_467>
+          <xfrange>0.757500000 0.762500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_467>
+       <ThinTargetBarton_pC_pi_468>
+          <xfrange>0.762500000 0.767500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_468>
+       <ThinTargetBarton_pC_pi_469>
+          <xfrange>0.762500000 0.767500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_469>
+       <ThinTargetBarton_pC_pi_470>
+          <xfrange>0.762500000 0.767500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_470>
+       <ThinTargetBarton_pC_pi_471>
+          <xfrange>0.762500000 0.767500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_471>
+       <ThinTargetBarton_pC_pi_472>
+          <xfrange>0.762500000 0.767500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_472>
+       <ThinTargetBarton_pC_pi_473>
+          <xfrange>0.762500000 0.767500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_473>
+       <ThinTargetBarton_pC_pi_474>
+          <xfrange>0.762500000 0.767500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_474>
+       <ThinTargetBarton_pC_pi_475>
+          <xfrange>0.762500000 0.767500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_475>
+       <ThinTargetBarton_pC_pi_476>
+          <xfrange>0.762500000 0.767500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_476>
+       <ThinTargetBarton_pC_pi_477>
+          <xfrange>0.767500000 0.772500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_477>
+       <ThinTargetBarton_pC_pi_478>
+          <xfrange>0.767500000 0.772500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_478>
+       <ThinTargetBarton_pC_pi_479>
+          <xfrange>0.767500000 0.772500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_479>
+       <ThinTargetBarton_pC_pi_480>
+          <xfrange>0.767500000 0.772500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_480>
+       <ThinTargetBarton_pC_pi_481>
+          <xfrange>0.767500000 0.772500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_481>
+       <ThinTargetBarton_pC_pi_482>
+          <xfrange>0.767500000 0.772500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_482>
+       <ThinTargetBarton_pC_pi_483>
+          <xfrange>0.767500000 0.772500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_483>
+       <ThinTargetBarton_pC_pi_484>
+          <xfrange>0.767500000 0.772500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_484>
+       <ThinTargetBarton_pC_pi_485>
+          <xfrange>0.767500000 0.772500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_485>
+       <ThinTargetBarton_pC_pi_486>
+          <xfrange>0.772500000 0.777500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_486>
+       <ThinTargetBarton_pC_pi_487>
+          <xfrange>0.772500000 0.777500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_487>
+       <ThinTargetBarton_pC_pi_488>
+          <xfrange>0.772500000 0.777500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_488>
+       <ThinTargetBarton_pC_pi_489>
+          <xfrange>0.772500000 0.777500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_489>
+       <ThinTargetBarton_pC_pi_490>
+          <xfrange>0.772500000 0.777500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_490>
+       <ThinTargetBarton_pC_pi_491>
+          <xfrange>0.772500000 0.777500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_491>
+       <ThinTargetBarton_pC_pi_492>
+          <xfrange>0.772500000 0.777500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_492>
+       <ThinTargetBarton_pC_pi_493>
+          <xfrange>0.772500000 0.777500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_493>
+       <ThinTargetBarton_pC_pi_494>
+          <xfrange>0.772500000 0.777500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_494>
+       <ThinTargetBarton_pC_pi_495>
+          <xfrange>0.777500000 0.782500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_495>
+       <ThinTargetBarton_pC_pi_496>
+          <xfrange>0.777500000 0.782500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_496>
+       <ThinTargetBarton_pC_pi_497>
+          <xfrange>0.777500000 0.782500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_497>
+       <ThinTargetBarton_pC_pi_498>
+          <xfrange>0.777500000 0.782500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_498>
+       <ThinTargetBarton_pC_pi_499>
+          <xfrange>0.777500000 0.782500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_499>
+       <ThinTargetBarton_pC_pi_500>
+          <xfrange>0.777500000 0.782500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_500>
+       <ThinTargetBarton_pC_pi_501>
+          <xfrange>0.777500000 0.782500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_501>
+       <ThinTargetBarton_pC_pi_502>
+          <xfrange>0.777500000 0.782500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_502>
+       <ThinTargetBarton_pC_pi_503>
+          <xfrange>0.777500000 0.782500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_503>
+       <ThinTargetBarton_pC_pi_504>
+          <xfrange>0.782500000 0.787500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_504>
+       <ThinTargetBarton_pC_pi_505>
+          <xfrange>0.782500000 0.787500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_505>
+       <ThinTargetBarton_pC_pi_506>
+          <xfrange>0.782500000 0.787500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_506>
+       <ThinTargetBarton_pC_pi_507>
+          <xfrange>0.782500000 0.787500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_507>
+       <ThinTargetBarton_pC_pi_508>
+          <xfrange>0.782500000 0.787500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_508>
+       <ThinTargetBarton_pC_pi_509>
+          <xfrange>0.782500000 0.787500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_509>
+       <ThinTargetBarton_pC_pi_510>
+          <xfrange>0.782500000 0.787500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_510>
+       <ThinTargetBarton_pC_pi_511>
+          <xfrange>0.782500000 0.787500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_511>
+       <ThinTargetBarton_pC_pi_512>
+          <xfrange>0.782500000 0.787500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_512>
+       <ThinTargetBarton_pC_pi_513>
+          <xfrange>0.787500000 0.792500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_513>
+       <ThinTargetBarton_pC_pi_514>
+          <xfrange>0.787500000 0.792500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_514>
+       <ThinTargetBarton_pC_pi_515>
+          <xfrange>0.787500000 0.792500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_515>
+       <ThinTargetBarton_pC_pi_516>
+          <xfrange>0.787500000 0.792500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_516>
+       <ThinTargetBarton_pC_pi_517>
+          <xfrange>0.787500000 0.792500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_517>
+       <ThinTargetBarton_pC_pi_518>
+          <xfrange>0.787500000 0.792500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_518>
+       <ThinTargetBarton_pC_pi_519>
+          <xfrange>0.787500000 0.792500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_519>
+       <ThinTargetBarton_pC_pi_520>
+          <xfrange>0.787500000 0.792500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_520>
+       <ThinTargetBarton_pC_pi_521>
+          <xfrange>0.787500000 0.792500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_521>
+       <ThinTargetBarton_pC_pi_522>
+          <xfrange>0.792500000 0.797500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_522>
+       <ThinTargetBarton_pC_pi_523>
+          <xfrange>0.792500000 0.797500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_523>
+       <ThinTargetBarton_pC_pi_524>
+          <xfrange>0.792500000 0.797500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_524>
+       <ThinTargetBarton_pC_pi_525>
+          <xfrange>0.792500000 0.797500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_525>
+       <ThinTargetBarton_pC_pi_526>
+          <xfrange>0.792500000 0.797500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_526>
+       <ThinTargetBarton_pC_pi_527>
+          <xfrange>0.792500000 0.797500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_527>
+       <ThinTargetBarton_pC_pi_528>
+          <xfrange>0.792500000 0.797500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_528>
+       <ThinTargetBarton_pC_pi_529>
+          <xfrange>0.792500000 0.797500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_529>
+       <ThinTargetBarton_pC_pi_530>
+          <xfrange>0.792500000 0.797500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_530>
+       <ThinTargetBarton_pC_pi_531>
+          <xfrange>0.797500000 0.802500000000</xfrange>
+          <ptrange>0.287500000 0.312500000000</ptrange>
+       </ThinTargetBarton_pC_pi_531>
+       <ThinTargetBarton_pC_pi_532>
+          <xfrange>0.797500000 0.802500000000</xfrange>
+          <ptrange>0.312500000 0.337500000000</ptrange>
+       </ThinTargetBarton_pC_pi_532>
+       <ThinTargetBarton_pC_pi_533>
+          <xfrange>0.797500000 0.802500000000</xfrange>
+          <ptrange>0.337500000 0.362500000000</ptrange>
+       </ThinTargetBarton_pC_pi_533>
+       <ThinTargetBarton_pC_pi_534>
+          <xfrange>0.797500000 0.802500000000</xfrange>
+          <ptrange>0.362500000 0.387500000000</ptrange>
+       </ThinTargetBarton_pC_pi_534>
+       <ThinTargetBarton_pC_pi_535>
+          <xfrange>0.797500000 0.802500000000</xfrange>
+          <ptrange>0.387500000 0.412500000000</ptrange>
+       </ThinTargetBarton_pC_pi_535>
+       <ThinTargetBarton_pC_pi_536>
+          <xfrange>0.797500000 0.802500000000</xfrange>
+          <ptrange>0.412500000 0.437500000000</ptrange>
+       </ThinTargetBarton_pC_pi_536>
+       <ThinTargetBarton_pC_pi_537>
+          <xfrange>0.797500000 0.802500000000</xfrange>
+          <ptrange>0.437500000 0.462500000000</ptrange>
+       </ThinTargetBarton_pC_pi_537>
+       <ThinTargetBarton_pC_pi_538>
+          <xfrange>0.797500000 0.802500000000</xfrange>
+          <ptrange>0.462500000 0.487500000000</ptrange>
+       </ThinTargetBarton_pC_pi_538>
+       <ThinTargetBarton_pC_pi_539>
+          <xfrange>0.797500000 0.802500000000</xfrange>
+          <ptrange>0.487500000 0.512500000000</ptrange>
+       </ThinTargetBarton_pC_pi_539>
+    </ThinTargetBarton_pC_pi>
+ 
+
+</bins>
