@@ -37,6 +37,7 @@ namespace NeutrinoFluxReweight{
     myb->pim_data_from_xml(Form("%s/data/BINS/MIPPNumiData_PIM_Bins.xml",ppfxDir));
     myb->k_pi_data_from_xml(Form("%s/data/BINS/MIPPNumiData_K_PI_Bins.xml",ppfxDir));
     thinbin->pC_pi_from_xml(Form("%s/data/BINS/ThinTarget_pC_pi_Bins.xml",ppfxDir));
+    thinbin->barton_pC_pi_from_xml(Form("%s/data/BINS/ThinTargetBarton_pC_pi_Bins.xml",ppfxDir));
 
     std::cout<<"Initializing MC values"<<std::endl;
     mymc->pip_mc_from_xml(Form("%s/data/MIPP/MIPPNuMI_MC_PIP.xml",ppfxDir));
@@ -47,7 +48,7 @@ namespace NeutrinoFluxReweight{
     //Reweighter drivers:
     vec_rws.reserve(Nuniverses);
     std::cout<<"Initializing reweight drivers for "<<Nuniverses<<" universes"<<std::endl;
- 
+    
     const int base_universe=1000000;
     cvPars.reserve(Nuniverses+1);
     univPars.reserve(Nuniverses+1);
