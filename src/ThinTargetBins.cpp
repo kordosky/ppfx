@@ -43,6 +43,33 @@ namespace NeutrinoFluxReweight{
     
   }
 
+  void ThinTargetBins::barton_pC_pi_from_xml(const char* filename){
+    using boost::property_tree::ptree;
+    ptree top;    
+    read_xml(filename,top,2); 
+    ptree& binsPI = top.get_child("bins.ThinTargetBarton_pC_pi"); 
+    ptree::iterator it = binsPI.begin();
+
+    int idx=0;
+    double aux_xfmin,aux_xfmax,aux_ptmin,aux_ptmax;
+    for(; it!=binsPI.end(); it++){
+      std::string xf_string=it->second.get<std::string>("xfrange");
+      std::string pt_string=it->second.get<std::string>("ptrange");
+      
+      std::stringstream ss1(xf_string);
+      std::stringstream ss2(pt_string);
+      ss1 >> aux_xfmin >> aux_xfmax;
+      ss2 >> aux_ptmin >> aux_ptmax;
+   
+      b_pC_pi_xfmin.push_back(aux_xfmin);
+      b_pC_pi_xfmax.push_back(aux_xfmax);
+      b_pC_pi_ptmin.push_back(aux_ptmin);
+      b_pC_pi_ptmax.push_back(aux_ptmax);
+      
+    }
+    
+  }
+
   int ThinTargetBins::BinID_pC_X(double xf, double pt,int pdgcode){
     
     int ibinID = -1;
@@ -61,6 +88,24 @@ namespace NeutrinoFluxReweight{
     
   }
   
+  int ThinTargetBins::barton_BinID_pC_X(double xf, double pt,int pdgcode){
+    
+    int ibinID = -1;
+    int size = 0;
+    
+    if(pdgcode == 211 || pdgcode == -211){
+      size = b_pC_pi_xfmin.size();
+      for(int ii=0;ii<size;ii++){
+	if(xf>b_pC_pi_xfmin[ii] && xf<b_pC_pi_xfmax[ii] && pt>b_pC_pi_ptmin[ii] && pt<b_pC_pi_ptmax[ii]){
+	  ibinID = ii;
+	}
+      }
+    }
+    
+    return ibinID;
+    
+  }
+
   ThinTargetBins* ThinTargetBins::getInstance(){
     if (instance == 0) instance = new ThinTargetBins;
     return instance;
