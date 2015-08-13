@@ -1,0 +1,106 @@
+
+<bins>
+<!-- List of bins -->
+ 
+    <ThinTarget_k_pi>
+ 
+       <ThinTarget_k_pi_0>
+          <xfrange>20.000000000 24.000000000000</xfrange>
+          <ptrange>0.000000000 0.200000000000</ptrange>
+       </ThinTarget_k_pi_0>
+       <ThinTarget_k_pi_1>
+          <xfrange>20.000000000 24.000000000000</xfrange>
+          <ptrange>0.200000000 0.400000000000</ptrange>
+       </ThinTarget_k_pi_1>
+       <ThinTarget_k_pi_2>
+          <xfrange>20.000000000 24.000000000000</xfrange>
+          <ptrange>0.400000000 0.600000000000</ptrange>
+       </ThinTarget_k_pi_2>
+       <ThinTarget_k_pi_3>
+          <xfrange>20.000000000 24.000000000000</xfrange>
+          <ptrange>0.600000000 1.000000000000</ptrange>
+       </ThinTarget_k_pi_3>
+       <ThinTarget_k_pi_4>
+          <xfrange>24.000000000 31.000000000000</xfrange>
+          <ptrange>0.000000000 0.200000000000</ptrange>
+       </ThinTarget_k_pi_4>
+       <ThinTarget_k_pi_5>
+          <xfrange>24.000000000 31.000000000000</xfrange>
+          <ptrange>0.200000000 0.400000000000</ptrange>
+       </ThinTarget_k_pi_5>
+       <ThinTarget_k_pi_6>
+          <xfrange>24.000000000 31.000000000000</xfrange>
+          <ptrange>0.400000000 0.600000000000</ptrange>
+       </ThinTarget_k_pi_6>
+       <ThinTarget_k_pi_7>
+          <xfrange>24.000000000 31.000000000000</xfrange>
+          <ptrange>0.600000000 1.000000000000</ptrange>
+       </ThinTarget_k_pi_7>
+       <ThinTarget_k_pi_8>
+          <xfrange>24.000000000 31.000000000000</xfrange>
+          <ptrange>1.000000000 1.200000000000</ptrange>
+       </ThinTarget_k_pi_8>
+       <ThinTarget_k_pi_9>
+          <xfrange>31.000000000 42.000000000000</xfrange>
+          <ptrange>0.000000000 0.200000000000</ptrange>
+       </ThinTarget_k_pi_9>
+       <ThinTarget_k_pi_10>
+          <xfrange>31.000000000 42.000000000000</xfrange>
+          <ptrange>0.200000000 0.400000000000</ptrange>
+       </ThinTarget_k_pi_10>
+       <ThinTarget_k_pi_11>
+          <xfrange>31.000000000 42.000000000000</xfrange>
+          <ptrange>0.400000000 0.600000000000</ptrange>
+       </ThinTarget_k_pi_11>
+       <ThinTarget_k_pi_12>
+          <xfrange>31.000000000 42.000000000000</xfrange>
+          <ptrange>0.600000000 1.000000000000</ptrange>
+       </ThinTarget_k_pi_12>
+       <ThinTarget_k_pi_13>
+          <xfrange>31.000000000 42.000000000000</xfrange>
+          <ptrange>1.000000000 1.550000000000</ptrange>
+       </ThinTarget_k_pi_13>
+       <ThinTarget_k_pi_14>
+          <xfrange>42.000000000 60.000000000000</xfrange>
+          <ptrange>0.000000000 0.200000000000</ptrange>
+       </ThinTarget_k_pi_14>
+       <ThinTarget_k_pi_15>
+          <xfrange>42.000000000 60.000000000000</xfrange>
+          <ptrange>0.200000000 0.400000000000</ptrange>
+       </ThinTarget_k_pi_15>
+       <ThinTarget_k_pi_16>
+          <xfrange>42.000000000 60.000000000000</xfrange>
+          <ptrange>0.400000000 0.600000000000</ptrange>
+       </ThinTarget_k_pi_16>
+       <ThinTarget_k_pi_17>
+          <xfrange>42.000000000 60.000000000000</xfrange>
+          <ptrange>0.600000000 1.000000000000</ptrange>
+       </ThinTarget_k_pi_17>
+       <ThinTarget_k_pi_18>
+          <xfrange>42.000000000 60.000000000000</xfrange>
+          <ptrange>1.000000000 2.000000000000</ptrange>
+       </ThinTarget_k_pi_18>
+       <ThinTarget_k_pi_19>
+          <xfrange>60.000000000 90.000000000000</xfrange>
+          <ptrange>0.000000000 0.200000000000</ptrange>
+       </ThinTarget_k_pi_19>
+       <ThinTarget_k_pi_20>
+          <xfrange>60.000000000 90.000000000000</xfrange>
+          <ptrange>0.200000000 0.400000000000</ptrange>
+       </ThinTarget_k_pi_20>
+       <ThinTarget_k_pi_21>
+          <xfrange>60.000000000 90.000000000000</xfrange>
+          <ptrange>0.400000000 0.600000000000</ptrange>
+       </ThinTarget_k_pi_21>
+       <ThinTarget_k_pi_22>
+          <xfrange>60.000000000 90.000000000000</xfrange>
+          <ptrange>0.600000000 1.000000000000</ptrange>
+       </ThinTarget_k_pi_22>
+       <ThinTarget_k_pi_23>
+          <xfrange>60.000000000 90.000000000000</xfrange>
+          <ptrange>1.000000000 2.000000000000</ptrange>
+       </ThinTarget_k_pi_23>
+    </ThinTarget_k_pi>
+ 
+
+</bins>
