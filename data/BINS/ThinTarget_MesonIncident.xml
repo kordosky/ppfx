@@ -1,0 +1,30 @@
+
+<bins>
+<!-- List of bins -->
+ 
+    <ThinTarget_MesonIncident>
+ 
+      <ThinTarget_MesonIncident_0>
+	<xfrange>0.00 0.25</xfrange>
+	<ptrange>0.00 2.00</ptrange>
+      </ThinTarget_MesonIncident_0>      
+
+      <ThinTarget_MesonIncident_1>
+	<xfrange>0.25 0.50</xfrange>
+	<ptrange>0.00 2.00</ptrange>
+      </ThinTarget_MesonIncident_1>
+
+      <ThinTarget_MesonIncident_2>
+	<xfrange>0.50 0.75</xfrange>
+	<ptrange>0.00 2.00</ptrange>
+      </ThinTarget_MesonIncident_2>
+
+      <ThinTarget_MesonIncident_3>
+	<xfrange>0.75 1.0</xfrange>
+	<ptrange>0.00 2.00</ptrange>
+      </ThinTarget_MesonIncident_3>
+
+    </ThinTarget_MesonIncident>
+ 
+
+</bins>
