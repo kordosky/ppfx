@@ -111,6 +111,8 @@ namespace NeutrinoFluxReweight{
   }
   double MIPPNumiKaonYieldsReweighter::calculateWeight(const InteractionChainData& aa){
     
+    double wgt = 1.0;
+
     MIPPNumiYieldsBins*  MIPPbins =  MIPPNumiYieldsBins::getInstance();
     MIPPNumiMC*  MCval =  MIPPNumiMC::getInstance();
     double low_value = 1.e-18;      
@@ -164,8 +166,11 @@ namespace NeutrinoFluxReweight{
       //std::cout<<"LOW DATA VAL: "<<K_data_cv<<" "<<K_data_sys<<" "<<K_data_sta<<" "<<tar.Tar_pdg<<" "<<tar.Pz<<" "<<tar.Pt<<std::endl;
       return 1.0;
     }
+ 
+    wgt = double(K_data)/binC;
     
-    return double(K_data)/binC;
+    if(wgt<0)std::cout<<"TTMIPPK check wgt(<0) "<<iUniv<<" "<<tar.Pz<<" "<<tar.Pt<<" "<<tar.Tar_pdg<<std::endl;
+    return wgt;
 
   }
 

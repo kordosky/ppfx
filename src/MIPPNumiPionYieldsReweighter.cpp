@@ -105,6 +105,7 @@ namespace NeutrinoFluxReweight{
     if(tar.Tar_pdg == 211)wgt = vbin_data_pip[binID]/binC;
     if(tar.Tar_pdg ==-211)wgt = vbin_data_pim[binID]/binC;
     
+    if(wgt<0)std::cout<<"TTMIPPPI check wgt(<0) "<<iUniv<<" "<<tar.Pz<<" "<<tar.Pt<<" "<<tar.Tar_pdg<<std::endl;
     return wgt;
     
   }
