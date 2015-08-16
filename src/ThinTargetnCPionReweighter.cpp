@@ -28,19 +28,19 @@ namespace NeutrinoFluxReweight{
     double prod_mom[3] = {aa.Prod_P4[0],aa.Prod_P4[1],aa.Prod_P4[2]};
     double vtx_int[3]  = {aa.Vtx[0],aa.Vtx[1],aa.Vtx[2]};
     
-    aux_aa = new InteractionData(inc_mom,2212,prod_mom,-1*aa.Prod_pdg,aa.Vol,aa.Proc,vtx_int);
+    aux_aa = new InteractionData(aa.gen, inc_mom,2212,prod_mom,-1*aa.Prod_pdg,aa.Vol,aa.Proc,vtx_int);
     return tt_pCPionRew->canReweight(*aux_aa);
     
   }
   
-  double ThinTargetnCPionReweighter::calculateWeight(const InteractionData& thisid){
+  double ThinTargetnCPionReweighter::calculateWeight(const InteractionData& aa){
     
     MakeReweight*  makerew =  MakeReweight::getInstance();
     if(iUniv==-1)tt_pCPionRew = (makerew->cv_rw)->THINTARGET_PC_PION_Universe;
     else tt_pCPionRew = (makerew->vec_rws[iUniv])->THINTARGET_PC_PION_Universe;
     
     double wgt = tt_pCPionRew->calculateWeight(*aux_aa);
-    
+    if(wgt<0)std::cout<<"TTNCPI check wgt(<0) "<<iUniv<<" "<<aa.Inc_P<<" "<<aa.xF<<" "<<aa.Pt<<" "<<aa.Prod_pdg<<std::endl;
     return wgt;
       
   }

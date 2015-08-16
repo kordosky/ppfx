@@ -24,7 +24,7 @@ namespace NeutrinoFluxReweight{
     std::vector<float> vbin_data_kap,vbin_data_kam;
     std::vector<float> mipp_vbin_data_kap_pip, mipp_vbin_data_kam_pim;
     double calculateDataScale(int inc_pdg, double inc_mom, int prod_pdg,double xf, double pt);
-    double calculateMCProd(double inc_mom);
+    double calculateMCProd(int genid, double inc_mom);
     
   private:
     int iUniv;

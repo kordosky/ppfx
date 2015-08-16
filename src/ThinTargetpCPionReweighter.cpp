@@ -92,20 +92,29 @@ namespace NeutrinoFluxReweight{
       return wgt;
     }
     
-    dataval /= data_prod_xs;
+    //checking if this is the first interaction:
+    if(aa.gen==0)dataval /= data_prod_xs;
+    else if(aa.gen>0)dataval /= 1.0;
+    else{
+      std::cout<<"Something is wrong with gen "<<std::endl;
+      return wgt;
+    }
+
     dataval *= data_scale;
     
     ThinTargetMC*  mc =  ThinTargetMC::getInstance();
     double mc_cv = mc->getMCval_pC_X(aa.Inc_P,aa.xF,aa.Pt,aa.Prod_pdg);
-    mc_cv /= calculateMCProd(aa.Inc_P);
+    mc_cv /= calculateMCProd(aa.gen,aa.Inc_P);
     if(mc_cv<1.e-12)return wgt;
-    
     wgt = dataval/mc_cv;
-    
+    if(wgt<0){
+      //std::cout<<"TTPCPI check wgt(<0) "<<iUniv<<" "<<aa.Inc_P<<" "<<aa.xF<<" "<<aa.Pt<<" "<<aa.Prod_pdg<<std::endl;
+      return 1.0;
+    }
     return wgt;
   }
   
-  double ThinTargetpCPionReweighter::calculateMCProd(double inc_mom){
+  double ThinTargetpCPionReweighter::calculateMCProd(int genid, double inc_mom){
     double xx[13] ={12,20,31,40,50,60,70,80,90,100,110,120,158};
     double yy[13] ={153386793./197812683.,160302538./197811564.,164508480./197831250.,166391359./197784915.,
 		    167860919./197822312.,168882647./197807739.,169681805./197803099.,170311264./197811098.,
@@ -124,7 +133,12 @@ namespace NeutrinoFluxReweight{
     double frac_hi  = yy[idx_hip];
     double frac_m   =  frac_low + (inc_mom-double(xx[idx_lowp]))*(frac_hi-frac_low)/(double(xx[idx_hip])-double(xx[idx_lowp]));
     
-    return frac_m*243.2435;
+    if(genid==0)return frac_m*243.2435;
+    else if(genid>0)return frac_m;
+    else{
+      std::cout<<"Something is wrong with gen "<<std::endl;
+      return 1.0;
+    }
     
   }
   double ThinTargetpCPionReweighter::calculateDataScale(int inc_pdg, double inc_mom, int prod_pdg,double xf, double pt){

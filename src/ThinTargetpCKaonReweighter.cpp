@@ -84,7 +84,7 @@ namespace NeutrinoFluxReweight{
     MakeReweight*  makerew =  MakeReweight::getInstance();
     if(iUniv==-1)tt_pCPionRew = (makerew->cv_rw)->THINTARGET_PC_PION_Universe;
     else tt_pCPionRew = (makerew->vec_rws[iUniv])->THINTARGET_PC_PION_Universe;   
-    aux_aa = new InteractionData(inc_mom,2212,prod_mom,pion_pdg,aa.Vol,aa.Proc,vtx_int);    
+    aux_aa = new InteractionData(aa.gen, inc_mom,2212,prod_mom,pion_pdg,aa.Vol,aa.Proc,vtx_int);    
     bool there_is_pion = tt_pCPionRew->canReweight(*aux_aa);
     
     return there_is_pion && there_is_kaon;
@@ -124,7 +124,7 @@ namespace NeutrinoFluxReweight{
       int pi_pdg = 211;
       if(aa.Prod_pdg == -321)pi_pdg = -211;
       
-      aux_aa = new InteractionData(inc_mom,2212,prod_mom,pi_pdg,aa.Vol,aa.Proc,vtx_int);    
+      aux_aa = new InteractionData(aa.gen, inc_mom,2212,prod_mom,pi_pdg,aa.Vol,aa.Proc,vtx_int);    
       int bin_pi = -1;
       if(aux_aa->xF<=0.5)bin_pi = Thinbins->BinID_pC_pi(aux_aa->xF,aux_aa->Pt,aux_aa->Prod_pdg);
       if(aux_aa->xF>0.5) bin_pi = Thinbins->barton_BinID_pC_pi(aux_aa->xF,aux_aa->Pt,aux_aa->Prod_pdg);
@@ -148,22 +148,30 @@ namespace NeutrinoFluxReweight{
       }
       dataval *= dataval_pi;
     }
+     
+    //checking if this is the first interaction:
+    if(aa.gen==0)dataval /= data_prod_xs;
+    else if(aa.gen>0)dataval /= 1.0;
+    else{
+      std::cout<<"Something is wrong with gen "<<std::endl;
+      return wgt;
+    }
     
-    double data_scale = calculateDataScale(aa.Inc_pdg,aa.Inc_P,aa.Prod_pdg,aa.xF,aa.Pt);
-    dataval /= data_prod_xs;
+    double data_scale = calculateDataScale(aa.Inc_pdg,aa.Inc_P,aa.Prod_pdg,aa.xF,aa.Pt);   
     dataval *= data_scale;
     
     ThinTargetMC*  mc =  ThinTargetMC::getInstance();
     double mc_cv = mc->getMCval_pC_X(aa.Inc_P,aa.xF,aa.Pt,aa.Prod_pdg);
-    mc_cv /= calculateMCProd(aa.Inc_P);
+    mc_cv /= calculateMCProd(aa.gen,aa.Inc_P);
     if(mc_cv<1.e-12)return wgt;
     
+    if(wgt<0)std::cout<<"TTPCK check wgt(<0) "<<iUniv<<" "<<aa.Inc_P<<" "<<aa.xF<<" "<<aa.Pt<<" "<<aa.Prod_pdg<<std::endl;
     wgt = dataval/mc_cv;
-     return wgt;
+    return wgt;
     
   }
   
-double ThinTargetpCKaonReweighter::calculateMCProd(double inc_mom){
+double ThinTargetpCKaonReweighter::calculateMCProd(int genid, double inc_mom){
     double xx[13] ={12,20,31,40,50,60,70,80,90,100,110,120,158};
     double yy[13] ={153386793./197812683.,160302538./197811564.,164508480./197831250.,166391359./197784915.,
 		    167860919./197822312.,168882647./197807739.,169681805./197803099.,170311264./197811098.,
@@ -182,7 +190,12 @@ double ThinTargetpCKaonReweighter::calculateMCProd(double inc_mom){
     double frac_hi  = yy[idx_hip];
     double frac_m   =  frac_low + (inc_mom-double(xx[idx_lowp]))*(frac_hi-frac_low)/(double(xx[idx_hip])-double(xx[idx_lowp]));
     
-    return frac_m*243.2435;
+    if(genid==0)return frac_m*243.2435;
+    else if(genid>0)return frac_m;
+    else{
+      std::cout<<"Something is wrong with gen "<<std::endl;
+      return 1.0;
+    }
     
   }
   double ThinTargetpCKaonReweighter::calculateDataScale(int inc_pdg, double inc_mom, int prod_pdg,double xf, double pt){
