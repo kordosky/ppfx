@@ -35,7 +35,8 @@ void doReweight_dk2nu(const char* inputFile){
   
   const char* thisDir = getenv("PPFX_DIR");
   const char* OutputDir=thisDir;
-  MakeReweight* makerew = new MakeReweight("scripts/inputs.xml"); 
+  MakeReweight* makerew = MakeReweight::getInstance();
+  makerew->SetOptions("scripts/inputs.xml"); 
 
   std::cout<<"Making an output file to store histograms"<<std::endl;
   TFile* fOut = new TFile(Form("%s/test.root",OutputDir),"recreate");
