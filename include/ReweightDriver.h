@@ -18,7 +18,9 @@
 #include "OtherReweighter.h"
 
 #include "ThinTargetpCPionReweighter.h"
+#include "ThinTargetpCKaonReweighter.h"
 #include "ThinTargetnCPionReweighter.h"
+#include "ThinTargetMesonIncidentReweighter.h"
 
 #include "InteractionChainData.h"
 
@@ -71,8 +73,14 @@ namespace NeutrinoFluxReweight{
     /*! Thin target proton on carbon producing pions weights   */
     double pC_pi_wgt;
 
+    /*! Thin target proton on carbon producing kaons weights   */
+    double pC_k_wgt;
+
     /*! Thin target neutron on carbon producing pions weights   */
     double nC_pi_wgt;
+    
+    /*! Meson incident weights   */
+    double meson_inc_wgt;
     
      /*!   Any other hadronic interaction not corrected yet   */
     double other_wgt;
@@ -85,7 +93,24 @@ namespace NeutrinoFluxReweight{
     
     /*!   Theory (model) prediction weight   */
     //double theory_wgt;
-    
+
+    MIPPNumiPionYieldsReweighter* MIPP_NUMI_PION_Universe;
+    MIPPNumiKaonYieldsReweighter* MIPP_NUMI_KAON_Universe;
+    TargetAttenuationReweighter* TARG_ATT_Universe;
+    AbsorptionICReweighter*   VOL_ABS_IC_Universe;
+    AbsorptionDPIPReweighter* VOL_ABS_DPIP_Universe;
+    AbsorptionDVOLReweighter* VOL_ABS_DVOL_Universe;
+    NucleonAbsorptionOutOfTargetReweighter* VOL_ABS_NUCLEON_Universe;
+    OtherAbsorptionOutOfTargetReweighter* VOL_ABS_OTHER_Universe;
+    ThinTargetpCPionReweighter* THINTARGET_PC_PION_Universe;
+    ThinTargetpCKaonReweighter* THINTARGET_PC_KAON_Universe;
+    ThinTargetnCPionReweighter* THINTARGET_NC_PION_Universe;
+    ThinTargetMesonIncidentReweighter* THINTARGET_MESON_INCIDENT_Universe;
+    OtherReweighter* OTHER_Universe;
+    //Now used now to calculate HP weigts::
+    NA49Reweighter* NA49_Universe;
+    MIPPThinTargetReweighter* MIPP_THIN_Universe;
+
   private:    
     /*!
      * Configures each of the reweighing tools.
@@ -99,23 +124,7 @@ namespace NeutrinoFluxReweight{
     const ParameterTable& cvPars;
     const ParameterTable& univPars;
 
-    MIPPNumiPionYieldsReweighter* MIPP_NUMI_PION_Universe;
-    MIPPNumiKaonYieldsReweighter* MIPP_NUMI_KAON_Universe;
     
-    TargetAttenuationReweighter* TARG_ATT_Universe;
-    AbsorptionICReweighter*   VOL_ABS_IC_Universe;
-    AbsorptionDPIPReweighter* VOL_ABS_DPIP_Universe;
-    AbsorptionDVOLReweighter* VOL_ABS_DVOL_Universe;
-    NucleonAbsorptionOutOfTargetReweighter* VOL_ABS_NUCLEON_Universe;
-    OtherAbsorptionOutOfTargetReweighter* VOL_ABS_OTHER_Universe;
-    
-    ThinTargetpCPionReweighter* THINTARGET_PC_PION_Universe;
-    ThinTargetnCPionReweighter* THINTARGET_NC_PION_Universe;
-    OtherReweighter* OTHER_Universe;
-
-    //Now used now to calculate HP weigts::
-    NA49Reweighter* NA49_Universe;
-    MIPPThinTargetReweighter* MIPP_THIN_Universe;
     // TheoryThinTargetReweighter* THEORY_Universe;
     ///
     
@@ -131,7 +140,9 @@ namespace NeutrinoFluxReweight{
     bool doAbsorptionOther;
     
     bool doThinTargetpCPion;
+    bool doThinTargetpCKaon;
     bool doThinTargetnCPion;
+    bool doThinTargetMesonIncident;
     bool doOther;
     
     //now used now in hp wgts:

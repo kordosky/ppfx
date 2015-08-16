@@ -18,8 +18,7 @@ namespace NeutrinoFluxReweight{
     std::map<std::string, double> cv_table   = cvPars.table;
     std::map<std::string, double> univ_table = univPars.table;
     
-    double univ_data_prod_xs = univ_table["prod_prtC_xsec"];
-    double cv_data_prod_xs = cv_table["prod_prtC_xsec"];
+    data_prod_xs = univ_table["prod_prtC_xsec"];
     
     //the number of bins needs to be written from the xmls files 
     char namepar[100];
@@ -29,11 +28,7 @@ namespace NeutrinoFluxReweight{
       double data_cv  = cv_table[std::string(namepar)];
       double data_sys = univ_table[std::string(namepar)];
       sprintf(namepar,"ThinTarget_pC_%s_stats_%d","pip",ii);
-      double data_sta = univ_table[std::string(namepar)];
-      
-      data_cv  /= cv_data_prod_xs;
-      data_sys /= univ_data_prod_xs;
-      data_sta /= univ_data_prod_xs;      
+      double data_sta = univ_table[std::string(namepar)];       
       vbin_data_pip.push_back(data_sta + data_sys - data_cv);
       
       sprintf(namepar,"ThinTarget_pC_%s_sys_%d","pim",ii);
@@ -41,26 +36,17 @@ namespace NeutrinoFluxReweight{
       data_sys = univ_table[std::string(namepar)];
       sprintf(namepar,"ThinTarget_pC_%s_stats_%d","pim",ii);
       data_sta = univ_table[std::string(namepar)];
-      
-      data_cv  /= cv_data_prod_xs;
-      data_sys /= univ_data_prod_xs;
-      data_sta /= univ_data_prod_xs;      
       vbin_data_pim.push_back(data_sta + data_sys - data_cv);
       
     }    
     for(int ii=0;ii<540;ii++){
       
       sprintf(namepar,"ThinTargetBarton_pC_%s_%d","pip",ii);
-      
       double data_err = univ_table[std::string(namepar)];
-      data_err /= univ_data_prod_xs;
       bart_vbin_data_pip.push_back(data_err);
       
       sprintf(namepar,"ThinTargetBarton_pC_%s_%d","pim",ii);
-      data_err = univ_table[std::string(namepar)];
-      
-      data_err /= univ_data_prod_xs;
-      
+      data_err = univ_table[std::string(namepar)];      
       bart_vbin_data_pim.push_back(data_err);
       
     } 
@@ -76,10 +62,11 @@ namespace NeutrinoFluxReweight{
     if(aa.Inc_pdg != 2212)return false;
     if(aa.Inc_P < 12.0)return false;
     if(aa.Vol != "TGT1" && aa.Vol != "BudalMonitor")return false;
+    if(aa.Prod_pdg != 211 && aa.Prod_pdg != -211)return false;
     
     ThinTargetBins*  Thinbins =  ThinTargetBins::getInstance();
-    int bin      = Thinbins->BinID_pC_X(aa.xF,aa.Pt,aa.Prod_pdg);
-    int bart_bin = Thinbins->barton_BinID_pC_X(aa.xF,aa.Pt,aa.Prod_pdg);
+    int bin      = Thinbins->BinID_pC_pi(aa.xF,aa.Pt,aa.Prod_pdg);
+    int bart_bin = Thinbins->barton_BinID_pC_pi(aa.xF,aa.Pt,aa.Prod_pdg);
     
     if(bin<0 && bart_bin<0)return false;
     else return true;
@@ -89,8 +76,8 @@ namespace NeutrinoFluxReweight{
     
     double wgt = 1.0;
     ThinTargetBins*  Thinbins =  ThinTargetBins::getInstance();
-    int bin = Thinbins->BinID_pC_X(aa.xF,aa.Pt,aa.Prod_pdg);
-    int bart_bin = Thinbins->barton_BinID_pC_X(aa.xF,aa.Pt,aa.Prod_pdg);
+    int bin = Thinbins->BinID_pC_pi(aa.xF,aa.Pt,aa.Prod_pdg);
+    int bart_bin = Thinbins->barton_BinID_pC_pi(aa.xF,aa.Pt,aa.Prod_pdg);
     if(bin<0 && bart_bin<0)return wgt;
       
     //Calculating the scale:
@@ -104,6 +91,8 @@ namespace NeutrinoFluxReweight{
       //  std::cout<<"Something is wrong, pdg_prod: "<< aa.Prod_pdg  <<std::endl;
       return wgt;
     }
+    
+    dataval /= data_prod_xs;
     dataval *= data_scale;
     
     ThinTargetMC*  mc =  ThinTargetMC::getInstance();

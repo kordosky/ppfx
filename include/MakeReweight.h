@@ -35,8 +35,11 @@ namespace NeutrinoFluxReweight{
   public: 
     /*! constructor 
      */
-    MakeReweight(std::string fileIn);
-    
+    MakeReweight();
+    ~MakeReweight();
+    void SetOptions(std::string fileIn);    
+    static MakeReweight* getInstance();
+
     /*! calculate the weights for this event using the old flux ntuple format
      * (filled in nu_g4numi object),  the tgtcfg (the target configuration, example: le010z) 
      * and the horncfg (horn configuration, example: 185i)
@@ -52,7 +55,9 @@ namespace NeutrinoFluxReweight{
     std::vector<double> GetWeights(std::string nameReweighter);
     //! get the cv weights
     double GetCVWeight();
-    std::vector<ParameterTable> cvPars,univPars;
+    
+    std::vector<ReweightDriver*> vec_rws;
+    ReweightDriver* cv_rw;
 
   private:    
     /*!
@@ -64,16 +69,16 @@ namespace NeutrinoFluxReweight{
     /*! Parse seeting options */
     void doTheJob(InteractionChainData* icd);
     
+    std::vector<ParameterTable> cvPars,univPars;
     int Nuniverses;
     std::string mippCorrOption;
-    std::string fileOptions;
-    std::vector<ReweightDriver*> vec_rws;
+    std::string fileOptions;    
     std::vector<double> vec_wgts;
     std::map<std::string,std::vector<double> > map_rew_wgts;
-    //cv:
-    ReweightDriver* cv_rw;
     double cv_wgt;
 
+    static MakeReweight* instance;
+    
   };
 
   

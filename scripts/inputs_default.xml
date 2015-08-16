@@ -10,7 +10,9 @@
     <NucleonAbsorptionOutOfTarget>Yes</NucleonAbsorptionOutOfTarget>
     <OtherAbsorptionOutOfTarget>Yes</OtherAbsorptionOutOfTarget>
     <ThinTargetpCPion>Yes</ThinTargetpCPion>
+    <ThinTargetpCKaon>Yes</ThinTargetpCKaon>
     <ThinTargetnCPion>Yes</ThinTargetnCPion>
+    <ThinTargetMesonIncident>Yes</ThinTargetMesonIncident>
     <OtherTarget>Yes</OtherTarget>
 
     <MIPPThinTarget>No</MIPPThinTarget>

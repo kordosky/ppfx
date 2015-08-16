@@ -5,10 +5,15 @@
 
 namespace NeutrinoFluxReweight{
 
-  MakeReweight::MakeReweight(std::string fileIn): fileOptions(fileIn){
+  MakeReweight* MakeReweight::instance = 0;
+  MakeReweight::MakeReweight(){
+  }
+ void MakeReweight::SetOptions(std::string fileIn){
+    fileOptions = fileIn;
     ParseOptions();
     Initialize();
   }
+
   void MakeReweight::ParseOptions(){
     //Parsing the file input:
     using boost::property_tree::ptree;
@@ -38,6 +43,9 @@ namespace NeutrinoFluxReweight{
     myb->k_pi_data_from_xml(Form("%s/data/BINS/MIPPNumiData_K_PI_Bins.xml",ppfxDir));
     thinbin->pC_pi_from_xml(Form("%s/data/BINS/ThinTarget_pC_pi_Bins.xml",ppfxDir));
     thinbin->barton_pC_pi_from_xml(Form("%s/data/BINS/ThinTargetBarton_pC_pi_Bins.xml",ppfxDir));
+    thinbin->pC_k_from_xml(Form("%s/data/BINS/ThinTargetLowxF_pC_k_Bins.xml",ppfxDir));
+    thinbin->mipp_pC_k_pi_from_xml(Form("%s/data/BINS/ThinTarget_K_PI_Bins.xml",ppfxDir));
+    thinbin->meson_incident_from_xml(Form("%s/data/BINS/ThinTarget_MesonIncident.xml",ppfxDir));
 
     std::cout<<"Initializing MC values"<<std::endl;
     mymc->pip_mc_from_xml(Form("%s/data/MIPP/MIPPNuMI_MC_PIP.xml",ppfxDir));
@@ -53,6 +61,7 @@ namespace NeutrinoFluxReweight{
     cvPars.reserve(Nuniverses+1);
     univPars.reserve(Nuniverses+1);
     for(int ii=0;ii<Nuniverses;ii++){
+      std::cout<<"Loading parameters for universe: "<<ii<<std::endl;
       cvPars.push_back(cvu->getCVPars());
       univPars.push_back(cvu->calculateParsForUniverse(ii+base_universe));
       vec_rws.push_back(new ReweightDriver(ii,cvPars[ii],univPars[ii],fileOptions));
@@ -62,7 +71,7 @@ namespace NeutrinoFluxReweight{
     //Central Value driver:
     //by convention, we use universe -1 to hold the cv. It is in agreement with CentralValueAndUncertainties  
     const int cv_id = -1;
-
+    std::cout<<"Loading parameters for cv"<<std::endl;
     cvPars.push_back(cvu->getCVPars());
     univPars.push_back(cvu->calculateParsForUniverse(cv_id));
     cv_rw = new ReweightDriver(cv_id,cvPars[Nuniverses],univPars[Nuniverses],fileOptions); 
@@ -106,7 +115,9 @@ namespace NeutrinoFluxReweight{
       map_rew_wgts["TotalAbsorption"].push_back(vec_rws[ii]->tot_abs_wgt);
       
       map_rew_wgts["ThinTargetpCPion"].push_back(vec_rws[ii]->pC_pi_wgt);
+      map_rew_wgts["ThinTargetpCKaon"].push_back(vec_rws[ii]->pC_k_wgt);
       map_rew_wgts["ThinTargetnCPion"].push_back(vec_rws[ii]->nC_pi_wgt);
+      map_rew_wgts["ThinTargetMesonIncident"].push_back(vec_rws[ii]->meson_inc_wgt);
       map_rew_wgts["Other"].push_back(vec_rws[ii]->other_wgt);
 
       //now usedin hp weights:
@@ -139,5 +150,12 @@ namespace NeutrinoFluxReweight{
   int  MakeReweight::GetNumberOfUniversesUsed(){
     return Nuniverses;
   }
-  ////
+  MakeReweight::~MakeReweight(){
+    
+  }
+  ///
+  MakeReweight* MakeReweight::getInstance(){
+    if (instance == 0) instance = new MakeReweight;
+    return instance;
+  }
 }
