@@ -55,7 +55,7 @@ namespace NeutrinoFluxReweight{
       vtx[1]=nu->starty[itraj_prod];
       vtx[2]=nu->startz[itraj_prod];
 
-      InteractionData inter(incP,nu->pdg[itraj],prodP,pdg_prod,std::string(nu->fvol[itraj]),this_proc,vtx);   
+      InteractionData inter(itraj, incP,nu->pdg[itraj],prodP,pdg_prod,std::string(nu->fvol[itraj]),this_proc,vtx);   
       interaction_chain.push_back(inter);
     }
     
@@ -138,7 +138,7 @@ namespace NeutrinoFluxReweight{
       vtx[2]=nu->ancestor[itraj_prod].startz;
       std::string this_vol=nu->ancestor[itraj_prod].ivol;
       
-      InteractionData inter(incP,pdg_inc,prodP,pdg_prod,
+      InteractionData inter(itraj, incP,pdg_inc,prodP,pdg_prod,
 			    this_vol,this_proc,vtx);   
       interaction_chain.push_back(inter);
       

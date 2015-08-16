@@ -24,10 +24,13 @@ namespace NeutrinoFluxReweight{
     InteractionData();
 
     //! Constructor given kinematic of the interaction.
-    InteractionData(double incMom[], int incPdg, double prodMom[], int prodPdg, std::string volname, std::string procname, double vtx[]);
+    InteractionData(int genid, double incMom[], int incPdg, double prodMom[], int prodPdg, std::string volname, std::string procname, double vtx[]);
 
     virtual ~InteractionData();
-    
+
+    //! generation index
+    int gen;
+
     //! pdg code of the incident particle
     int Inc_pdg;
 

@@ -8,6 +8,8 @@ namespace NeutrinoFluxReweight{
   InteractionData::InteractionData(){
     
     particle = TDatabasePDG::Instance();
+    
+    gen     = 0;
     Inc_pdg = 0;
     Prod_pdg= 0;
     
@@ -35,12 +37,14 @@ namespace NeutrinoFluxReweight{
     
   }
   
-  InteractionData::InteractionData(double incMom[], int incPdg, double prodMom[], int prodPdg, std::string volname, std::string procname, double vtx[]){
+  InteractionData::InteractionData(int genid, double incMom[], int incPdg, double prodMom[], int prodPdg, std::string volname, std::string procname, double vtx[]){
 
     particle = TDatabasePDG::Instance();
     // Z direction along the direction of the incident particle
     // Cos between incMom and prodMom:
     // The units are in GeV
+    
+    InteractionData::gen      = genid;
     
     InteractionData::Inc_pdg  = incPdg;
     InteractionData::Prod_pdg = prodPdg;
