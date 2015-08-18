@@ -25,6 +25,12 @@ namespace NeutrinoFluxReweight{
     //! Read a NA49 data K xml file name to parse the bins
     void pC_k_from_xml(const char* filename);
     
+    //! Read a NA49 data prt xml file name to parse the bins
+    void pC_p_from_xml(const char* filename);
+    
+    //! Read a NA49 data neutron xml file name to parse the bins
+    void pC_n_from_xml(const char* filename);
+
     //!MIPP k/pi:
     void mipp_pC_k_pi_from_xml(const char* filename);
     
@@ -38,6 +44,12 @@ namespace NeutrinoFluxReweight{
     int barton_BinID_pC_pi(double xf, double pt,int pdgcode);
     
     //! Return the Bin ID for this data
+    int BinID_pC_p(double xf, double pt,int pdgcode);
+
+    //! Return the Bin ID for this data
+    int BinID_pC_n(double xf,int pdgcode);
+
+    //! Return the Bin ID for this data
     int BinID_pC_k(double xf, double pt,int pdgcode);
     
     //! Return the MIPP Thin Target Bin ID for this data
@@ -50,6 +62,12 @@ namespace NeutrinoFluxReweight{
     std::vector<double> pC_pi_xfmin, pC_pi_xfmax, pC_pi_ptmin, pC_pi_ptmax;
     std::vector<double> b_pC_pi_xfmin, b_pC_pi_xfmax, b_pC_pi_ptmin, b_pC_pi_ptmax;
     
+    //Proton production:
+    std::vector<double> pC_p_xfmin, pC_p_xfmax, pC_p_ptmin, pC_p_ptmax;
+
+    //Neutron production:
+    std::vector<double> pC_n_xfmin, pC_n_xfmax;
+
     //Kaons production:
     std::vector<double> pC_k_xfmin, pC_k_xfmax, pC_k_ptmin, pC_k_ptmax;
     std::vector<double> mipp_pC_k_pzmin, mipp_pC_k_pzmax, mipp_pC_k_ptmin, mipp_pC_k_ptmax;

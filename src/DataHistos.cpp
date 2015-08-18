@@ -55,7 +55,8 @@ namespace NeutrinoFluxReweight{
     for(Int_t ipart=0;ipart<Nna49;ipart++){
       DataHistos::fNA49scale.push_back(new TFile(Form("%s/SCALING/%s_scaling.root",dirData,cna49_parts[ipart])));
     }
-    
+    DataHistos::fNA49scale.push_back(new TFile(Form("%s/SCALING/%s_scaling.root",dirData,"neu")));
+
     //Loading NA49 Data:  
     for(Int_t ipart=0;ipart<Nna49;ipart++){
       if(std::string(CNA49_PARTS[ipart]) != "PRT"){
@@ -74,6 +75,10 @@ namespace NeutrinoFluxReweight{
       }
       hNA49Scl.push_back(tmp_scl);
       tmp_scl.clear(); 
+    }
+    //neutron scaling
+    for(int imom=0;imom<Nscale;imom++){
+      hNA49Scl_n.push_back((TH1F*)DataHistos::fNA49scale[Nna49]->Get(Form("xF_%dGeV",mom_scale[imom])));
     }
     
     //Loading the geant4 inelastic cross section for pion on Aluminum

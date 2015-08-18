@@ -70,6 +70,54 @@ namespace NeutrinoFluxReweight{
     
   }
 
+  void ThinTargetBins::pC_p_from_xml(const char* filename){
+    using boost::property_tree::ptree;
+    ptree top;    
+    read_xml(filename,top,2); 
+    ptree& binsP = top.get_child("bins.ThinTarget_pC_p"); 
+    ptree::iterator it = binsP.begin();
+
+    int idx=0;
+    double aux_xfmin,aux_xfmax,aux_ptmin,aux_ptmax;
+    for(; it!=binsP.end(); it++){
+      std::string xf_string=it->second.get<std::string>("xfrange");
+      std::string pt_string=it->second.get<std::string>("ptrange");
+      
+      std::stringstream ss1(xf_string);
+      std::stringstream ss2(pt_string);
+      ss1 >> aux_xfmin >> aux_xfmax;
+      ss2 >> aux_ptmin >> aux_ptmax;
+   
+      pC_p_xfmin.push_back(aux_xfmin);
+      pC_p_xfmax.push_back(aux_xfmax);
+      pC_p_ptmin.push_back(aux_ptmin);
+      pC_p_ptmax.push_back(aux_ptmax);
+      
+    }
+    
+  }
+
+void ThinTargetBins::pC_n_from_xml(const char* filename){
+    using boost::property_tree::ptree;
+    ptree top;    
+    read_xml(filename,top,2); 
+    ptree& binsN = top.get_child("bins.ThinTarget_pC_n"); 
+    ptree::iterator it = binsN.begin();
+
+    int idx=0;
+    double aux_xfmin,aux_xfmax;
+    for(; it!=binsN.end(); it++){
+      std::string xf_string=it->second.get<std::string>("xfrange");
+      std::stringstream ss1(xf_string);
+      ss1 >> aux_xfmin >> aux_xfmax;
+         
+      pC_n_xfmin.push_back(aux_xfmin);
+      pC_n_xfmax.push_back(aux_xfmax);
+      
+    }
+    
+  }
+
  void ThinTargetBins::pC_k_from_xml(const char* filename){
     using boost::property_tree::ptree;
     ptree top;    
@@ -149,9 +197,8 @@ namespace NeutrinoFluxReweight{
       
     }
     
-}
+ }
   
-
   int ThinTargetBins::BinID_pC_pi(double xf, double pt,int pdgcode){
     
     int ibinID = -1;
@@ -188,6 +235,41 @@ namespace NeutrinoFluxReweight{
     
   }
 
+  int ThinTargetBins::BinID_pC_p(double xf, double pt,int pdgcode){
+    
+    int ibinID = -1;
+    int size = 0;
+    
+    if(pdgcode == 2212){
+      size = pC_p_xfmin.size();
+      for(int ii=0;ii<size;ii++){
+	if(xf>pC_p_xfmin[ii] && xf<pC_p_xfmax[ii] && pt>pC_p_ptmin[ii] && pt<pC_p_ptmax[ii]){
+	  ibinID = ii;
+	}
+      }
+    }
+    
+    return ibinID;
+    
+  }
+
+  int ThinTargetBins::BinID_pC_n(double xf, int pdgcode){
+    
+    int ibinID = -1;
+    int size = 0;
+    if(pdgcode == 2112){
+      size = pC_n_xfmin.size();
+      for(int ii=0;ii<size;ii++){
+	if( (xf>pC_n_xfmin[ii]) && (xf<pC_n_xfmax[ii])){
+	  ibinID = ii;
+	}
+      }
+    }	  
+    
+    return ibinID;
+	  
+  }
+      
   int ThinTargetBins::BinID_pC_k(double xf, double pt,int pdgcode){
     
     int ibinID = -1;

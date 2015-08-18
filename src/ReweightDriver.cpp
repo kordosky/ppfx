@@ -31,6 +31,7 @@ namespace NeutrinoFluxReweight{
     if(doThinTargetpCPion)THINTARGET_PC_PION_Universe = new ThinTargetpCPionReweighter(iUniv,cvPars,univPars);
     if(doThinTargetpCKaon)THINTARGET_PC_KAON_Universe = new ThinTargetpCKaonReweighter(iUniv,cvPars,univPars);
     if(doThinTargetnCPion)THINTARGET_NC_PION_Universe = new ThinTargetnCPionReweighter(iUniv,cvPars,univPars);
+    if(doThinTargetpCNucleon)THINTARGET_PC_NUCLEON_Universe = new ThinTargetpCNucleonReweighter(iUniv,cvPars,univPars);
     if(doThinTargetMesonIncident)THINTARGET_MESON_INCIDENT_Universe = new ThinTargetMesonIncidentReweighter(iUniv,cvPars,univPars);
     if(doOther)OTHER_Universe = new OtherReweighter(iUniv,cvPars,univPars);
 
@@ -93,6 +94,10 @@ namespace NeutrinoFluxReweight{
     val = options.get<std::string>("ThinTargetnCPion");
     if(val=="Yes")doThinTargetnCPion = true;
     else  doThinTargetnCPion = false;
+
+    val = options.get<std::string>("ThinTargetpCNucleon");
+    if(val=="Yes")doThinTargetpCNucleon = true;
+    else  doThinTargetpCNucleon = false;
 
     val = options.get<std::string>("ThinTargetMesonIncident");
     if(val=="Yes")doThinTargetMesonIncident = true;
@@ -214,6 +219,24 @@ namespace NeutrinoFluxReweight{
 	} 
       }
       tot_wgt *= nC_pi_wgt;
+    }
+
+    pC_nu_wgt = 1.0;
+    if(doThinTargetpCNucleon){
+      for(int ii=(interaction_nodes.size()-1);ii>=0;ii--){	
+	if(interaction_nodes[ii]==false){
+	  bool is_rew = THINTARGET_PC_NUCLEON_Universe->canReweight((icd.interaction_chain)[ii]);
+	  if(is_rew){
+	    double rewval = THINTARGET_PC_NUCLEON_Universe->calculateWeight((icd.interaction_chain)[ii]);
+	    pC_nu_wgt *= rewval;
+	    interaction_nodes[ii]=true;
+	  }
+	}
+	else{
+	  break;
+	} 
+      }
+      tot_wgt *= pC_nu_wgt;
     }
 
     meson_inc_wgt = 1.0;

@@ -12,8 +12,8 @@ namespace NeutrinoFluxReweight{
     
     vbin_data_pip.reserve(9801);
     vbin_data_pim.reserve(9801);
-    bart_vbin_data_pip.reserve(909);
-    bart_vbin_data_pim.reserve(909);
+    bart_vbin_data_pip.reserve(540);
+    bart_vbin_data_pim.reserve(540);
 
     std::map<std::string, double> cv_table   = cvPars.table;
     std::map<std::string, double> univ_table = univPars.table;

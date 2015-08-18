@@ -20,6 +20,7 @@
 #include "ThinTargetpCPionReweighter.h"
 #include "ThinTargetpCKaonReweighter.h"
 #include "ThinTargetnCPionReweighter.h"
+#include "ThinTargetpCNucleonReweighter.h"
 #include "ThinTargetMesonIncidentReweighter.h"
 
 #include "InteractionChainData.h"
@@ -79,6 +80,9 @@ namespace NeutrinoFluxReweight{
     /*! Thin target neutron on carbon producing pions weights   */
     double nC_pi_wgt;
     
+    /*! Thin target proton on carbon producing nucleons weights   */
+    double pC_nu_wgt;
+
     /*! Meson incident weights   */
     double meson_inc_wgt;
     
@@ -105,6 +109,7 @@ namespace NeutrinoFluxReweight{
     ThinTargetpCPionReweighter* THINTARGET_PC_PION_Universe;
     ThinTargetpCKaonReweighter* THINTARGET_PC_KAON_Universe;
     ThinTargetnCPionReweighter* THINTARGET_NC_PION_Universe;
+    ThinTargetpCNucleonReweighter* THINTARGET_PC_NUCLEON_Universe;
     ThinTargetMesonIncidentReweighter* THINTARGET_MESON_INCIDENT_Universe;
     OtherReweighter* OTHER_Universe;
     //Now used now to calculate HP weigts::
@@ -142,6 +147,7 @@ namespace NeutrinoFluxReweight{
     bool doThinTargetpCPion;
     bool doThinTargetpCKaon;
     bool doThinTargetnCPion;
+    bool doThinTargetpCNucleon;
     bool doThinTargetMesonIncident;
     bool doOther;
     

@@ -19,6 +19,7 @@ namespace NeutrinoFluxReweight{
     TH2D* hMIPP_MC[5];
     std::vector<TH2F*> hNA49Data;
     std::vector< std::vector<TH2F*> > hNA49Scl; 
+    std::vector<TH1F*> hNA49Scl_n; 
     
     TH1D* hXS_piAl;
     TH1D* hXS_prtC;
