@@ -12,6 +12,7 @@
     <ThinTargetpCPion>Yes</ThinTargetpCPion>
     <ThinTargetpCKaon>Yes</ThinTargetpCKaon>
     <ThinTargetnCPion>Yes</ThinTargetnCPion>
+    <ThinTargetpCNucleon>Yes</ThinTargetpCNucleon>
     <ThinTargetMesonIncident>Yes</ThinTargetMesonIncident>
     <OtherTarget>Yes</OtherTarget>
 
