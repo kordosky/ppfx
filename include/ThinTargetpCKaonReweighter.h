@@ -26,6 +26,10 @@ namespace NeutrinoFluxReweight{
     double calculateDataScale(int inc_pdg, double inc_mom, int prod_pdg,double xf, double pt);
     double calculateMCProd(int genid, double inc_mom);
     
+    double wgt_na49;
+    double wgt_mipp;
+    double wgt_k0;
+    
   private:
     int iUniv;
     const ParameterTable& cvPars;

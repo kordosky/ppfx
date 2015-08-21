@@ -71,9 +71,11 @@ namespace NeutrinoFluxReweight{
     //Looking for if there is kaon:
     ThinTargetBins*  Thinbins =  ThinTargetBins::getInstance();
     int bin      = Thinbins->BinID_pC_k(aa.xF,aa.Pt,aa.Prod_pdg);
-    int mipp_bin = Thinbins->mipp_BinID_pC_k(aa.Pz,aa.Pt,aa.Prod_pdg);
-    bool there_is_kaon = (bin>=0 || mipp_bin>=0);
+    if(bin>=0)return true; //found NA49 kaon 
     
+    //now looking for high energy kaon   
+    int mipp_bin = Thinbins->mipp_BinID_pC_k(aa.Pz,aa.Pt,aa.Prod_pdg);
+    if(mipp_bin<0)return false;
     //Looking for the corresponding pion:
     double inc_mom[3]  = {aa.Inc_P4[0], aa.Inc_P4[1], aa.Inc_P4[2]};
     double prod_mom[3] = {aa.Prod_P4[0],aa.Prod_P4[1],aa.Prod_P4[2]};
@@ -84,10 +86,10 @@ namespace NeutrinoFluxReweight{
     MakeReweight*  makerew =  MakeReweight::getInstance();
     if(iUniv==-1)tt_pCPionRew = (makerew->cv_rw)->THINTARGET_PC_PION_Universe;
     else tt_pCPionRew = (makerew->vec_rws[iUniv])->THINTARGET_PC_PION_Universe;   
-    aux_aa = new InteractionData(aa.gen, inc_mom,2212,prod_mom,pion_pdg,aa.Vol,aa.Proc,vtx_int);    
-    bool there_is_pion = tt_pCPionRew->canReweight(*aux_aa);
+    aux_aa = new InteractionData(aa.gen, inc_mom,2212,prod_mom,pion_pdg,aa.Vol,aa.Proc,vtx_int);   
+    bool there_is_pion = tt_pCPionRew->canReweight(*aux_aa);    
     
-    return there_is_pion && there_is_kaon;
+    return there_is_pion;
     
   }
   
@@ -164,9 +166,22 @@ namespace NeutrinoFluxReweight{
     double mc_cv = mc->getMCval_pC_X(aa.Inc_P,aa.xF,aa.Pt,aa.Prod_pdg);
     mc_cv /= calculateMCProd(aa.gen,aa.Inc_P);
     if(mc_cv<1.e-12)return wgt;
-    
-    if(wgt<0)std::cout<<"TTPCK check wgt(<0) "<<iUniv<<" "<<aa.Inc_P<<" "<<aa.xF<<" "<<aa.Pt<<" "<<aa.Prod_pdg<<std::endl;
     wgt = dataval/mc_cv;
+
+    if(wgt<0){
+      //std::cout<<"TTPCK check wgt(<0) "<<iUniv<<" "<<aa.Inc_P<<" "<<aa.xF<<" "<<aa.Pt<<" "<<aa.Prod_pdg<<std::endl;
+      return 1.0;
+    }
+    
+    bool isk0 = aa.Prod_pdg ==130 || aa.Prod_pdg ==310 ;
+    ThinTargetpCKaonReweighter::wgt_na49 = 1.0;
+    ThinTargetpCKaonReweighter::wgt_mipp = 1.0;
+    ThinTargetpCKaonReweighter::wgt_k0 = 1.0;
+    if(bin>=0 && !isk0)ThinTargetpCKaonReweighter::wgt_na49 = wgt;
+    else if(mipp_bin>=0 && !isk0)ThinTargetpCKaonReweighter::wgt_mipp = wgt;
+    
+    if(isk0)ThinTargetpCKaonReweighter::wgt_k0 = wgt;
+    
     return wgt;
     
   }

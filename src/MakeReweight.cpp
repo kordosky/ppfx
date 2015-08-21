@@ -121,6 +121,7 @@ namespace NeutrinoFluxReweight{
       map_rew_wgts["ThinTargetnCPion"].push_back(vec_rws[ii]->nC_pi_wgt);
       map_rew_wgts["ThinTargetpCNucleon"].push_back(vec_rws[ii]->pC_nu_wgt);
       map_rew_wgts["ThinTargetMesonIncident"].push_back(vec_rws[ii]->meson_inc_wgt);
+      map_rew_wgts["ThinTargetnucleonA"].push_back(vec_rws[ii]->nuA_wgt);
       map_rew_wgts["Other"].push_back(vec_rws[ii]->other_wgt);
 
       //now usedin hp weights:
@@ -128,6 +129,15 @@ namespace NeutrinoFluxReweight{
       map_rew_wgts["MIPPThinTarget"].push_back(vec_rws[ii]->mipp_thin_wgt);
       //      map_rew_wgts["TheoryThinTarget"].push_back(vec_rws[ii]->theory_wgt);
       
+
+      //Special Leo wgts for study:
+      map_rew_wgts["Leo_pcpi_na49"].push_back(vec_rws[ii]->leo_pcpi_na49);
+      map_rew_wgts["Leo_pcpi_bart"].push_back(vec_rws[ii]->leo_pcpi_bart);
+      map_rew_wgts["Leo_pck_na49"].push_back(vec_rws[ii]->leo_pck_na49);
+      map_rew_wgts["Leo_pck_mipp"].push_back(vec_rws[ii]->leo_pck_mipp);
+      map_rew_wgts["Leo_pck_k0"].push_back(vec_rws[ii]->leo_pck_k0);
+      map_rew_wgts["Leo_pcnu_neu"].push_back(vec_rws[ii]->leo_pcnu_neu);
+      map_rew_wgts["Leo_pcnu_prt"].push_back(vec_rws[ii]->leo_pcnu_prt);
     }
     
     //cv calculation:

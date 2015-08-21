@@ -111,6 +111,12 @@ namespace NeutrinoFluxReweight{
       //std::cout<<"TTPCPI check wgt(<0) "<<iUniv<<" "<<aa.Inc_P<<" "<<aa.xF<<" "<<aa.Pt<<" "<<aa.Prod_pdg<<std::endl;
       return 1.0;
     }
+    
+    ThinTargetpCPionReweighter::wgt_na49 = 1.0;
+    ThinTargetpCPionReweighter::wgt_bart = 1.0;
+    if(bin>=0)ThinTargetpCPionReweighter::wgt_na49 = wgt;
+    if(bart_bin>=0)ThinTargetpCPionReweighter::wgt_bart = wgt;
+    
     return wgt;
   }
   

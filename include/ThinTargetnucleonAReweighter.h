@@ -3,6 +3,9 @@
 #define THINTARGETNUCLEONAREWEIGHTER_H
 
 #include "IInteractionReweighting.h"
+#include "ThinTargetpCPionReweighter.h"
+#include "ThinTargetnCPionReweighter.h"
+#include "ThinTargetpCKaonReweighter.h"
 
 #include <vector>
 
@@ -17,13 +20,19 @@ namespace NeutrinoFluxReweight{
     ThinTargetnucleonAReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars);
     virtual ~ThinTargetnucleonAReweighter();
     virtual bool canReweight(const InteractionData& aa);
-    virtual double calculateWeight(const InteractionData& inter_data);
-    const ParameterTable& cvPars;
-    const ParameterTable& univPars;
-
+    virtual double calculateWeight(const InteractionData& aa);
+   
   private:
     int iUniv;
+    const ParameterTable& cvPars;
+    const ParameterTable& univPars;
     
+    ThinTargetpCPionReweighter*    tt_pCPionRew;
+    ThinTargetnCPionReweighter*    tt_nCPionRew;
+    ThinTargetpCKaonReweighter*    tt_pCKaonRew;
+
+    InteractionData* aux_aa;
+
   };
 
   

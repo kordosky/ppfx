@@ -24,6 +24,9 @@ namespace NeutrinoFluxReweight{
     std::vector<float> vbin_data_pip,vbin_data_pim;
     std::vector<float> bart_vbin_data_pip,bart_vbin_data_pim;
     
+    double wgt_na49;
+    double wgt_bart;
+
   private:
     int iUniv;
     const ParameterTable& cvPars;

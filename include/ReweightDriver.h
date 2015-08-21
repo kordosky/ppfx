@@ -22,6 +22,7 @@
 #include "ThinTargetnCPionReweighter.h"
 #include "ThinTargetpCNucleonReweighter.h"
 #include "ThinTargetMesonIncidentReweighter.h"
+#include "ThinTargetnucleonAReweighter.h"
 
 #include "InteractionChainData.h"
 
@@ -83,6 +84,9 @@ namespace NeutrinoFluxReweight{
     /*! Thin target proton on carbon producing nucleons weights   */
     double pC_nu_wgt;
 
+    /*! nuA    */
+    double nuA_wgt;
+    
     /*! Meson incident weights   */
     double meson_inc_wgt;
     
@@ -98,6 +102,10 @@ namespace NeutrinoFluxReweight{
     /*!   Theory (model) prediction weight   */
     //double theory_wgt;
 
+    //Other weigts for my studies:
+    double leo_pcpi_na49, leo_pcpi_bart, leo_pcnu_neu, leo_pcnu_prt, leo_pck_na49, leo_pck_mipp,leo_pck_k0;
+    
+
     MIPPNumiPionYieldsReweighter* MIPP_NUMI_PION_Universe;
     MIPPNumiKaonYieldsReweighter* MIPP_NUMI_KAON_Universe;
     TargetAttenuationReweighter* TARG_ATT_Universe;
@@ -111,6 +119,9 @@ namespace NeutrinoFluxReweight{
     ThinTargetnCPionReweighter* THINTARGET_NC_PION_Universe;
     ThinTargetpCNucleonReweighter* THINTARGET_PC_NUCLEON_Universe;
     ThinTargetMesonIncidentReweighter* THINTARGET_MESON_INCIDENT_Universe;
+
+    ThinTargetnucleonAReweighter* THINTARGET_NUCLEON_A_Universe;
+
     OtherReweighter* OTHER_Universe;
     //Now used now to calculate HP weigts::
     NA49Reweighter* NA49_Universe;
@@ -149,6 +160,7 @@ namespace NeutrinoFluxReweight{
     bool doThinTargetnCPion;
     bool doThinTargetpCNucleon;
     bool doThinTargetMesonIncident;
+    bool doThinTargetnucleonA;
     bool doOther;
     
     //now used now in hp wgts:
