@@ -103,7 +103,7 @@ namespace NeutrinoFluxReweight{
     //double theory_wgt;
 
     //Other weigts for my studies:
-    double leo_pcpi_na49, leo_pcpi_bart, leo_pcnu_neu, leo_pcnu_prt, leo_pck_na49, leo_pck_mipp,leo_pck_k0;
+    double aux_pcpi_na49, aux_pcpi_bart, aux_pcnu_neu, aux_pcnu_prt, aux_pck_na49, aux_pck_mipp, aux_pck_k0;
     
 
     MIPPNumiPionYieldsReweighter* MIPP_NUMI_PION_Universe;

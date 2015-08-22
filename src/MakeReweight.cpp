@@ -131,13 +131,13 @@ namespace NeutrinoFluxReweight{
       
 
       //Special Leo wgts for study:
-      map_rew_wgts["Leo_pcpi_na49"].push_back(vec_rws[ii]->leo_pcpi_na49);
-      map_rew_wgts["Leo_pcpi_bart"].push_back(vec_rws[ii]->leo_pcpi_bart);
-      map_rew_wgts["Leo_pck_na49"].push_back(vec_rws[ii]->leo_pck_na49);
-      map_rew_wgts["Leo_pck_mipp"].push_back(vec_rws[ii]->leo_pck_mipp);
-      map_rew_wgts["Leo_pck_k0"].push_back(vec_rws[ii]->leo_pck_k0);
-      map_rew_wgts["Leo_pcnu_neu"].push_back(vec_rws[ii]->leo_pcnu_neu);
-      map_rew_wgts["Leo_pcnu_prt"].push_back(vec_rws[ii]->leo_pcnu_prt);
+      map_rew_wgts["Aux_pcpi_na49"].push_back(vec_rws[ii]->aux_pcpi_na49);
+      map_rew_wgts["Aux_pcpi_bart"].push_back(vec_rws[ii]->aux_pcpi_bart);
+      map_rew_wgts["Aux_pck_na49"].push_back(vec_rws[ii]->aux_pck_na49);
+      map_rew_wgts["Aux_pck_mipp"].push_back(vec_rws[ii]->aux_pck_mipp);
+      map_rew_wgts["Aux_pck_k0"].push_back(vec_rws[ii]->aux_pck_k0);
+      map_rew_wgts["Aux_pcnu_neu"].push_back(vec_rws[ii]->aux_pcnu_neu);
+      map_rew_wgts["Aux_pcnu_prt"].push_back(vec_rws[ii]->aux_pcnu_prt);
     }
     
     //cv calculation:

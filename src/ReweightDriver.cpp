@@ -166,8 +166,8 @@ namespace NeutrinoFluxReweight{
     }
     
     pC_pi_wgt = 1.0;
-    leo_pcpi_na49 = 1.0;
-    leo_pcpi_bart = 1.0;
+    aux_pcpi_na49 = 1.0;
+    aux_pcpi_bart = 1.0;
 
     if(doThinTargetpCPion){
       for(int ii=(interaction_nodes.size()-1);ii>=0;ii--){	
@@ -176,8 +176,8 @@ namespace NeutrinoFluxReweight{
 	  if(is_rew){
 	    double rewval = THINTARGET_PC_PION_Universe->calculateWeight((icd.interaction_chain)[ii]);
 	    pC_pi_wgt *= rewval;
-	    leo_pcpi_na49 *= THINTARGET_PC_PION_Universe->wgt_na49;
-	    leo_pcpi_bart *= THINTARGET_PC_PION_Universe->wgt_bart;
+	    aux_pcpi_na49 *= THINTARGET_PC_PION_Universe->wgt_na49;
+	    aux_pcpi_bart *= THINTARGET_PC_PION_Universe->wgt_bart;
 	    interaction_nodes[ii]=true;
 	  }
 	}
@@ -189,9 +189,9 @@ namespace NeutrinoFluxReweight{
     }
 
     pC_k_wgt = 1.0;
-    leo_pck_na49 = 1.0;
-    leo_pck_mipp = 1.0;
-    leo_pck_k0   = 1.0;
+    aux_pck_na49 = 1.0;
+    aux_pck_mipp = 1.0;
+    aux_pck_k0   = 1.0;
     if(doThinTargetpCKaon){
       for(int ii=(interaction_nodes.size()-1);ii>=0;ii--){	
 	if(interaction_nodes[ii]==false){
@@ -199,9 +199,9 @@ namespace NeutrinoFluxReweight{
 	  if(is_rew){
 	    double rewval = THINTARGET_PC_KAON_Universe->calculateWeight((icd.interaction_chain)[ii]);
 	    pC_k_wgt *= rewval;
-	    leo_pck_na49 *= THINTARGET_PC_KAON_Universe->wgt_na49;
-	    leo_pck_mipp *= THINTARGET_PC_KAON_Universe->wgt_mipp;
-	    leo_pck_mipp *= THINTARGET_PC_KAON_Universe->wgt_k0;
+	    aux_pck_na49 *= THINTARGET_PC_KAON_Universe->wgt_na49;
+	    aux_pck_mipp *= THINTARGET_PC_KAON_Universe->wgt_mipp;
+	    aux_pck_mipp *= THINTARGET_PC_KAON_Universe->wgt_k0;
 	    interaction_nodes[ii]=true;
 	  }
 	}
@@ -232,8 +232,8 @@ namespace NeutrinoFluxReweight{
     }
 
     pC_nu_wgt = 1.0;
-    leo_pcnu_prt = 1.0;
-    leo_pcnu_neu = 1.0;
+    aux_pcnu_prt = 1.0;
+    aux_pcnu_neu = 1.0;
     if(doThinTargetpCNucleon){
       for(int ii=(interaction_nodes.size()-1);ii>=0;ii--){	
 	if(interaction_nodes[ii]==false){
@@ -241,8 +241,8 @@ namespace NeutrinoFluxReweight{
 	  if(is_rew){
 	    double rewval = THINTARGET_PC_NUCLEON_Universe->calculateWeight((icd.interaction_chain)[ii]);
 	    pC_nu_wgt *= rewval;
-	    leo_pcnu_prt *= THINTARGET_PC_NUCLEON_Universe->wgt_prt;
-	    leo_pcnu_neu *= THINTARGET_PC_NUCLEON_Universe->wgt_neu;
+	    aux_pcnu_prt *= THINTARGET_PC_NUCLEON_Universe->wgt_prt;
+	    aux_pcnu_neu *= THINTARGET_PC_NUCLEON_Universe->wgt_neu;
 	    interaction_nodes[ii]=true;
 	  }
 	}
