@@ -14,8 +14,9 @@
     <ThinTargetnCPion>Yes</ThinTargetnCPion>
     <ThinTargetpCNucleon>Yes</ThinTargetpCNucleon>
     <ThinTargetMesonIncident>Yes</ThinTargetMesonIncident>
+    <ThinTargetnucleonA>Yes</ThinTargetnucleonA>
     <OtherTarget>Yes</OtherTarget>
-
+    
     <MIPPThinTarget>No</MIPPThinTarget>
     <NA49>No</NA49>
     </FlagReweighters>
