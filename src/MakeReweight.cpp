@@ -48,6 +48,7 @@ namespace NeutrinoFluxReweight{
     thinbin->meson_incident_from_xml(Form("%s/data/BINS/ThinTarget_MesonIncident.xml",ppfxDir));
     thinbin->pC_p_from_xml(Form("%s/data/BINS/ThinTarget_pC_p_Bins.xml",ppfxDir));
     thinbin->pC_n_from_xml(Form("%s/data/BINS/ThinTarget_pC_n_Bins.xml",ppfxDir));
+    thinbin->material_scaling_from_xml(Form("%s/data/BINS/ThinTarget_material_scaling_Bins.xml",ppfxDir));
     
     std::cout<<"Initializing MC values"<<std::endl;
     mymc->pip_mc_from_xml(Form("%s/data/MIPP/MIPPNuMI_MC_PIP.xml",ppfxDir));

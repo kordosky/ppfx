@@ -37,6 +37,9 @@ namespace NeutrinoFluxReweight{
     //! Read a pion incident 
     void meson_incident_from_xml(const char* filename);
     
+    //! Read a pion incident 
+    void material_scaling_from_xml(const char* filename);
+    
     //! Return the Bin ID for this data
     int BinID_pC_pi(double xf, double pt,int pdgcode);
     
@@ -75,6 +78,9 @@ namespace NeutrinoFluxReweight{
     //Pion incident
     std::vector<double> meson_inc_xfmin, meson_inc_xfmax, meson_inc_ptmin, meson_inc_ptmax;
     
+    //Material scaling
+    std::vector<double> mat_scal_xfmin, mat_scal_xfmax, mat_scal_ptmin, mat_scal_ptmax;
+
   private:
     static ThinTargetBins* instance;
     

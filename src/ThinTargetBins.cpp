@@ -199,6 +199,34 @@ void ThinTargetBins::pC_n_from_xml(const char* filename){
     
  }
   
+ void ThinTargetBins::material_scaling_from_xml(const char* filename){
+    using boost::property_tree::ptree;
+    ptree top;    
+    read_xml(filename,top,2); 
+    ptree& bins = top.get_child("bins.ThinTarget_material_scaling"); 
+    ptree::iterator it = bins.begin();
+    
+    int idx=0;
+    double aux_xfmin,aux_xfmax,aux_ptmin,aux_ptmax;
+    for(; it!=bins.end(); it++){
+      std::string xf_string=it->second.get<std::string>("xfrange");
+      std::string pt_string=it->second.get<std::string>("ptrange");
+      
+      std::stringstream ss1(xf_string);
+      std::stringstream ss2(pt_string);
+      ss1 >> aux_xfmin >> aux_xfmax;
+      ss2 >> aux_ptmin >> aux_ptmax;
+      
+      mat_scal_xfmin.push_back(aux_xfmin);
+      mat_scal_xfmax.push_back(aux_xfmax);
+      mat_scal_ptmin.push_back(aux_ptmin);
+      mat_scal_ptmax.push_back(aux_ptmax);
+      
+    }
+    
+ }
+
+  /////////////////////////////////////////////////////////////////
   int ThinTargetBins::BinID_pC_pi(double xf, double pt,int pdgcode){
     
     int ibinID = -1;
