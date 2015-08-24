@@ -21,7 +21,8 @@ namespace NeutrinoFluxReweight{
     virtual ~ThinTargetnucleonAReweighter();
     virtual bool canReweight(const InteractionData& aa);
     virtual double calculateWeight(const InteractionData& aa);
-   
+    std::vector<float> vbin_data_pip, vbin_data_pim, vbin_data_kap,vbin_data_kam;
+    
   private:
     int iUniv;
     const ParameterTable& cvPars;

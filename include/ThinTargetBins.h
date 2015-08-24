@@ -61,6 +61,9 @@ namespace NeutrinoFluxReweight{
     //! Return Pion incident bin
     int meson_inc_BinID(double xf, double pt,int pdgcode);
     
+    //! Return material scaling bin
+    int material_scaling_BinID(double xf, double pt,int pdgcode);
+
     //Pions production:
     std::vector<double> pC_pi_xfmin, pC_pi_xfmax, pC_pi_ptmin, pC_pi_ptmax;
     std::vector<double> b_pC_pi_xfmin, b_pC_pi_xfmax, b_pC_pi_ptmin, b_pC_pi_ptmax;

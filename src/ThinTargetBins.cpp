@@ -352,6 +352,24 @@ int ThinTargetBins::meson_inc_BinID(double xf, double pt,int pdgcode){
     
   }
 
+int ThinTargetBins::material_scaling_BinID(double xf, double pt,int pdgcode){
+    
+    int ibinID = -1;
+    int size = 0;
+    
+    if(pdgcode == 211 || pdgcode == -211 || pdgcode == 321 || pdgcode == -321||  pdgcode == 130 ||  pdgcode == 310){
+      size = mat_scal_xfmin.size();
+      for(int ii=0;ii<size;ii++){
+	if((xf>mat_scal_xfmin[ii]) && (xf<mat_scal_xfmax[ii]) && (pt>mat_scal_ptmin[ii]) && (pt<mat_scal_ptmax[ii])){
+	  ibinID = ii;
+	}
+      }
+    }
+    
+    return ibinID;
+    
+  }
+
   ThinTargetBins* ThinTargetBins::getInstance(){
     if (instance == 0) instance = new ThinTargetBins;
     return instance;
