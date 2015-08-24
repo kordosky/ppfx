@@ -1,0 +1,53 @@
+<bins>
+  <!-- List of bins -->
+  
+  <ThinTarget_material_scaling>
+      
+    <ThinTarget_material_scaling_0>
+      <xfrange>0.00 0.25</xfrange>
+      <ptrange>0.00 0.50</ptrange>
+    </ThinTarget_material_scaling_0>
+    
+    <ThinTarget_material_scaling_1>
+      <xfrange>0.00 0.25</xfrange>
+      <ptrange>0.50 1.00</ptrange>
+    </ThinTarget_material_scaling_1>
+
+    <ThinTarget_material_scaling_2>
+      <xfrange>0.00 0.25</xfrange>
+      <ptrange>1.00 1.50</ptrange>
+    </ThinTarget_material_scaling_2>
+
+    <ThinTarget_material_scaling_3>
+      <xfrange>0.25 0.50</xfrange>
+      <ptrange>0.00 0.50</ptrange>
+    </ThinTarget_material_scaling_3>
+    
+    <ThinTarget_material_scaling_4>
+      <xfrange>0.25 0.50</xfrange>
+      <ptrange>0.50 1.00</ptrange>
+    </ThinTarget_material_scaling_4>
+
+    <ThinTarget_material_scaling_5>
+      <xfrange>0.25 0.50</xfrange>
+      <ptrange>1.00 1.50</ptrange>
+    </ThinTarget_material_scaling_5>
+    
+    <ThinTarget_material_scaling_6>
+      <xfrange>0.50 0.75</xfrange>
+      <ptrange>0.00 0.50</ptrange>
+    </ThinTarget_material_scaling_6>
+    
+    <ThinTarget_material_scaling_7>
+      <xfrange>0.50 0.75</xfrange>
+      <ptrange>0.50 1.00</ptrange>
+    </ThinTarget_material_scaling_7>
+
+    <ThinTarget_material_scaling_8>
+      <xfrange>0.50 0.75</xfrange>
+      <ptrange>1.00 1.50</ptrange>
+    </ThinTarget_material_scaling_8>
+
+  </ThinTarget_material_scaling>
+  
+</bins>
