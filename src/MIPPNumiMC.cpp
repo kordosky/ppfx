@@ -156,7 +156,74 @@ void MIPPNumiMC::kam_mc_from_xml(const char* filename){
     ranges_already_filled=true;
   }
 
-  
+  void MIPPNumiMC::k0l_mc_from_xml(const char* filename){
+    using boost::property_tree::ptree;
+    ptree top;
+    read_xml(filename,top,2); 
+    std::string namebase = "MIPPNuMI_MC_k0l";    
+    ptree bins;
+    bins = top.get_child("mcbin.MIPPNuMI_MC_k0l");
+    ptree::iterator it;    
+    // we know that pip, pim, kap, kam, k0l and k0s have the same binning
+    double cv,pzmin,pzmax,ptmin,ptmax;
+    
+    for(it = bins.begin(); it!=bins.end(); it++){
+   
+      std::string cv_string=it->second.get<std::string>("cvmc");
+      std::string pz_string=it->second.get<std::string>("pzrange");
+      std::string pt_string=it->second.get<std::string>("ptrange");
+      std::stringstream ss1(cv_string);
+      std::stringstream ss2(pz_string);
+      std::stringstream ss3(pt_string);
+      ss1 >> cv;
+      ss2 >> pzmin >> pzmax;
+      ss3 >> ptmin >> ptmax;
+   
+      k0l_cv.push_back(cv);
+      if(ranges_already_filled==false){
+	v_pzmin.push_back(pzmin);
+	v_pzmax.push_back(pzmax);
+	v_ptmin.push_back(ptmin);
+	v_ptmax.push_back(ptmax);
+      }
+    }
+    ranges_already_filled=true;
+  }
+
+  void MIPPNumiMC::k0s_mc_from_xml(const char* filename){
+    using boost::property_tree::ptree;
+    ptree top;
+    read_xml(filename,top,2); 
+    std::string namebase = "MIPPNuMI_MC_k0s";    
+    ptree bins;
+    bins = top.get_child("mcbin.MIPPNuMI_MC_k0s");
+    ptree::iterator it;    
+    // we know that pip, pim, kap, kam, k0l and k0s have the same binning
+    double cv,pzmin,pzmax,ptmin,ptmax;
+    
+    for(it = bins.begin(); it!=bins.end(); it++){
+   
+      std::string cv_string=it->second.get<std::string>("cvmc");
+      std::string pz_string=it->second.get<std::string>("pzrange");
+      std::string pt_string=it->second.get<std::string>("ptrange");
+      std::stringstream ss1(cv_string);
+      std::stringstream ss2(pz_string);
+      std::stringstream ss3(pt_string);
+      ss1 >> cv;
+      ss2 >> pzmin >> pzmax;
+      ss3 >> ptmin >> ptmax;
+   
+      k0s_cv.push_back(cv);
+      if(ranges_already_filled==false){
+	v_pzmin.push_back(pzmin);
+	v_pzmax.push_back(pzmax);
+	v_ptmin.push_back(ptmin);
+	v_ptmax.push_back(ptmax);
+      }
+    }
+    ranges_already_filled=true;
+  }
+
   double MIPPNumiMC::getMCval(double pz,double pt, int pdgcode){
  
     double cvmc = -1;
