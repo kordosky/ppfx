@@ -8,15 +8,15 @@
  *        This tree has one entry of this type for the file.  Kept
  *        as a tree so files can be chained.
  *
- * \author (last to touch it) $Author: kordosky $
+ * \author (last to touch it) $Author: laliaga $
  *
- * \version $Revision: 1.1 $
+ * \version $Revision: 1.2 $
  *
- * \date $Date: 2014/12/19 21:27:42 $
+ * \date $Date: 2015/09/10 19:14:14 $
  *
  * Contact: rhatcher@fnal.gov
  *
- * $Id: dkmeta.h,v 1.1 2014/12/19 21:27:42 kordosky Exp $
+ * $Id: dkmeta.h,v 1.2 2015/09/10 19:14:14 laliaga Exp $
  *
  * Notes tagged with "DKMETA" are questions that should be answered
  */
@@ -30,7 +30,7 @@
 #include <vector>
 #include <string>
 
-#define DKMETAVER 7   // KEEP THIS UP-TO-DATE!  increment for each change
+#define DKMETAVER 6   // KEEP THIS UP-TO-DATE!  increment for each change
 
 namespace bsim {
   /**
