@@ -55,6 +55,30 @@ namespace NeutrinoFluxReweight{
 	for(int j=0;j<mom_size;j++)vqe_corr_n.push_back((TH1D*)fqe_corr[i]->Get(Form("frac_prod_xf_%dGeV",mom_inc[j])));
       }      
     }
+
+    //Scaling:
+    const int Nscl = 5;
+    const char* cscl_parts[Nscl] = {"pip","pim","kap","kam","prt"};
+    const int Nmomscl = 11;
+    const int mom_scale[Nmomscl] = {12,20,31,40,50,60,70,80,100,120,158};
+    for(Int_t ipart=0;ipart<Nscl;ipart++){
+      ThinTargetMC::fTTscale.push_back(new TFile(Form("%s/SCALING/%s_scaling.root",dirData,cscl_parts[ipart])));
+    }
+    ThinTargetMC::fTTscale.push_back(new TFile(Form("%s/SCALING/%s_scaling.root",dirData,"neu")));
+    //Loading scale histograms:
+    for(Int_t ipart=0;ipart<Nscl;ipart++){
+      std::vector<TH2F*> tmp_scl;
+      for(int imom=0;imom<Nmomscl;imom++){
+	tmp_scl.push_back((TH2F*)ThinTargetMC::fTTscale[ipart]->Get(Form("xF_pT_%dGeV",mom_scale[imom])));
+      }
+      hTTScl.push_back(tmp_scl);
+      tmp_scl.clear(); 
+    }
+    //neutron scaling
+    for(int imom=0;imom<Nmomscl;imom++){
+      hTTScl_n.push_back((TH1F*)ThinTargetMC::fTTscale[Nscl]->Get(Form("xF_%dGeV",mom_scale[imom])));
+    }
+
   }
   
   double ThinTargetMC::getMCval_pC_X(double incP, double xf,double pt, int pdgcode){

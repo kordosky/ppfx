@@ -4,7 +4,7 @@
 #include <locale>
 #include <cstdlib>
 #include <stdexcept>
-#include "DataHistos.h"
+#include "AttenuationMC.h"
 #include "MIPPNumiYieldsBins.h"
 
 namespace NeutrinoFluxReweight{
@@ -62,7 +62,7 @@ namespace NeutrinoFluxReweight{
     std::vector<InteractionData> vec_inter = aa.interaction_chain;
 
     //Finding the Data and MC total cross sections:    
-    DataHistos* dtH = DataHistos::getInstance();
+    AttenuationMC* dtH = AttenuationMC::getInstance();
     MIPPNumiYieldsBins*  MIPPbins =  MIPPNumiYieldsBins::getInstance();
    
     bool there_is_MIPP  = false;
@@ -90,7 +90,7 @@ namespace NeutrinoFluxReweight{
 	 int aux_binID = MIPPbins->BinID(tar.Pz,tar.Pt,211);
 	 if(aux_binID>=0){
 	   there_is_MIPP = true;
-	   //I substracted 78 because we store all histos in DataHistos but the kaon histograms make 
+	   //I substracted 78 because we store all histos in AttenuationMC but the kaon histograms make 
 	   // sense after P>20 GeV/c and we are using bin ID convention here.
 	   if(is_le)hzpos = dtH->hzpostgt_kap_le[aux_binID-78];
 	   if(is_me)hzpos = dtH->hzpostgt_kap_me[aux_binID-78];

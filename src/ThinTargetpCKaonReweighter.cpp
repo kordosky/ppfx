@@ -3,7 +3,6 @@
 #include <iostream>
 #include "MakeReweight.h"
 #include "ThinTargetBins.h"
-#include "DataHistos.h"
 #include "ThinTargetMC.h"
 
 namespace NeutrinoFluxReweight{
@@ -226,7 +225,7 @@ double ThinTargetpCKaonReweighter::calculateMCProd(int genid, double inc_mom){
   }
   double ThinTargetpCKaonReweighter::calculateDataScale(int inc_pdg, double inc_mom, int prod_pdg,double xf, double pt){
     double scaling_violation = 1.0;
-    DataHistos*  dtH =  DataHistos::getInstance();
+    ThinTargetMC*  dtH =  ThinTargetMC::getInstance();
     //temporary:
     const int Nscl = 11;
     const int moms[Nscl] = {12,20,31,40,50,60,70,80,100,120,158};
@@ -239,8 +238,8 @@ double ThinTargetpCKaonReweighter::calculateMCProd(int genid, double inc_mom){
       return 1.0;
     }
     
-    int binid = dtH->hNA49Scl[idx_part][Nscl-1]->FindBin(xf,pt);
-    double scl_ref158 = dtH->hNA49Scl[idx_part][Nscl-1]->GetBinContent(binid);    
+    int binid = dtH->hTTScl[idx_part][Nscl-1]->FindBin(xf,pt);
+    double scl_ref158 = dtH->hTTScl[idx_part][Nscl-1]->GetBinContent(binid);    
     
     int idx_lowp = -1;
     int idx_hip  = -1;
@@ -254,8 +253,8 @@ double ThinTargetpCKaonReweighter::calculateMCProd(int genid, double inc_mom){
       std::cout<<"Error calculating the scaling"<<std::endl;
       return 1.0;
     }
-    double scl_low = dtH->hNA49Scl[idx_part][idx_lowp]->GetBinContent(binid);
-    double scl_hi  = dtH->hNA49Scl[idx_part][idx_hip]->GetBinContent(binid);
+    double scl_low = dtH->hTTScl[idx_part][idx_lowp]->GetBinContent(binid);
+    double scl_hi  = dtH->hTTScl[idx_part][idx_hip]->GetBinContent(binid);
     double scl_m   =  scl_low + (inc_mom-double(moms[idx_lowp]))*(scl_hi-scl_low)/(double(moms[idx_hip])-double(moms[idx_lowp]));
     if(scl_ref158<1.e-10){
       // std::cout<<"ref158 zero!!! "<<scl_ref158<<std::endl;

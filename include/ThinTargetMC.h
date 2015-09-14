@@ -18,6 +18,10 @@ namespace NeutrinoFluxReweight{
     
     //! MC value for this HP production
     double getMCval_pC_X(double incP, double xf,double pt, int pdgcode);
+    //! Vector of the scaling histograms:
+    std::vector< std::vector<TH2F*> > hTTScl; 
+    //! Vector of the scaling histograms for neutrons:
+    std::vector<TH1F*> hTTScl_n; 
     
   private:
 
@@ -34,7 +38,8 @@ namespace NeutrinoFluxReweight{
     std::vector<TH2D*> vqe_corr_p;
     std::vector<TH1D*> vqe_corr_n;
 
-
+    std::vector<TFile*> fTTscale;
+    
     static ThinTargetMC* instance;
     
   };

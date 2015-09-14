@@ -2,7 +2,6 @@
 #include "ThinTargetnucleonAReweighter.h"
 #include <iostream>
 #include "MakeReweight.h"
-#include "DataHistos.h"
 
 namespace NeutrinoFluxReweight{
   

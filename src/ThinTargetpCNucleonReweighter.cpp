@@ -3,7 +3,6 @@
 #include <iostream>
 #include "ThinTargetMC.h"
 #include "ThinTargetBins.h"
-#include "DataHistos.h"
 
 namespace NeutrinoFluxReweight{
   
@@ -135,7 +134,7 @@ namespace NeutrinoFluxReweight{
   double ThinTargetpCNucleonReweighter::calculateDataScale(int inc_pdg, double inc_mom, int prod_pdg,double xf, double pt){
  
     double scaling_violation = 1.0;
-    DataHistos*  dtH =  DataHistos::getInstance();
+    ThinTargetMC*  dtH =  ThinTargetMC::getInstance();
     //temporary:
     const int Nscl = 11;
     const int moms[Nscl] = {12,20,31,40,50,60,70,80,100,120,158};
@@ -165,22 +164,22 @@ namespace NeutrinoFluxReweight{
     double scl_m      =  0.0;
 
     if(idx_part==4){
-      int binid = dtH->hNA49Scl[idx_part][Nscl-1]->FindBin(xf,pt);
-      scl_ref158 = dtH->hNA49Scl[idx_part][Nscl-1]->GetBinContent(binid);    
+      int binid = dtH->hTTScl[idx_part][Nscl-1]->FindBin(xf,pt);
+      scl_ref158 = dtH->hTTScl[idx_part][Nscl-1]->GetBinContent(binid);    
       //just provisional... the scaling just reach up to xF=0.8975... consering a close xf value
       if(xf>0.8975){
-	binid = dtH->hNA49Scl[idx_part][Nscl-1]->FindBin(0.89,pt);
-	scl_ref158 = dtH->hNA49Scl[idx_part][Nscl-1]->GetBinContent(binid); 
+	binid = dtH->hTTScl[idx_part][Nscl-1]->FindBin(0.89,pt);
+	scl_ref158 = dtH->hTTScl[idx_part][Nscl-1]->GetBinContent(binid); 
       }
-      double scl_low = dtH->hNA49Scl[idx_part][idx_lowp]->GetBinContent(binid);
-      double scl_hi  = dtH->hNA49Scl[idx_part][idx_hip]->GetBinContent(binid);
+      double scl_low = dtH->hTTScl[idx_part][idx_lowp]->GetBinContent(binid);
+      double scl_hi  = dtH->hTTScl[idx_part][idx_hip]->GetBinContent(binid);
       scl_m   =  scl_low + (inc_mom-double(moms[idx_lowp]))*(scl_hi-scl_low)/(double(moms[idx_hip])-double(moms[idx_lowp]));
     }
     else if(idx_part==5){
-      int binid = dtH->hNA49Scl_n[Nscl-1]->FindBin(xf);
-      scl_ref158 = (double)dtH->hNA49Scl_n[Nscl-1]->GetBinContent(binid); 
-      double scl_low = dtH->hNA49Scl_n[idx_lowp]->GetBinContent(binid);
-      double scl_hi  = dtH->hNA49Scl_n[idx_hip]->GetBinContent(binid);
+      int binid = dtH->hTTScl_n[Nscl-1]->FindBin(xf);
+      scl_ref158 = (double)dtH->hTTScl_n[Nscl-1]->GetBinContent(binid); 
+      double scl_low = dtH->hTTScl_n[idx_lowp]->GetBinContent(binid);
+      double scl_hi  = dtH->hTTScl_n[idx_hip]->GetBinContent(binid);
       scl_m   =  scl_low + (inc_mom-double(moms[idx_lowp]))*(scl_hi-scl_low)/(double(moms[idx_hip])-double(moms[idx_lowp]));
     }
     else{

@@ -1,6 +1,5 @@
 
 #include "MIPPNumiPionYieldsReweighter.h"
-#include "DataHistos.h"
 #include "CentralValuesAndUncertainties.h"
 
 #include "MIPPNumiYieldsBins.h"

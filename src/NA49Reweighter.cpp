@@ -1,6 +1,6 @@
 
 #include "NA49Reweighter.h"
-#include "DataHistos.h"
+
 #include <iostream>
 
 namespace NeutrinoFluxReweight{
@@ -60,7 +60,7 @@ namespace NeutrinoFluxReweight{
   }
   
   double NA49Reweighter::calculateWeight(const InteractionData& thisid){
-    DataHistos*  dtH =  DataHistos::getInstance();
+    
     
     Parameter p1("test1",1.3);
     Parameter p2("test2",-3.5);
