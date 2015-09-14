@@ -1,10 +1,6 @@
 #ifndef REWEIGHTDRIVER_H
 #define REWEIGHTDRIVER_H
 
-#include "NA49Reweighter.h"
-#include "MIPPThinTargetReweighter.h"
-#include "TheoryThinTargetReweighter.h"
-
 #include "MIPPNumiPionYieldsReweighter.h"
 #include "MIPPNumiKaonYieldsReweighter.h"
 #include "TargetAttenuationReweighter.h"
@@ -93,15 +89,6 @@ namespace NeutrinoFluxReweight{
      /*!   Any other hadronic interaction not corrected yet   */
     double other_wgt;
     
-    /*!   NA49 weight   */
-    double na49_wgt;
-    
-    /*!   MIPP thin target weight   */
-    double mipp_thin_wgt;
-    
-    /*!   Theory (model) prediction weight   */
-    //double theory_wgt;
-
     //Other weigts for my studies:
     double aux_pcpi_na49, aux_pcpi_bart, aux_pcnu_neu, aux_pcnu_prt, aux_pck_na49, aux_pck_mipp, aux_pck_k0;
     
@@ -123,10 +110,7 @@ namespace NeutrinoFluxReweight{
     ThinTargetnucleonAReweighter* THINTARGET_NUCLEON_A_Universe;
 
     OtherReweighter* OTHER_Universe;
-    //Now used now to calculate HP weigts::
-    NA49Reweighter* NA49_Universe;
-    MIPPThinTargetReweighter* MIPP_THIN_Universe;
-
+    
   private:    
     /*!
      * Configures each of the reweighing tools.
@@ -145,30 +129,7 @@ namespace NeutrinoFluxReweight{
     ///
     
     //Flag to select the reweighters:
-    bool doMIPPNumiPionYields;
-    bool doMIPPNumiKaonYields;
-
-    bool doTargetAttenuation;
-    bool doAbsorptionIC;
-    bool doAbsorptionDPIP;
-    bool doAbsorptionDVOL;
-    bool doAbsorptionNucleon;
-    bool doAbsorptionOther;
-    
-    bool doThinTargetpCPion;
-    bool doThinTargetpCKaon;
-    bool doThinTargetnCPion;
-    bool doThinTargetpCNucleon;
-    bool doThinTargetMesonIncident;
-    bool doThinTargetnucleonA;
-    bool doOther;
-    
-    //now used now in hp wgts:
-    bool doNA49;
-    bool doMIPPThinTarget;
-    bool doTheoryThinTarget;
-    ///
- 
+    bool doMIPPNumi;
     std::string fileOptions;
     
   };
