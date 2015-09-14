@@ -1,31 +1,10 @@
 <inputs>
-
-  <FlagReweighters>
-    <MIPPNumiPionYields>Yes</MIPPNumiPionYields>
-    <MIPPNumiKaonYields>Yes</MIPPNumiKaonYields>
-    <TargetAttenuation>Yes</TargetAttenuation>
-    <AbsorptionIC>Yes</AbsorptionIC>
-    <AbsorptionDPIP>Yes</AbsorptionDPIP>
-    <AbsorptionDVOL>Yes</AbsorptionDVOL>
-    <NucleonAbsorptionOutOfTarget>Yes</NucleonAbsorptionOutOfTarget>
-    <OtherAbsorptionOutOfTarget>Yes</OtherAbsorptionOutOfTarget>
-    <ThinTargetpCPion>Yes</ThinTargetpCPion>
-    <ThinTargetpCKaon>Yes</ThinTargetpCKaon>
-    <ThinTargetnCPion>Yes</ThinTargetnCPion>
-    <ThinTargetpCNucleon>Yes</ThinTargetpCNucleon>
-    <ThinTargetMesonIncident>Yes</ThinTargetMesonIncident>
-    <ThinTargetnucleonA>Yes</ThinTargetnucleonA>
-    <OtherTarget>Yes</OtherTarget>
-    
-    <MIPPThinTarget>No</MIPPThinTarget>
-    <NA49>No</NA49>
-    </FlagReweighters>
-
    <Settings>
+     <!--Two modes available: MIPPNuMIOn and MIPPNuMIOff -->
+    <Reweighters>MIPPNuMIOn</Reweighters>
      <MIPPCorrOption>default</MIPPCorrOption>
      <NumberOfUniverses>100</NumberOfUniverses>
    </Settings>
-
 </inputs>
 
 
