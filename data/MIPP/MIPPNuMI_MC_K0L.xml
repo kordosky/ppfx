@@ -5,754 +5,754 @@
    <MIPPNuMI_MC_k0l>
  
       <MIPPNuMI_MC_k0l_0>
-         <cvcvmc>0.000738537587</cvcvmc>
-         <pzrangerange>0.300000000 0.500000000000</pzrangerange>
-         <ptrangerange>0.000000000 0.100000000000</ptrangerange>
+         <cvmc>0.000738537587</cvmc>
+         <pzrange>0.300000000 0.500000000000</pzrange>
+         <ptrange>0.000000000 0.100000000000</ptrange>
       </MIPPNuMI_MC_k0l_0>
       <MIPPNuMI_MC_k0l_1>
-         <cvcvmc>0.002002528253</cvcvmc>
-         <pzrangerange>0.300000000 0.500000000000</pzrangerange>
-         <ptrangerange>0.100000000 0.200000000000</ptrangerange>
+         <cvmc>0.002002528253</cvmc>
+         <pzrange>0.300000000 0.500000000000</pzrange>
+         <ptrange>0.100000000 0.200000000000</ptrange>
       </MIPPNuMI_MC_k0l_1>
       <MIPPNuMI_MC_k0l_2>
-         <cvcvmc>0.002253737433</cvcvmc>
-         <pzrangerange>0.300000000 0.500000000000</pzrangerange>
-         <ptrangerange>0.200000000 0.300000000000</ptrangerange>
+         <cvmc>0.002253737433</cvmc>
+         <pzrange>0.300000000 0.500000000000</pzrange>
+         <ptrange>0.200000000 0.300000000000</ptrange>
       </MIPPNuMI_MC_k0l_2>
       <MIPPNuMI_MC_k0l_3>
-         <cvcvmc>0.001787203266</cvcvmc>
-         <pzrangerange>0.300000000 0.500000000000</pzrangerange>
-         <ptrangerange>0.300000000 0.400000000000</ptrangerange>
+         <cvmc>0.001787203266</cvmc>
+         <pzrange>0.300000000 0.500000000000</pzrange>
+         <ptrange>0.300000000 0.400000000000</ptrange>
       </MIPPNuMI_MC_k0l_3>
       <MIPPNuMI_MC_k0l_4>
-         <cvcvmc>0.001125315943</cvcvmc>
-         <pzrangerange>0.300000000 0.500000000000</pzrangerange>
-         <ptrangerange>0.400000000 0.500000000000</ptrangerange>
+         <cvmc>0.001125315943</cvmc>
+         <pzrange>0.300000000 0.500000000000</pzrange>
+         <ptrange>0.400000000 0.500000000000</ptrange>
       </MIPPNuMI_MC_k0l_4>
       <MIPPNuMI_MC_k0l_5>
-         <cvcvmc>0.001120401408</cvcvmc>
-         <pzrangerange>0.300000000 0.500000000000</pzrangerange>
-         <ptrangerange>0.500000000 2.000000000000</ptrangerange>
+         <cvmc>0.001120401408</cvmc>
+         <pzrange>0.300000000 0.500000000000</pzrange>
+         <ptrange>0.500000000 2.000000000000</ptrange>
       </MIPPNuMI_MC_k0l_5>
       <MIPPNuMI_MC_k0l_6>
-         <cvcvmc>0.000484897152</cvcvmc>
-         <pzrangerange>0.500000000 0.620000000000</pzrangerange>
-         <ptrangerange>0.000000000 0.100000000000</ptrangerange>
+         <cvmc>0.000484897152</cvmc>
+         <pzrange>0.500000000 0.620000000000</pzrange>
+         <ptrange>0.000000000 0.100000000000</ptrange>
       </MIPPNuMI_MC_k0l_6>
       <MIPPNuMI_MC_k0l_7>
-         <cvcvmc>0.001343549023</cvcvmc>
-         <pzrangerange>0.500000000 0.620000000000</pzrangerange>
-         <ptrangerange>0.100000000 0.200000000000</ptrangerange>
+         <cvmc>0.001343549023</cvmc>
+         <pzrange>0.500000000 0.620000000000</pzrange>
+         <ptrange>0.100000000 0.200000000000</ptrange>
       </MIPPNuMI_MC_k0l_7>
       <MIPPNuMI_MC_k0l_8>
-         <cvcvmc>0.001573551666</cvcvmc>
-         <pzrangerange>0.500000000 0.620000000000</pzrangerange>
-         <ptrangerange>0.200000000 0.300000000000</ptrangerange>
+         <cvmc>0.001573551666</cvmc>
+         <pzrange>0.500000000 0.620000000000</pzrange>
+         <ptrange>0.200000000 0.300000000000</ptrange>
       </MIPPNuMI_MC_k0l_8>
       <MIPPNuMI_MC_k0l_9>
-         <cvcvmc>0.001321413869</cvcvmc>
-         <pzrangerange>0.500000000 0.620000000000</pzrangerange>
-         <ptrangerange>0.300000000 0.400000000000</ptrangerange>
+         <cvmc>0.001321413869</cvmc>
+         <pzrange>0.500000000 0.620000000000</pzrange>
+         <ptrange>0.300000000 0.400000000000</ptrange>
       </MIPPNuMI_MC_k0l_9>
       <MIPPNuMI_MC_k0l_10>
-         <cvcvmc>0.000884605151</cvcvmc>
-         <pzrangerange>0.500000000 0.620000000000</pzrangerange>
-         <ptrangerange>0.400000000 0.500000000000</ptrangerange>
+         <cvmc>0.000884605151</cvmc>
+         <pzrange>0.500000000 0.620000000000</pzrange>
+         <ptrange>0.400000000 0.500000000000</ptrange>
       </MIPPNuMI_MC_k0l_10>
       <MIPPNuMI_MC_k0l_11>
-         <cvcvmc>0.000968509923</cvcvmc>
-         <pzrangerange>0.500000000 0.620000000000</pzrangerange>
-         <ptrangerange>0.500000000 2.000000000000</ptrangerange>
+         <cvmc>0.000968509923</cvmc>
+         <pzrange>0.500000000 0.620000000000</pzrange>
+         <ptrange>0.500000000 2.000000000000</ptrange>
       </MIPPNuMI_MC_k0l_11>
       <MIPPNuMI_MC_k0l_12>
-         <cvcvmc>0.000527827436</cvcvmc>
-         <pzrangerange>0.620000000 0.750000000000</pzrangerange>
-         <ptrangerange>0.000000000 0.100000000000</ptrangerange>
+         <cvmc>0.000527827436</cvmc>
+         <pzrange>0.620000000 0.750000000000</pzrange>
+         <ptrange>0.000000000 0.100000000000</ptrange>
       </MIPPNuMI_MC_k0l_12>
       <MIPPNuMI_MC_k0l_13>
-         <cvcvmc>0.001463618465</cvcvmc>
-         <pzrangerange>0.620000000 0.750000000000</pzrangerange>
-         <ptrangerange>0.100000000 0.200000000000</ptrangerange>
+         <cvmc>0.001463618465</cvmc>
+         <pzrange>0.620000000 0.750000000000</pzrange>
+         <ptrange>0.100000000 0.200000000000</ptrange>
       </MIPPNuMI_MC_k0l_13>
       <MIPPNuMI_MC_k0l_14>
-         <cvcvmc>0.001760981135</cvcvmc>
-         <pzrangerange>0.620000000 0.750000000000</pzrangerange>
-         <ptrangerange>0.200000000 0.300000000000</ptrangerange>
+         <cvmc>0.001760981135</cvmc>
+         <pzrange>0.620000000 0.750000000000</pzrange>
+         <ptrange>0.200000000 0.300000000000</ptrange>
       </MIPPNuMI_MC_k0l_14>
       <MIPPNuMI_MC_k0l_15>
-         <cvcvmc>0.001502896352</cvcvmc>
-         <pzrangerange>0.620000000 0.750000000000</pzrangerange>
-         <ptrangerange>0.300000000 0.400000000000</ptrangerange>
+         <cvmc>0.001502896352</cvmc>
+         <pzrange>0.620000000 0.750000000000</pzrange>
+         <ptrange>0.300000000 0.400000000000</ptrange>
       </MIPPNuMI_MC_k0l_15>
       <MIPPNuMI_MC_k0l_16>
-         <cvcvmc>0.001081390343</cvcvmc>
-         <pzrangerange>0.620000000 0.750000000000</pzrangerange>
-         <ptrangerange>0.400000000 0.500000000000</ptrangerange>
+         <cvmc>0.001081390343</cvmc>
+         <pzrange>0.620000000 0.750000000000</pzrange>
+         <ptrange>0.400000000 0.500000000000</ptrange>
       </MIPPNuMI_MC_k0l_16>
       <MIPPNuMI_MC_k0l_17>
-         <cvcvmc>0.001265939053</cvcvmc>
-         <pzrangerange>0.620000000 0.750000000000</pzrangerange>
-         <ptrangerange>0.500000000 2.000000000000</ptrangerange>
+         <cvmc>0.001265939053</cvmc>
+         <pzrange>0.620000000 0.750000000000</pzrange>
+         <ptrange>0.500000000 2.000000000000</ptrange>
       </MIPPNuMI_MC_k0l_17>
       <MIPPNuMI_MC_k0l_18>
-         <cvcvmc>0.000485176816</cvcvmc>
-         <pzrangerange>0.750000000 0.880000000000</pzrangerange>
-         <ptrangerange>0.000000000 0.100000000000</ptrangerange>
+         <cvmc>0.000485176816</cvmc>
+         <pzrange>0.750000000 0.880000000000</pzrange>
+         <ptrange>0.000000000 0.100000000000</ptrange>
       </MIPPNuMI_MC_k0l_18>
       <MIPPNuMI_MC_k0l_19>
-         <cvcvmc>0.001394267187</cvcvmc>
-         <pzrangerange>0.750000000 0.880000000000</pzrangerange>
-         <ptrangerange>0.100000000 0.200000000000</ptrangerange>
+         <cvmc>0.001394267187</cvmc>
+         <pzrange>0.750000000 0.880000000000</pzrange>
+         <ptrange>0.100000000 0.200000000000</ptrange>
       </MIPPNuMI_MC_k0l_19>
       <MIPPNuMI_MC_k0l_20>
-         <cvcvmc>0.001741101737</cvcvmc>
-         <pzrangerange>0.750000000 0.880000000000</pzrangerange>
-         <ptrangerange>0.200000000 0.300000000000</ptrangerange>
+         <cvmc>0.001741101737</cvmc>
+         <pzrange>0.750000000 0.880000000000</pzrange>
+         <ptrange>0.200000000 0.300000000000</ptrange>
       </MIPPNuMI_MC_k0l_20>
       <MIPPNuMI_MC_k0l_21>
-         <cvcvmc>0.001563025692</cvcvmc>
-         <pzrangerange>0.750000000 0.880000000000</pzrangerange>
-         <ptrangerange>0.300000000 0.400000000000</ptrangerange>
+         <cvmc>0.001563025692</cvmc>
+         <pzrange>0.750000000 0.880000000000</pzrange>
+         <ptrange>0.300000000 0.400000000000</ptrange>
       </MIPPNuMI_MC_k0l_21>
       <MIPPNuMI_MC_k0l_22>
-         <cvcvmc>0.001148747869</cvcvmc>
-         <pzrangerange>0.750000000 0.880000000000</pzrangerange>
-         <ptrangerange>0.400000000 0.500000000000</ptrangerange>
+         <cvmc>0.001148747869</cvmc>
+         <pzrange>0.750000000 0.880000000000</pzrange>
+         <ptrange>0.400000000 0.500000000000</ptrange>
       </MIPPNuMI_MC_k0l_22>
       <MIPPNuMI_MC_k0l_23>
-         <cvcvmc>0.001450003454</cvcvmc>
-         <pzrangerange>0.750000000 0.880000000000</pzrangerange>
-         <ptrangerange>0.500000000 2.000000000000</ptrangerange>
+         <cvmc>0.001450003454</cvmc>
+         <pzrange>0.750000000 0.880000000000</pzrange>
+         <ptrange>0.500000000 2.000000000000</ptrange>
       </MIPPNuMI_MC_k0l_23>
       <MIPPNuMI_MC_k0l_24>
-         <cvcvmc>0.000414730302</cvcvmc>
-         <pzrangerange>0.880000000 1.000000000000</pzrangerange>
-         <ptrangerange>0.000000000 0.100000000000</ptrangerange>
+         <cvmc>0.000414730302</cvmc>
+         <pzrange>0.880000000 1.000000000000</pzrange>
+         <ptrange>0.000000000 0.100000000000</ptrange>
       </MIPPNuMI_MC_k0l_24>
       <MIPPNuMI_MC_k0l_25>
-         <cvcvmc>0.001241905541</cvcvmc>
-         <pzrangerange>0.880000000 1.000000000000</pzrangerange>
-         <ptrangerange>0.100000000 0.200000000000</ptrangerange>
+         <cvmc>0.001241905541</cvmc>
+         <pzrange>0.880000000 1.000000000000</pzrange>
+         <ptrange>0.100000000 0.200000000000</ptrange>
       </MIPPNuMI_MC_k0l_25>
       <MIPPNuMI_MC_k0l_26>
-         <cvcvmc>0.001541892161</cvcvmc>
-         <pzrangerange>0.880000000 1.000000000000</pzrangerange>
-         <ptrangerange>0.200000000 0.300000000000</ptrangerange>
+         <cvmc>0.001541892161</cvmc>
+         <pzrange>0.880000000 1.000000000000</pzrange>
+         <ptrange>0.200000000 0.300000000000</ptrange>
       </MIPPNuMI_MC_k0l_26>
       <MIPPNuMI_MC_k0l_27>
-         <cvcvmc>0.001410898952</cvcvmc>
-         <pzrangerange>0.880000000 1.000000000000</pzrangerange>
-         <ptrangerange>0.300000000 0.400000000000</ptrangerange>
+         <cvmc>0.001410898952</cvmc>
+         <pzrange>0.880000000 1.000000000000</pzrange>
+         <ptrange>0.300000000 0.400000000000</ptrange>
       </MIPPNuMI_MC_k0l_27>
       <MIPPNuMI_MC_k0l_28>
-         <cvcvmc>0.001068763074</cvcvmc>
-         <pzrangerange>0.880000000 1.000000000000</pzrangerange>
-         <ptrangerange>0.400000000 0.500000000000</ptrangerange>
+         <cvmc>0.001068763074</cvmc>
+         <pzrange>0.880000000 1.000000000000</pzrange>
+         <ptrange>0.400000000 0.500000000000</ptrange>
       </MIPPNuMI_MC_k0l_28>
       <MIPPNuMI_MC_k0l_29>
-         <cvcvmc>0.001470415220</cvcvmc>
-         <pzrangerange>0.880000000 1.000000000000</pzrangerange>
-         <ptrangerange>0.500000000 2.000000000000</ptrangerange>
+         <cvmc>0.001470415220</cvmc>
+         <pzrange>0.880000000 1.000000000000</pzrange>
+         <ptrange>0.500000000 2.000000000000</ptrange>
       </MIPPNuMI_MC_k0l_29>
       <MIPPNuMI_MC_k0l_30>
-         <cvcvmc>0.000648749054</cvcvmc>
-         <pzrangerange>1.000000000 1.200000000000</pzrangerange>
-         <ptrangerange>0.000000000 0.100000000000</ptrangerange>
+         <cvmc>0.000648749054</cvmc>
+         <pzrange>1.000000000 1.200000000000</pzrange>
+         <ptrange>0.000000000 0.100000000000</ptrange>
       </MIPPNuMI_MC_k0l_30>
       <MIPPNuMI_MC_k0l_31>
-         <cvcvmc>0.001935929093</cvcvmc>
-         <pzrangerange>1.000000000 1.200000000000</pzrangerange>
-         <ptrangerange>0.100000000 0.200000000000</ptrangerange>
+         <cvmc>0.001935929093</cvmc>
+         <pzrange>1.000000000 1.200000000000</pzrange>
+         <ptrange>0.100000000 0.200000000000</ptrange>
       </MIPPNuMI_MC_k0l_31>
       <MIPPNuMI_MC_k0l_32>
-         <cvcvmc>0.002459792246</cvcvmc>
-         <pzrangerange>1.000000000 1.200000000000</pzrangerange>
-         <ptrangerange>0.200000000 0.300000000000</ptrangerange>
+         <cvmc>0.002459792246</cvmc>
+         <pzrange>1.000000000 1.200000000000</pzrange>
+         <ptrange>0.200000000 0.300000000000</ptrange>
       </MIPPNuMI_MC_k0l_32>
       <MIPPNuMI_MC_k0l_33>
-         <cvcvmc>0.002298786240</cvcvmc>
-         <pzrangerange>1.000000000 1.200000000000</pzrangerange>
-         <ptrangerange>0.300000000 0.400000000000</ptrangerange>
+         <cvmc>0.002298786240</cvmc>
+         <pzrange>1.000000000 1.200000000000</pzrange>
+         <ptrange>0.300000000 0.400000000000</ptrange>
       </MIPPNuMI_MC_k0l_33>
       <MIPPNuMI_MC_k0l_34>
-         <cvcvmc>0.001765084674</cvcvmc>
-         <pzrangerange>1.000000000 1.200000000000</pzrangerange>
-         <ptrangerange>0.400000000 0.500000000000</ptrangerange>
+         <cvmc>0.001765084674</cvmc>
+         <pzrange>1.000000000 1.200000000000</pzrange>
+         <ptrange>0.400000000 0.500000000000</ptrange>
       </MIPPNuMI_MC_k0l_34>
       <MIPPNuMI_MC_k0l_35>
-         <cvcvmc>0.002708008564</cvcvmc>
-         <pzrangerange>1.000000000 1.200000000000</pzrangerange>
-         <ptrangerange>0.500000000 2.000000000000</ptrangerange>
+         <cvmc>0.002708008564</cvmc>
+         <pzrange>1.000000000 1.200000000000</pzrange>
+         <ptrange>0.500000000 2.000000000000</ptrange>
       </MIPPNuMI_MC_k0l_35>
       <MIPPNuMI_MC_k0l_36>
-         <cvcvmc>0.000880099662</cvcvmc>
-         <pzrangerange>1.200000000 1.500000000000</pzrangerange>
-         <ptrangerange>0.000000000 0.100000000000</ptrangerange>
+         <cvmc>0.000880099662</cvmc>
+         <pzrange>1.200000000 1.500000000000</pzrange>
+         <ptrange>0.000000000 0.100000000000</ptrange>
       </MIPPNuMI_MC_k0l_36>
       <MIPPNuMI_MC_k0l_37>
-         <cvcvmc>0.002609138260</cvcvmc>
-         <pzrangerange>1.200000000 1.500000000000</pzrangerange>
-         <ptrangerange>0.100000000 0.200000000000</ptrangerange>
+         <cvmc>0.002609138260</cvmc>
+         <pzrange>1.200000000 1.500000000000</pzrange>
+         <ptrange>0.100000000 0.200000000000</ptrange>
       </MIPPNuMI_MC_k0l_37>
       <MIPPNuMI_MC_k0l_38>
-         <cvcvmc>0.003324900288</cvcvmc>
-         <pzrangerange>1.200000000 1.500000000000</pzrangerange>
-         <ptrangerange>0.200000000 0.300000000000</ptrangerange>
+         <cvmc>0.003324900288</cvmc>
+         <pzrange>1.200000000 1.500000000000</pzrange>
+         <ptrange>0.200000000 0.300000000000</ptrange>
       </MIPPNuMI_MC_k0l_38>
       <MIPPNuMI_MC_k0l_39>
-         <cvcvmc>0.003233926986</cvcvmc>
-         <pzrangerange>1.200000000 1.500000000000</pzrangerange>
-         <ptrangerange>0.300000000 0.400000000000</ptrangerange>
+         <cvmc>0.003233926986</cvmc>
+         <pzrange>1.200000000 1.500000000000</pzrange>
+         <ptrange>0.300000000 0.400000000000</ptrange>
       </MIPPNuMI_MC_k0l_39>
       <MIPPNuMI_MC_k0l_40>
-         <cvcvmc>0.002556962353</cvcvmc>
-         <pzrangerange>1.200000000 1.500000000000</pzrangerange>
-         <ptrangerange>0.400000000 0.500000000000</ptrangerange>
+         <cvmc>0.002556962353</cvmc>
+         <pzrange>1.200000000 1.500000000000</pzrange>
+         <ptrange>0.400000000 0.500000000000</ptrange>
       </MIPPNuMI_MC_k0l_40>
       <MIPPNuMI_MC_k0l_41>
-         <cvcvmc>0.004267145987</cvcvmc>
-         <pzrangerange>1.200000000 1.500000000000</pzrangerange>
-         <ptrangerange>0.500000000 2.000000000000</ptrangerange>
+         <cvmc>0.004267145987</cvmc>
+         <pzrange>1.200000000 1.500000000000</pzrange>
+         <ptrange>0.500000000 2.000000000000</ptrange>
       </MIPPNuMI_MC_k0l_41>
       <MIPPNuMI_MC_k0l_42>
-         <cvcvmc>0.001142314811</cvcvmc>
-         <pzrangerange>1.500000000 2.000000000000</pzrangerange>
-         <ptrangerange>0.000000000 0.100000000000</ptrangerange>
+         <cvmc>0.001142314811</cvmc>
+         <pzrange>1.500000000 2.000000000000</pzrange>
+         <ptrange>0.000000000 0.100000000000</ptrange>
       </MIPPNuMI_MC_k0l_42>
       <MIPPNuMI_MC_k0l_43>
-         <cvcvmc>0.003457197137</cvcvmc>
-         <pzrangerange>1.500000000 2.000000000000</pzrangerange>
-         <ptrangerange>0.100000000 0.200000000000</ptrangerange>
+         <cvmc>0.003457197137</cvmc>
+         <pzrange>1.500000000 2.000000000000</pzrange>
+         <ptrange>0.100000000 0.200000000000</ptrange>
       </MIPPNuMI_MC_k0l_43>
       <MIPPNuMI_MC_k0l_44>
-         <cvcvmc>0.004644155655</cvcvmc>
-         <pzrangerange>1.500000000 2.000000000000</pzrangerange>
-         <ptrangerange>0.200000000 0.300000000000</ptrangerange>
+         <cvmc>0.004644155655</cvmc>
+         <pzrange>1.500000000 2.000000000000</pzrange>
+         <ptrange>0.200000000 0.300000000000</ptrange>
       </MIPPNuMI_MC_k0l_44>
       <MIPPNuMI_MC_k0l_45>
-         <cvcvmc>0.004547799146</cvcvmc>
-         <pzrangerange>1.500000000 2.000000000000</pzrangerange>
-         <ptrangerange>0.300000000 0.400000000000</ptrangerange>
+         <cvmc>0.004547799146</cvmc>
+         <pzrange>1.500000000 2.000000000000</pzrange>
+         <ptrange>0.300000000 0.400000000000</ptrange>
       </MIPPNuMI_MC_k0l_45>
       <MIPPNuMI_MC_k0l_46>
-         <cvcvmc>0.003772808261</cvcvmc>
-         <pzrangerange>1.500000000 2.000000000000</pzrangerange>
-         <ptrangerange>0.400000000 0.500000000000</ptrangerange>
+         <cvmc>0.003772808261</cvmc>
+         <pzrange>1.500000000 2.000000000000</pzrange>
+         <ptrange>0.400000000 0.500000000000</ptrange>
       </MIPPNuMI_MC_k0l_46>
       <MIPPNuMI_MC_k0l_47>
-         <cvcvmc>0.007181891376</cvcvmc>
-         <pzrangerange>1.500000000 2.000000000000</pzrangerange>
-         <ptrangerange>0.500000000 2.000000000000</ptrangerange>
+         <cvmc>0.007181891376</cvmc>
+         <pzrange>1.500000000 2.000000000000</pzrange>
+         <ptrange>0.500000000 2.000000000000</ptrange>
       </MIPPNuMI_MC_k0l_47>
       <MIPPNuMI_MC_k0l_48>
-         <cvcvmc>0.000823376210</cvcvmc>
-         <pzrangerange>2.000000000 2.500000000000</pzrangerange>
-         <ptrangerange>0.000000000 0.100000000000</ptrangerange>
+         <cvmc>0.000823376210</cvmc>
+         <pzrange>2.000000000 2.500000000000</pzrange>
+         <ptrange>0.000000000 0.100000000000</ptrange>
       </MIPPNuMI_MC_k0l_48>
       <MIPPNuMI_MC_k0l_49>
-         <cvcvmc>0.002651949064</cvcvmc>
-         <pzrangerange>2.000000000 2.500000000000</pzrangerange>
-         <ptrangerange>0.100000000 0.200000000000</ptrangerange>
+         <cvmc>0.002651949064</cvmc>
+         <pzrange>2.000000000 2.500000000000</pzrange>
+         <ptrange>0.100000000 0.200000000000</ptrange>
       </MIPPNuMI_MC_k0l_49>
       <MIPPNuMI_MC_k0l_50>
-         <cvcvmc>0.003633269760</cvcvmc>
-         <pzrangerange>2.000000000 2.500000000000</pzrangerange>
-         <ptrangerange>0.200000000 0.300000000000</ptrangerange>
+         <cvmc>0.003633269760</cvmc>
+         <pzrange>2.000000000 2.500000000000</pzrange>
+         <ptrange>0.200000000 0.300000000000</ptrange>
       </MIPPNuMI_MC_k0l_50>
       <MIPPNuMI_MC_k0l_51>
-         <cvcvmc>0.003696608456</cvcvmc>
-         <pzrangerange>2.000000000 2.500000000000</pzrangerange>
-         <ptrangerange>0.300000000 0.400000000000</ptrangerange>
+         <cvmc>0.003696608456</cvmc>
+         <pzrange>2.000000000 2.500000000000</pzrange>
+         <ptrange>0.300000000 0.400000000000</ptrange>
       </MIPPNuMI_MC_k0l_51>
       <MIPPNuMI_MC_k0l_52>
-         <cvcvmc>0.003154821169</cvcvmc>
-         <pzrangerange>2.000000000 2.500000000000</pzrangerange>
-         <ptrangerange>0.400000000 0.500000000000</ptrangerange>
+         <cvmc>0.003154821169</cvmc>
+         <pzrange>2.000000000 2.500000000000</pzrange>
+         <ptrange>0.400000000 0.500000000000</ptrange>
       </MIPPNuMI_MC_k0l_52>
       <MIPPNuMI_MC_k0l_53>
-         <cvcvmc>0.006739537308</cvcvmc>
-         <pzrangerange>2.000000000 2.500000000000</pzrangerange>
-         <ptrangerange>0.500000000 2.000000000000</ptrangerange>
+         <cvmc>0.006739537308</cvmc>
+         <pzrange>2.000000000 2.500000000000</pzrange>
+         <ptrange>0.500000000 2.000000000000</ptrange>
       </MIPPNuMI_MC_k0l_53>
       <MIPPNuMI_MC_k0l_54>
-         <cvcvmc>0.001583275442</cvcvmc>
-         <pzrangerange>2.500000000 4.000000000000</pzrangerange>
-         <ptrangerange>0.000000000 0.100000000000</ptrangerange>
+         <cvmc>0.001583275442</cvmc>
+         <pzrange>2.500000000 4.000000000000</pzrange>
+         <ptrange>0.000000000 0.100000000000</ptrange>
       </MIPPNuMI_MC_k0l_54>
       <MIPPNuMI_MC_k0l_55>
-         <cvcvmc>0.005094464566</cvcvmc>
-         <pzrangerange>2.500000000 4.000000000000</pzrangerange>
-         <ptrangerange>0.100000000 0.200000000000</ptrangerange>
+         <cvmc>0.005094464566</cvmc>
+         <pzrange>2.500000000 4.000000000000</pzrange>
+         <ptrange>0.100000000 0.200000000000</ptrange>
       </MIPPNuMI_MC_k0l_55>
       <MIPPNuMI_MC_k0l_56>
-         <cvcvmc>0.007274086428</cvcvmc>
-         <pzrangerange>2.500000000 4.000000000000</pzrangerange>
-         <ptrangerange>0.200000000 0.300000000000</ptrangerange>
+         <cvmc>0.007274086428</cvmc>
+         <pzrange>2.500000000 4.000000000000</pzrange>
+         <ptrange>0.200000000 0.300000000000</ptrange>
       </MIPPNuMI_MC_k0l_56>
       <MIPPNuMI_MC_k0l_57>
-         <cvcvmc>0.007622792677</cvcvmc>
-         <pzrangerange>2.500000000 4.000000000000</pzrangerange>
-         <ptrangerange>0.300000000 0.400000000000</ptrangerange>
+         <cvmc>0.007622792677</cvmc>
+         <pzrange>2.500000000 4.000000000000</pzrange>
+         <ptrange>0.300000000 0.400000000000</ptrange>
       </MIPPNuMI_MC_k0l_57>
       <MIPPNuMI_MC_k0l_58>
-         <cvcvmc>0.006788807954</cvcvmc>
-         <pzrangerange>2.500000000 4.000000000000</pzrangerange>
-         <ptrangerange>0.400000000 0.500000000000</ptrangerange>
+         <cvmc>0.006788807954</cvmc>
+         <pzrange>2.500000000 4.000000000000</pzrange>
+         <ptrange>0.400000000 0.500000000000</ptrange>
       </MIPPNuMI_MC_k0l_58>
       <MIPPNuMI_MC_k0l_59>
-         <cvcvmc>0.016644615773</cvcvmc>
-         <pzrangerange>2.500000000 4.000000000000</pzrangerange>
-         <ptrangerange>0.500000000 2.000000000000</ptrangerange>
+         <cvmc>0.016644615773</cvmc>
+         <pzrange>2.500000000 4.000000000000</pzrange>
+         <ptrange>0.500000000 2.000000000000</ptrange>
       </MIPPNuMI_MC_k0l_59>
       <MIPPNuMI_MC_k0l_60>
-         <cvcvmc>0.001059853794</cvcvmc>
-         <pzrangerange>4.000000000 6.000000000000</pzrangerange>
-         <ptrangerange>0.000000000 0.100000000000</ptrangerange>
+         <cvmc>0.001059853794</cvmc>
+         <pzrange>4.000000000 6.000000000000</pzrange>
+         <ptrange>0.000000000 0.100000000000</ptrange>
       </MIPPNuMI_MC_k0l_60>
       <MIPPNuMI_MC_k0l_61>
-         <cvcvmc>0.003552911787</cvcvmc>
-         <pzrangerange>4.000000000 6.000000000000</pzrangerange>
-         <ptrangerange>0.100000000 0.200000000000</ptrangerange>
+         <cvmc>0.003552911787</cvmc>
+         <pzrange>4.000000000 6.000000000000</pzrange>
+         <ptrange>0.100000000 0.200000000000</ptrange>
       </MIPPNuMI_MC_k0l_61>
       <MIPPNuMI_MC_k0l_62>
-         <cvcvmc>0.005298188848</cvcvmc>
-         <pzrangerange>4.000000000 6.000000000000</pzrangerange>
-         <ptrangerange>0.200000000 0.300000000000</ptrangerange>
+         <cvmc>0.005298188848</cvmc>
+         <pzrange>4.000000000 6.000000000000</pzrange>
+         <ptrange>0.200000000 0.300000000000</ptrange>
       </MIPPNuMI_MC_k0l_62>
       <MIPPNuMI_MC_k0l_63>
-         <cvcvmc>0.005784310428</cvcvmc>
-         <pzrangerange>4.000000000 6.000000000000</pzrangerange>
-         <ptrangerange>0.300000000 0.400000000000</ptrangerange>
+         <cvmc>0.005784310428</cvmc>
+         <pzrange>4.000000000 6.000000000000</pzrange>
+         <ptrange>0.300000000 0.400000000000</ptrange>
       </MIPPNuMI_MC_k0l_63>
       <MIPPNuMI_MC_k0l_64>
-         <cvcvmc>0.005395026538</cvcvmc>
-         <pzrangerange>4.000000000 6.000000000000</pzrangerange>
-         <ptrangerange>0.400000000 0.500000000000</ptrangerange>
+         <cvmc>0.005395026538</cvmc>
+         <pzrange>4.000000000 6.000000000000</pzrange>
+         <ptrange>0.400000000 0.500000000000</ptrange>
       </MIPPNuMI_MC_k0l_64>
       <MIPPNuMI_MC_k0l_65>
-         <cvcvmc>0.015236660200</cvcvmc>
-         <pzrangerange>4.000000000 6.000000000000</pzrangerange>
-         <ptrangerange>0.500000000 2.000000000000</ptrangerange>
+         <cvmc>0.015236660200</cvmc>
+         <pzrange>4.000000000 6.000000000000</pzrange>
+         <ptrange>0.500000000 2.000000000000</ptrange>
       </MIPPNuMI_MC_k0l_65>
       <MIPPNuMI_MC_k0l_66>
-         <cvcvmc>0.000585459625</cvcvmc>
-         <pzrangerange>6.000000000 8.000000000000</pzrangerange>
-         <ptrangerange>0.000000000 0.100000000000</ptrangerange>
+         <cvmc>0.000585459625</cvmc>
+         <pzrange>6.000000000 8.000000000000</pzrange>
+         <ptrange>0.000000000 0.100000000000</ptrange>
       </MIPPNuMI_MC_k0l_66>
       <MIPPNuMI_MC_k0l_67>
-         <cvcvmc>0.001965720538</cvcvmc>
-         <pzrangerange>6.000000000 8.000000000000</pzrangerange>
-         <ptrangerange>0.100000000 0.200000000000</ptrangerange>
+         <cvmc>0.001965720538</cvmc>
+         <pzrange>6.000000000 8.000000000000</pzrange>
+         <ptrange>0.100000000 0.200000000000</ptrange>
       </MIPPNuMI_MC_k0l_67>
       <MIPPNuMI_MC_k0l_68>
-         <cvcvmc>0.003018269186</cvcvmc>
-         <pzrangerange>6.000000000 8.000000000000</pzrangerange>
-         <ptrangerange>0.200000000 0.300000000000</ptrangerange>
+         <cvmc>0.003018269186</cvmc>
+         <pzrange>6.000000000 8.000000000000</pzrange>
+         <ptrange>0.200000000 0.300000000000</ptrange>
       </MIPPNuMI_MC_k0l_68>
       <MIPPNuMI_MC_k0l_69>
-         <cvcvmc>0.003415175803</cvcvmc>
-         <pzrangerange>6.000000000 8.000000000000</pzrangerange>
-         <ptrangerange>0.300000000 0.400000000000</ptrangerange>
+         <cvmc>0.003415175803</cvmc>
+         <pzrange>6.000000000 8.000000000000</pzrange>
+         <ptrange>0.300000000 0.400000000000</ptrange>
       </MIPPNuMI_MC_k0l_69>
       <MIPPNuMI_MC_k0l_70>
-         <cvcvmc>0.003269227810</cvcvmc>
-         <pzrangerange>6.000000000 8.000000000000</pzrangerange>
-         <ptrangerange>0.400000000 0.500000000000</ptrangerange>
+         <cvmc>0.003269227810</cvmc>
+         <pzrange>6.000000000 8.000000000000</pzrange>
+         <ptrange>0.400000000 0.500000000000</ptrange>
       </MIPPNuMI_MC_k0l_70>
       <MIPPNuMI_MC_k0l_71>
-         <cvcvmc>0.010082828711</cvcvmc>
-         <pzrangerange>6.000000000 8.000000000000</pzrangerange>
-         <ptrangerange>0.500000000 2.000000000000</ptrangerange>
+         <cvmc>0.010082828711</cvmc>
+         <pzrange>6.000000000 8.000000000000</pzrange>
+         <ptrange>0.500000000 2.000000000000</ptrange>
       </MIPPNuMI_MC_k0l_71>
       <MIPPNuMI_MC_k0l_72>
-         <cvcvmc>0.000356300959</cvcvmc>
-         <pzrangerange>8.000000000 10.000000000000</pzrangerange>
-         <ptrangerange>0.000000000 0.100000000000</ptrangerange>
+         <cvmc>0.000356300959</cvmc>
+         <pzrange>8.000000000 10.000000000000</pzrange>
+         <ptrange>0.000000000 0.100000000000</ptrange>
       </MIPPNuMI_MC_k0l_72>
       <MIPPNuMI_MC_k0l_73>
-         <cvcvmc>0.001206920984</cvcvmc>
-         <pzrangerange>8.000000000 10.000000000000</pzrangerange>
-         <ptrangerange>0.100000000 0.200000000000</ptrangerange>
+         <cvmc>0.001206920984</cvmc>
+         <pzrange>8.000000000 10.000000000000</pzrange>
+         <ptrange>0.100000000 0.200000000000</ptrange>
       </MIPPNuMI_MC_k0l_73>
       <MIPPNuMI_MC_k0l_74>
-         <cvcvmc>0.001873156594</cvcvmc>
-         <pzrangerange>8.000000000 10.000000000000</pzrangerange>
-         <ptrangerange>0.200000000 0.300000000000</ptrangerange>
+         <cvmc>0.001873156594</cvmc>
+         <pzrange>8.000000000 10.000000000000</pzrange>
+         <ptrange>0.200000000 0.300000000000</ptrange>
       </MIPPNuMI_MC_k0l_74>
       <MIPPNuMI_MC_k0l_75>
-         <cvcvmc>0.002166437266</cvcvmc>
-         <pzrangerange>8.000000000 10.000000000000</pzrangerange>
-         <ptrangerange>0.300000000 0.400000000000</ptrangerange>
+         <cvmc>0.002166437266</cvmc>
+         <pzrange>8.000000000 10.000000000000</pzrange>
+         <ptrange>0.300000000 0.400000000000</ptrange>
       </MIPPNuMI_MC_k0l_75>
       <MIPPNuMI_MC_k0l_76>
-         <cvcvmc>0.002111356574</cvcvmc>
-         <pzrangerange>8.000000000 10.000000000000</pzrangerange>
-         <ptrangerange>0.400000000 0.500000000000</ptrangerange>
+         <cvmc>0.002111356574</cvmc>
+         <pzrange>8.000000000 10.000000000000</pzrange>
+         <ptrange>0.400000000 0.500000000000</ptrange>
       </MIPPNuMI_MC_k0l_76>
       <MIPPNuMI_MC_k0l_77>
-         <cvcvmc>0.006964922572</cvcvmc>
-         <pzrangerange>8.000000000 10.000000000000</pzrangerange>
-         <ptrangerange>0.500000000 2.000000000000</ptrangerange>
+         <cvmc>0.006964922572</cvmc>
+         <pzrange>8.000000000 10.000000000000</pzrange>
+         <ptrange>0.500000000 2.000000000000</ptrange>
       </MIPPNuMI_MC_k0l_77>
       <MIPPNuMI_MC_k0l_78>
-         <cvcvmc>0.000231399403</cvcvmc>
-         <pzrangerange>10.000000000 12.000000000000</pzrangerange>
-         <ptrangerange>0.000000000 0.100000000000</ptrangerange>
+         <cvmc>0.000231399403</cvmc>
+         <pzrange>10.000000000 12.000000000000</pzrange>
+         <ptrange>0.000000000 0.100000000000</ptrange>
       </MIPPNuMI_MC_k0l_78>
       <MIPPNuMI_MC_k0l_79>
-         <cvcvmc>0.000792105993</cvcvmc>
-         <pzrangerange>10.000000000 12.000000000000</pzrangerange>
-         <ptrangerange>0.100000000 0.200000000000</ptrangerange>
+         <cvmc>0.000792105993</cvmc>
+         <pzrange>10.000000000 12.000000000000</pzrange>
+         <ptrange>0.100000000 0.200000000000</ptrange>
       </MIPPNuMI_MC_k0l_79>
       <MIPPNuMI_MC_k0l_80>
-         <cvcvmc>0.001234370162</cvcvmc>
-         <pzrangerange>10.000000000 12.000000000000</pzrangerange>
-         <ptrangerange>0.200000000 0.300000000000</ptrangerange>
+         <cvmc>0.001234370162</cvmc>
+         <pzrange>10.000000000 12.000000000000</pzrange>
+         <ptrange>0.200000000 0.300000000000</ptrange>
       </MIPPNuMI_MC_k0l_80>
       <MIPPNuMI_MC_k0l_81>
-         <cvcvmc>0.001455811260</cvcvmc>
-         <pzrangerange>10.000000000 12.000000000000</pzrangerange>
-         <ptrangerange>0.300000000 0.400000000000</ptrangerange>
+         <cvmc>0.001455811260</cvmc>
+         <pzrange>10.000000000 12.000000000000</pzrange>
+         <ptrange>0.300000000 0.400000000000</ptrange>
       </MIPPNuMI_MC_k0l_81>
       <MIPPNuMI_MC_k0l_82>
-         <cvcvmc>0.001442531534</cvcvmc>
-         <pzrangerange>10.000000000 12.000000000000</pzrangerange>
-         <ptrangerange>0.400000000 0.500000000000</ptrangerange>
+         <cvmc>0.001442531534</cvmc>
+         <pzrange>10.000000000 12.000000000000</pzrange>
+         <ptrange>0.400000000 0.500000000000</ptrange>
       </MIPPNuMI_MC_k0l_82>
       <MIPPNuMI_MC_k0l_83>
-         <cvcvmc>0.005007493366</cvcvmc>
-         <pzrangerange>10.000000000 12.000000000000</pzrangerange>
-         <ptrangerange>0.500000000 2.000000000000</ptrangerange>
+         <cvmc>0.005007493366</cvmc>
+         <pzrange>10.000000000 12.000000000000</pzrange>
+         <ptrange>0.500000000 2.000000000000</ptrange>
       </MIPPNuMI_MC_k0l_83>
       <MIPPNuMI_MC_k0l_84>
-         <cvcvmc>0.000164722307</cvcvmc>
-         <pzrangerange>12.000000000 14.000000000000</pzrangerange>
-         <ptrangerange>0.000000000 0.100000000000</ptrangerange>
+         <cvmc>0.000164722307</cvmc>
+         <pzrange>12.000000000 14.000000000000</pzrange>
+         <ptrange>0.000000000 0.100000000000</ptrange>
       </MIPPNuMI_MC_k0l_84>
       <MIPPNuMI_MC_k0l_85>
-         <cvcvmc>0.000545338199</cvcvmc>
-         <pzrangerange>12.000000000 14.000000000000</pzrangerange>
-         <ptrangerange>0.100000000 0.200000000000</ptrangerange>
+         <cvmc>0.000545338199</cvmc>
+         <pzrange>12.000000000 14.000000000000</pzrange>
+         <ptrange>0.100000000 0.200000000000</ptrange>
       </MIPPNuMI_MC_k0l_85>
       <MIPPNuMI_MC_k0l_86>
-         <cvcvmc>0.000867100611</cvcvmc>
-         <pzrangerange>12.000000000 14.000000000000</pzrangerange>
-         <ptrangerange>0.200000000 0.300000000000</ptrangerange>
+         <cvmc>0.000867100611</cvmc>
+         <pzrange>12.000000000 14.000000000000</pzrange>
+         <ptrange>0.200000000 0.300000000000</ptrange>
       </MIPPNuMI_MC_k0l_86>
       <MIPPNuMI_MC_k0l_87>
-         <cvcvmc>0.001028110074</cvcvmc>
-         <pzrangerange>12.000000000 14.000000000000</pzrangerange>
-         <ptrangerange>0.300000000 0.400000000000</ptrangerange>
+         <cvmc>0.001028110074</cvmc>
+         <pzrange>12.000000000 14.000000000000</pzrange>
+         <ptrange>0.300000000 0.400000000000</ptrange>
       </MIPPNuMI_MC_k0l_87>
       <MIPPNuMI_MC_k0l_88>
-         <cvcvmc>0.001035490173</cvcvmc>
-         <pzrangerange>12.000000000 14.000000000000</pzrangerange>
-         <ptrangerange>0.400000000 0.500000000000</ptrangerange>
+         <cvmc>0.001035490173</cvmc>
+         <pzrange>12.000000000 14.000000000000</pzrange>
+         <ptrange>0.400000000 0.500000000000</ptrange>
       </MIPPNuMI_MC_k0l_88>
       <MIPPNuMI_MC_k0l_89>
-         <cvcvmc>0.003731240798</cvcvmc>
-         <pzrangerange>12.000000000 14.000000000000</pzrangerange>
-         <ptrangerange>0.500000000 2.000000000000</ptrangerange>
+         <cvmc>0.003731240798</cvmc>
+         <pzrange>12.000000000 14.000000000000</pzrange>
+         <ptrange>0.500000000 2.000000000000</ptrange>
       </MIPPNuMI_MC_k0l_89>
       <MIPPNuMI_MC_k0l_90>
-         <cvcvmc>0.000169238979</cvcvmc>
-         <pzrangerange>14.000000000 17.000000000000</pzrangerange>
-         <ptrangerange>0.000000000 0.100000000000</ptrangerange>
+         <cvmc>0.000169238979</cvmc>
+         <pzrange>14.000000000 17.000000000000</pzrange>
+         <ptrange>0.000000000 0.100000000000</ptrange>
       </MIPPNuMI_MC_k0l_90>
       <MIPPNuMI_MC_k0l_91>
-         <cvcvmc>0.000549640235</cvcvmc>
-         <pzrangerange>14.000000000 17.000000000000</pzrangerange>
-         <ptrangerange>0.100000000 0.200000000000</ptrangerange>
+         <cvmc>0.000549640235</cvmc>
+         <pzrange>14.000000000 17.000000000000</pzrange>
+         <ptrange>0.100000000 0.200000000000</ptrange>
       </MIPPNuMI_MC_k0l_91>
       <MIPPNuMI_MC_k0l_92>
-         <cvcvmc>0.000876844850</cvcvmc>
-         <pzrangerange>14.000000000 17.000000000000</pzrangerange>
-         <ptrangerange>0.200000000 0.300000000000</ptrangerange>
+         <cvmc>0.000876844850</cvmc>
+         <pzrange>14.000000000 17.000000000000</pzrange>
+         <ptrange>0.200000000 0.300000000000</ptrange>
       </MIPPNuMI_MC_k0l_92>
       <MIPPNuMI_MC_k0l_93>
-         <cvcvmc>0.001048800525</cvcvmc>
-         <pzrangerange>14.000000000 17.000000000000</pzrangerange>
-         <ptrangerange>0.300000000 0.400000000000</ptrangerange>
+         <cvmc>0.001048800525</cvmc>
+         <pzrange>14.000000000 17.000000000000</pzrange>
+         <ptrange>0.300000000 0.400000000000</ptrange>
       </MIPPNuMI_MC_k0l_93>
       <MIPPNuMI_MC_k0l_94>
-         <cvcvmc>0.001065953657</cvcvmc>
-         <pzrangerange>14.000000000 17.000000000000</pzrangerange>
-         <ptrangerange>0.400000000 0.500000000000</ptrangerange>
+         <cvmc>0.001065953657</cvmc>
+         <pzrange>14.000000000 17.000000000000</pzrange>
+         <ptrange>0.400000000 0.500000000000</ptrange>
       </MIPPNuMI_MC_k0l_94>
       <MIPPNuMI_MC_k0l_95>
-         <cvcvmc>0.004001573729</cvcvmc>
-         <pzrangerange>14.000000000 17.000000000000</pzrangerange>
-         <ptrangerange>0.500000000 2.000000000000</ptrangerange>
+         <cvmc>0.004001573729</cvmc>
+         <pzrange>14.000000000 17.000000000000</pzrange>
+         <ptrange>0.500000000 2.000000000000</ptrange>
       </MIPPNuMI_MC_k0l_95>
       <MIPPNuMI_MC_k0l_96>
-         <cvcvmc>0.000112376671</cvcvmc>
-         <pzrangerange>17.000000000 20.000000000000</pzrangerange>
-         <ptrangerange>0.000000000 0.100000000000</ptrangerange>
+         <cvmc>0.000112376671</cvmc>
+         <pzrange>17.000000000 20.000000000000</pzrange>
+         <ptrange>0.000000000 0.100000000000</ptrange>
       </MIPPNuMI_MC_k0l_96>
       <MIPPNuMI_MC_k0l_97>
-         <cvcvmc>0.000355486833</cvcvmc>
-         <pzrangerange>17.000000000 20.000000000000</pzrangerange>
-         <ptrangerange>0.100000000 0.200000000000</ptrangerange>
+         <cvmc>0.000355486833</cvmc>
+         <pzrange>17.000000000 20.000000000000</pzrange>
+         <ptrange>0.100000000 0.200000000000</ptrange>
       </MIPPNuMI_MC_k0l_97>
       <MIPPNuMI_MC_k0l_98>
-         <cvcvmc>0.000567741874</cvcvmc>
-         <pzrangerange>17.000000000 20.000000000000</pzrangerange>
-         <ptrangerange>0.200000000 0.300000000000</ptrangerange>
+         <cvmc>0.000567741874</cvmc>
+         <pzrange>17.000000000 20.000000000000</pzrange>
+         <ptrange>0.200000000 0.300000000000</ptrange>
       </MIPPNuMI_MC_k0l_98>
       <MIPPNuMI_MC_k0l_99>
-         <cvcvmc>0.000687089283</cvcvmc>
-         <pzrangerange>17.000000000 20.000000000000</pzrangerange>
-         <ptrangerange>0.300000000 0.400000000000</ptrangerange>
+         <cvmc>0.000687089283</cvmc>
+         <pzrange>17.000000000 20.000000000000</pzrange>
+         <ptrange>0.300000000 0.400000000000</ptrange>
       </MIPPNuMI_MC_k0l_99>
       <MIPPNuMI_MC_k0l_100>
-         <cvcvmc>0.000709027757</cvcvmc>
-         <pzrangerange>17.000000000 20.000000000000</pzrangerange>
-         <ptrangerange>0.400000000 0.500000000000</ptrangerange>
+         <cvmc>0.000709027757</cvmc>
+         <pzrange>17.000000000 20.000000000000</pzrange>
+         <ptrange>0.400000000 0.500000000000</ptrange>
       </MIPPNuMI_MC_k0l_100>
       <MIPPNuMI_MC_k0l_101>
-         <cvcvmc>0.002773191730</cvcvmc>
-         <pzrangerange>17.000000000 20.000000000000</pzrangerange>
-         <ptrangerange>0.500000000 2.000000000000</ptrangerange>
+         <cvmc>0.002773191730</cvmc>
+         <pzrange>17.000000000 20.000000000000</pzrange>
+         <ptrange>0.500000000 2.000000000000</ptrange>
       </MIPPNuMI_MC_k0l_101>
       <MIPPNuMI_MC_k0l_102>
-         <cvcvmc>0.000095368659</cvcvmc>
-         <pzrangerange>20.000000000 24.000000000000</pzrangerange>
-         <ptrangerange>0.000000000 0.100000000000</ptrangerange>
+         <cvmc>0.000095368659</cvmc>
+         <pzrange>20.000000000 24.000000000000</pzrange>
+         <ptrange>0.000000000 0.100000000000</ptrange>
       </MIPPNuMI_MC_k0l_102>
       <MIPPNuMI_MC_k0l_103>
-         <cvcvmc>0.000304446039</cvcvmc>
-         <pzrangerange>20.000000000 24.000000000000</pzrangerange>
-         <ptrangerange>0.100000000 0.200000000000</ptrangerange>
+         <cvmc>0.000304446039</cvmc>
+         <pzrange>20.000000000 24.000000000000</pzrange>
+         <ptrange>0.100000000 0.200000000000</ptrange>
       </MIPPNuMI_MC_k0l_103>
       <MIPPNuMI_MC_k0l_104>
-         <cvcvmc>0.000490990519</cvcvmc>
-         <pzrangerange>20.000000000 24.000000000000</pzrangerange>
-         <ptrangerange>0.200000000 0.300000000000</ptrangerange>
+         <cvmc>0.000490990519</cvmc>
+         <pzrange>20.000000000 24.000000000000</pzrange>
+         <ptrange>0.200000000 0.300000000000</ptrange>
       </MIPPNuMI_MC_k0l_104>
       <MIPPNuMI_MC_k0l_105>
-         <cvcvmc>0.000593237154</cvcvmc>
-         <pzrangerange>20.000000000 24.000000000000</pzrangerange>
-         <ptrangerange>0.300000000 0.400000000000</ptrangerange>
+         <cvmc>0.000593237154</cvmc>
+         <pzrange>20.000000000 24.000000000000</pzrange>
+         <ptrange>0.300000000 0.400000000000</ptrange>
       </MIPPNuMI_MC_k0l_105>
       <MIPPNuMI_MC_k0l_106>
-         <cvcvmc>0.000612096325</cvcvmc>
-         <pzrangerange>20.000000000 24.000000000000</pzrangerange>
-         <ptrangerange>0.400000000 0.500000000000</ptrangerange>
+         <cvmc>0.000612096325</cvmc>
+         <pzrange>20.000000000 24.000000000000</pzrange>
+         <ptrange>0.400000000 0.500000000000</ptrange>
       </MIPPNuMI_MC_k0l_106>
       <MIPPNuMI_MC_k0l_107>
-         <cvcvmc>0.002503044899</cvcvmc>
-         <pzrangerange>20.000000000 24.000000000000</pzrangerange>
-         <ptrangerange>0.500000000 2.000000000000</ptrangerange>
+         <cvmc>0.002503044899</cvmc>
+         <pzrange>20.000000000 24.000000000000</pzrange>
+         <ptrange>0.500000000 2.000000000000</ptrange>
       </MIPPNuMI_MC_k0l_107>
       <MIPPNuMI_MC_k0l_108>
-         <cvcvmc>0.000060647877</cvcvmc>
-         <pzrangerange>24.000000000 28.000000000000</pzrangerange>
-         <ptrangerange>0.000000000 0.100000000000</ptrangerange>
+         <cvmc>0.000060647877</cvmc>
+         <pzrange>24.000000000 28.000000000000</pzrange>
+         <ptrange>0.000000000 0.100000000000</ptrange>
       </MIPPNuMI_MC_k0l_108>
       <MIPPNuMI_MC_k0l_109>
-         <cvcvmc>0.000190300964</cvcvmc>
-         <pzrangerange>24.000000000 28.000000000000</pzrangerange>
-         <ptrangerange>0.100000000 0.200000000000</ptrangerange>
+         <cvmc>0.000190300964</cvmc>
+         <pzrange>24.000000000 28.000000000000</pzrange>
+         <ptrange>0.100000000 0.200000000000</ptrange>
       </MIPPNuMI_MC_k0l_109>
       <MIPPNuMI_MC_k0l_110>
-         <cvcvmc>0.000308998436</cvcvmc>
-         <pzrangerange>24.000000000 28.000000000000</pzrangerange>
-         <ptrangerange>0.200000000 0.300000000000</ptrangerange>
+         <cvmc>0.000308998436</cvmc>
+         <pzrange>24.000000000 28.000000000000</pzrange>
+         <ptrange>0.200000000 0.300000000000</ptrange>
       </MIPPNuMI_MC_k0l_110>
       <MIPPNuMI_MC_k0l_111>
-         <cvcvmc>0.000376949834</cvcvmc>
-         <pzrangerange>24.000000000 28.000000000000</pzrangerange>
-         <ptrangerange>0.300000000 0.400000000000</ptrangerange>
+         <cvmc>0.000376949834</cvmc>
+         <pzrange>24.000000000 28.000000000000</pzrange>
+         <ptrange>0.300000000 0.400000000000</ptrange>
       </MIPPNuMI_MC_k0l_111>
       <MIPPNuMI_MC_k0l_112>
-         <cvcvmc>0.000391746192</cvcvmc>
-         <pzrangerange>24.000000000 28.000000000000</pzrangerange>
-         <ptrangerange>0.400000000 0.500000000000</ptrangerange>
+         <cvmc>0.000391746192</cvmc>
+         <pzrange>24.000000000 28.000000000000</pzrange>
+         <ptrange>0.400000000 0.500000000000</ptrange>
       </MIPPNuMI_MC_k0l_112>
       <MIPPNuMI_MC_k0l_113>
-         <cvcvmc>0.001642480716</cvcvmc>
-         <pzrangerange>24.000000000 28.000000000000</pzrangerange>
-         <ptrangerange>0.500000000 2.000000000000</ptrangerange>
+         <cvmc>0.001642480716</cvmc>
+         <pzrange>24.000000000 28.000000000000</pzrange>
+         <ptrange>0.500000000 2.000000000000</ptrange>
       </MIPPNuMI_MC_k0l_113>
       <MIPPNuMI_MC_k0l_114>
-         <cvcvmc>0.000056804344</cvcvmc>
-         <pzrangerange>28.000000000 34.000000000000</pzrangerange>
-         <ptrangerange>0.000000000 0.100000000000</ptrangerange>
+         <cvmc>0.000056804344</cvmc>
+         <pzrange>28.000000000 34.000000000000</pzrange>
+         <ptrange>0.000000000 0.100000000000</ptrange>
       </MIPPNuMI_MC_k0l_114>
       <MIPPNuMI_MC_k0l_115>
-         <cvcvmc>0.000170521260</cvcvmc>
-         <pzrangerange>28.000000000 34.000000000000</pzrangerange>
-         <ptrangerange>0.100000000 0.200000000000</ptrangerange>
+         <cvmc>0.000170521260</cvmc>
+         <pzrange>28.000000000 34.000000000000</pzrange>
+         <ptrange>0.100000000 0.200000000000</ptrange>
       </MIPPNuMI_MC_k0l_115>
       <MIPPNuMI_MC_k0l_116>
-         <cvcvmc>0.000273353455</cvcvmc>
-         <pzrangerange>28.000000000 34.000000000000</pzrangerange>
-         <ptrangerange>0.200000000 0.300000000000</ptrangerange>
+         <cvmc>0.000273353455</cvmc>
+         <pzrange>28.000000000 34.000000000000</pzrange>
+         <ptrange>0.200000000 0.300000000000</ptrange>
       </MIPPNuMI_MC_k0l_116>
       <MIPPNuMI_MC_k0l_117>
-         <cvcvmc>0.000335450386</cvcvmc>
-         <pzrangerange>28.000000000 34.000000000000</pzrangerange>
-         <ptrangerange>0.300000000 0.400000000000</ptrangerange>
+         <cvmc>0.000335450386</cvmc>
+         <pzrange>28.000000000 34.000000000000</pzrange>
+         <ptrange>0.300000000 0.400000000000</ptrange>
       </MIPPNuMI_MC_k0l_117>
       <MIPPNuMI_MC_k0l_118>
-         <cvcvmc>0.000354271526</cvcvmc>
-         <pzrangerange>28.000000000 34.000000000000</pzrangerange>
-         <ptrangerange>0.400000000 0.500000000000</ptrangerange>
+         <cvmc>0.000354271526</cvmc>
+         <pzrange>28.000000000 34.000000000000</pzrange>
+         <ptrange>0.400000000 0.500000000000</ptrange>
       </MIPPNuMI_MC_k0l_118>
       <MIPPNuMI_MC_k0l_119>
-         <cvcvmc>0.001529133404</cvcvmc>
-         <pzrangerange>28.000000000 34.000000000000</pzrangerange>
-         <ptrangerange>0.500000000 2.000000000000</ptrangerange>
+         <cvmc>0.001529133404</cvmc>
+         <pzrange>28.000000000 34.000000000000</pzrange>
+         <ptrange>0.500000000 2.000000000000</ptrange>
       </MIPPNuMI_MC_k0l_119>
       <MIPPNuMI_MC_k0l_120>
-         <cvcvmc>0.000031768000</cvcvmc>
-         <pzrangerange>34.000000000 40.000000000000</pzrangerange>
-         <ptrangerange>0.000000000 0.100000000000</ptrangerange>
+         <cvmc>0.000031768000</cvmc>
+         <pzrange>34.000000000 40.000000000000</pzrange>
+         <ptrange>0.000000000 0.100000000000</ptrange>
       </MIPPNuMI_MC_k0l_120>
       <MIPPNuMI_MC_k0l_121>
-         <cvcvmc>0.000092816000</cvcvmc>
-         <pzrangerange>34.000000000 40.000000000000</pzrangerange>
-         <ptrangerange>0.100000000 0.200000000000</ptrangerange>
+         <cvmc>0.000092816000</cvmc>
+         <pzrange>34.000000000 40.000000000000</pzrange>
+         <ptrange>0.100000000 0.200000000000</ptrange>
       </MIPPNuMI_MC_k0l_121>
       <MIPPNuMI_MC_k0l_122>
-         <cvcvmc>0.000149228000</cvcvmc>
-         <pzrangerange>34.000000000 40.000000000000</pzrangerange>
-         <ptrangerange>0.200000000 0.300000000000</ptrangerange>
+         <cvmc>0.000149228000</cvmc>
+         <pzrange>34.000000000 40.000000000000</pzrange>
+         <ptrange>0.200000000 0.300000000000</ptrange>
       </MIPPNuMI_MC_k0l_122>
       <MIPPNuMI_MC_k0l_123>
-         <cvcvmc>0.000186200000</cvcvmc>
-         <pzrangerange>34.000000000 40.000000000000</pzrangerange>
-         <ptrangerange>0.300000000 0.400000000000</ptrangerange>
+         <cvmc>0.000186200000</cvmc>
+         <pzrange>34.000000000 40.000000000000</pzrange>
+         <ptrange>0.300000000 0.400000000000</ptrange>
       </MIPPNuMI_MC_k0l_123>
       <MIPPNuMI_MC_k0l_124>
-         <cvcvmc>0.000197512000</cvcvmc>
-         <pzrangerange>34.000000000 40.000000000000</pzrangerange>
-         <ptrangerange>0.400000000 0.500000000000</ptrangerange>
+         <cvmc>0.000197512000</cvmc>
+         <pzrange>34.000000000 40.000000000000</pzrange>
+         <ptrange>0.400000000 0.500000000000</ptrange>
       </MIPPNuMI_MC_k0l_124>
       <MIPPNuMI_MC_k0l_125>
-         <cvcvmc>0.000879684000</cvcvmc>
-         <pzrangerange>34.000000000 40.000000000000</pzrangerange>
-         <ptrangerange>0.500000000 2.000000000000</ptrangerange>
+         <cvmc>0.000879684000</cvmc>
+         <pzrange>34.000000000 40.000000000000</pzrange>
+         <ptrange>0.500000000 2.000000000000</ptrange>
       </MIPPNuMI_MC_k0l_125>
       <MIPPNuMI_MC_k0l_126>
-         <cvcvmc>0.000020832000</cvcvmc>
-         <pzrangerange>40.000000000 48.000000000000</pzrangerange>
-         <ptrangerange>0.000000000 0.100000000000</ptrangerange>
+         <cvmc>0.000020832000</cvmc>
+         <pzrange>40.000000000 48.000000000000</pzrange>
+         <ptrange>0.000000000 0.100000000000</ptrange>
       </MIPPNuMI_MC_k0l_126>
       <MIPPNuMI_MC_k0l_127>
-         <cvcvmc>0.000062652000</cvcvmc>
-         <pzrangerange>40.000000000 48.000000000000</pzrangerange>
-         <ptrangerange>0.100000000 0.200000000000</ptrangerange>
+         <cvmc>0.000062652000</cvmc>
+         <pzrange>40.000000000 48.000000000000</pzrange>
+         <ptrange>0.100000000 0.200000000000</ptrange>
       </MIPPNuMI_MC_k0l_127>
       <MIPPNuMI_MC_k0l_128>
-         <cvcvmc>0.000100312000</cvcvmc>
-         <pzrangerange>40.000000000 48.000000000000</pzrangerange>
-         <ptrangerange>0.200000000 0.300000000000</ptrangerange>
+         <cvmc>0.000100312000</cvmc>
+         <pzrange>40.000000000 48.000000000000</pzrange>
+         <ptrange>0.200000000 0.300000000000</ptrange>
       </MIPPNuMI_MC_k0l_128>
       <MIPPNuMI_MC_k0l_129>
-         <cvcvmc>0.000125160000</cvcvmc>
-         <pzrangerange>40.000000000 48.000000000000</pzrangerange>
-         <ptrangerange>0.300000000 0.400000000000</ptrangerange>
+         <cvmc>0.000125160000</cvmc>
+         <pzrange>40.000000000 48.000000000000</pzrange>
+         <ptrange>0.300000000 0.400000000000</ptrange>
       </MIPPNuMI_MC_k0l_129>
       <MIPPNuMI_MC_k0l_130>
-         <cvcvmc>0.000135984000</cvcvmc>
-         <pzrangerange>40.000000000 48.000000000000</pzrangerange>
-         <ptrangerange>0.400000000 0.500000000000</ptrangerange>
+         <cvmc>0.000135984000</cvmc>
+         <pzrange>40.000000000 48.000000000000</pzrange>
+         <ptrange>0.400000000 0.500000000000</ptrange>
       </MIPPNuMI_MC_k0l_130>
       <MIPPNuMI_MC_k0l_131>
-         <cvcvmc>0.000634368000</cvcvmc>
-         <pzrangerange>40.000000000 48.000000000000</pzrangerange>
-         <ptrangerange>0.500000000 2.000000000000</ptrangerange>
+         <cvmc>0.000634368000</cvmc>
+         <pzrange>40.000000000 48.000000000000</pzrange>
+         <ptrange>0.500000000 2.000000000000</ptrange>
       </MIPPNuMI_MC_k0l_131>
       <MIPPNuMI_MC_k0l_132>
-         <cvcvmc>0.000009728000</cvcvmc>
-         <pzrangerange>48.000000000 56.000000000000</pzrangerange>
-         <ptrangerange>0.000000000 0.100000000000</ptrangerange>
+         <cvmc>0.000009728000</cvmc>
+         <pzrange>48.000000000 56.000000000000</pzrange>
+         <ptrange>0.000000000 0.100000000000</ptrange>
       </MIPPNuMI_MC_k0l_132>
       <MIPPNuMI_MC_k0l_133>
-         <cvcvmc>0.000028920000</cvcvmc>
-         <pzrangerange>48.000000000 56.000000000000</pzrangerange>
-         <ptrangerange>0.100000000 0.200000000000</ptrangerange>
+         <cvmc>0.000028920000</cvmc>
+         <pzrange>48.000000000 56.000000000000</pzrange>
+         <ptrange>0.100000000 0.200000000000</ptrange>
       </MIPPNuMI_MC_k0l_133>
       <MIPPNuMI_MC_k0l_134>
-         <cvcvmc>0.000045044000</cvcvmc>
-         <pzrangerange>48.000000000 56.000000000000</pzrangerange>
-         <ptrangerange>0.200000000 0.300000000000</ptrangerange>
+         <cvmc>0.000045044000</cvmc>
+         <pzrange>48.000000000 56.000000000000</pzrange>
+         <ptrange>0.200000000 0.300000000000</ptrange>
       </MIPPNuMI_MC_k0l_134>
       <MIPPNuMI_MC_k0l_135>
-         <cvcvmc>0.000056584000</cvcvmc>
-         <pzrangerange>48.000000000 56.000000000000</pzrangerange>
-         <ptrangerange>0.300000000 0.400000000000</ptrangerange>
+         <cvmc>0.000056584000</cvmc>
+         <pzrange>48.000000000 56.000000000000</pzrange>
+         <ptrange>0.300000000 0.400000000000</ptrange>
       </MIPPNuMI_MC_k0l_135>
       <MIPPNuMI_MC_k0l_136>
-         <cvcvmc>0.000062468000</cvcvmc>
-         <pzrangerange>48.000000000 56.000000000000</pzrangerange>
-         <ptrangerange>0.400000000 0.500000000000</ptrangerange>
+         <cvmc>0.000062468000</cvmc>
+         <pzrange>48.000000000 56.000000000000</pzrange>
+         <ptrange>0.400000000 0.500000000000</ptrange>
       </MIPPNuMI_MC_k0l_136>
       <MIPPNuMI_MC_k0l_137>
-         <cvcvmc>0.000306624000</cvcvmc>
-         <pzrangerange>48.000000000 56.000000000000</pzrangerange>
-         <ptrangerange>0.500000000 2.000000000000</ptrangerange>
+         <cvmc>0.000306624000</cvmc>
+         <pzrange>48.000000000 56.000000000000</pzrange>
+         <ptrange>0.500000000 2.000000000000</ptrange>
       </MIPPNuMI_MC_k0l_137>
       <MIPPNuMI_MC_k0l_138>
-         <cvcvmc>0.000005312000</cvcvmc>
-         <pzrangerange>56.000000000 68.000000000000</pzrangerange>
-         <ptrangerange>0.000000000 0.100000000000</ptrangerange>
+         <cvmc>0.000005312000</cvmc>
+         <pzrange>56.000000000 68.000000000000</pzrange>
+         <ptrange>0.000000000 0.100000000000</ptrange>
       </MIPPNuMI_MC_k0l_138>
       <MIPPNuMI_MC_k0l_139>
-         <cvcvmc>0.000014948000</cvcvmc>
-         <pzrangerange>56.000000000 68.000000000000</pzrangerange>
-         <ptrangerange>0.100000000 0.200000000000</ptrangerange>
+         <cvmc>0.000014948000</cvmc>
+         <pzrange>56.000000000 68.000000000000</pzrange>
+         <ptrange>0.100000000 0.200000000000</ptrange>
       </MIPPNuMI_MC_k0l_139>
       <MIPPNuMI_MC_k0l_140>
-         <cvcvmc>0.000024968000</cvcvmc>
-         <pzrangerange>56.000000000 68.000000000000</pzrangerange>
-         <ptrangerange>0.200000000 0.300000000000</ptrangerange>
+         <cvmc>0.000024968000</cvmc>
+         <pzrange>56.000000000 68.000000000000</pzrange>
+         <ptrange>0.200000000 0.300000000000</ptrange>
       </MIPPNuMI_MC_k0l_140>
       <MIPPNuMI_MC_k0l_141>
-         <cvcvmc>0.000030704000</cvcvmc>
-         <pzrangerange>56.000000000 68.000000000000</pzrangerange>
-         <ptrangerange>0.300000000 0.400000000000</ptrangerange>
+         <cvmc>0.000030704000</cvmc>
+         <pzrange>56.000000000 68.000000000000</pzrange>
+         <ptrange>0.300000000 0.400000000000</ptrange>
       </MIPPNuMI_MC_k0l_141>
       <MIPPNuMI_MC_k0l_142>
-         <cvcvmc>0.000034280000</cvcvmc>
-         <pzrangerange>56.000000000 68.000000000000</pzrangerange>
-         <ptrangerange>0.400000000 0.500000000000</ptrangerange>
+         <cvmc>0.000034280000</cvmc>
+         <pzrange>56.000000000 68.000000000000</pzrange>
+         <ptrange>0.400000000 0.500000000000</ptrange>
       </MIPPNuMI_MC_k0l_142>
       <MIPPNuMI_MC_k0l_143>
-         <cvcvmc>0.000181756000</cvcvmc>
-         <pzrangerange>56.000000000 68.000000000000</pzrangerange>
-         <ptrangerange>0.500000000 2.000000000000</ptrangerange>
+         <cvmc>0.000181756000</cvmc>
+         <pzrange>56.000000000 68.000000000000</pzrange>
+         <ptrange>0.500000000 2.000000000000</ptrange>
       </MIPPNuMI_MC_k0l_143>
       <MIPPNuMI_MC_k0l_144>
-         <cvcvmc>0.000001376000</cvcvmc>
-         <pzrangerange>68.000000000 80.000000000000</pzrangerange>
-         <ptrangerange>0.000000000 0.100000000000</ptrangerange>
+         <cvmc>0.000001376000</cvmc>
+         <pzrange>68.000000000 80.000000000000</pzrange>
+         <ptrange>0.000000000 0.100000000000</ptrange>
       </MIPPNuMI_MC_k0l_144>
       <MIPPNuMI_MC_k0l_145>
-         <cvcvmc>0.000003880000</cvcvmc>
-         <pzrangerange>68.000000000 80.000000000000</pzrangerange>
-         <ptrangerange>0.100000000 0.200000000000</ptrangerange>
+         <cvmc>0.000003880000</cvmc>
+         <pzrange>68.000000000 80.000000000000</pzrange>
+         <ptrange>0.100000000 0.200000000000</ptrange>
       </MIPPNuMI_MC_k0l_145>
       <MIPPNuMI_MC_k0l_146>
-         <cvcvmc>0.000006040000</cvcvmc>
-         <pzrangerange>68.000000000 80.000000000000</pzrangerange>
-         <ptrangerange>0.200000000 0.300000000000</ptrangerange>
+         <cvmc>0.000006040000</cvmc>
+         <pzrange>68.000000000 80.000000000000</pzrange>
+         <ptrange>0.200000000 0.300000000000</ptrange>
       </MIPPNuMI_MC_k0l_146>
       <MIPPNuMI_MC_k0l_147>
-         <cvcvmc>0.000007776000</cvcvmc>
-         <pzrangerange>68.000000000 80.000000000000</pzrangerange>
-         <ptrangerange>0.300000000 0.400000000000</ptrangerange>
+         <cvmc>0.000007776000</cvmc>
+         <pzrange>68.000000000 80.000000000000</pzrange>
+         <ptrange>0.300000000 0.400000000000</ptrange>
       </MIPPNuMI_MC_k0l_147>
       <MIPPNuMI_MC_k0l_148>
-         <cvcvmc>0.000009056000</cvcvmc>
-         <pzrangerange>68.000000000 80.000000000000</pzrangerange>
-         <ptrangerange>0.400000000 0.500000000000</ptrangerange>
+         <cvmc>0.000009056000</cvmc>
+         <pzrange>68.000000000 80.000000000000</pzrange>
+         <ptrange>0.400000000 0.500000000000</ptrange>
       </MIPPNuMI_MC_k0l_148>
       <MIPPNuMI_MC_k0l_149>
-         <cvcvmc>0.000052952000</cvcvmc>
-         <pzrangerange>68.000000000 80.000000000000</pzrangerange>
-         <ptrangerange>0.500000000 2.000000000000</ptrangerange>
+         <cvmc>0.000052952000</cvmc> 
+         <pzrange>68.000000000 80.000000000000</pzrange>
+         <ptrange>0.500000000 2.000000000000</ptrange>   
       </MIPPNuMI_MC_k0l_149>
    </MIPPNuMI_MC_k0l>
  
