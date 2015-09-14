@@ -24,8 +24,7 @@ namespace NeutrinoFluxReweight{
 
     double data_prod_xs;
     std::vector<float> vbin_data_p, vbin_data_n;
-    double wgt_neu;
-    double wgt_prt;
+
   private:
     int iUniv;
     const ParameterTable& cvPars;

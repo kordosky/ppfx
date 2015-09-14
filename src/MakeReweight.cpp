@@ -127,14 +127,6 @@ namespace NeutrinoFluxReweight{
       map_rew_wgts["ThinTargetnucleonA"].push_back(vec_rws[ii]->nuA_wgt);
       map_rew_wgts["Other"].push_back(vec_rws[ii]->other_wgt);
 
-      //Special Leo wgts for study:
-      map_rew_wgts["Aux_pcpi_na49"].push_back(vec_rws[ii]->aux_pcpi_na49);
-      map_rew_wgts["Aux_pcpi_bart"].push_back(vec_rws[ii]->aux_pcpi_bart);
-      map_rew_wgts["Aux_pck_na49"].push_back(vec_rws[ii]->aux_pck_na49);
-      map_rew_wgts["Aux_pck_mipp"].push_back(vec_rws[ii]->aux_pck_mipp);
-      map_rew_wgts["Aux_pck_k0"].push_back(vec_rws[ii]->aux_pck_k0);
-      map_rew_wgts["Aux_pcnu_neu"].push_back(vec_rws[ii]->aux_pcnu_neu);
-      map_rew_wgts["Aux_pcnu_prt"].push_back(vec_rws[ii]->aux_pcnu_prt);
     }
     
     //cv calculation:

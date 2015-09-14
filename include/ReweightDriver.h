@@ -89,10 +89,6 @@ namespace NeutrinoFluxReweight{
      /*!   Any other hadronic interaction not corrected yet   */
     double other_wgt;
     
-    //Other weigts for my studies:
-    double aux_pcpi_na49, aux_pcpi_bart, aux_pcnu_neu, aux_pcnu_prt, aux_pck_na49, aux_pck_mipp, aux_pck_k0;
-    
-
     MIPPNumiPionYieldsReweighter* MIPP_NUMI_PION_Universe;
     MIPPNumiKaonYieldsReweighter* MIPP_NUMI_KAON_Universe;
     TargetAttenuationReweighter* TARG_ATT_Universe;

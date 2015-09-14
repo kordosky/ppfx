@@ -193,15 +193,6 @@ namespace NeutrinoFluxReweight{
       return 1.0;
     }
     
-    bool isk0 = aa.Prod_pdg ==130 || aa.Prod_pdg ==310 ;
-    ThinTargetpCKaonReweighter::wgt_na49 = 1.0;
-    ThinTargetpCKaonReweighter::wgt_mipp = 1.0;
-    ThinTargetpCKaonReweighter::wgt_k0 = 1.0;
-    if(bin>=0 && !isk0)ThinTargetpCKaonReweighter::wgt_na49 = wgt;
-    else if(mipp_bin>=0 && !isk0)ThinTargetpCKaonReweighter::wgt_mipp = wgt;
-    
-    if(isk0)ThinTargetpCKaonReweighter::wgt_k0 = wgt;
-
     return wgt;
     
   }

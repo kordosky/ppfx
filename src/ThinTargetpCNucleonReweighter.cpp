@@ -103,11 +103,6 @@ namespace NeutrinoFluxReweight{
       return 1.0;
     }
  
-    ThinTargetpCNucleonReweighter::wgt_neu = 1.0;
-    ThinTargetpCNucleonReweighter::wgt_prt = 1.0;
-    if(aa.Prod_pdg==2112)ThinTargetpCNucleonReweighter::wgt_neu = wgt; 
-    if(aa.Prod_pdg==2212)ThinTargetpCNucleonReweighter::wgt_prt = wgt; 
- 
     return wgt;
   }
   
