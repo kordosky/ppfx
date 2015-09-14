@@ -33,7 +33,7 @@ namespace NeutrinoFluxReweight{
     ThinTargetBins*  thinbin =  ThinTargetBins::getInstance(); 
     MIPPNumiMC*  mymc =  MIPPNumiMC::getInstance(); 
     const char* ppfxDir = getenv("PPFX_DIR");
-    
+       
     std::cout<<"Initializing correlation parameters"<<std::endl;
     cvu->readFromXML(Form("%s/uncertainties/Parameters_%s.xml",ppfxDir,mippCorrOption.c_str()));
     
@@ -126,12 +126,6 @@ namespace NeutrinoFluxReweight{
       map_rew_wgts["ThinTargetMesonIncident"].push_back(vec_rws[ii]->meson_inc_wgt);
       map_rew_wgts["ThinTargetnucleonA"].push_back(vec_rws[ii]->nuA_wgt);
       map_rew_wgts["Other"].push_back(vec_rws[ii]->other_wgt);
-
-      //now usedin hp weights:
-      map_rew_wgts["NA49"].push_back(vec_rws[ii]->na49_wgt);
-      map_rew_wgts["MIPPThinTarget"].push_back(vec_rws[ii]->mipp_thin_wgt);
-      //      map_rew_wgts["TheoryThinTarget"].push_back(vec_rws[ii]->theory_wgt);
-      
 
       //Special Leo wgts for study:
       map_rew_wgts["Aux_pcpi_na49"].push_back(vec_rws[ii]->aux_pcpi_na49);

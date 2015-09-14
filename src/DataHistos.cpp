@@ -8,7 +8,7 @@ namespace NeutrinoFluxReweight{
   
   DataHistos::DataHistos(){
     const char* ppfxDir = getenv("PPFX_DIR");
-    char dirData[200]= "data"; 
+    char dirData[400]; 
     sprintf(dirData,"%s/data",ppfxDir);
     DataHistos::fMIPP_NUMI_PI = new TFile(Form("%s/MIPP/fpi_mipp_replica.root",dirData),"read");
     DataHistos::fMIPP_MC = new TFile(Form("%s/MIPP/fmc_tar.root",dirData),"read");

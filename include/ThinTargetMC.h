@@ -20,9 +20,9 @@ namespace NeutrinoFluxReweight{
     double getMCval_pC_X(double incP, double xf,double pt, int pdgcode);
     
   private:
-    //convention: 0: pip. 1: pim.  2: kap. 3: kam. 4: prt  
-    TFile* fpC_x[6];
-    std::vector<TH2D*> vpC_x[5];
+
+    TFile* fpC_x[8];     //convention: 0: pip. 1: pim.  2: kap. 3: kam. 4: prt 5: neu. 6: K0L. 7:K0S
+    std::vector<TH2D*> vpC_x[8];
     std::vector<TH1D*> vpC_n;
     
     std::vector<std::string> spart_prod;
