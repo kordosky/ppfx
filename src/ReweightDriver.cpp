@@ -46,7 +46,7 @@ namespace NeutrinoFluxReweight{
     read_xml(fileOptions.c_str(),top,2); // option 2 removes comment strings
     ptree& options = top.get_child("inputs.Settings");
     
-    val = options.get<std::string>("Reweigthers");
+    val = options.get<std::string>("Reweighters");
     if(val=="MIPPNuMIOn")doMIPPNumi = true;
     else doMIPPNumi = false;
     
