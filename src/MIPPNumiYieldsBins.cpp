@@ -125,7 +125,7 @@ namespace NeutrinoFluxReweight{
       }
       
     }
-    if(pdgcode==321 || pdgcode==-321){
+    if(pdgcode==321 || pdgcode==-321 || pdgcode==130 || pdgcode==310){
       size = k_pi_data_pzmin.size();
       for(int ii=0;ii<size;ii++){
 	if(pz>k_pi_data_pzmin[ii] && pz<k_pi_data_pzmax[ii] && pt>k_pi_data_ptmin[ii] && pt<k_pi_data_ptmax[ii]){

@@ -63,7 +63,7 @@ namespace NeutrinoFluxReweight{
   }
   
   double ThinTargetpCNucleonReweighter::calculateWeight(const InteractionData& aa){
-   
+ 
     //quick check:
     double wgt = 1.0;
     ThinTargetBins*  Thinbins =  ThinTargetBins::getInstance();
@@ -73,6 +73,7 @@ namespace NeutrinoFluxReweight{
       std::cout<<"Not bin found "<<std::endl;
       return wgt;
     }
+
     //Calculating the scale:
     double data_scale = calculateDataScale(aa.Inc_pdg,aa.Inc_P,aa.Prod_pdg,aa.xF,aa.Pt);
     double dataval = -1;
@@ -83,7 +84,7 @@ namespace NeutrinoFluxReweight{
       std::cout<<"Not data found "<<std::endl;
       return wgt;
     }
-    
+
     //checking if this is the first interaction:
     if(aa.gen==0 && aa.Prod_pdg==2212)dataval /= data_prod_xs;
     if(aa.gen>0  && aa.Prod_pdg==2212)dataval /= 1.0;
@@ -91,17 +92,17 @@ namespace NeutrinoFluxReweight{
     if(aa.gen>0  && aa.Prod_pdg==2112)dataval *= data_prod_xs;
     
     dataval *= data_scale;
-    
-    ThinTargetMC*  mc =  ThinTargetMC::getInstance();
-    double mc_cv = mc->getMCval_pC_X(aa.Inc_P,aa.xF,aa.Pt,aa.Prod_pdg);
-    mc_cv /= calculateMCProd(aa.gen,aa.Prod_pdg,aa.Inc_P);
+ 
+    ThinTargetMC*  mc =  ThinTargetMC::getInstance(); 
+    double mc_cv = mc->getMCval_pC_X(aa.Inc_P,aa.xF,aa.Pt,aa.Prod_pdg); 
+    mc_cv /= calculateMCProd(aa.gen,aa.Prod_pdg,aa.Inc_P);    
     if(mc_cv<1.e-12)return wgt;
     wgt = dataval/mc_cv;
     if(wgt<0){
       std::cout<<"TTPCNU check wgt(<0) "<<iUniv<<" "<<wgt<<" "<<aa.Inc_P<<" "<<aa.xF<<" "<<aa.Pt<<" "<<aa.Prod_pdg<<" "<<calculateMCProd(aa.gen,aa.Prod_pdg,aa.Inc_P)<<std::endl;
       return 1.0;
     }
-    
+ 
     ThinTargetpCNucleonReweighter::wgt_neu = 1.0;
     ThinTargetpCNucleonReweighter::wgt_prt = 1.0;
     if(aa.Prod_pdg==2112)ThinTargetpCNucleonReweighter::wgt_neu = wgt; 

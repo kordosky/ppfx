@@ -227,7 +227,7 @@ void MIPPNumiMC::kam_mc_from_xml(const char* filename){
   double MIPPNumiMC::getMCval(double pz,double pt, int pdgcode){
  
     double cvmc = -1;
-    if(abs(pdgcode)!=211 && abs(pdgcode)!=321)return cvmc;
+    if(abs(pdgcode)!=211 && abs(pdgcode)!=321 && pdgcode!=130 && pdgcode!=310)return cvmc;
     int size = 0;
    
     //pip:
@@ -266,6 +266,25 @@ void MIPPNumiMC::kam_mc_from_xml(const char* filename){
        for(int ii=0;ii<size;ii++){
 	if(pz>v_pzmin[ii] && pz<v_pzmax[ii] && pt>v_ptmin[ii] && pt<v_ptmax[ii]){
 	  cvmc = kam_cv[ii];
+	}
+      }  
+    }
+    //k0l:
+    if(pdgcode== 130){    
+       size = k0l_cv.size();
+       for(int ii=0;ii<size;ii++){
+	if(pz>v_pzmin[ii] && pz<v_pzmax[ii] && pt>v_ptmin[ii] && pt<v_ptmax[ii]){
+	  cvmc = k0l_cv[ii];
+	}
+      }  
+    }
+    
+    //k0s:
+    if(pdgcode== 310){    
+       size = k0s_cv.size();
+       for(int ii=0;ii<size;ii++){
+	if(pz>v_pzmin[ii] && pz<v_pzmax[ii] && pt>v_ptmin[ii] && pt<v_ptmax[ii]){
+	  cvmc = k0s_cv[ii];
 	}
       }  
     }

@@ -303,7 +303,7 @@ void ThinTargetBins::pC_n_from_xml(const char* filename){
     int ibinID = -1;
     int size = 0;
     
-    if(pdgcode == 321 || pdgcode == -321){
+    if(pdgcode == 321 || pdgcode == -321 || pdgcode == 130 || pdgcode == 310){
       size = pC_k_xfmin.size();
       for(int ii=0;ii<size;ii++){
 	if(xf>pC_k_xfmin[ii] && xf<pC_k_xfmax[ii] && pt>pC_k_ptmin[ii] && pt<pC_k_ptmax[ii]){
@@ -321,7 +321,7 @@ void ThinTargetBins::pC_n_from_xml(const char* filename){
     int ibinID = -1;
     int size = 0;
     
-    if(pdgcode == 321 || pdgcode == -321){
+    if(pdgcode == 321 || pdgcode == -321 || pdgcode == 130 || pdgcode == 310){
       size = mipp_pC_k_pzmin.size();
       for(int ii=0;ii<size;ii++){
 	if(pz>mipp_pC_k_pzmin[ii] && pz<mipp_pC_k_pzmax[ii] && pt>mipp_pC_k_ptmin[ii] && pt<mipp_pC_k_ptmax[ii]){

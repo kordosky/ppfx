@@ -85,12 +85,25 @@ namespace NeutrinoFluxReweight{
     bool is_there_mipp = false;   
     TargetData tar = aa.tar_info;
     
-    //Cheking if the particle is a kaon plus or kaon minus:
-    if(tar.Tar_pdg != 321 && tar.Tar_pdg != -321)return this_nodes;
-    //beeing more restrict with the coverage:
+    //Cheking if the particle is a kaon plus or kaon minus or neutral kaon:
+    if(tar.Tar_pdg != 321 && tar.Tar_pdg != -321 && tar.Tar_pdg != 130 && tar.Tar_pdg != 310)return this_nodes;
+
+    //kinematic coverage:
     if(tar.Pz<20.0 || tar.Pz>80.0 || tar.Pt>2.0)return this_nodes;
+
+    //data:
+    //Kaons:
     int binID = MIPPbins->BinID(tar.Pz,tar.Pt,tar.Tar_pdg);
     if(binID<0) return this_nodes;
+
+    //Looking for a pion data:
+    int pip_bin = MIPPbins->BinID(tar.Pz,tar.Pt, 211);
+    int pim_bin = MIPPbins->BinID(tar.Pz,tar.Pt,-211);
+    if(tar.Tar_pdg == 321 && pip_bin<0)return this_nodes;
+    if(tar.Tar_pdg ==-321 && pim_bin<0)return this_nodes;
+    if(tar.Tar_pdg == 130 || tar.Tar_pdg == 310){
+      if(pip_bin<0 || pim_bin<0)return this_nodes;
+    }
     
     //Now that we know that we have a MIPP Numi event, 
     //we will see how many nodes are covered.
@@ -102,9 +115,6 @@ namespace NeutrinoFluxReweight{
       for(int ii=0;ii<tar.Idx_ancestry;ii++){
 	this_nodes[ii] = true;
       }
-    }
-    else{
-      //      std::cout<<"==>>SOMETHING WEIRD WITH MIPP NUMI "<<tar.Idx_ancestry<<" "<<tar.Tar_pdg<<std::endl;
     }
     
     return this_nodes;
@@ -119,21 +129,20 @@ namespace NeutrinoFluxReweight{
     
     TargetData tar = aa.tar_info;
 
-    if(tar.Tar_pdg != 321 && tar.Tar_pdg != -321)return 1.0;
+    //fast check:
+    if(tar.Tar_pdg != 321 && tar.Tar_pdg != -321 && tar.Tar_pdg != 130 && tar.Tar_pdg != 310)return 1.0;
     if(tar.Pz<20.0 || tar.Pz>80.0 || tar.Pt>2.0)return 1.0;
-
     int binID = MIPPbins->BinID(tar.Pz,tar.Pt,tar.Tar_pdg);
     if(binID<0){
-      //std::cout<<"=>Not K covered:" <<tar.Pz<<" "<<tar.Pt<<" " <<tar.Tar_pdg<<std::endl;
       return 1.0;
     }
-    //Now looking for pion bin ID:
-    int pi_wanted = 211;
-    if(tar.Tar_pdg == -321)pi_wanted = -211;
-    int pi_binID = MIPPbins->BinID(tar.Pz,tar.Pt,pi_wanted);
-    if(pi_binID<0){
-      //std::cout<<"=>There is not MIPP pion matching the kaon kinematics"<<pi_wanted<<" "<<tar.Pz<<" "<<tar.Pt<<std::endl;
-      return 1.0;
+    //Now looking for pions bin ID:
+    int pip_bin = MIPPbins->BinID(tar.Pz,tar.Pt, 211);
+    int pim_bin = MIPPbins->BinID(tar.Pz,tar.Pt,-211);
+    if(tar.Tar_pdg == 321 && pip_bin<0)return 1.0;
+    if(tar.Tar_pdg ==-321 && pim_bin<0)return 1.0;
+    if(tar.Tar_pdg == 130 || tar.Tar_pdg == 310){
+      if(pip_bin<0 || pim_bin<0)return 1.0;
     }
     
     //Now, looking for the MC value:
@@ -147,26 +156,42 @@ namespace NeutrinoFluxReweight{
     float K_data_sys = -1.0;
     float K_data_sta = -1.0;
     float K_data     = -1.0;
+    float K_aux      = -1.0;
     
     if(tar.Tar_pdg == 321){
-      K_data_cv  = vbin_datacv_pip[pi_binID] *vbin_datacv_kap_pip[binID];
-      K_data_sys = vbin_datasys_pip[pi_binID]*vbin_datasys_kap_pip[binID];
-      K_data_sta = vbin_datasta_pip[pi_binID]*vbin_datasta_kap_pip[binID];
+      K_data_cv  = vbin_datacv_pip[pip_bin] *vbin_datacv_kap_pip[binID];
+      K_data_sys = vbin_datasys_pip[pip_bin]*vbin_datasys_kap_pip[binID];
+      K_data_sta = vbin_datasta_pip[pip_bin]*vbin_datasta_kap_pip[binID];
       K_data = K_data_sys + K_data_sta - K_data_cv;
       
     }
     else if(tar.Tar_pdg ==-321){
-      K_data_cv  = vbin_datacv_pim[pi_binID] *vbin_datacv_kam_pim[binID];
-      K_data_sys = vbin_datasys_pim[pi_binID]*vbin_datasys_kam_pim[binID];
-      K_data_sta = vbin_datasta_pim[pi_binID]*vbin_datasta_kam_pim[binID];
+      K_data_cv  = vbin_datacv_pim[pim_bin] *vbin_datacv_kam_pim[binID];
+      K_data_sys = vbin_datasys_pim[pim_bin]*vbin_datasys_kam_pim[binID];
+      K_data_sta = vbin_datasta_pim[pim_bin]*vbin_datasta_kam_pim[binID];
       K_data = K_data_sys + K_data_sta - K_data_cv;
     }
+    else if(tar.Tar_pdg ==310 || tar.Tar_pdg ==130){
+      //pip:
+      K_data_cv  = vbin_datacv_pim[pip_bin] *vbin_datacv_kap_pip[binID];
+      K_data_sys = vbin_datasys_pim[pip_bin]*vbin_datasys_kap_pip[binID];
+      K_data_sta = vbin_datasta_pim[pip_bin]*vbin_datasta_kap_pip[binID];
+      K_aux      = K_data_sys + K_data_sta - K_data_cv;
+      //pim:
+      K_data_cv  = vbin_datacv_pim[pim_bin] *vbin_datacv_kam_pim[binID];
+      K_data_sys = vbin_datasys_pim[pim_bin]*vbin_datasys_kam_pim[binID];
+      K_data_sta = vbin_datasta_pim[pim_bin]*vbin_datasta_kam_pim[binID];
+      K_data     = K_data_sys + K_data_sta - K_data_cv;
+      K_data    *= 3.;
+      K_data    += K_aux;
+      K_data    *= 0.25;
+    }
+    
     //check:
     if(K_data_cv<low_value || K_data_sys<low_value || K_data_sta<low_value || K_data<low_value){
-      //std::cout<<"LOW DATA VAL: "<<K_data_cv<<" "<<K_data_sys<<" "<<K_data_sta<<" "<<tar.Tar_pdg<<" "<<tar.Pz<<" "<<tar.Pt<<std::endl;
       return 1.0;
     }
- 
+    
     wgt = double(K_data)/binC;
     
     if(wgt<0)std::cout<<"TTMIPPK check wgt(<0) "<<iUniv<<" "<<tar.Pz<<" "<<tar.Pt<<" "<<tar.Tar_pdg<<std::endl;

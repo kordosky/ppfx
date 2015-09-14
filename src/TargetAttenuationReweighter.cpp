@@ -104,6 +104,14 @@ namespace NeutrinoFluxReweight{
 	   if(is_me)hzpos = dtH->hzpostgt_kam_me[aux_binID-78];
 	 }
        }
+       else if(tar.Tar_pdg == 130 || tar.Tar_pdg == 310){
+	 int aux_binID = MIPPbins->BinID(tar.Pz,tar.Pt,211);
+	 if(aux_binID>=0){
+	   there_is_MIPP = true;
+	   if(is_le)hzpos = dtH->hzpostgt_kap_le[aux_binID-78];
+	   if(is_me)hzpos = dtH->hzpostgt_kap_me[aux_binID-78];
+	 }
+       }
        else{
 	 std::cout<<"=> There is an in MIPPNumiYieldsBins"<<std::endl;
        }

@@ -63,94 +63,105 @@ namespace NeutrinoFluxReweight{
   }
   bool ThinTargetpCKaonReweighter::canReweight(const InteractionData& aa){
      //checking:
-    if(aa.Inc_pdg != 2112)return false;
+    if(aa.Inc_pdg != 2212)return false;
     if(aa.Inc_P < 12.0)return false;
     if(aa.Vol != "TGT1" && aa.Vol != "BudalMonitor")return false;
-    if(aa.Prod_pdg != 321 && aa.Prod_pdg != -321)return false;
+    if(aa.Prod_pdg != 321 && aa.Prod_pdg != -321 && aa.Prod_pdg != 310 && aa.Prod_pdg != 130)return false;
     
-    //Looking for if there is kaon:
+    //Looking for low pz kaon:
     ThinTargetBins*  Thinbins =  ThinTargetBins::getInstance();
     int bin      = Thinbins->BinID_pC_k(aa.xF,aa.Pt,aa.Prod_pdg);
     if(bin>=0)return true; //found NA49 kaon 
     
-    //now looking for high energy kaon   
+    //Looking for high pz kaon:
     int mipp_bin = Thinbins->mipp_BinID_pC_k(aa.Pz,aa.Pt,aa.Prod_pdg);
-    if(mipp_bin<0)return false;
-    //Looking for the corresponding pion:
+    if(mipp_bin<0)return false; //no mipp thin target kaon  
+
     double inc_mom[3]  = {aa.Inc_P4[0], aa.Inc_P4[1], aa.Inc_P4[2]};
     double prod_mom[3] = {aa.Prod_P4[0],aa.Prod_P4[1],aa.Prod_P4[2]};
     double vtx_int[3]  = {aa.Vtx[0],aa.Vtx[1],aa.Vtx[2]};
-    int pion_pdg = 211;
-    if(aa.Prod_pdg == -321)pion_pdg = -211;
     
     MakeReweight*  makerew =  MakeReweight::getInstance();
     if(iUniv==-1)tt_pCPionRew = (makerew->cv_rw)->THINTARGET_PC_PION_Universe;
     else tt_pCPionRew = (makerew->vec_rws[iUniv])->THINTARGET_PC_PION_Universe;   
-    aux_aa = new InteractionData(aa.gen, inc_mom,2212,prod_mom,pion_pdg,aa.Vol,aa.Proc,vtx_int);   
-    bool there_is_pion = tt_pCPionRew->canReweight(*aux_aa);    
+
+    aux_aa = new InteractionData(aa.gen, inc_mom,2212,prod_mom,211,aa.Vol,aa.Proc,vtx_int);   
+    bool there_is_pip = tt_pCPionRew->canReweight(*aux_aa);    
     
-    return there_is_pion;
-    
+    aux_aa = new InteractionData(aa.gen, inc_mom,2212,prod_mom,-211,aa.Vol,aa.Proc,vtx_int);   
+    bool there_is_pim = tt_pCPionRew->canReweight(*aux_aa); 
+
+    if(aa.Prod_pdg == 321)return there_is_pip;
+    else if(aa.Prod_pdg ==-321)return there_is_pim;
+    else if(aa.Prod_pdg == 130 || aa.Prod_pdg == 310)return there_is_pim && there_is_pip;
+    else{
+      return false;
+    }
   }
   
   double ThinTargetpCKaonReweighter::calculateWeight(const InteractionData& aa){
- 
-    double wgt = 1.0;
-    ThinTargetBins*  Thinbins =  ThinTargetBins::getInstance();
 
+    double wgt = 1.0;
+    //fast check:
+    if(aa.Inc_pdg != 2212 || aa.Inc_P < 12.0)return 1.0;
+    if(aa.Vol != "TGT1" && aa.Vol != "BudalMonitor")return 1.0;
+    if(aa.Prod_pdg != 321 && aa.Prod_pdg != -321 && aa.Prod_pdg != 310 && aa.Prod_pdg != 130)return 1.0;
+
+    ThinTargetBins*  Thinbins =  ThinTargetBins::getInstance();
     int bin      = Thinbins->BinID_pC_k(aa.xF,aa.Pt,aa.Prod_pdg);
     int mipp_bin = Thinbins->mipp_BinID_pC_k(aa.Pz,aa.Pt,aa.Prod_pdg);
     if(bin<0 && mipp_bin<0)return wgt;  //double check
-
+    
     double dataval = -1;
     
     if(bin>=0){
       if(aa.Prod_pdg == 321)dataval = vbin_data_kap[bin];
       else if(aa.Prod_pdg == -321) dataval = vbin_data_kam[bin];
+      else if(aa.Prod_pdg == 130 || aa.Prod_pdg == 310){
+	dataval = 0.25*(vbin_data_kap[bin]+3.*vbin_data_kam[bin]);
+      }
       else{
 	std::cout<<"Something is wrong, pdg_prod: "<< aa.Prod_pdg  <<std::endl;
 	return wgt;
       }
     }
     else if(mipp_bin>=0){
-      if(aa.Prod_pdg == 321)dataval = mipp_vbin_data_kap_pip[mipp_bin];
-      else if(aa.Prod_pdg == -321) dataval = mipp_vbin_data_kam_pim[mipp_bin];
-      else{
-	std::cout<<"Something is wrong, pdg_prod: "<< aa.Prod_pdg  <<std::endl;
-	return wgt;
-      }
-      //Looking for the corresponding pion:
+   
+      MakeReweight*  makerew =  MakeReweight::getInstance();
+      if(iUniv==-1)tt_pCPionRew = (makerew->cv_rw)->THINTARGET_PC_PION_Universe;
+      else tt_pCPionRew = (makerew->vec_rws[iUniv])->THINTARGET_PC_PION_Universe; 
+      
       double inc_mom[3]  = {aa.Inc_P4[0], aa.Inc_P4[1], aa.Inc_P4[2]};
       double prod_mom[3] = {aa.Prod_P4[0],aa.Prod_P4[1],aa.Prod_P4[2]};
       double vtx_int[3]  = {aa.Vtx[0],aa.Vtx[1],aa.Vtx[2]};
-      int pi_pdg = 211;
-      if(aa.Prod_pdg == -321)pi_pdg = -211;
-      
-      aux_aa = new InteractionData(aa.gen, inc_mom,2212,prod_mom,pi_pdg,aa.Vol,aa.Proc,vtx_int);    
+      double pip_data = -1.0; 
+      double pim_data = -1.0; 
       int bin_pi = -1;
-      if(aux_aa->xF<=0.5)bin_pi = Thinbins->BinID_pC_pi(aux_aa->xF,aux_aa->Pt,aux_aa->Prod_pdg);
-      if(aux_aa->xF>0.5) bin_pi = Thinbins->barton_BinID_pC_pi(aux_aa->xF,aux_aa->Pt,aux_aa->Prod_pdg);
-      if(bin_pi<0){
-	std::cout<<"Something is wrong, no bin pion"<<std::endl;
-	return wgt;
+      aux_aa = new InteractionData(aa.gen, inc_mom,2212,prod_mom,211,aa.Vol,aa.Proc,vtx_int);    
+      if(aux_aa->xF<=0.5){
+	bin_pi = Thinbins->BinID_pC_pi(aux_aa->xF,aux_aa->Pt,aux_aa->Prod_pdg);
+	if(bin_pi<0)return 1.0;
+	pip_data = tt_pCPionRew->vbin_data_pip[bin_pi];
+	pim_data = tt_pCPionRew->vbin_data_pim[bin_pi];	
       }
-      
-      MakeReweight*  makerew =  MakeReweight::getInstance();
-      if(iUniv==-1)tt_pCPionRew = (makerew->cv_rw)->THINTARGET_PC_PION_Universe;
-      else tt_pCPionRew = (makerew->vec_rws[iUniv])->THINTARGET_PC_PION_Universe;   
-      
-      double dataval_pi = -1;
-      if(pi_pdg== 211 && aux_aa->xF<=0.5)dataval_pi = tt_pCPionRew->vbin_data_pip[bin_pi];
-      if(pi_pdg==-211 && aux_aa->xF<=0.5)dataval_pi = tt_pCPionRew->vbin_data_pim[bin_pi];
-      if(pi_pdg== 211 && aux_aa->xF>0.5) dataval_pi = tt_pCPionRew->bart_vbin_data_pip[bin_pi];
-      if(pi_pdg==-211 && aux_aa->xF>0.5) dataval_pi = tt_pCPionRew->bart_vbin_data_pim[bin_pi];
-      if(dataval_pi<0){
-	std::cout<<"Something is wrong, pion xs <0"<<std::endl;
-	return wgt;
+      else if(aux_aa->xF>0.5){
+	bin_pi = Thinbins->barton_BinID_pC_pi(aux_aa->xF,aux_aa->Pt,aux_aa->Prod_pdg);
+	if(bin_pi<0)return 1.0;
+	pip_data = tt_pCPionRew->bart_vbin_data_pip[bin_pi];
+	pim_data = tt_pCPionRew->bart_vbin_data_pim[bin_pi];	
       }
-      dataval *= dataval_pi;
+
+      if(aa.Prod_pdg == 321){
+	dataval = mipp_vbin_data_kap_pip[mipp_bin]*pip_data;
+      }
+      else if(aa.Prod_pdg ==-321){
+	dataval = mipp_vbin_data_kam_pim[mipp_bin]*pim_data;
+      }
+      else if(aa.Prod_pdg == 130 || aa.Prod_pdg == 310){
+	dataval = 0.25*(mipp_vbin_data_kap_pip[mipp_bin]*pip_data +3.0*(mipp_vbin_data_kam_pim[mipp_bin]*pim_data));
+      }
     }
-     
+         
     //checking if this is the first interaction:
     if(aa.gen==0)dataval /= data_prod_xs;
     else if(aa.gen>0)dataval /= 1.0;
@@ -158,13 +169,22 @@ namespace NeutrinoFluxReweight{
       std::cout<<"Something is wrong with gen "<<std::endl;
       return wgt;
     }
-    
-    double data_scale = calculateDataScale(aa.Inc_pdg,aa.Inc_P,aa.Prod_pdg,aa.xF,aa.Pt);   
+
+    double data_scale = -1.0;
+    if(aa.Prod_pdg == 321 || aa.Prod_pdg == -321){
+      data_scale = calculateDataScale(aa.Inc_pdg,aa.Inc_P,aa.Prod_pdg,aa.xF,aa.Pt);   
+    }
+    else if(aa.Prod_pdg == 130 || aa.Prod_pdg == 310){
+      data_scale = 0.25*(calculateDataScale(aa.Inc_pdg,aa.Inc_P,321,aa.xF,aa.Pt)+3.*calculateDataScale(aa.Inc_pdg,aa.Inc_P,-321,aa.xF,aa.Pt));  
+      
+    }
     dataval *= data_scale;
-    
+
     ThinTargetMC*  mc =  ThinTargetMC::getInstance();
     double mc_cv = mc->getMCval_pC_X(aa.Inc_P,aa.xF,aa.Pt,aa.Prod_pdg);
+
     mc_cv /= calculateMCProd(aa.gen,aa.Inc_P);
+
     if(mc_cv<1.e-12)return wgt;
     wgt = dataval/mc_cv;
 
@@ -181,7 +201,7 @@ namespace NeutrinoFluxReweight{
     else if(mipp_bin>=0 && !isk0)ThinTargetpCKaonReweighter::wgt_mipp = wgt;
     
     if(isk0)ThinTargetpCKaonReweighter::wgt_k0 = wgt;
-    
+
     return wgt;
     
   }
