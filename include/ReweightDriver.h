@@ -106,7 +106,10 @@ namespace NeutrinoFluxReweight{
     ThinTargetnucleonAReweighter* THINTARGET_NUCLEON_A_Universe;
 
     OtherReweighter* OTHER_Universe;
-    
+
+     //Flag to select the reweighters:
+    bool doMIPPNumi;
+
   private:    
     /*!
      * Configures each of the reweighing tools.
@@ -120,12 +123,6 @@ namespace NeutrinoFluxReweight{
     const ParameterTable& cvPars;
     const ParameterTable& univPars;
 
-    
-    // TheoryThinTargetReweighter* THEORY_Universe;
-    ///
-    
-    //Flag to select the reweighters:
-    bool doMIPPNumi;
     std::string fileOptions;
     
   };
