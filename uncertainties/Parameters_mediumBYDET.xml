@@ -7,6 +7,10 @@
       <cv> 0.0 </cv>
       <err> 23.8 </err> <!-- mb -->
     </inel_piAl_xsec>
+     <inel_piC_xsec>
+      <cv> 0.0 </cv>
+      <err> 20.0 </err> <!-- mb -->
+    </inel_piC_xsec>
     <inel_kapAl_xsec_lowP>
       <cv> 0.0 </cv>
       <err> 83.0 </err> <!-- mb-->
@@ -23,6 +27,22 @@
       <cv> 0.0 </cv>
       <err> 30.5 </err> <!-- mb-->
     </inel_kamAl_xsec_highP>
+    <inel_kapC_xsec_lowP>
+      <cv> 0.0 </cv>
+      <err> 68.0 </err> <!-- mb-->
+    </inel_kapC_xsec_lowP>
+    <inel_kamC_xsec_lowP>
+      <cv> 0.0 </cv>
+      <err> 80.0 </err> <!-- mb-->
+    </inel_kamC_xsec_lowP>
+    <inel_kapC_xsec_highP>
+      <cv> 0.0 </cv>
+      <err> 13.0 </err> <!-- mb-->
+    </inel_kapC_xsec_highP>
+    <inel_kamC_xsec_highP>
+      <cv> 0.0 </cv>
+      <err> 20.0 </err> <!-- mb-->
+    </inel_kamC_xsec_highP>
 
 <!-- Data cross section in C.--> 
   <prod_prtC_xsec>
@@ -33,22 +53,23 @@
     <cv> 28.9 </cv>
     <err> 4.2 </err> <!-- mb -->
   </qe_prtC_xsec>
-  <inel_piC_xsec>
-    <cv> 1.0 </cv>
-    <err> 0.0352089 </err> <!-- fractional error -->
-  </inel_piC_xsec>
 
-    <inel_pC_xsec_scale>
-      <cv> 0.95 </cv>
-      <err> 0.04 </err> <!-- a 4% error -->
-    </inel_pC_xsec_scale>
-    <inel_piC_xsec_scale>
-      <cv> 1.4 </cv>
+ <inel_xC_xsec>
+    <cv> 1.0 </cv>
+    <err> 0.2 </err> <!-- fractional error -->
+  </inel_xC_xsec>  
+
+  <inel_pC_xsec_scale>
+    <cv> 0.95 </cv>
+    <err> 0.04 </err> <!-- a 4% error -->
+  </inel_pC_xsec_scale>
+  <inel_piC_xsec_scale>
+    <cv> 1.4 </cv>
       <err> 0.20 </err> <!-- a 20% error -->
-    </inel_piC_xsec_scale>
-    <inel_A_scaling>
-      <cv> 1.0 </cv>
-      <err> 0.1 </err>
+  </inel_piC_xsec_scale>
+  <inel_A_scaling>
+    <cv> 1.0 </cv>
+    <err> 0.2 </err>
     </inel_A_scaling>
     <prt_no_interacting>
       <cv> 0.135 </cv>
@@ -88,6 +109,86 @@
 <cvs>0.069 0.077 0.084 0.126 0.064 0.087 0.074 0.115 0.169 0.1 0.066 0.079 0.087 0.078 0.097 0.055 0.034 0.058 0.031 0.068 0.094 0.042 0.03 0</cvs>
 <errs>0.00194098 0.00158849 0.00265006 0.0065354 0.00166075 0.00134716 0.00162895 0.00444239 0.0168849 0.00400608 0.00210408 0.00198487 0.00185832 0.00499275 0.00597331 0.00163114 0.00131777 0.00360229 0.00543783 0.0100919 0.0072341 0.00409184 0.00655074 0</errs>
 </MIPP_NuMI_kam_pim_sys>
+
+<ThinTarget_prt_incident_pip>
+<cvs>1.0 1.0 1.0 1.0</cvs>
+<errs>0.4 0.4 0.4 0.4</errs>
+</ThinTarget_prt_incident_pip>
+
+<ThinTarget_prt_incident_pim>
+<cvs>1.0 1.0 1.0 1.0</cvs>
+<errs>0.4 0.4 0.4 0.4</errs>
+</ThinTarget_prt_incident_pim>
+
+<ThinTarget_prt_incident_kap>
+<cvs>1.0 1.0 1.0 1.0</cvs>
+<errs>0.4 0.4 0.4 0.4</errs>
+</ThinTarget_prt_incident_kap>
+
+<ThinTarget_prt_incident_kam>
+<cvs>1.0 1.0 1.0 1.0</cvs>
+<errs>0.4 0.4 0.4 0.4</errs>
+</ThinTarget_prt_incident_kam>
+
+<ThinTarget_prt_incident_k0>
+<cvs>1.0 1.0 1.0 1.0</cvs>
+<errs>0.4 0.4 0.4 0.4</errs>
+</ThinTarget_prt_incident_k0>
+
+<ThinTarget_prt_incident_p>
+<cvs>1.0 1.0 1.0 1.0</cvs>
+<errs>0.4 0.4 0.4 0.4</errs>
+</ThinTarget_prt_incident_p>
+
+<ThinTarget_prt_incident_n>
+<cvs>1.0 1.0 1.0 1.0</cvs>
+<errs>0.4 0.4 0.4 0.4</errs>
+</ThinTarget_prt_incident_n>
+
+<ThinTarget_prtleftover_incident>
+<cvs>1.0</cvs>
+<errs>0.4</errs>
+</ThinTarget_prtleftover_incident>
+
+<ThinTarget_neu_incident_pip>
+<cvs>1.0 1.0 1.0 1.0</cvs>
+<errs>0.4 0.4 0.4 0.4</errs>
+</ThinTarget_neu_incident_pip>
+
+<ThinTarget_neu_incident_pim>
+<cvs>1.0 1.0 1.0 1.0</cvs>
+<errs>0.4 0.4 0.4 0.4</errs>
+</ThinTarget_neu_incident_pim>
+
+<ThinTarget_neu_incident_kap>
+<cvs>1.0 1.0 1.0 1.0</cvs>
+<errs>0.4 0.4 0.4 0.4</errs>
+</ThinTarget_neu_incident_kap>
+
+<ThinTarget_neu_incident_kam>
+<cvs>1.0 1.0 1.0 1.0</cvs>
+<errs>0.4 0.4 0.4 0.4</errs>
+</ThinTarget_neu_incident_kam>
+
+<ThinTarget_neu_incident_k0>
+<cvs>1.0 1.0 1.0 1.0</cvs>
+<errs>0.4 0.4 0.4 0.4</errs>
+</ThinTarget_neu_incident_k0>
+
+<ThinTarget_neu_incident_p>
+<cvs>1.0 1.0 1.0 1.0</cvs>
+<errs>0.4 0.4 0.4 0.4</errs>
+</ThinTarget_neu_incident_p>
+
+<ThinTarget_neu_incident_n>
+<cvs>1.0 1.0 1.0 1.0</cvs>
+<errs>0.4 0.4 0.4 0.4</errs>
+</ThinTarget_neu_incident_n>
+
+<ThinTarget_neuleftover_incident>
+<cvs>1.0</cvs>
+<errs>0.4</errs>
+</ThinTarget_neuleftover_incident>
 
 <ThinTarget_pip_incident_pip>
 <cvs>1.0 1.0 1.0 1.0</cvs>
@@ -263,6 +364,11 @@
 <cvs>1.0 1.0 1.0 1.0</cvs>
 <errs>0.4 0.4 0.4 0.4</errs>
 </ThinTarget_k0_incident_n>
+
+<ThinTarget_mesonleftover_incident>
+<cvs>1.0</cvs>
+<errs>0.4</errs>
+</ThinTarget_mesonleftover_incident>
 
 <ThinTarget_material_scaling_pip>
 <cvs>1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0</cvs>
