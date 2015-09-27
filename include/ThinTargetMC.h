@@ -18,6 +18,12 @@ namespace NeutrinoFluxReweight{
     
     //! MC value for this HP production
     double getMCval_pC_X(double incP, double xf,double pt, int pdgcode);
+
+    //! Get the MC roduction cross-section pC->pi, K:
+    double getMCxs_pC_piK(int genid, double inc_mom);
+    //! Get the MC roduction cross-section pC->n, p:
+    double getMCxs_pC_nucleon(int genid, int pdg, double inc_mom);
+
     //! Vector of the scaling histograms:
     std::vector< std::vector<TH2F*> > hTTScl; 
     //! Vector of the scaling histograms for neutrons:
