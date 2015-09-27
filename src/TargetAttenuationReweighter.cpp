@@ -6,7 +6,9 @@
 #include <stdexcept>
 #include "AttenuationMC.h"
 #include "MIPPNumiYieldsBins.h"
-
+#include "MakeReweight.h"
+#include "ReweightDriver.h"
+         
 namespace NeutrinoFluxReweight{
   
   TargetAttenuationReweighter::TargetAttenuationReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars)
@@ -15,7 +17,12 @@ namespace NeutrinoFluxReweight{
      std::map<std::string, double> this_table = univPars.table;
      prod_prtC_xsec = this_table["prod_prtC_xsec"];
      qe_prtC_xsec   = this_table["qe_prtC_xsec"];
-     
+     delta_sigma_piC_xsec = this_table["inel_piC_xsec"];
+     delta_sigma_kapC_xsec_lowP  = this_table["inel_kapC_xsec_lowP"];
+     delta_sigma_kapC_xsec_highP = this_table["inel_kapC_xsec_highP"];
+     delta_sigma_kamC_xsec_lowP  = this_table["inel_kamC_xsec_lowP"];
+     delta_sigma_kamC_xsec_highP = this_table["inel_kamC_xsec_highP"];
+
   }
   TargetAttenuationReweighter::~TargetAttenuationReweighter(){
     
@@ -42,6 +49,9 @@ namespace NeutrinoFluxReweight{
 	if(starts_tgt && ends_tgt){
 	  can_rws.push_back(true);
 	}
+	else if(starts_tgt && !ends_tgt){
+	  can_rws.push_back(true);
+	}
 	else{
 	  can_rws.push_back(false);
 	}
@@ -53,6 +63,9 @@ namespace NeutrinoFluxReweight{
   double TargetAttenuationReweighter::calculateWeight(const InteractionChainData& aa){
 
     double wgt =1.0;
+    
+    MakeReweight*  makerew =  MakeReweight::getInstance();
+    bool domipp = (makerew->cv_rw)->doMIPPNumi;
 
     //Some constants:
     const double graphite_density=1.78;// g/cc
@@ -72,7 +85,7 @@ namespace NeutrinoFluxReweight{
     TargetData tar = aa.tar_info;
     int binID = MIPPbins->BinID(tar.Pz,tar.Pt,tar.Tar_pdg);   
     bool is_le = isLE(aa.target_config);
-    bool is_me = isLE(aa.target_config);
+    bool is_me = isME(aa.target_config);
     if( !is_le &&  !is_me ){
       throw std::runtime_error("cannot determine if it's LE or ME beam");
     }
@@ -128,8 +141,8 @@ namespace NeutrinoFluxReweight{
     delta_sigma  = prod_prtC_xsec;
     delta_sigma  += qe_prtC_xsec; 
     
-    int binprtC = (dtH->hXS_prtC)->FindBin(vec_inter[0].Inc_P);
-    double mcval = (dtH->hXS_prtC)->GetBinContent(binprtC);
+    int binpartC = (dtH->hXS_prtC)->FindBin(vec_inter[0].Inc_P);
+    double mcval = (dtH->hXS_prtC)->GetBinContent(binpartC);
     if(mcval<1.e-12){
       throw std::runtime_error("MC Cross section is zero... check!");
     }
@@ -162,7 +175,8 @@ namespace NeutrinoFluxReweight{
     totmatZ *= graphite_density;
 
     //Calculating the weight:
-    if(there_is_MIPP){
+    double norm = 1.0;
+    if(there_is_MIPP && domipp){
       int nbins = hzpos->GetXaxis()->GetNbins();
       double integral_mc = 0;
       double integral_wt = 0;
@@ -175,17 +189,94 @@ namespace NeutrinoFluxReweight{
       if(integral_wt<=0 || integral_mc<=0){
 	throw std::runtime_error("yield is zero or negative... check!");
       }     
-      double norm = integral_mc/integral_wt;
-      wgt = norm*ratio_sigma*exp(-1.0*totmatZ*delta_sigma);
+      norm = integral_mc/integral_wt;
     }
-    else if(it_is_survival){
-      wgt = exp(-1.0*totmatZ*delta_sigma);
+    
+    //Calculating the weight for the primary:
+    double wgt_pri = 1.0;
+    
+    if(it_is_survival){
+      wgt_pri = exp(-1.0*totmatZ*delta_sigma);
     }
     else{
-      wgt = ratio_sigma*exp(-1.0*totmatZ*delta_sigma);
+      wgt_pri = norm*ratio_sigma*exp(-1.0*totmatZ*delta_sigma);
     }
+    
+    //Calculating the weight for secondaries, tertiaries, etc:
+    double wgt_sec = 1.0;
+    if(!domipp){
+      for(int ii=1;ii<vec_inter.size();ii++){
+	bool starts_tgt = vec_inter[ii-1].Vol == "BudalMonitor" || vec_inter[ii-1].Vol == "TGT1" || vec_inter[ii-1].Vol == "Budal_HFVS"  || vec_inter[ii-1].Vol == "Budal_VFHS";
+	if(!starts_tgt)continue;
+	bool ends_tgt   = vec_inter[ii].Vol   == "BudalMonitor" || vec_inter[ii].Vol   == "TGT1" || vec_inter[ii].Vol   == "Budal_HFVS"  || vec_inter[ii].Vol   == "Budal_VFHS";
+	double totmatR  = 0.0;
+	double dsigma   = 0.0;
+	double fact_int = 1.0;	
+	double fact     = 1.0;	
+	//dsigma and fact_int:
+	if(vec_inter[ii].Inc_pdg==2212){
+	  dsigma   = delta_sigma;
+	  binpartC = (dtH->hXS_prtC)->FindBin(vec_inter[ii].Inc_P);
+	  mcval    = (dtH->hXS_prtC)->GetBinContent(binpartC);
+	  fact_int = (dsigma+mcval)/mcval;
+	}
+	else if(vec_inter[ii].Inc_pdg==211 || vec_inter[ii].Inc_pdg==-211){
+	  dsigma   = delta_sigma_piC_xsec;
+	  binpartC = (dtH->hXS_piC)->FindBin(vec_inter[ii].Inc_P);
+	  mcval    = (dtH->hXS_piC)->GetBinContent(binpartC);
+	  fact_int = (dsigma+mcval)/mcval;
+	}
+	else if(vec_inter[ii].Inc_pdg == 321){
+	  if(vec_inter[ii].Inc_P<2.0) dsigma = delta_sigma_kapC_xsec_lowP;
+	  if(vec_inter[ii].Inc_P>=2.0)dsigma = delta_sigma_kapC_xsec_highP;
+	  binpartC = (dtH->hXS_kapC)->FindBin(vec_inter[ii].Inc_P);
+	  mcval    = (dtH->hXS_kapC)->GetBinContent(binpartC);
+	  fact_int = (dsigma+mcval)/mcval;
+	}
+	else if(vec_inter[ii].Inc_pdg ==-321){
+	  if(vec_inter[ii].Inc_P<2.0) dsigma = delta_sigma_kamC_xsec_lowP;
+	  if(vec_inter[ii].Inc_P>=2.0)dsigma = delta_sigma_kamC_xsec_highP;
+	  binpartC = (dtH->hXS_kamC)->FindBin(vec_inter[ii].Inc_P);
+	  mcval    = (dtH->hXS_kamC)->GetBinContent(binpartC);
+	  fact_int = (dsigma+mcval)/mcval;
+	}
+	else if(totmatZ<1.e-12){
+	  dsigma = 0.0;
+	  fact_int = 1.0;
+	}
+	else{
+	  if(vec_inter[ii].Inc_P<2.0) dsigma = delta_sigma_kapC_xsec_lowP;
+	  if(vec_inter[ii].Inc_P>=2.0)dsigma = delta_sigma_kapC_xsec_highP;
+	  binpartC = (dtH->hXS_kapC)->FindBin(vec_inter[ii].Inc_P);
+	  mcval    = (dtH->hXS_kapC)->GetBinContent(binpartC);
+	  fact_int = (dsigma+mcval)/mcval;
+	}
+	
+	//Two cases: 1) ending in th target and leaving the target.
+	double zi = (vec_inter[ii-1].Vtx)[2];
+	double zf = 0.0;
+	if(ends_tgt){	  
+	  zf = (vec_inter[ii].Vtx)[2];	  
+	  fact = fact_int;
+	}
+	else if(!ends_tgt){
+	  double startpart[3] = {(vec_inter[ii-1].Vtx)[0],(vec_inter[ii-1].Vtx)[1],(vec_inter[ii-1].Vtx)[2]};
+	  double momtar[3]    = {tar.Px,tar.Py,tar.Pz};
+	  double postar[3]    = {tar.Vx,tar.Vy,tar.Vz};
+	  double zf  = getZTgtExitLE(startpart,momtar,postar);
+	}
+	if(is_le) totmatZ = getTargetPenetrationLE(zi,zf,startZ);
+	if(is_me) totmatZ = getTargetPenetrationME(zi,zf,startZ);
 
-    return wgt;
+	totmatZ *= avog_x_mb2cm2;
+	totmatZ /= graphite_A;
+	totmatZ *= graphite_density;	
+	wgt_sec *= fact*exp(-1.0*totmatZ*dsigma);
+	
+      }
+    }
+    
+    return wgt = wgt_pri*wgt_sec;
     
   }
 
@@ -438,4 +529,69 @@ namespace NeutrinoFluxReweight{
 
   }
   
+  double TargetAttenuationReweighter::getZTgtExitLE(double pos_start[], double mom_start[], double pos_tar[]){
+    //this function approximates the z position of the particle that exit the target
+    //for LE assuming 1.5 cm x 0.64 cm. xy view.
+    
+    //First, find the xy point where the partice leaves the target:
+    const double aa = 0.75;
+    const double bb = 0.32;
+    double TEX, TEY;
+    if(mom_start[0]==0)return 0.0;
+    double mm  = mom_start[1]/mom_start[0];
+    double XA  = (bb-pos_start[1])/mm + pos_start[0];
+    double XAP = (1.*bb-pos_start[1])/mm + pos_start[0];
+    double YB  = (aa-pos_start[0])*mm + pos_start[1];
+    double YBP = (-1.*aa-pos_start[0])*mm + pos_start[1];
+    //1C:
+    if(mom_start[0]>=0 && mom_start[1]>=0){
+      if(XA>aa){
+	TEX = aa;
+	TEY = YB;
+      }
+      else{
+	TEX = XA;
+	TEY = bb;
+      }
+    }
+     //2C:
+    if(mom_start[0]<0 && mom_start[1]>0){
+      if(XA<-1.*aa){
+	TEX = -1.*aa;
+	TEY = YBP;
+      }
+      else{
+	TEX = XA;
+	TEY = bb;
+      }
+    }
+    //3C:
+    if(mom_start[0]<0 && mom_start[1]<0){
+      if(XAP<-1.*aa){
+	TEX = -1.*aa;
+	TEY = YBP;
+      }
+      else{
+	TEX = XAP;
+	TEY = -1.*bb;
+      }
+    }
+     //4C:
+    if(mom_start[0]>0 && mom_start[1]<0){
+      if(XAP>aa){
+	TEX = aa;
+	TEY = YB;
+      }
+      else{
+	TEX = XAP;
+	TEY = -1.*bb;
+      }
+    }
+    
+    //Now from the 3 dimensional line equation using TEX:
+    double wanted_z = pos_start[2] + (pos_tar[2]-pos_start[2])*(TEX-pos_start[0])/(pos_tar[0]-pos_start[0]);
+    return wanted_z;
+    
+  }
+
 }
