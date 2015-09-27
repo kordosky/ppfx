@@ -134,12 +134,26 @@ namespace NeutrinoFluxReweight{
     
     ParameterTable ptable;
     
+    //test of 100% correlated bin sys:
+    double sigma_pc_pip = r3->Gaus(0.0,1.0);
+    double sigma_pc_pim = r3->Gaus(0.0,1.0);
+    double sigma_pc_kap = r3->Gaus(0.0,1.0);
+    double sigma_pc_kam = r3->Gaus(0.0,1.0);
+    double sigma_pc_p   = r3->Gaus(0.0,1.0);
+    double sigma_pc_n   = r3->Gaus(0.0,1.0);
+
     std::map<std::string, double> table_uncorr_pars = uncorrelated_pars.table;
     std::map<std::string, double>::iterator it = table_uncorr_pars.begin();
     for(;it!=table_uncorr_pars.end();it++){
       double sigma = r3->Gaus(0.0,1.0);
+      if((it->first).find("ThinTarget_pC_pip_sys")<10)sigma = sigma_pc_pip;
+      if((it->first).find("ThinTarget_pC_pim_sys")<10)sigma = sigma_pc_pim;
+      if((it->first).find("ThinTargetLowxF_pC_kap_sys")<10)sigma = sigma_pc_kap;
+      if((it->first).find("ThinTargetLowxF_pC_kam_sys")<10)sigma = sigma_pc_kam;
+      if((it->first).find("ThinTarget_pC_p_sys")<10)  sigma = sigma_pc_p;
+      if((it->first).find("ThinTarget_pC_n_sys")<10)  sigma = sigma_pc_n;
       double new_val = it->second  + cvfactor*sigma*uncorrelated_errors[it->first];
-      Parameter p(it->first,new_val); 
+      Parameter p(it->first,new_val);
       ptable.setParameter(p);      
     }
     
