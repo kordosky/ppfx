@@ -24,7 +24,7 @@ namespace NeutrinoFluxReweight{
     std::vector<float> vbin_kap_inc_pip, vbin_kap_inc_pim, vbin_kap_inc_kap, vbin_kap_inc_kam, vbin_kap_inc_k0, vbin_kap_inc_p, vbin_kap_inc_n;
     std::vector<float> vbin_kam_inc_pip, vbin_kam_inc_pim, vbin_kam_inc_kap, vbin_kam_inc_kam, vbin_kam_inc_k0, vbin_kam_inc_p, vbin_kam_inc_n;
     std::vector<float> vbin_k0_inc_pip,  vbin_k0_inc_pim,  vbin_k0_inc_kap,  vbin_k0_inc_kam,  vbin_k0_inc_k0,  vbin_k0_inc_p,  vbin_k0_inc_n;
-    
+    float bin_mesonleftover_inc;
   private:
     int iUniv;
     const ParameterTable& cvPars;
