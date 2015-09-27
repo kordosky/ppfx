@@ -94,43 +94,18 @@ namespace NeutrinoFluxReweight{
  
     ThinTargetMC*  mc =  ThinTargetMC::getInstance(); 
     double mc_cv = mc->getMCval_pC_X(aa.Inc_P,aa.xF,aa.Pt,aa.Prod_pdg); 
-    mc_cv /= calculateMCProd(aa.gen,aa.Prod_pdg,aa.Inc_P);    
+    double mc_prod = mc->getMCxs_pC_nucleon(aa.gen,aa.Prod_pdg,aa.Inc_P);    
+    mc_cv /= mc_prod;
     if(mc_cv<1.e-12)return wgt;
     wgt = dataval/mc_cv;
     if(wgt<0){
-      std::cout<<"TTPCNU check wgt(<0) "<<iUniv<<" "<<wgt<<" "<<aa.Inc_P<<" "<<aa.xF<<" "<<aa.Pt<<" "<<aa.Prod_pdg<<" "<<calculateMCProd(aa.gen,aa.Prod_pdg,aa.Inc_P)<<std::endl;
+      std::cout<<"TTPCNU check wgt(<0) "<<iUniv<<" "<<wgt<<" "<<aa.Inc_P<<" "<<aa.xF<<" "<<aa.Pt<<" "<<aa.Prod_pdg<<" "<<(mc->getMCxs_pC_nucleon(aa.gen,aa.Prod_pdg,aa.Inc_P))<<std::endl;
       return 1.0;
     }
- 
+
     return wgt;
   }
   
-  double ThinTargetpCNucleonReweighter::calculateMCProd(int genid, int pdg, double inc_mom){
-    double xx[13] ={12,20,31,40,50,60,70,80,90,100,110,120,158};
-    double yy[13] ={153386793./197812683.,160302538./197811564.,164508480./197831250.,166391359./197784915.,
-		    167860919./197822312.,168882647./197807739.,169681805./197803099.,170311264./197811098.,
-		    170860912./197822002.,171309291./197834756.,171651963./197811822.,171991260./197823012.,
-		  172902228./197804669.};
-    
-    int idx_lowp = -1;
-    int idx_hip  = -1;
-    for(int i=0;i<12;i++){
-      if(inc_mom>=double(xx[i]) && inc_mom<double(xx[i+1])){
-	idx_lowp=i;
-	idx_hip =i+1;
-      }
-    }
-    double frac_low = yy[idx_lowp];
-    double frac_hi  = yy[idx_hip];
-    double frac_m   =  frac_low + (inc_mom-double(xx[idx_lowp]))*(frac_hi-frac_low)/(double(xx[idx_hip])-double(xx[idx_lowp]));
-    
-    if(genid==0 && pdg==2212)return frac_m*243.2435;
-    if(genid>0  && pdg==2212)return frac_m;
-    if(genid==0 && pdg==2112)return frac_m;
-    if(genid>0  && pdg==2112)return frac_m/243.2435;
-    return 1.0;
-
-  }
   double ThinTargetpCNucleonReweighter::calculateDataScale(int inc_pdg, double inc_mom, int prod_pdg,double xf, double pt){
  
     double scaling_violation = 1.0;
