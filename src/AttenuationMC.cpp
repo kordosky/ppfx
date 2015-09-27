@@ -17,10 +17,12 @@ namespace NeutrinoFluxReweight{
     AttenuationMC::fzpos_tgt_MC_me = new TFile(Form("%s/MIPP/tarpos_yield_me.root",dirData),"read");
     
     //Loading the geant4 inelastic cross section for pion on Aluminum
-    AttenuationMC::hXS_piAl = (TH1D*)AttenuationMC::fInelXS_MC->Get("pip/hpip_Al");
-    AttenuationMC::hXS_prtC = (TH1D*)AttenuationMC::fInelXS_MC->Get("prt/hprt_C");
-    AttenuationMC::hXS_piC  = (TH1D*)AttenuationMC::fInelXS_MC->Get("pip/hpip_C");
-
+    AttenuationMC::hXS_piAl  = (TH1D*)AttenuationMC::fInelXS_MC->Get("pip/hpip_Al");
+    AttenuationMC::hXS_prtC  = (TH1D*)AttenuationMC::fInelXS_MC->Get("prt/hprt_C");
+    AttenuationMC::hXS_piC   = (TH1D*)AttenuationMC::fInelXS_MC->Get("pip/hpip_C");
+    AttenuationMC::hXS_kapC  = (TH1D*)AttenuationMC::fInelXS_MC->Get("kap/hkap_C");
+    AttenuationMC::hXS_kamC  = (TH1D*)AttenuationMC::fInelXS_MC->Get("kam/hkam_C");
+    
     //Loading z postition histograms from MC g4NuMI:
     //These are yields per z position per MIPP particle per MIPP bin.
     //per 2.5E8 POT
