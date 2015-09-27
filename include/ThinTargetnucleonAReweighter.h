@@ -22,7 +22,10 @@ namespace NeutrinoFluxReweight{
     virtual bool canReweight(const InteractionData& aa);
     virtual double calculateWeight(const InteractionData& aa);
     std::vector<float> vbin_data_pip, vbin_data_pim, vbin_data_kap,vbin_data_kam;
-    
+    double data_prod_xs;
+    std::vector<float> vbin_prt_inc_pip, vbin_prt_inc_pim, vbin_prt_inc_kap, vbin_prt_inc_kam, vbin_prt_inc_k0, vbin_prt_inc_p, vbin_prt_inc_n;
+    std::vector<float> vbin_neu_inc_pip, vbin_neu_inc_pim, vbin_neu_inc_kap, vbin_neu_inc_kam, vbin_neu_inc_k0, vbin_neu_inc_p, vbin_neu_inc_n;
+    float bin_prtleftover_inc, bin_neuleftover_inc;
   private:
     int iUniv;
     const ParameterTable& cvPars;
