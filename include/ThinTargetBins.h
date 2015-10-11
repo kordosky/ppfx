@@ -11,9 +11,12 @@ namespace NeutrinoFluxReweight{
    *  \brief A class to manage the bin definitions for MIPP Numi Yields
    */
   class ThinTargetBins{
-  public:
-    
+
+
+  private:    
     ThinTargetBins();
+
+  public:
     static ThinTargetBins* getInstance();
     
     //! Read a NA49 data pip xml file name to parse the bins

@@ -9,10 +9,12 @@
 namespace NeutrinoFluxReweight{
   
   class AttenuationMC{
-  public:
-    
+
+  private:    
     AttenuationMC();
     ~AttenuationMC();
+
+  public:
     static AttenuationMC* getInstance();
     
     TH1D* hXS_piAl;

@@ -11,9 +11,11 @@ namespace NeutrinoFluxReweight{
    *  \brief A class to manage the bin definitions for MIPP Numi Yields
    */
   class MIPPNumiYieldsBins{
-  public:
-    
+
+  private:
     MIPPNumiYieldsBins();
+
+  public: 
     static MIPPNumiYieldsBins* getInstance();
     
     //! Read a xml pip file name to parse the bins
@@ -32,9 +34,7 @@ namespace NeutrinoFluxReweight{
     std::vector<double> pip_data_pzmax, pim_data_pzmax, k_pi_data_pzmax;
     std::vector<double> pip_data_ptmin, pim_data_ptmin, k_pi_data_ptmin;
     std::vector<double> pip_data_ptmax, pim_data_ptmax, k_pi_data_ptmax;
-    
-    
-    
+        
     private:
     static MIPPNumiYieldsBins* instance;
 

@@ -14,9 +14,11 @@ namespace NeutrinoFluxReweight{
    *  \brief A class to manage the MC value for MIPP NuMI. 
    */
   class MIPPNumiMC{
-  public:
-    
+
+  private:
     MIPPNumiMC();
+
+  public:
     static MIPPNumiMC* getInstance();
     
     //! Read a xml file name to get the mc value for pip

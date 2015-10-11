@@ -12,8 +12,11 @@ namespace NeutrinoFluxReweight{
    *  \brief A class to manage the MC value for thin target 
    */
   class ThinTargetMC{
-  public:
+
+  private:
     ThinTargetMC();
+
+  public:
     static ThinTargetMC* getInstance();
     
     //! MC value for this HP production

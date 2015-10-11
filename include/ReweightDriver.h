@@ -36,7 +36,7 @@ namespace NeutrinoFluxReweight{
      * the constructor
     */
     ReweightDriver(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars,std::string fileIn);
-    
+    ~ReweightDriver();
 
     /*!
      * Calculate weight for this event, given a set of central value parameters
