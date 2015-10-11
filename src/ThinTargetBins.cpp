@@ -25,7 +25,7 @@ namespace NeutrinoFluxReweight{
 
     int idx=0;
     double aux_xfmin,aux_xfmax,aux_ptmin,aux_ptmax;
-    for(; it!=binsPI.end(); it++){
+    for(; it!=binsPI.end(); ++it){
       std::string xf_string=it->second.get<std::string>("xfrange");
       std::string pt_string=it->second.get<std::string>("ptrange");
       
@@ -52,7 +52,7 @@ namespace NeutrinoFluxReweight{
 
     int idx=0;
     double aux_xfmin,aux_xfmax,aux_ptmin,aux_ptmax;
-    for(; it!=binsPI.end(); it++){
+    for(; it!=binsPI.end(); ++it){
       std::string xf_string=it->second.get<std::string>("xfrange");
       std::string pt_string=it->second.get<std::string>("ptrange");
       
@@ -79,7 +79,7 @@ namespace NeutrinoFluxReweight{
 
     int idx=0;
     double aux_xfmin,aux_xfmax,aux_ptmin,aux_ptmax;
-    for(; it!=binsP.end(); it++){
+    for(; it!=binsP.end(); ++it){
       std::string xf_string=it->second.get<std::string>("xfrange");
       std::string pt_string=it->second.get<std::string>("ptrange");
       
@@ -106,7 +106,7 @@ void ThinTargetBins::pC_n_from_xml(const char* filename){
 
     int idx=0;
     double aux_xfmin,aux_xfmax;
-    for(; it!=binsN.end(); it++){
+    for(; it!=binsN.end(); ++it){
       std::string xf_string=it->second.get<std::string>("xfrange");
       std::stringstream ss1(xf_string);
       ss1 >> aux_xfmin >> aux_xfmax;
@@ -127,7 +127,7 @@ void ThinTargetBins::pC_n_from_xml(const char* filename){
     
     int idx=0;
     double aux_xfmin,aux_xfmax,aux_ptmin,aux_ptmax;
-    for(; it!=binsK.end(); it++){
+    for(; it!=binsK.end(); ++it){
       std::string xf_string=it->second.get<std::string>("xfrange");
       std::string pt_string=it->second.get<std::string>("ptrange");
       
@@ -154,7 +154,7 @@ void ThinTargetBins::pC_n_from_xml(const char* filename){
 
     int idx=0;
     double aux_pzmin,aux_pzmax,aux_ptmin,aux_ptmax;
-    for(; it!=binsK.end(); it++){
+    for(; it!=binsK.end(); ++it){
       std::string pz_string=it->second.get<std::string>("pzrange");
       std::string pt_string=it->second.get<std::string>("ptrange");
       
@@ -181,7 +181,7 @@ void ThinTargetBins::pC_n_from_xml(const char* filename){
     
     int idx=0;
     double aux_xfmin,aux_xfmax,aux_ptmin,aux_ptmax;
-    for(; it!=bins.end(); it++){
+    for(; it!=bins.end(); ++it){
       std::string xf_string=it->second.get<std::string>("xfrange");
       std::string pt_string=it->second.get<std::string>("ptrange");
       
@@ -208,7 +208,7 @@ void ThinTargetBins::pC_n_from_xml(const char* filename){
     
     int idx=0;
     double aux_xfmin,aux_xfmax,aux_ptmin,aux_ptmax;
-    for(; it!=bins.end(); it++){
+    for(; it!=bins.end(); ++it){
       std::string xf_string=it->second.get<std::string>("xfrange");
       std::string pt_string=it->second.get<std::string>("ptrange");
       
@@ -234,7 +234,7 @@ void ThinTargetBins::pC_n_from_xml(const char* filename){
     
     if(pdgcode == 211 || pdgcode == -211){
       size = pC_pi_xfmin.size();
-      for(int ii=0;ii<size;ii++){
+      for(int ii=0;ii<size;++ii){
 	if(xf>pC_pi_xfmin[ii] && xf<pC_pi_xfmax[ii] && pt>pC_pi_ptmin[ii] && pt<pC_pi_ptmax[ii]){
 	  ibinID = ii;
 	}
@@ -270,7 +270,7 @@ void ThinTargetBins::pC_n_from_xml(const char* filename){
     
     if(pdgcode == 2212){
       size = pC_p_xfmin.size();
-      for(int ii=0;ii<size;ii++){
+      for(int ii=0;ii<size;++ii){
 	if(xf>pC_p_xfmin[ii] && xf<pC_p_xfmax[ii] && pt>pC_p_ptmin[ii] && pt<pC_p_ptmax[ii]){
 	  ibinID = ii;
 	}
@@ -287,7 +287,7 @@ void ThinTargetBins::pC_n_from_xml(const char* filename){
     int size = 0;
     if(pdgcode == 2112){
       size = pC_n_xfmin.size();
-      for(int ii=0;ii<size;ii++){
+      for(int ii=0;ii<size;++ii){
 	if( (xf>pC_n_xfmin[ii]) && (xf<pC_n_xfmax[ii])){
 	  ibinID = ii;
 	}
@@ -305,7 +305,7 @@ void ThinTargetBins::pC_n_from_xml(const char* filename){
     
     if(pdgcode == 321 || pdgcode == -321 || pdgcode == 130 || pdgcode == 310){
       size = pC_k_xfmin.size();
-      for(int ii=0;ii<size;ii++){
+      for(int ii=0;ii<size;++ii){
 	if(xf>pC_k_xfmin[ii] && xf<pC_k_xfmax[ii] && pt>pC_k_ptmin[ii] && pt<pC_k_ptmax[ii]){
 	  ibinID = ii;
 	}
@@ -323,7 +323,7 @@ void ThinTargetBins::pC_n_from_xml(const char* filename){
     
     if(pdgcode == 321 || pdgcode == -321 || pdgcode == 130 || pdgcode == 310){
       size = mipp_pC_k_pzmin.size();
-      for(int ii=0;ii<size;ii++){
+      for(int ii=0;ii<size;++ii){
 	if(pz>mipp_pC_k_pzmin[ii] && pz<mipp_pC_k_pzmax[ii] && pt>mipp_pC_k_ptmin[ii] && pt<mipp_pC_k_ptmax[ii]){
 	  ibinID = ii;
 	}
@@ -341,7 +341,7 @@ int ThinTargetBins::meson_inc_BinID(double xf, double pt,int pdgcode){
     
     if(pdgcode == 211 || pdgcode == -211 || pdgcode == 321 || pdgcode == -321||  pdgcode == 130 ||  pdgcode == 310){
       size = meson_inc_xfmin.size();
-      for(int ii=0;ii<size;ii++){
+      for(int ii=0;ii<size;++ii){
 	if(xf>meson_inc_xfmin[ii] && xf<meson_inc_xfmax[ii] && pt>meson_inc_ptmin[ii] && pt<meson_inc_ptmax[ii]){
 	  ibinID = ii;
 	}
@@ -359,7 +359,7 @@ int ThinTargetBins::material_scaling_BinID(double xf, double pt,int pdgcode){
     
     if(pdgcode == 211 || pdgcode == -211 || pdgcode == 321 || pdgcode == -321||  pdgcode == 130 ||  pdgcode == 310){
       size = mat_scal_xfmin.size();
-      for(int ii=0;ii<size;ii++){
+      for(int ii=0;ii<size;++ii){
 	if((xf>mat_scal_xfmin[ii]) && (xf<mat_scal_xfmax[ii]) && (pt>mat_scal_ptmin[ii]) && (pt<mat_scal_ptmax[ii])){
 	  ibinID = ii;
 	}

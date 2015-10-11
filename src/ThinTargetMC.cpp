@@ -79,6 +79,14 @@ namespace NeutrinoFluxReweight{
       hTTScl_n.push_back((TH1F*)ThinTargetMC::fTTscale[Nscl]->Get(Form("xF_%dGeV",mom_scale[imom])));
     }
 
+    //closing files:
+    for(int ii=0;ii<8;ii++){
+      fpC_x[ii]->Close();
+    }
+    for(int ii=0;ii<2;ii++){
+      fqe_corr[ii]->Close();
+    }
+    
   }
   
   double ThinTargetMC::getMCval_pC_X(double incP, double xf,double pt, int pdgcode){

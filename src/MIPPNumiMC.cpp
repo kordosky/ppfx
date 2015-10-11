@@ -3,14 +3,15 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/xml_parser.hpp>
 
-
 namespace NeutrinoFluxReweight{ 
   
   MIPPNumiMC* MIPPNumiMC::instance = 0;
   
   MIPPNumiMC::MIPPNumiMC(){
     ranges_already_filled = false;
-    //I do need to it outside of ppfx, but for now:
+
+    //FRaction of protons not interacting in the target or Budal Monitor for
+    //LE NuMI mode using FTFP.
     proton_no_interacting = 0.13288294;
   }
   
@@ -18,14 +19,13 @@ namespace NeutrinoFluxReweight{
     using boost::property_tree::ptree;
     ptree top;
     read_xml(filename,top,2); 
-    std::string namebase = "MIPPNuMI_MC_pip";    
     ptree bins;
     bins = top.get_child("mcbin.MIPPNuMI_MC_pip");
     ptree::iterator it;    
     // we know that pip, pim, kap and kam have the same binning
     double cv,pzmin,pzmax,ptmin,ptmax;
     
-    for(it = bins.begin(); it!=bins.end(); it++){
+    for(it = bins.begin(); it!=bins.end(); ++it){
    
       std::string cv_string=it->second.get<std::string>("cvmc");
       std::string pz_string=it->second.get<std::string>("pzrange");
@@ -55,14 +55,13 @@ void MIPPNumiMC::pim_mc_from_xml(const char* filename){
     using boost::property_tree::ptree;
     ptree top;
     read_xml(filename,top,2); 
-    std::string namebase = "MIPPNuMI_MC_pim";    
     ptree bins;
     bins = top.get_child("mcbin.MIPPNuMI_MC_pim");
     ptree::iterator it;    
     // we know that pip, pim, kap and kam have the same binning
     double cv,pzmin,pzmax,ptmin,ptmax;
     
-    for(it = bins.begin(); it!=bins.end(); it++){
+    for(it = bins.begin(); it!=bins.end(); ++it){
    
       std::string cv_string=it->second.get<std::string>("cvmc");
       std::string pz_string=it->second.get<std::string>("pzrange");
@@ -91,14 +90,13 @@ void MIPPNumiMC::kap_mc_from_xml(const char* filename){
     using boost::property_tree::ptree;
     ptree top;
     read_xml(filename,top,2); 
-    std::string namebase = "MIPPNuMI_MC_kap";    
     ptree bins;
     bins = top.get_child("mcbin.MIPPNuMI_MC_kap");
     ptree::iterator it;    
     // we know that pip, pim, kap and kam have the same binning
     double cv,pzmin,pzmax,ptmin,ptmax;
     
-    for(it = bins.begin(); it!=bins.end(); it++){
+    for(it = bins.begin(); it!=bins.end(); ++it){
    
       std::string cv_string=it->second.get<std::string>("cvmc");
       std::string pz_string=it->second.get<std::string>("pzrange");
@@ -126,14 +124,13 @@ void MIPPNumiMC::kam_mc_from_xml(const char* filename){
     using boost::property_tree::ptree;
     ptree top;
     read_xml(filename,top,2); 
-    std::string namebase = "MIPPNuMI_MC_kam";    
     ptree bins;
     bins = top.get_child("mcbin.MIPPNuMI_MC_kam");
     ptree::iterator it;    
     // we know that pip, pim, kap and kam have the same binning
     double cv,pzmin,pzmax,ptmin,ptmax;
     
-    for(it = bins.begin(); it!=bins.end(); it++){
+    for(it = bins.begin(); it!=bins.end(); ++it){
    
       std::string cv_string=it->second.get<std::string>("cvmc");
       std::string pz_string=it->second.get<std::string>("pzrange");
@@ -160,14 +157,13 @@ void MIPPNumiMC::kam_mc_from_xml(const char* filename){
     using boost::property_tree::ptree;
     ptree top;
     read_xml(filename,top,2); 
-    std::string namebase = "MIPPNuMI_MC_k0l";    
     ptree bins;
     bins = top.get_child("mcbin.MIPPNuMI_MC_k0l");
     ptree::iterator it;    
     // we know that pip, pim, kap, kam, k0l and k0s have the same binning
     double cv,pzmin,pzmax,ptmin,ptmax;
     
-    for(it = bins.begin(); it!=bins.end(); it++){
+    for(it = bins.begin(); it!=bins.end(); ++it){
    
       std::string cv_string=it->second.get<std::string>("cvmc");
       std::string pz_string=it->second.get<std::string>("pzrange");
@@ -194,14 +190,13 @@ void MIPPNumiMC::kam_mc_from_xml(const char* filename){
     using boost::property_tree::ptree;
     ptree top;
     read_xml(filename,top,2); 
-    std::string namebase = "MIPPNuMI_MC_k0s";    
     ptree bins;
     bins = top.get_child("mcbin.MIPPNuMI_MC_k0s");
     ptree::iterator it;    
     // we know that pip, pim, kap, kam, k0l and k0s have the same binning
     double cv,pzmin,pzmax,ptmin,ptmax;
     
-    for(it = bins.begin(); it!=bins.end(); it++){
+    for(it = bins.begin(); it!=bins.end(); ++it){
    
       std::string cv_string=it->second.get<std::string>("cvmc");
       std::string pz_string=it->second.get<std::string>("pzrange");
@@ -233,7 +228,7 @@ void MIPPNumiMC::kam_mc_from_xml(const char* filename){
     //pip:
     if(pdgcode==211){
       size = pip_cv.size();
-      for(int ii=0;ii<size;ii++){
+      for(int ii=0;ii<size;++ii){
 	if(pz>v_pzmin[ii] && pz<v_pzmax[ii] && pt>v_ptmin[ii] && pt<v_ptmax[ii]){
 	  cvmc = pip_cv[ii];
 	}
@@ -243,7 +238,7 @@ void MIPPNumiMC::kam_mc_from_xml(const char* filename){
     //pim:
     if(pdgcode==-211){
        size = pim_cv.size();
-      for(int ii=0;ii<size;ii++){
+      for(int ii=0;ii<size;++ii){
 	if(pz>v_pzmin[ii] && pz<v_pzmax[ii] && pt>v_ptmin[ii] && pt<v_ptmax[ii]){
 	  cvmc = pim_cv[ii];
 	}
@@ -253,7 +248,7 @@ void MIPPNumiMC::kam_mc_from_xml(const char* filename){
     //kap
     if(pdgcode==321){
        size = kap_cv.size();
-      for(int ii=0;ii<size;ii++){
+      for(int ii=0;ii<size;++ii){
 	if(pz>v_pzmin[ii] && pz<v_pzmax[ii] && pt>v_ptmin[ii] && pt<v_ptmax[ii]){
 	  cvmc = kap_cv[ii];
 	}
@@ -263,7 +258,7 @@ void MIPPNumiMC::kam_mc_from_xml(const char* filename){
     //kam:
     if(pdgcode==-321){    
        size = kam_cv.size();
-       for(int ii=0;ii<size;ii++){
+       for(int ii=0;ii<size;++ii){
 	if(pz>v_pzmin[ii] && pz<v_pzmax[ii] && pt>v_ptmin[ii] && pt<v_ptmax[ii]){
 	  cvmc = kam_cv[ii];
 	}
@@ -272,7 +267,7 @@ void MIPPNumiMC::kam_mc_from_xml(const char* filename){
     //k0l:
     if(pdgcode== 130){    
        size = k0l_cv.size();
-       for(int ii=0;ii<size;ii++){
+       for(int ii=0;ii<size;++ii){
 	if(pz>v_pzmin[ii] && pz<v_pzmax[ii] && pt>v_ptmin[ii] && pt<v_ptmax[ii]){
 	  cvmc = k0l_cv[ii];
 	}
@@ -282,7 +277,7 @@ void MIPPNumiMC::kam_mc_from_xml(const char* filename){
     //k0s:
     if(pdgcode== 310){    
        size = k0s_cv.size();
-       for(int ii=0;ii<size;ii++){
+       for(int ii=0;ii<size;++ii){
 	if(pz>v_pzmin[ii] && pz<v_pzmax[ii] && pt>v_ptmin[ii] && pt<v_ptmax[ii]){
 	  cvmc = k0s_cv[ii];
 	}

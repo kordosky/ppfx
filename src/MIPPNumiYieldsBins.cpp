@@ -27,7 +27,7 @@ namespace NeutrinoFluxReweight{
     int idx=0;
     double aux_pzmin,aux_pzmax,aux_ptmin,aux_ptmax;
 
-    for(; it!=binsPIP.end(); it++){
+    for(; it!=binsPIP.end(); ++it){
       // it->first is the name
       // it->second is the child property tree
       std::string pz_string=it->second.get<std::string>("pzrange");
@@ -56,7 +56,7 @@ namespace NeutrinoFluxReweight{
     ptree::iterator it = binsPIM.begin();
     double aux_pzmin,aux_pzmax,aux_ptmin,aux_ptmax;
 
-    for(; it!=binsPIM.end(); it++){
+    for(; it!=binsPIM.end(); ++it){
       // it->first is the name
       // it->second is the child property tree
       std::string pz_string=it->second.get<std::string>("pzrange");
@@ -86,7 +86,7 @@ namespace NeutrinoFluxReweight{
     int idx=0;
     double aux_pzmin,aux_pzmax,aux_ptmin,aux_ptmax;
 
-    for(; it!=binsK_PI.end(); it++){
+    for(; it!=binsK_PI.end(); ++it){
       std::string pz_string=it->second.get<std::string>("pzrange");
       std::string pt_string=it->second.get<std::string>("ptrange");
       
@@ -109,7 +109,7 @@ namespace NeutrinoFluxReweight{
     int size = 0;
     if(pdgcode==211){
       size = pip_data_pzmin.size();
-      for(int ii=0;ii<size;ii++){
+      for(int ii=0;ii<size;++ii){
 	if(pz>pip_data_pzmin[ii] && pz<pip_data_pzmax[ii] && pt>pip_data_ptmin[ii] && pt<pip_data_ptmax[ii]){
 	  ibinID = ii;
 	}
@@ -118,7 +118,7 @@ namespace NeutrinoFluxReweight{
     }
     if(pdgcode==-211){
       size = pim_data_pzmin.size();
-      for(int ii=0;ii<size;ii++){
+      for(int ii=0;ii<size;++ii){
 	if(pz>pim_data_pzmin[ii] && pz<pim_data_pzmax[ii] && pt>pim_data_ptmin[ii] && pt<pim_data_ptmax[ii]){
 	  ibinID = ii;
 	}
@@ -127,7 +127,7 @@ namespace NeutrinoFluxReweight{
     }
     if(pdgcode==321 || pdgcode==-321 || pdgcode==130 || pdgcode==310){
       size = k_pi_data_pzmin.size();
-      for(int ii=0;ii<size;ii++){
+      for(int ii=0;ii<size;++ii){
 	if(pz>k_pi_data_pzmin[ii] && pz<k_pi_data_pzmax[ii] && pt>k_pi_data_ptmin[ii] && pt<k_pi_data_ptmax[ii]){
 	  ibinID = ii;
 	}

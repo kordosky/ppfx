@@ -18,6 +18,7 @@ namespace NeutrinoFluxReweight{
   CentralValuesAndUncertainties* CentralValuesAndUncertainties::instance = 0;
 
   CentralValuesAndUncertainties::CentralValuesAndUncertainties(){
+    //! Setting the seed to zero. 
     r3=new TRandom3(0);
     baseSeed = 0;
   }
@@ -28,9 +29,10 @@ namespace NeutrinoFluxReweight{
     
     read_xml(filename,top,2); // option 2 removes comment strings
     
+    //! Reading the uncorrelated parameters:
     ptree& uncorrelated = top.get_child("pars.uncorrelated");
     ptree::iterator it = uncorrelated.begin();
-    for(; it!=uncorrelated.end(); it++){
+    for(; it!=uncorrelated.end(); ++it){
       // it->first is the name
       // it->second is the child property tree
       double cv=it->second.get<double>("cv");
@@ -39,15 +41,15 @@ namespace NeutrinoFluxReweight{
       CentralValuesAndUncertainties::addUncorrelated(p,err);
     }
 
+    //! Reading the uncorrelated list:
     ptree& uncorrelated_list = top.get_child("pars.uncorrelated_list");
     it = uncorrelated_list.begin();
-    for(; it!=uncorrelated_list.end(); it++){
+    for(; it!=uncorrelated_list.end(); ++it){
       // it->first is the name
       // it->second is the child property tree
 
       std::string cvs_string=it->second.get<std::string>("cvs");
       std::string errs_string=it->second.get<std::string>("errs");
-      //  std::cout<<"LIST "<<cvs_string<<" "<<errs_string<<std::endl;
       double cv=0;
       int ii=0;
       std::string name;
@@ -73,9 +75,10 @@ namespace NeutrinoFluxReweight{
       
     }
     
+    //! Reading the correlated parameters:
     ptree& correlated = top.get_child("pars.correlated");
     it = correlated.begin();
-    for(; it!=correlated.end(); it++){
+    for(; it!=correlated.end(); ++it){
       // it->first is the name
       // it->second is the child property tree
       std::string cvs_string=it->second.get<std::string>("cvs");
@@ -134,7 +137,7 @@ namespace NeutrinoFluxReweight{
     
     ParameterTable ptable;
     
-    //test of 100% correlated bin sys:
+    //! We are going to use 100% correlated bin-to-bin for systematic errors in thin target data:
     double sigma_pc_pip = r3->Gaus(0.0,1.0);
     double sigma_pc_pim = r3->Gaus(0.0,1.0);
     double sigma_pc_kap = r3->Gaus(0.0,1.0);
@@ -144,8 +147,9 @@ namespace NeutrinoFluxReweight{
 
     std::map<std::string, double> table_uncorr_pars = uncorrelated_pars.table;
     std::map<std::string, double>::iterator it = table_uncorr_pars.begin();
-    for(;it!=table_uncorr_pars.end();it++){
+    for(;it!=table_uncorr_pars.end();++it){
       double sigma = r3->Gaus(0.0,1.0);
+      //redefining sigma for 100% correlation:
       if((it->first).find("ThinTarget_pC_pip_sys")<10)sigma = sigma_pc_pip;
       if((it->first).find("ThinTarget_pC_pim_sys")<10)sigma = sigma_pc_pim;
       if((it->first).find("ThinTargetLowxF_pC_kap_sys")<10)sigma = sigma_pc_kap;
@@ -159,7 +163,7 @@ namespace NeutrinoFluxReweight{
     
     TDecompChol *decomp;
     
-    for(int ii=0;ii<covariance_matrices.size();ii++){
+    for(int ii=0;ii<covariance_matrices.size();++ii){
       
       decomp=new TDecompChol(covariance_matrices[ii],0.0);
       
@@ -178,7 +182,7 @@ namespace NeutrinoFluxReweight{
       std::map<std::string, double> tb = (correlated_par_tables[ii]).table;
       std::map<std::string, double>::iterator it_tb = tb.begin();
 
-      for(;it_tb != tb.end();it_tb++){
+      for(;it_tb != tb.end();++it_tb){
 	std::string tmp_name = it_tb->first;
 	std::string snID = tmp_name.substr((it_tb->first).rfind("_")+1,(it_tb->first).length());
 	std::stringstream ssID(snID);

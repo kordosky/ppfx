@@ -18,9 +18,11 @@ namespace NeutrinoFluxReweight{
     
     //Creating the vector of reweighters:
     
-    if(doMIPPNumi)MIPP_NUMI_PION_Universe = new MIPPNumiPionYieldsReweighter(iUniv,cvPars,univPars);
-    if(doMIPPNumi)MIPP_NUMI_KAON_Universe = new MIPPNumiKaonYieldsReweighter(iUniv,cvPars,univPars);
-
+    if(doMIPPNumi){
+      MIPP_NUMI_PION_Universe = new MIPPNumiPionYieldsReweighter(iUniv,cvPars,univPars);
+      MIPP_NUMI_KAON_Universe = new MIPPNumiKaonYieldsReweighter(iUniv,cvPars,univPars);
+    }
+    
     TARG_ATT_Universe = new TargetAttenuationReweighter(iUniv,cvPars,univPars);    
     VOL_ABS_IC_Universe = new AbsorptionICReweighter(iUniv,cvPars,univPars);
     VOL_ABS_DPIP_Universe = new AbsorptionDPIPReweighter(iUniv,cvPars,univPars);
@@ -63,7 +65,7 @@ namespace NeutrinoFluxReweight{
 
     /// ----- PROCESS INTERACTION NODES ----- ///
     
-    //First we look at MIPP and look absorption chain:
+    //MIPP NuMI Pions:
     bool has_mipp = false;
     mipp_pion_wgt = 1.0;
     if(doMIPPNumi){
@@ -77,7 +79,8 @@ namespace NeutrinoFluxReweight{
       }
       tot_wgt *= mipp_pion_wgt;
     }
-
+    
+    //MIPP NuMI Kaons:
     mipp_kaon_wgt = 1.0;
     if(!has_mipp && doMIPPNumi){
       interaction_nodes = MIPP_NUMI_KAON_Universe->canReweight(icd);
@@ -92,8 +95,8 @@ namespace NeutrinoFluxReweight{
       tot_wgt *= mipp_kaon_wgt;
     }
     
+    //Thin Target pC->piX:
     pC_pi_wgt = 1.0;
-    
     for(int ii=(interaction_nodes.size()-1);ii>=0;ii--){	
       if(interaction_nodes[ii]==false){
 	bool is_rew = THINTARGET_PC_PION_Universe->canReweight((icd.interaction_chain)[ii]);
@@ -103,14 +106,11 @@ namespace NeutrinoFluxReweight{
 	  interaction_nodes[ii]=true;
 	}
       }
-      else{
-	break;
-      } 
     }
     tot_wgt *= pC_pi_wgt;
        
-    pC_k_wgt = 1.0;
-    
+    //Thin Target pC->KX:
+    pC_k_wgt = 1.0;    
     for(int ii=(interaction_nodes.size()-1);ii>=0;ii--){	
       if(interaction_nodes[ii]==false){
 	bool is_rew = THINTARGET_PC_KAON_Universe->canReweight((icd.interaction_chain)[ii]);
@@ -120,14 +120,11 @@ namespace NeutrinoFluxReweight{
 	  interaction_nodes[ii]=true;
 	}
       }
-      else{
-	break;
-      } 
     }
     tot_wgt *= pC_k_wgt;
     
+    //Thin Target nC->piX:
     nC_pi_wgt = 1.0;
- 
     for(int ii=(interaction_nodes.size()-1);ii>=0;ii--){	
       if(interaction_nodes[ii]==false){
 	bool is_rew = THINTARGET_NC_PION_Universe->canReweight((icd.interaction_chain)[ii]);
@@ -137,15 +134,11 @@ namespace NeutrinoFluxReweight{
 	  interaction_nodes[ii]=true;
 	}
       }
-      else{
-	break;
-      } 
     }
     tot_wgt *= nC_pi_wgt;
-      
-
+    
+    //Thin Target pC->nucleonX:
     pC_nu_wgt = 1.0;
-
     for(int ii=(interaction_nodes.size()-1);ii>=0;ii--){	
       if(interaction_nodes[ii]==false){
 	bool is_rew = THINTARGET_PC_NUCLEON_Universe->canReweight((icd.interaction_chain)[ii]);
@@ -155,14 +148,11 @@ namespace NeutrinoFluxReweight{
 	  interaction_nodes[ii]=true;
 	}
       }
-      else{
-	break;
-      } 
     }
     tot_wgt *= pC_nu_wgt;
-      
-    meson_inc_wgt = 1.0;
     
+    //Thin Target Meson Incident:
+    meson_inc_wgt = 1.0; 
     for(int ii=(interaction_nodes.size()-1);ii>=0;ii--){	
       if(interaction_nodes[ii]==false){
 	bool is_rew = THINTARGET_MESON_INCIDENT_Universe->canReweight((icd.interaction_chain)[ii]);
@@ -171,15 +161,12 @@ namespace NeutrinoFluxReweight{
 	  meson_inc_wgt *= rewval;
 	  interaction_nodes[ii]=true;
 	}
-	}
-      else{
-	break;
-      } 
+      }
     }
     tot_wgt *= meson_inc_wgt;    
-
-    nuA_wgt = 1.0;
- 
+    
+    //Thin Target Nucleon Incident not hanldle NA49 or Barton:
+    nuA_wgt = 1.0; 
     for(int ii=(interaction_nodes.size()-1);ii>=0;ii--){	
       if(interaction_nodes[ii]==false){
 	bool is_rew = THINTARGET_NUCLEON_A_Universe->canReweight((icd.interaction_chain)[ii]);
@@ -189,14 +176,11 @@ namespace NeutrinoFluxReweight{
 	  interaction_nodes[ii]=true;
 	}
       }
-      else{
-	break;
-      } 
     }
     tot_wgt *= nuA_wgt;
-     
+    
+    //Any other interaction not handled yet:
     other_wgt = 1.0;
-
     for(int ii=(interaction_nodes.size()-1);ii>=0;ii--){	
       if(interaction_nodes[ii]==false){
 	bool is_rew = OTHER_Universe->canReweight((icd.interaction_chain)[ii]);
@@ -206,29 +190,23 @@ namespace NeutrinoFluxReweight{
 	  interaction_nodes[ii]=true;
 	}
       }
-      else{
-	break;
-      } 
     }
     tot_wgt *= other_wgt;
     
-    //Looking for target attenuation correction:
+    //Target attenuation correction:
     att_wgt = 1.0;
-
     attenuation_nodes = TARG_ATT_Universe->canReweight(icd);   
     //we just see for the first position (prmary proton)
     if(attenuation_nodes[0]==true){
       att_wgt *= TARG_ATT_Universe->calculateWeight(icd);
     }
     tot_wgt *= att_wgt;
-    
-    
-    //ABS:
+        
+    //Absorption correction:
     tot_abs_wgt = 1.0;
     
-    // Looking for the correction of the pi & K absorption in volumes (Al)    
-    abs_ic_wgt = 1.0;
-    
+    // Correction of the pi & K absorption in volumes (Al)    
+    abs_ic_wgt = 1.0;    
     absorption_nodes = VOL_ABS_IC_Universe->canReweight(icd);
     if(absorption_nodes[0]==true){
       abs_ic_wgt *= VOL_ABS_IC_Universe->calculateWeight(icd);
@@ -236,9 +214,8 @@ namespace NeutrinoFluxReweight{
     tot_wgt     *= abs_ic_wgt;
     tot_abs_wgt *= abs_ic_wgt;
  
-    //Looking for the correction of the pi & K absorption in volumes (Fe)
-    abs_dpip_wgt = 1.0;
-    
+    //Correction of the pi & K absorption in volumes (Fe)
+    abs_dpip_wgt = 1.0;    
     absorption_nodes = VOL_ABS_DPIP_Universe->canReweight(icd);
     if(absorption_nodes[0]==true){
       abs_dpip_wgt *= VOL_ABS_DPIP_Universe->calculateWeight(icd);
@@ -247,9 +224,8 @@ namespace NeutrinoFluxReweight{
     tot_abs_wgt *= abs_dpip_wgt;
     
     
-    //Looking for the correction of the pi & K absorption in volumes (He)
-    abs_dvol_wgt = 1.0;
-    
+    //Correction of the pi & K absorption in volumes (He)
+    abs_dvol_wgt = 1.0;    
     absorption_nodes = VOL_ABS_DVOL_Universe->canReweight(icd);
     if(absorption_nodes[0]==true){
       abs_dvol_wgt *= VOL_ABS_DVOL_Universe->calculateWeight(icd);
@@ -257,9 +233,8 @@ namespace NeutrinoFluxReweight{
     tot_wgt     *= abs_dvol_wgt;
     tot_abs_wgt *= abs_dvol_wgt;
     
-    //Looking for the correction of nucleons on Al, Fe and He.
-    abs_nucleon_wgt = 1.0;
-    
+    //Correction of nucleons on Al, Fe and He.
+    abs_nucleon_wgt = 1.0;    
     absorption_nodes = VOL_ABS_NUCLEON_Universe->canReweight(icd);
     if(absorption_nodes[0]==true){
       abs_nucleon_wgt *= VOL_ABS_NUCLEON_Universe->calculateWeight(icd);
@@ -267,9 +242,8 @@ namespace NeutrinoFluxReweight{
     tot_wgt     *= abs_nucleon_wgt;
     tot_abs_wgt *= abs_nucleon_wgt;
     
-    //Looking for the correction of any other particle on Al, Fe and He.
-    abs_other_wgt = 1.0;
-    
+    //Correction of any other particle on Al, Fe and He.
+    abs_other_wgt = 1.0;    
     absorption_nodes = VOL_ABS_OTHER_Universe->canReweight(icd);
     if(absorption_nodes[0]==true){
       abs_other_wgt *= VOL_ABS_OTHER_Universe->calculateWeight(icd);
@@ -284,4 +258,25 @@ namespace NeutrinoFluxReweight{
     return tot_wgt;
   }
   
+  ReweightDriver::~ReweightDriver(){
+ 
+    if(doMIPPNumi){
+      delete MIPP_NUMI_PION_Universe;
+      delete MIPP_NUMI_KAON_Universe;
+    }    
+    delete TARG_ATT_Universe;
+    delete VOL_ABS_IC_Universe;
+    delete VOL_ABS_DPIP_Universe;
+    delete VOL_ABS_DVOL_Universe;
+    delete VOL_ABS_NUCLEON_Universe;
+    delete VOL_ABS_OTHER_Universe;
+    delete THINTARGET_PC_PION_Universe;
+    delete THINTARGET_PC_KAON_Universe;
+    delete THINTARGET_NC_PION_Universe;
+    delete THINTARGET_PC_NUCLEON_Universe;
+    delete THINTARGET_MESON_INCIDENT_Universe;
+    delete THINTARGET_NUCLEON_A_Universe;
+    delete OTHER_Universe;
+  }
+
 };

@@ -172,9 +172,9 @@ namespace NeutrinoFluxReweight{
     }
     else if(tar.Tar_pdg ==310 || tar.Tar_pdg ==130){
       //pip:
-      K_data_cv  = vbin_datacv_pim[pip_bin] *vbin_datacv_kap_pip[binID];
-      K_data_sys = vbin_datasys_pim[pip_bin]*vbin_datasys_kap_pip[binID];
-      K_data_sta = vbin_datasta_pim[pip_bin]*vbin_datasta_kap_pip[binID];
+      K_data_cv  = vbin_datacv_pip[pip_bin] *vbin_datacv_kap_pip[binID];
+      K_data_sys = vbin_datasys_pip[pip_bin]*vbin_datasys_kap_pip[binID];
+      K_data_sta = vbin_datasta_pip[pip_bin]*vbin_datasta_kap_pip[binID];
       K_aux      = K_data_sys + K_data_sta - K_data_cv;
       //pim:
       K_data_cv  = vbin_datacv_pim[pim_bin] *vbin_datacv_kam_pim[binID];

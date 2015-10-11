@@ -54,7 +54,7 @@ namespace NeutrinoFluxReweight{
     
     //5 incident particles, 7 produced particles:
     const char* cinc[5] = {"pip","pim","kap","kam","k0"};
-    const char* cpro[7] = {"pip","pim","kap","kam","k0","n","p"};
+    const char* cpro[7] = {"pip","pim","kap","kam","k0","p","n"};
     
     for(int ii=0;ii<5;ii++){
       for(int jj=0;jj<7;jj++){
