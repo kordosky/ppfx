@@ -1,7 +1,4 @@
 
-#include "HistoContainer.h"
-#include "ExtractInfo.h"
-
 #include "dkmeta.h"
 #include "dk2nu.h"
 #include "MakeReweight.h"
@@ -11,6 +8,8 @@
 #include <iostream>
 #include <stdlib.h>
 #include <iomanip>
+
+#include "TH1D.h"
 
 //Some constants::
 
@@ -41,9 +40,6 @@ void doReweight_dk2nu(const char* inputFile){
   std::cout<<"Making an output file to store histograms"<<std::endl;
   TFile* fOut = new TFile(Form("%s/test.root",OutputDir),"recreate");
   std::cout<<"File name: "<<fOut->GetName()<<std::endl;
-  
-  HistoContainer* histos =  HistoContainer::getInstance();
-  ExtractInfo*    info   =  ExtractInfo::getInstance();
   
   fOut->mkdir("nom");
   fOut->mkdir("nom_corr");
@@ -115,9 +111,6 @@ void doReweight_dk2nu(const char* inputFile){
     for(int jj=0;jj<wgts.size();jj++){
       if(fabs(wgts[jj]-1.0)>1.e-15 && jj==0){is_corr=true;}
       
-      std::map<std::string,double> map_info = info->GetInfo();
-      std::map<std::string,double>::iterator it_info;
-
       double univWGT = fluxWGT*wgts[jj];
       if(nuidx>=0){
 	vh_rw[nuidx][jj]->Fill(nuenergy,univWGT);
@@ -127,8 +120,7 @@ void doReweight_dk2nu(const char* inputFile){
 	}
 	
       }
-      info->CleanInfo(); 
-      
+       
     }
     if(is_corr && nuidx>=0)hnom_corr[nuidx]->Fill(nuenergy,fluxWGT);
     
