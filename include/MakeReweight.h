@@ -11,8 +11,6 @@
 #include "MIPPNumiYieldsBins.h"
 #include "ThinTargetBins.h"
 #include "MIPPNumiMC.h"
-#include "HistoContainer.h"
-#include "ExtractInfo.h"
 
 #include "nu_g4numi.h"
 #include "Numi2Pdg.h"
