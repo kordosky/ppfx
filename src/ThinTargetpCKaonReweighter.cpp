@@ -64,7 +64,7 @@ namespace NeutrinoFluxReweight{
      //checking:
     if(aa.Inc_pdg != 2212)return false;
     if(aa.Inc_P < 12.0)return false;
-    if(aa.Vol != "TGT1" && aa.Vol != "BudalMonitor")return false;
+    if(aa.Vol != "TGT1" && aa.Vol != "BudalMonitor" && aa.Vol != "Budal_HFVS" && aa.Vol != "Budal_VFHS")return false;
     if(aa.Prod_pdg != 321 && aa.Prod_pdg != -321 && aa.Prod_pdg != 310 && aa.Prod_pdg != 130)return false;
     
     //Looking for low pz kaon:
@@ -103,7 +103,7 @@ namespace NeutrinoFluxReweight{
     double wgt = 1.0;
     //fast check:
     if(aa.Inc_pdg != 2212 || aa.Inc_P < 12.0)return 1.0;
-    if(aa.Vol != "TGT1" && aa.Vol != "BudalMonitor")return 1.0;
+    if(aa.Vol != "TGT1" && aa.Vol != "BudalMonitor" && aa.Vol != "Budal_HFVS" && aa.Vol != "Budal_VFHS")return 1.0;
     if(aa.Prod_pdg != 321 && aa.Prod_pdg != -321 && aa.Prod_pdg != 310 && aa.Prod_pdg != 130)return 1.0;
 
     ThinTargetBins*  Thinbins =  ThinTargetBins::getInstance();

@@ -50,7 +50,7 @@ namespace NeutrinoFluxReweight{
     //checking:
     if(aa.Inc_pdg != 2212)return false;
     if(aa.Inc_P < 12.0)return false;
-    if(aa.Vol != "TGT1" && aa.Vol != "BudalMonitor")return false;
+    if(aa.Vol != "TGT1" && aa.Vol != "BudalMonitor" && aa.Vol != "Budal_HFVS" && aa.Vol != "Budal_VFHS")return false;
     if(aa.Prod_pdg != 2212 && aa.Prod_pdg != 2112)return false;
     
     ThinTargetBins*  Thinbins =  ThinTargetBins::getInstance();

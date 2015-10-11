@@ -60,7 +60,7 @@ namespace NeutrinoFluxReweight{
     //checking:
     if(aa.Inc_pdg != 2212)return false;
     if(aa.Inc_P < 12.0)return false;
-    if(aa.Vol != "TGT1" && aa.Vol != "BudalMonitor")return false;
+    if(aa.Vol != "TGT1" && aa.Vol != "BudalMonitor" && aa.Vol != "Budal_HFVS" && aa.Vol != "Budal_VFHS")return false;
     if(aa.Prod_pdg != 211 && aa.Prod_pdg != -211)return false;
     
     ThinTargetBins*  Thinbins =  ThinTargetBins::getInstance();
@@ -72,13 +72,13 @@ namespace NeutrinoFluxReweight{
   }
   
   double ThinTargetpCPionReweighter::calculateWeight(const InteractionData& aa){
-
+    
     double wgt = 1.0;
     ThinTargetBins*  Thinbins =  ThinTargetBins::getInstance();
     int bin = Thinbins->BinID_pC_pi(aa.xF,aa.Pt,aa.Prod_pdg);
     int bart_bin = Thinbins->barton_BinID_pC_pi(aa.xF,aa.Pt,aa.Prod_pdg);
     if(bin<0 && bart_bin<0)return wgt;
-
+    
     //Calculating the scale:
     double data_scale = calculateDataScale(aa.Inc_pdg,aa.Inc_P,aa.Prod_pdg,aa.xF,aa.Pt);
     double dataval = -1;

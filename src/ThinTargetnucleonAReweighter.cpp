@@ -141,7 +141,7 @@ namespace NeutrinoFluxReweight{
     ThinTargetBins*  Thinbins =  ThinTargetBins::getInstance();
     int bin = Thinbins->material_scaling_BinID(aa.xF,aa.Pt,aa.Prod_pdg);
     
-    bool is_data_based = (aa.Inc_P >= 12.0) && (aa.Vol != "TGT1" && aa.Vol != "BudalMonitor") && 
+    bool is_data_based = (aa.Inc_P >= 12.0) && (aa.Vol != "TGT1" && aa.Vol != "BudalMonitor" && aa.Vol != "Budal_HFVS" && aa.Vol != "Budal_VFHS") && 
       (aa.Prod_pdg == 211 || aa.Prod_pdg == -211 || aa.Prod_pdg ==321 || aa.Prod_pdg == -321 || aa.Prod_pdg ==310 || aa.Prod_pdg == 130) &&
       (bin>=0);
     
