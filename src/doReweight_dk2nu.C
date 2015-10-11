@@ -30,37 +30,48 @@ int idx_hel(int pdgdcode);
  * Run the reweighting for a single file (inputFile) for
  * particular MIPP covariance matrix given in input.xml file. 
  */
-void doReweight_dk2nu(const char* inputFile){ 
+void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char* optionsFile){ 
   
   const char* thisDir = getenv("PPFX_DIR");
   const char* OutputDir=thisDir;
+ 
+  std::cout<< "Instance of MakeReweight()" <<std::endl;
   MakeReweight* makerew = MakeReweight::getInstance();
-  makerew->SetOptions("scripts/inputs.xml"); 
-
+  makerew->SetOptions(optionsFile); 
+  
   std::cout<<"Making an output file to store histograms"<<std::endl;
-  TFile* fOut = new TFile(Form("%s/test.root",OutputDir),"recreate");
+  TFile* fOut = new TFile(outputFile,"recreate");
   std::cout<<"File name: "<<fOut->GetName()<<std::endl;
   
   fOut->mkdir("nom");
-  fOut->mkdir("nom_corr");
   for(int ii=0;ii<Nnuhel;ii++){
-    fOut->mkdir(Form("%s",nuhel[ii]));
-    fOut->mkdir(Form("%s_corr",nuhel[ii]));
+    fOut->mkdir(Form("%s_thintarget",nuhel[ii]));
+    fOut->mkdir(Form("%s_mippnumi",nuhel[ii]));
+    fOut->mkdir(Form("%s_attenuation",nuhel[ii]));
+    fOut->mkdir(Form("%s_others",nuhel[ii]));
+    fOut->mkdir(Form("%s_total",nuhel[ii]));
   }
   std::cout<<"Done making the output file"<<std::endl;
   
+  int Nuniverses = makerew->GetNumberOfUniversesUsed();
+  
   TH1D* hnom[Nnuhel];
-  TH1D* hnom_corr[Nnuhel];
+  TH1D* hcv[Nnuhel];
+  TH1D* hthin[Nnuhel][Nuniverses];
+  TH1D* hmipp[Nnuhel][Nuniverses];
+  TH1D* hatt[Nnuhel][Nuniverses];
+  TH1D* hothers[Nnuhel][Nuniverses];
+  TH1D* htotal[Nnuhel][Nuniverses];
+  
   for(int ii=0;ii<Nnuhel;ii++){
     hnom[ii] = new TH1D(Form("hnom_%s",nuhel[ii]),"",NbinsE,emin,emax);
-    hnom_corr[ii] = new TH1D(Form("hnom_corr_%s",nuhel[ii]),"",NbinsE,emin,emax);
-  }
-  std::vector<TH1D*> vh_rw[Nnuhel],vh_corr_rw[Nnuhel];
-  
-  for(int ii=0;ii< (makerew->GetNumberOfUniversesUsed() );ii++){
-    for(int jj=0;jj<Nnuhel;jj++){
-      vh_rw[jj].push_back(new TH1D(Form("h_rw_%s_%d",nuhel[jj],ii),"",NbinsE,emin,emax));
-      vh_corr_rw[jj].push_back(new TH1D(Form("h_rw_%s_corr_%d",nuhel[jj],ii),"",NbinsE,emin,emax));
+    hcv[ii]  = new TH1D(Form("hcv_%s",nuhel[ii]),"",NbinsE,emin,emax);
+    for(int jj=0;jj< Nuniverses; jj++){
+      hthin[ii][jj]   = new TH1D(Form("hthin_%s_%d",  nuhel[ii],jj),"",NbinsE,emin,emax);
+      hmipp[ii][jj]   = new TH1D(Form("hmipp_%s_%d",  nuhel[ii],jj),"",NbinsE,emin,emax);
+      hatt[ii][jj]    = new TH1D(Form("hatt_%s_%d",   nuhel[ii],jj),"",NbinsE,emin,emax);
+      hothers[ii][jj] = new TH1D(Form("hothers_%s_%d",nuhel[ii],jj),"",NbinsE,emin,emax);
+      htotal[ii][jj]  = new TH1D(Form("htotal_%s_%d", nuhel[ii],jj),"",NbinsE,emin,emax);
     }
   }
   
@@ -75,80 +86,91 @@ void doReweight_dk2nu(const char* inputFile){
   chain_evts->Add(inputFile);
   chain_evts->SetBranchAddress("dk2nu",&dk2nu);
   int nentries  = chain_evts->GetEntries();
-  int ntrees    = chain_evts->GetNtrees();
 
   chain_meta->Add(inputFile);
   chain_meta->SetBranchAddress("dkmeta",&dkmeta);
   chain_meta->GetEntry(0); //all entries are the same     
   
-  std::cout<<"Ntrees: "<<ntrees<<", entries: "<<nentries<<std::endl;
-
-  // for(int ii=0;ii<nentries;ii++){  
-  for(int ii=0;ii<10000;ii++){  
-    //   if(ii%1000==0)std::cout<<ii/1000<<" k evts"<<std::endl;
-    if(ii%10==0)std::cout<<ii<<" evts"<<std::endl;
+  std::vector<double> vwgt_mipp_pi;
+  std::vector<double> vwgt_mipp_K;
+  std::vector<double> vwgt_abs;
+  std::vector<double> vwgt_att;
+  std::vector<double> vwgt_ttpCpi;
+  std::vector<double> vwgt_ttpCk;
+  std::vector<double> vwgt_ttnCpi;
+  std::vector<double> vwgt_ttpCnu;
+  std::vector<double> vwgt_ttnua;
+  std::vector<double> vwgt_ttmesinc;
+  std::vector<double> vwgt_oth;
+ 
+  std::cout<<"N of entries: "<<nentries<<std::endl;
+  
+  for(int ii=0;ii<nentries;ii++){  
+    if(ii%1000==0)std::cout<<ii/1000<<" k evts"<<std::endl;
+    vwgt_mipp_pi.clear();  
+    vwgt_mipp_K.clear();  
+    vwgt_abs.clear();  
+    vwgt_att.clear();  
+    vwgt_ttpCpi.clear();  
+    vwgt_ttpCk.clear();  
+    vwgt_ttnCpi.clear();  
+    vwgt_ttpCnu.clear();  
+    vwgt_ttmesinc.clear();
+    vwgt_ttnua.clear();  
+    vwgt_oth.clear(); 
+     
     chain_evts->GetEntry(ii);     
     makerew->calculateWeights(dk2nu,dkmeta);
     
-    double fluxWGT = ( (dk2nu->nuray)[2].wgt )*(dk2nu->decay.nimpwt)/3.1416;
+    double fluxWGT = ( (dk2nu->nuray)[1].wgt )*(dk2nu->decay.nimpwt)/3.1416;
     int nuidx = idx_hel(dk2nu->decay.ntype);
-    double nuenergy = (dk2nu->nuray)[2].E; 
+    double nuenergy = (dk2nu->nuray)[1].E; 
     
-    if(nuidx>=0)hnom[nuidx]->Fill(nuenergy,fluxWGT);
-    
-    bool is_corr = false;   
-    std::vector<double> wgts = makerew->GetTotalWeights();
-    std::vector<double> wgts_mipp_pi   = makerew->GetWeights("MIPPNumiYields");
-    std::vector<double> wgts_mipp_K    = makerew->GetWeights("MIPPNumiKaonsYields");
-    std::vector<double> wgts_abs_ic    = makerew->GetWeights("AbsorptionIC");
-    std::vector<double> wgts_abs_dpip  = makerew->GetWeights("AbsorptionDPIP");
-    std::vector<double> wgts_abs_dvol  = makerew->GetWeights("AbsorptionDVOL");
-    std::vector<double> wgts_abs_nucl  = makerew->GetWeights("NucleonAbsorptionOutOfTarget");
-    std::vector<double> wgts_abs_oth   = makerew->GetWeights("OtherAbsorptionOutOfTarget");
-    std::vector<double> wgts_abs_the   = makerew->GetWeights("TheoryThinTarget");
-    
-    
-    for(int jj=0;jj<wgts.size();jj++){
-      if(fabs(wgts[jj]-1.0)>1.e-15 && jj==0){is_corr=true;}
-      
-      double univWGT = fluxWGT*wgts[jj];
-      if(nuidx>=0){
-	vh_rw[nuidx][jj]->Fill(nuenergy,univWGT);
-	
-	if(is_corr){
-	  vh_corr_rw[nuidx][jj]->Fill(nuenergy,univWGT);
-	}
-	
-      }
-       
+    if(nuidx<0){
+      std::cout<<"=> Wrong neutrino file"<<std::endl;
     }
-    if(is_corr && nuidx>=0)hnom_corr[nuidx]->Fill(nuenergy,fluxWGT);
+    hnom[nuidx]->Fill(nuenergy,fluxWGT);
+    hcv[nuidx]->Fill(nuenergy,fluxWGT*makerew->GetCVWeight());
+
+    vwgt_mipp_pi = makerew->GetWeights("MIPPNumiPionYields");
+    vwgt_mipp_K  = makerew->GetWeights("MIPPNumiKaonYields"); 
+    vwgt_abs     = makerew->GetWeights("TotalAbsorption");
+    vwgt_att     = makerew->GetWeights("TargetAttenuation");
+    vwgt_ttpCpi  = makerew->GetWeights("ThinTargetpCPion");
+    vwgt_ttpCk   = makerew->GetWeights("ThinTargetpCKaon");
+    vwgt_ttnCpi  = makerew->GetWeights("ThinTargetnCPion");
+    vwgt_ttpCnu  = makerew->GetWeights("ThinTargetpCNucleon");
+    vwgt_ttmesinc= makerew->GetWeights("ThinTargetMesonIncident");
+    vwgt_ttnua   = makerew->GetWeights("ThinTargetnucleonA");
+    vwgt_oth     = makerew->GetWeights("Other"); 
     
+    for(int jj=0;jj<Nuniverses;jj++){
+      double wgt_thin = vwgt_ttpCpi[jj]*vwgt_ttpCk[jj]*vwgt_ttnCpi[jj]*vwgt_ttpCnu[jj]*vwgt_ttmesinc[jj]*vwgt_ttnua[jj];
+      double wgt_mipp = vwgt_mipp_pi[jj]*vwgt_mipp_K[jj];
+      double wgt_att = vwgt_att[jj]*vwgt_abs[jj];
+      hthin[nuidx][jj]->Fill(nuenergy,fluxWGT*wgt_thin);
+      hmipp[nuidx][jj]->Fill(nuenergy,fluxWGT*wgt_mipp);
+      hatt[nuidx][jj]->Fill(nuenergy,fluxWGT*wgt_att);
+      hothers[nuidx][jj]->Fill(nuenergy,fluxWGT*vwgt_oth[jj]);
+      htotal[nuidx][jj]->Fill(nuenergy,fluxWGT*wgt_thin*wgt_mipp*wgt_att*vwgt_oth[jj]);
+    }  
   }
   
   std::cout<<"storing general histos"<<std::endl;
   fOut->cd();
   for(int ii=0;ii<Nnuhel;ii++){
-    
     fOut->cd("nom");
     hnom[ii]->Write();
-    
-    fOut->cd("nom_corr");
-    hnom_corr[ii]->Write();
-    
-    fOut->cd(Form("%s",nuhel[ii]));
-    for(int jj=0;jj< ( makerew->GetNumberOfUniversesUsed() );jj++){
-      vh_rw[ii][jj]->Write();
+    hcv[ii]->Write();
+    for(int jj=0;jj< Nuniverses; jj++){
+      fOut->cd(Form("%s_thintarget",nuhel[ii]));  hthin[ii][jj]->Write();
+      fOut->cd(Form("%s_mippnumi",nuhel[ii]));    hmipp[ii][jj]->Write();
+      fOut->cd(Form("%s_attenuation",nuhel[ii])); hatt[ii][jj]->Write();
+      fOut->cd(Form("%s_others",nuhel[ii]));      hothers[ii][jj]->Write();
+      fOut->cd(Form("%s_total",nuhel[ii]));       htotal[ii][jj]->Write();      
     }
-
-    fOut->cd(Form("%s_corr",nuhel[ii]));
-    for(int jj=0;jj< ( makerew->GetNumberOfUniversesUsed() );jj++){
-      vh_corr_rw[ii][jj]->Write();
-    }    
-
   }
-  std::cout<<"stored general histos!!"<<std::endl;
-   
+
   std::cout<<"End of run()"<<std::endl;
 
 }
@@ -167,7 +189,7 @@ int idx_hel(int pdgcode){
 #ifndef __CINT__
 int main(int argc, const char* argv[]){
   
-  doReweight_dk2nu(argv[1]);
+  doReweight_dk2nu(argv[1],argv[2],argv[3]);
   return 0;
 }
 #endif
