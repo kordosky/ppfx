@@ -110,7 +110,12 @@ namespace NeutrinoFluxReweight{
       }
       CentralValuesAndUncertainties::addCorrelated(ptable,mcov);
     }
-    
+
+    //Auxiliar parameter.
+    //cv=1.0 and error 100%:
+    Parameter par_aux("aux_parameter",1.0);
+    CentralValuesAndUncertainties::addUncorrelated(par_aux,1.0);
+
   }
   
   void CentralValuesAndUncertainties::addUncorrelated(Parameter& cv_par, double uncertainty){
