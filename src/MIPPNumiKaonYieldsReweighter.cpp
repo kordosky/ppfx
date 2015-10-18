@@ -12,11 +12,8 @@ namespace NeutrinoFluxReweight{
   
      std::map<std::string, double> univ_table = univPars.table;
      std::map<std::string, double> cv_table = cvPars.table;
-     float prt_no_inter = univ_table["prt_no_interacting"];
+     prt_no_inter = univ_table["prt_no_interacting"];
      
-     std::vector<float> vbin_data_pip,vbin_data_pim;
-     std::vector<float> vbin_data_kap_pip,vbin_data_kam_pim;
-
      char namepar[100];
      for(int ii=0;ii<124;ii++){
       sprintf(namepar,"MIPP_NuMI_%s_sys_%d","pip",ii);
@@ -64,6 +61,8 @@ namespace NeutrinoFluxReweight{
       vbin_datasys_kam_pim.push_back(data_sys);
       vbin_datasta_kam_pim.push_back(data_sta);
     } 
+    aux_par = univ_table["aux_parameter"];
+    if(aux_par<1.e-15)aux_par = 1.0;
     
   }
   MIPPNumiKaonYieldsReweighter::~MIPPNumiKaonYieldsReweighter(){
@@ -129,26 +128,26 @@ namespace NeutrinoFluxReweight{
     TargetData tar = aa.tar_info;
 
     //fast check:
-    if(tar.Tar_pdg != 321 && tar.Tar_pdg != -321 && tar.Tar_pdg != 130 && tar.Tar_pdg != 310)return 1.0;
-    if(tar.Pz<20.0 || tar.Pz>80.0 || tar.Pt>2.0)return 1.0;
+    if(tar.Tar_pdg != 321 && tar.Tar_pdg != -321 && tar.Tar_pdg != 130 && tar.Tar_pdg != 310)return aux_par;
+    if(tar.Pz<20.0 || tar.Pz>80.0 || tar.Pt>2.0)return aux_par;
     int binID = MIPPbins->BinID(tar.Pz,tar.Pt,tar.Tar_pdg);
     if(binID<0){
-      return 1.0;
+      return aux_par;
     }
     //Now looking for pions bin ID:
     int pip_bin = MIPPbins->BinID(tar.Pz,tar.Pt, 211);
     int pim_bin = MIPPbins->BinID(tar.Pz,tar.Pt,-211);
-    if(tar.Tar_pdg == 321 && pip_bin<0)return 1.0;
-    if(tar.Tar_pdg ==-321 && pim_bin<0)return 1.0;
+    if(tar.Tar_pdg == 321 && pip_bin<0)return aux_par;
+    if(tar.Tar_pdg ==-321 && pim_bin<0)return aux_par;
     if(tar.Tar_pdg == 130 || tar.Tar_pdg == 310){
-      if(pip_bin<0 || pim_bin<0)return 1.0;
+      if(pip_bin<0 || pim_bin<0)return aux_par;
     }
     
     //Now, looking for the MC value:
     double binC = MCval->getMCval(tar.Pz,tar.Pt,tar.Tar_pdg);
     if(binC<low_value){
       //std::cout<<"LOW MC VAL: "<<binC <<std::endl;
-      return 1.0;
+      return aux_par;
     }
 
     float K_data_cv  = -1.0;
@@ -193,7 +192,10 @@ namespace NeutrinoFluxReweight{
     
     wgt = double(K_data)/binC;
     
-    if(wgt<0)std::cout<<"TTMIPPK check wgt(<0) "<<iUniv<<" "<<tar.Pz<<" "<<tar.Pt<<" "<<tar.Tar_pdg<<std::endl;
+    if(wgt<low_value){
+      //      std::cout<<"TTMIPPK check wgt(<0) "<<iUniv<<" "<<tar.Pz<<" "<<tar.Pt<<" "<<tar.Tar_pdg<<std::endl;
+      return aux_par;
+    }
     return wgt;
 
   }

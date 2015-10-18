@@ -27,9 +27,7 @@ namespace NeutrinoFluxReweight{
     int iUniv;
     const ParameterTable& cvPars;
     const ParameterTable& univPars;
-    
-    
-    
+    float aux_par;
   };
 
   

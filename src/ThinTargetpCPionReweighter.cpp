@@ -50,6 +50,9 @@ namespace NeutrinoFluxReweight{
       
     } 
     
+    aux_par = univ_table["aux_parameter"];
+    if(aux_par<1.e-15)aux_par = 1.0;
+
   }
   
    ThinTargetpCPionReweighter::~ThinTargetpCPionReweighter(){
@@ -74,10 +77,11 @@ namespace NeutrinoFluxReweight{
   double ThinTargetpCPionReweighter::calculateWeight(const InteractionData& aa){
     
     double wgt = 1.0;
+    double low_value = 1.e-18; 
     ThinTargetBins*  Thinbins =  ThinTargetBins::getInstance();
     int bin = Thinbins->BinID_pC_pi(aa.xF,aa.Pt,aa.Prod_pdg);
     int bart_bin = Thinbins->barton_BinID_pC_pi(aa.xF,aa.Pt,aa.Prod_pdg);
-    if(bin<0 && bart_bin<0)return wgt;
+    if(bin<0 && bart_bin<0)return aux_par;
     
     //Calculating the scale:
     double data_scale = calculateDataScale(aa.Inc_pdg,aa.Inc_P,aa.Prod_pdg,aa.xF,aa.Pt);
@@ -88,7 +92,7 @@ namespace NeutrinoFluxReweight{
     else if(aa.Prod_pdg == -211 && bart_bin>=0)dataval = bart_vbin_data_pim[bart_bin];
     else{
       //  std::cout<<"Something is wrong, pdg_prod: "<< aa.Prod_pdg  <<std::endl;
-      return wgt;
+      return aux_par;
     }
 
     //checking if this is the first interaction:
@@ -96,7 +100,7 @@ namespace NeutrinoFluxReweight{
     else if(aa.gen>0)dataval /= 1.0;
     else{
       std::cout<<"Something is wrong with gen "<<std::endl;
-      return wgt;
+      return aux_par;
     }
 
     dataval *= data_scale;
@@ -108,9 +112,9 @@ namespace NeutrinoFluxReweight{
 
     if(mc_cv<1.e-12)return wgt;
     wgt = dataval/mc_cv;
-    if(wgt<0){
+    if(wgt<low_value){
       //std::cout<<"TTPCPI check wgt(<0) "<<iUniv<<" "<<aa.Inc_P<<" "<<aa.xF<<" "<<aa.Pt<<" "<<aa.Prod_pdg<<std::endl;
-      return 1.0;
+      return aux_par;
     }
 
     return wgt;
