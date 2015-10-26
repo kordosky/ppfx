@@ -4,10 +4,12 @@
 #include "CentralValuesAndUncertainties.h"
 #include "MIPPNumiYieldsBins.h"
 #include "MIPPNumiMC.h"
+#include "ThinTargetBins.h"
 #include "TDatabasePDG.h"
 #include "TParticlePDG.h"
 #include <iostream>
 #include <math.h>
+#include "MakeReweight.h"
 
 double FillIMapHists(TChain* tdk2nu, TChain* tdkmeta, HistList* hists, const FillIMapHistsOpts* opts){
   using namespace NeutrinoFluxReweight;
@@ -27,45 +29,35 @@ double FillIMapHists(TChain* tdk2nu, TChain* tdkmeta, HistList* hists, const Fil
   // so it can use them to determine if a particular interaction
   // or chain of interactions can be reweighted
 
-  ///// Confused? 
-  ///// All this business with xml files, parameter tables
-  ///// and the like is simply needed to ensure correct operation
-  ///// of the reweight drivers, specifically the MIPP ones,
-  ///// which call MIPPNumiYieldsBins::getInstance(); and
-  ///// expect the result to be initialized.
-  CentralValuesAndUncertainties* cvu = CentralValuesAndUncertainties::getInstance();;
-  MIPPNumiYieldsBins*  myb =  MIPPNumiYieldsBins::getInstance(); 
-  MIPPNumiMC*  mymc =  MIPPNumiMC::getInstance(); 
+  ///// Some inputs file are needed to ensure correct operation
+  ///// of the reweight drivers and also, some reweigthwers 
+  /////(for instance: ThinTargetnCPionReweighter) use other reweighters. 
+  ///// The singleton MakeReweight makes this initialization and pass 
+  ///// th information between reweighters.
+
   const char* ppfxDir = getenv("PPFX_DIR");
-  cvu->readFromXML(Form("%s/uncertainties/Parameters_uhighBYDET.xml",ppfxDir));
-  myb->pip_data_from_xml(Form("%s/data/BINS/MIPPNumiData_PIP_Bins.xml",ppfxDir));
-  myb->pim_data_from_xml(Form("%s/data/BINS/MIPPNumiData_PIM_Bins.xml",ppfxDir));
-  myb->k_pi_data_from_xml(Form("%s/data/BINS/MIPPNumiData_K_PI_Bins.xml",ppfxDir));
-  mymc->pip_mc_from_xml(Form("%s/data/MIPP/MIPPNuMI_MC_PIP.xml",ppfxDir));
-  mymc->pim_mc_from_xml(Form("%s/data/MIPP/MIPPNuMI_MC_PIM.xml",ppfxDir));
-  mymc->kap_mc_from_xml(Form("%s/data/MIPP/MIPPNuMI_MC_KAP.xml",ppfxDir));
-  mymc->kam_mc_from_xml(Form("%s/data/MIPP/MIPPNuMI_MC_KAM.xml",ppfxDir));
-  
-  ParameterTable cvPars=cvu->getCVPars();
-  const int iUniv=99;
-  ParameterTable univPars=cvu->calculateParsForUniverse(iUniv);
+  MakeReweight* makerew = MakeReweight::getInstance();
+  makerew->SetOptions(Form("%s/scripts/inputs_imap.xml",ppfxDir));
 
-  ////// now make the reweighters after doing all that stuff above 
   FillIMapHistsReweighters reweighters;
-  reweighters.NumiPions = new MIPPNumiPionYieldsReweighter(iUniv,cvPars,univPars);
-  reweighters.NumiKaons = new MIPPNumiKaonYieldsReweighter(iUniv,cvPars,univPars);
-  reweighters.NA49 = new NA49Reweighter(iUniv,cvPars,univPars);    
-  reweighters.ThinKaons = new MIPPThinTargetReweighter(iUniv,cvPars,univPars);
-  //////////////////// done initializing reweighers ////////////////////////
-
+  reweighters.NumiPions               = (makerew->cv_rw)->MIPP_NUMI_PION_Universe;
+  reweighters.NumiKaons               = (makerew->cv_rw)->MIPP_NUMI_KAON_Universe;
+  reweighters.ThinTargetpCPion        = (makerew->cv_rw)->THINTARGET_PC_PION_Universe;
+  reweighters.ThinTargetpCKaon        = (makerew->cv_rw)->THINTARGET_PC_KAON_Universe;
+  reweighters.ThinTargetnCPion        = (makerew->cv_rw)->THINTARGET_NC_PION_Universe;
+  reweighters.ThinTargetpCNucleon     = (makerew->cv_rw)->THINTARGET_PC_NUCLEON_Universe;
+  reweighters.ThinTargetMesonIncident = (makerew->cv_rw)->THINTARGET_MESON_INCIDENT_Universe;
+  reweighters.ThinTargetnucleonA      = (makerew->cv_rw)->THINTARGET_NUCLEON_A_Universe;
 
   std::cout<<"FillIMapHists looping over "<<ntrees<<" trees with a total of "<<nentries<<" entries."<<std::endl;
   double total_weight=0.0;
   for(Long64_t ientry=0;ientry<nentries;ientry++){
+    if(ientry%100000==0)std::cout<<"ientry "<<ientry/1000<<" k evts"<<std::endl;
     tdk2nu->GetEntry(ientry);
     tdkmeta->GetEntry(ientry);    
-  
+    
     total_weight+=FillOneEntry(dk2nu,dkmeta,hists,opts,&reweighters); 
+    // std::cout<<"tot wgt: "<<total_weight<<" "<<dk2nu->decay.ntype<<std::endl;
   }
   return total_weight;
 }
@@ -96,8 +88,9 @@ double FillOneEntry(bsim::Dk2Nu* dk2nu, bsim::DkMeta* dkmeta, HistList* hists, c
   const double nwtnear=dk2nu->nuray[nuray_idx].wgt;
   const double nimpwt=dk2nu->decay.nimpwt;
   weight=nwtnear*nimpwt;
-
-
+  
+  hists->_h_nuflux->Fill(enu,weight/pival);
+  
   /*
   if(isnan(weight)){
     std::cout<<"Encountered a NaN weight, dk2nu follows"<<std::endl;
@@ -117,7 +110,6 @@ double FillOneEntry(bsim::Dk2Nu* dk2nu, bsim::DkMeta* dkmeta, HistList* hists, c
   int ninter_all=0; // a variable to count all non-Decay interactions
   int ninter_cuts=0;// ... and only those passing the MIPP/NA49/etc cuts
   
-
   for(int iinter=0; iinter<ninter; iinter++){
     
     const NeutrinoFluxReweight::InteractionData& interdata
@@ -140,12 +132,45 @@ double FillOneEntry(bsim::Dk2Nu* dk2nu, bsim::DkMeta* dkmeta, HistList* hists, c
     
     if(opts->cut_mipp && numi_pion_nodes[iinter]) continue;
     if(opts->cut_mipp && numi_kaon_nodes[iinter]) continue;
-    // at the time of this writing, the NA49 reweigher handles 
-    // pion, proton and kaon production by protons
-    bool covered_by_na49 = reweighters->NA49->canReweight(interdata);
-    if(opts->cut_na49 && covered_by_na49) continue;
-    bool covered_by_thin_kaons = reweighters->ThinKaons->canReweight(interdata);
-    if(opts->cut_na49 && covered_by_thin_kaons) continue;
+    // Thin target reweighters are based on data and theoretical motivated data extensions.
+    bool covered_by_thintarget = false;
+    if(reweighters->ThinTargetpCPion->canReweight(interdata)){
+      covered_by_thintarget = true;
+      if(! opts->cut_thintarget) hists->_h_aveint_vs_enu_thin_pCpion->Fill(enu,weight);
+    }
+    else if(reweighters->ThinTargetpCKaon->canReweight(interdata)){
+      covered_by_thintarget = true;
+      if(! opts->cut_thintarget) hists->_h_aveint_vs_enu_thin_pCkaon->Fill(enu,weight);
+    }
+    else if(reweighters->ThinTargetnCPion->canReweight(interdata)){
+      covered_by_thintarget = true;
+      if(! opts->cut_thintarget) hists->_h_aveint_vs_enu_thin_nCpion->Fill(enu,weight);
+    }
+    else if(reweighters->ThinTargetpCNucleon->canReweight(interdata)){
+      covered_by_thintarget = true;
+      if(! opts->cut_thintarget) hists->_h_aveint_vs_enu_thin_pCnucleon->Fill(enu,weight);
+    }
+    else if(reweighters->ThinTargetMesonIncident->canReweight(interdata)){
+      covered_by_thintarget = true;
+      if(! opts->cut_thintarget) hists->_h_aveint_vs_enu_thin_mesoninc->Fill(enu,weight);
+    }
+    else if(reweighters->ThinTargetnucleonA->canReweight(interdata)){
+      covered_by_thintarget = true;
+      if(! opts->cut_thintarget) hists->_h_aveint_vs_enu_thin_nucleona->Fill(enu,weight);
+    }
+    else{
+      covered_by_thintarget = false;
+      hists->_h_aveint_vs_enu_others->Fill(enu,weight);
+    }
+    
+    if(! opts->cut_thintarget)hists->_h_aveint_vs_enu_tot->Fill(enu,weight);
+    else{
+	if(!covered_by_thintarget)hists->_h_aveint_vs_enu_tot->Fill(enu,weight);
+    }
+    
+    if(opts->cut_mipp && covered_by_thintarget) continue;
+    
+ 
     ninter_cuts++;
     // get an index into the large arrays listing the volume names
     // and the material of each volume.
@@ -154,11 +179,11 @@ double FillOneEntry(bsim::Dk2Nu* dk2nu, bsim::DkMeta* dkmeta, HistList* hists, c
       std::cout<<"Skipping unknown volume "<< interdata.Vol
 	       <<" for interaction "<<iinter<<std::endl;
     }
+    
     // fill a 2D histogram of projectile vs. material
     const string proj_name=pdg->GetParticle(interdata.Inc_pdg)->GetName();
     const string prod_name=pdg->GetParticle(interdata.Prod_pdg)->GetName();
     hists->_h_in_vs_mat->Fill(IMap::materials[mv_idx],proj_name.c_str(),weight);
-
     // figure out if the produced particle is one that we want
     // to record in histograms
     // The list of such particles is in IMap::popparticle

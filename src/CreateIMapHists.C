@@ -43,8 +43,14 @@ int main( int argc, char *argv[])
   int nu_id = atoi(par[5].c_str());
   bool NA49cuts = atoi(par[6].c_str());
   bool MIPPcuts = atoi(par[7].c_str());
-	
-	//int CreateHists(const char* output_filename, const char* filename, int elow, int ehigh, int nu_id=56, bool NA49cuts=false, bool MIPPcuts=false))
+
+  std::cout<<"min E   : "<<min<<"GeV"<<std::endl;
+  std::cout<<"max E   : "<<max<<"GeV"<<std::endl;
+  std::cout<<"nuhel   : "<<nu_id<<std::endl;  
+  std::cout<<"TT cut  : "<<NA49cuts<<std::endl;
+  std::cout<<"MIPP cut: "<<MIPPcuts<<std::endl;
+    
+    //int CreateHists(const char* output_filename, const char* filename, int elow, int ehigh, int nu_id=56, bool NA49cuts=false, bool MIPPcuts=false))
   return CreateHists(par[1].c_str(), par[2].c_str(), min, max, nu_id, NA49cuts, MIPPcuts);
 }
 
@@ -98,7 +104,7 @@ int CreateHists(const char* output_filename, const char* filename, int elow, int
 	cout << "Filling histograms" << endl;	
 	FillIMapHistsOpts opts;
 	opts.elow=elow; opts.ehigh=ehigh; opts.nuid=nu_id;
-	opts.cut_na49=NA49cuts; opts.cut_mipp=MIPPcuts;
+	opts.cut_thintarget=NA49cuts; opts.cut_mipp=MIPPcuts;
 	double total_weight=FillIMapHists(tdk2nu, tdkmeta, &hists, &opts);
 	
 	cout<< "Total weight: "<<total_weight<<endl;
@@ -184,6 +190,16 @@ void name_hists(HistList * hists, TFile * out_file){
 
     hists->_h_nint_vs_enu = new TH2D("h_nint_vs_enu","all interactions;neutrino energy (GeV); number of interactions",120,0,120,20,-0.5,19.5);
     hists->_h_nint_vs_enu_cuts=new TH2D("h_nint_vs_enu_cuts", "interactions not covered by HP;neutrino energy (GeV); number of interactions",120,0,120,20,-0.5,19.5) ;
+    
+    hists->_h_aveint_vs_enu_thin_pCpion     = new TH1D("h_aveint_vs_enu_thin_pCpion","thin target pC->pion;neutrino energy (GeV); number of interactions",120,0,120);
+    hists->_h_aveint_vs_enu_thin_pCkaon     = new TH1D("h_aveint_vs_enu_thin_pCkaon","thin target pC->kaon;neutrino energy (GeV); number of interactions",120,0,120);
+    hists->_h_aveint_vs_enu_thin_nCpion     = new TH1D("h_aveint_vs_enu_thin_nCpion","thin target nC->pion;neutrino energy (GeV); number of interactions",120,0,120);
+    hists->_h_aveint_vs_enu_thin_pCnucleon  = new TH1D("h_aveint_vs_enu_thin_pCnucleon","thin target pC->nucleon;neutrino energy (GeV); number of interactions",120,0,120);
+    hists->_h_aveint_vs_enu_thin_mesoninc   = new TH1D("h_aveint_vs_enu_thin_mesoninc","thin target meson incident;neutrino energy (GeV); number of interactions",120,0,120);
+    hists->_h_aveint_vs_enu_thin_nucleona   = new TH1D("h_aveint_vs_enu_thin_nucleona","thin target nuclen-A;neutrino energy (GeV); number of interactions",120,0,120);
+    hists->_h_aveint_vs_enu_others          = new TH1D("h_aveint_vs_enu_others","Others;neutrino energy (GeV); number of interactions",120,0,120);
+    hists->_h_aveint_vs_enu_tot             = new TH1D("h_aveint_vs_enu_tot","total;neutrino energy (GeV); number of interactions",120,0,120);
+    hists->_h_nuflux   = new TH1D("h_nuflux","#nu flux;neutrino energy (GeV); #nu/m^{2}",120,0,120);
     
     for(int k=0;k<IMap::npop;k++)
     {
@@ -291,6 +307,25 @@ void scale_hists(HistList * hists, double total_weight){
     hists->_h_in_vs_mat->Scale(1./total_weight);
     hists->_h_nint_vs_enu->Scale(1./total_weight);
     hists->_h_nint_vs_enu_cuts->Scale(1./total_weight);
+
+    hists->_h_aveint_vs_enu_thin_pCpion->Divide(hists->_h_nuflux); 
+    hists->_h_aveint_vs_enu_thin_pCkaon->Divide(hists->_h_nuflux); 
+    hists->_h_aveint_vs_enu_thin_nCpion->Divide(hists->_h_nuflux); 
+    hists->_h_aveint_vs_enu_thin_pCnucleon->Divide(hists->_h_nuflux); 
+    hists->_h_aveint_vs_enu_thin_mesoninc->Divide(hists->_h_nuflux); 
+    hists->_h_aveint_vs_enu_thin_nucleona->Divide(hists->_h_nuflux); 
+    hists->_h_aveint_vs_enu_others->Divide(hists->_h_nuflux); 
+    hists->_h_aveint_vs_enu_tot->Divide(hists->_h_nuflux); 
+
+    hists->_h_aveint_vs_enu_thin_pCpion->Scale(1./pival);
+    hists->_h_aveint_vs_enu_thin_pCkaon->Scale(1./pival);
+    hists->_h_aveint_vs_enu_thin_nCpion->Scale(1./pival);
+    hists->_h_aveint_vs_enu_thin_pCnucleon->Scale(1./pival);
+    hists->_h_aveint_vs_enu_thin_mesoninc->Scale(1./pival);
+    hists->_h_aveint_vs_enu_thin_nucleona->Scale(1./pival);
+    hists->_h_aveint_vs_enu_others->Scale(1./pival);
+    hists->_h_aveint_vs_enu_tot->Scale(1./pival);
+
     // loop over all particle-specific histograms
     for(int j=0;j<IMap::npop;j++)
     {
@@ -370,5 +405,14 @@ void write_hists(HistList * hists, TFile * out_file){
 
   hists->_h_nint_vs_enu->Write();
   hists->_h_nint_vs_enu_cuts->Write();
-  
+
+  hists->_h_aveint_vs_enu_thin_pCpion->Write(); 
+  hists->_h_aveint_vs_enu_thin_pCkaon->Write();
+  hists->_h_aveint_vs_enu_thin_nCpion->Write();
+  hists->_h_aveint_vs_enu_thin_pCnucleon->Write();
+  hists->_h_aveint_vs_enu_thin_mesoninc->Write(); 
+  hists->_h_aveint_vs_enu_thin_nucleona->Write();
+  hists->_h_aveint_vs_enu_others->Write();
+  hists->_h_aveint_vs_enu_tot->Write();
+  hists->_h_nuflux->Write();
 }

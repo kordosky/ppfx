@@ -24,28 +24,39 @@ using namespace std;
 
 const double hbar = 0.197/(3e8 * 1e15);
 const double massproton = 0.938272;
+const double pival = 3.1416;
 
 struct HistList{
-	//Single array histos
-	vector<TH2D *> _hmat;	
-	vector<TH2D *> _hvol;
+
+  //Single array histos
+  vector<TH2D *> _hmat;	
+  vector<TH2D *> _hvol;
   vector<TH2D *> _hmatbkw;
   vector<TH2D *> _hxfpt_tot;
   vector<TH1F *> _henergytotal;
   vector<TH1F *> _hkepop_tot;
   vector<TH1F *> _htmpop_tot;
 	
-	//Double array histos
-	vector< vector<TH2D *> > _hxfpt;
-	vector< vector<TH1F *> > _henergymaterial;
+  //Double array histos
+  vector< vector<TH2D *> > _hxfpt;
+  vector< vector<TH1F *> > _henergymaterial;
   vector< vector<TH1F *> > _henergyvolume;
   vector< vector<TH1F *> > _hkepop;
   vector< vector<TH1F *> > _htmpop; 
 	
-	//individual histos
+  //individual histos
   TH2D * _h_in_vs_mat;	
   TH2D * _h_nint_vs_enu;
   TH2D * _h_nint_vs_enu_cuts;
+  TH1D * _h_aveint_vs_enu_thin_pCpion; 
+  TH1D * _h_aveint_vs_enu_thin_pCkaon; 
+  TH1D * _h_aveint_vs_enu_thin_nCpion;
+  TH1D * _h_aveint_vs_enu_thin_pCnucleon;
+  TH1D * _h_aveint_vs_enu_thin_mesoninc;
+  TH1D * _h_aveint_vs_enu_thin_nucleona;
+  TH1D * _h_aveint_vs_enu_others;
+  TH1D * _h_aveint_vs_enu_tot;
+  TH1D * _h_nuflux;
 };
 
 namespace IMap {

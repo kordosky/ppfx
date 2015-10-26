@@ -9,22 +9,30 @@
 
 #include "MIPPNumiKaonYieldsReweighter.h"
 #include "MIPPNumiPionYieldsReweighter.h"
-#include "NA49Reweighter.h"
-#include "MIPPThinTargetReweighter.h"
-
+#include "ThinTargetpCPionReweighter.h"
+#include "ThinTargetpCKaonReweighter.h"
+#include "ThinTargetnCPionReweighter.h"
+#include "ThinTargetpCNucleonReweighter.h"
+#include "ThinTargetMesonIncidentReweighter.h"
+#include "ThinTargetnucleonAReweighter.h"
 
 struct FillIMapHistsOpts {
   float elow, ehigh;
   Int_t nuid;
-  bool cut_na49, cut_mipp;
+  bool cut_thintarget, cut_mipp;
 };
 
 struct FillIMapHistsReweighters {
 
   NeutrinoFluxReweight::MIPPNumiPionYieldsReweighter* NumiPions;
   NeutrinoFluxReweight::MIPPNumiKaonYieldsReweighter* NumiKaons; 
-  NeutrinoFluxReweight::NA49Reweighter* NA49;
-  NeutrinoFluxReweight::MIPPThinTargetReweighter* ThinKaons;
+
+  NeutrinoFluxReweight::ThinTargetpCPionReweighter*         ThinTargetpCPion;
+  NeutrinoFluxReweight::ThinTargetpCKaonReweighter*         ThinTargetpCKaon;
+  NeutrinoFluxReweight::ThinTargetnCPionReweighter*         ThinTargetnCPion;
+  NeutrinoFluxReweight::ThinTargetpCNucleonReweighter*      ThinTargetpCNucleon;
+  NeutrinoFluxReweight::ThinTargetMesonIncidentReweighter*  ThinTargetMesonIncident;
+  NeutrinoFluxReweight::ThinTargetnucleonAReweighter*       ThinTargetnucleonA;
 
 };
 
