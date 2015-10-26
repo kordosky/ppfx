@@ -1,0 +1,10 @@
+<inputs>
+   <Settings>
+     <!--MIPPNuMIOn is set to be sure that always MIPP Numi reweighters are initialized -->
+    <Reweighters>MIPPNuMIOn</Reweighters>
+     <MIPPCorrOption>default</MIPPCorrOption>
+     <NumberOfUniverses>0</NumberOfUniverses>
+   </Settings>
+</inputs>
+
+
