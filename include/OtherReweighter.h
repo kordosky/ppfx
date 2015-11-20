@@ -8,8 +8,8 @@
 
 namespace NeutrinoFluxReweight{
   
-  /*! \class TheoryThinTargetReweighter
-   *  \brief Reweighter of no NA49-like and no MIPP interactions
+  /*! \class OtherReweighter
+   *  \brief Reweighter of no thin target and no MIPP interactions
    */
   
   class OtherReweighter : public IInteractionReweighting{
