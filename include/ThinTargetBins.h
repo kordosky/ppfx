@@ -87,6 +87,19 @@ namespace NeutrinoFluxReweight{
     //Material scaling
     std::vector<double> mat_scal_xfmin, mat_scal_xfmax, mat_scal_ptmin, mat_scal_ptmax;
 
+    //Number of bins:
+    int GetNbins_pC_piX_NA49();
+    int GetNbins_pC_piX_Barton();
+    
+    int GetNbins_pC_pX_NA49();
+    int GetNbins_pC_nX_NA49();
+    
+    int GetNbins_pC_KX_NA49();
+    int GetNbins_pC_KX_MIPP();
+    
+    int GetNbins_meson_incident();
+    int GetNbins_material_scaling();
+
   private:
     static ThinTargetBins* instance;
     

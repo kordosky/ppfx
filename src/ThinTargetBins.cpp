@@ -369,6 +369,39 @@ int ThinTargetBins::material_scaling_BinID(double xf, double pt,int pdgcode){
     return ibinID;
     
   }
+  
+  int ThinTargetBins::GetNbins_pC_piX_NA49(){
+    if(pC_pi_xfmin.size()==0)throw std::runtime_error("ThinTargetBins has not been initialized!!");
+    return pC_pi_xfmin.size();
+  }
+  int ThinTargetBins::GetNbins_pC_piX_Barton(){
+    if(b_pC_pi_xfmin.size()==0)throw std::runtime_error("ThinTargetBins has not been initialized!!");
+    return b_pC_pi_xfmin.size();
+  }
+  int ThinTargetBins::GetNbins_pC_pX_NA49(){
+    if(pC_p_xfmin.size()==0)throw std::runtime_error("ThinTargetBins has not been initialized!!");
+    return pC_p_xfmin.size();
+  }
+  int ThinTargetBins::GetNbins_pC_nX_NA49(){
+    if(pC_n_xfmin.size()==0)throw std::runtime_error("ThinTargetBins has not been initialized!!");
+    return pC_n_xfmin.size();
+  }
+  int ThinTargetBins::GetNbins_pC_KX_NA49(){
+    if(pC_k_xfmin.size()==0)throw std::runtime_error("ThinTargetBins has not been initialized!!");
+    return pC_k_xfmin.size();
+  }
+  int ThinTargetBins::GetNbins_pC_KX_MIPP(){
+    if(mipp_pC_k_pzmin.size()==0)throw std::runtime_error("ThinTargetBins has not been initialized!!");
+    return mipp_pC_k_pzmin.size();
+  }
+  int ThinTargetBins::GetNbins_meson_incident(){
+    if(meson_inc_xfmin.size()==0)throw std::runtime_error("ThinTargetBins has not been initialized!!");
+    return meson_inc_xfmin.size();
+  }
+  int ThinTargetBins::GetNbins_material_scaling(){
+    if(mat_scal_xfmin.size()==0)throw std::runtime_error("ThinTargetBins has not been initialized!!");
+    return mat_scal_xfmin.size();
+  }
 
   ThinTargetBins* ThinTargetBins::getInstance(){
     if (instance == 0) instance = new ThinTargetBins;

@@ -9,11 +9,12 @@ namespace NeutrinoFluxReweight{
   
   ThinTargetpCPionReweighter::ThinTargetpCPionReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars):iUniv(iuniv),cvPars(cv_pars),univPars(univ_pars){
     
-    vbin_data_pip.reserve(9801);
-    vbin_data_pim.reserve(9801);
-    bart_vbin_data_pip.reserve(540);
-    bart_vbin_data_pim.reserve(540);
-
+    ThinTargetBins*  Thinbins =  ThinTargetBins::getInstance();
+    vbin_data_pip.reserve(Thinbins->GetNbins_pC_piX_NA49());
+    vbin_data_pim.reserve(Thinbins->GetNbins_pC_piX_NA49());
+    bart_vbin_data_pip.reserve(Thinbins->GetNbins_pC_piX_Barton());
+    bart_vbin_data_pim.reserve(Thinbins->GetNbins_pC_piX_Barton());
+    
     std::map<std::string, double> cv_table   = cvPars.table;
     std::map<std::string, double> univ_table = univPars.table;
     
@@ -21,7 +22,7 @@ namespace NeutrinoFluxReweight{
     
     //the number of bins needs to be written from the xmls files 
     char namepar[100];
-    for(int ii=0;ii<9801;ii++){
+    for(int ii=0;ii<Thinbins->GetNbins_pC_piX_NA49();ii++){
       
       sprintf(namepar,"ThinTarget_pC_%s_sys_%d","pip",ii);
       double data_cv  = cv_table[std::string(namepar)];
@@ -38,7 +39,7 @@ namespace NeutrinoFluxReweight{
       vbin_data_pim.push_back(data_sta + data_sys - data_cv);
       
     }    
-    for(int ii=0;ii<540;ii++){
+    for(int ii=0;ii<Thinbins->GetNbins_pC_piX_Barton();ii++){
       
       sprintf(namepar,"ThinTargetBarton_pC_%s_%d","pip",ii);
       double data_err = univ_table[std::string(namepar)];

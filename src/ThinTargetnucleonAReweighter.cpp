@@ -8,25 +8,28 @@ namespace NeutrinoFluxReweight{
   
   ThinTargetnucleonAReweighter::ThinTargetnucleonAReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars):iUniv(iuniv),cvPars(cv_pars),univPars(univ_pars){
     
-    vbin_data_pip.reserve(9);
-    vbin_data_pim.reserve(9);
-    vbin_data_kap.reserve(9);
-    vbin_data_kam.reserve(9);
+    ThinTargetBins* Thinbins =  ThinTargetBins::getInstance();
     
-    vbin_prt_inc_pip.reserve(4);
-    vbin_prt_inc_pim.reserve(4);
-    vbin_prt_inc_kap.reserve(4);
-    vbin_prt_inc_kam.reserve(4);
-    vbin_prt_inc_k0.reserve(4);
-    vbin_prt_inc_p.reserve(4);
-    vbin_prt_inc_n.reserve(4);
-    vbin_neu_inc_pip.reserve(4);
-    vbin_neu_inc_pim.reserve(4);
-    vbin_neu_inc_kap.reserve(4);
-    vbin_neu_inc_kam.reserve(4);
-    vbin_neu_inc_k0.reserve(4);
-    vbin_neu_inc_p.reserve(4);
-    vbin_neu_inc_n.reserve(4);
+    vbin_data_pip.reserve(Thinbins->GetNbins_material_scaling());
+    vbin_data_pim.reserve(Thinbins->GetNbins_material_scaling());
+    vbin_data_kap.reserve(Thinbins->GetNbins_material_scaling());
+    vbin_data_kam.reserve(Thinbins->GetNbins_material_scaling());
+    
+    //Currently, We are using the same number of xF ranges for nucleon inc. and meson inc.
+    vbin_prt_inc_pip.reserve(Thinbins->GetNbins_meson_incident());
+    vbin_prt_inc_pim.reserve(Thinbins->GetNbins_meson_incident());
+    vbin_prt_inc_kap.reserve(Thinbins->GetNbins_meson_incident());
+    vbin_prt_inc_kam.reserve(Thinbins->GetNbins_meson_incident());
+    vbin_prt_inc_k0.reserve(Thinbins->GetNbins_meson_incident());
+    vbin_prt_inc_p.reserve(Thinbins->GetNbins_meson_incident());
+    vbin_prt_inc_n.reserve(Thinbins->GetNbins_meson_incident());
+    vbin_neu_inc_pip.reserve(Thinbins->GetNbins_meson_incident());
+    vbin_neu_inc_pim.reserve(Thinbins->GetNbins_meson_incident());
+    vbin_neu_inc_kap.reserve(Thinbins->GetNbins_meson_incident());
+    vbin_neu_inc_kam.reserve(Thinbins->GetNbins_meson_incident());
+    vbin_neu_inc_k0.reserve(Thinbins->GetNbins_meson_incident());
+    vbin_neu_inc_p.reserve(Thinbins->GetNbins_meson_incident());
+    vbin_neu_inc_n.reserve(Thinbins->GetNbins_meson_incident());
 
     std::map<std::string, double> cv_table   = cvPars.table;
     std::map<std::string, double> univ_table = univPars.table;
@@ -37,7 +40,7 @@ namespace NeutrinoFluxReweight{
     //4 particles
     const char* cinc[4] = {"pip","pim","kap","kam"};    
     for(int ii=0;ii<4;ii++){
-      for(int jj=0;jj<9;jj++){
+      for(int jj=0;jj<Thinbins->GetNbins_material_scaling();jj++){
 	sprintf(namepar,"ThinTarget_material_scaling_%s_%d",cinc[ii],jj);
 	double dataval = univ_table[std::string(namepar)];
 	if(ii==0)vbin_data_pip.push_back(dataval);
@@ -54,7 +57,7 @@ namespace NeutrinoFluxReweight{
     
     for(int ii=0;ii<2;ii++){
       for(int jj=0;jj<7;jj++){
-	for(int kk=0;kk<4;kk++){
+	for(int kk=0;kk<Thinbins->GetNbins_meson_incident();kk++){
 	  sprintf(namepar,"ThinTarget_%s_incident_%s_%d",nuinc[ii],cpro[jj],kk);
 	  double dataval = univ_table[std::string(namepar)];
 	  if(ii==0 && jj==0)vbin_prt_inc_pip.push_back(dataval);

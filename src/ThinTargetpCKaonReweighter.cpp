@@ -9,17 +9,18 @@ namespace NeutrinoFluxReweight{
   
   ThinTargetpCKaonReweighter::ThinTargetpCKaonReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars):iUniv(iuniv),cvPars(cv_pars),univPars(univ_pars){
   
-    vbin_data_kap.reserve(1353);
-    vbin_data_kam.reserve(1353);
-    mipp_vbin_data_kap_pip.reserve(24);
-    mipp_vbin_data_kam_pim.reserve(24);
+    ThinTargetBins* Thinbins =  ThinTargetBins::getInstance();
+    vbin_data_kap.reserve(Thinbins->GetNbins_pC_KX_NA49());
+    vbin_data_kam.reserve(Thinbins->GetNbins_pC_KX_NA49());
+    mipp_vbin_data_kap_pip.reserve(Thinbins->GetNbins_pC_KX_MIPP());
+    mipp_vbin_data_kam_pim.reserve(Thinbins->GetNbins_pC_KX_MIPP());
 
     std::map<std::string, double> cv_table   = cvPars.table;
     std::map<std::string, double> univ_table = univPars.table;
        
     data_prod_xs = univ_table["prod_prtC_xsec"];
     char namepar[100];
-    for(int ii=0;ii<1353;ii++){
+    for(int ii=0;ii<Thinbins->GetNbins_pC_KX_NA49();ii++){
       
       sprintf(namepar,"ThinTargetLowxF_pC_%s_sys_%d","kap",ii);
       double data_cv  = cv_table[std::string(namepar)];
@@ -37,7 +38,7 @@ namespace NeutrinoFluxReweight{
       
     }
     
-   for(int ii=0;ii<24;ii++){
+   for(int ii=0;ii<Thinbins->GetNbins_pC_KX_MIPP();ii++){
       
       sprintf(namepar,"ThinTarget_kap_pip_sys_%d",ii);
       double data_cv  = cv_table[std::string(namepar)];
