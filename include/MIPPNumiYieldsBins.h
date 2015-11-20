@@ -35,6 +35,11 @@ namespace NeutrinoFluxReweight{
     std::vector<double> pip_data_ptmin, pim_data_ptmin, k_pi_data_ptmin;
     std::vector<double> pip_data_ptmax, pim_data_ptmax, k_pi_data_ptmax;
         
+    //Number of bins:
+    int GetNbins_pip_MIPPNuMI();
+    int GetNbins_pim_MIPPNuMI();
+    int GetNbins_K_MIPPNuMI();
+    
     private:
     static MIPPNumiYieldsBins* instance;
 

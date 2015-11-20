@@ -71,7 +71,7 @@ namespace NeutrinoFluxReweight{
     int bin_p = Thinbins->BinID_pC_p(aa.xF,aa.Pt,aa.Prod_pdg);
     int bin_n = Thinbins->BinID_pC_n(aa.xF,aa.Prod_pdg);
     if(bin_p < 0 && bin_n < 0){
-      std::cout<<"Not bin found "<<std::endl;
+      //std::cout<<"Not bin found "<<std::endl;
       return wgt;
     }
 
@@ -82,7 +82,7 @@ namespace NeutrinoFluxReweight{
     if(aa.Prod_pdg==2112)dataval = vbin_data_n[bin_n];
     
     if(dataval<1.e-12){
-      std::cout<<"Not data found "<<std::endl;
+      //std::cout<<"Not data found "<<std::endl;
       return wgt;
     }
 

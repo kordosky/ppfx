@@ -11,11 +11,15 @@ namespace NeutrinoFluxReweight{
   
   MIPPNumiPionYieldsReweighter::MIPPNumiPionYieldsReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars):iUniv(iuniv),cvPars(cv_pars),univPars(univ_pars){ 
 
+     MIPPNumiYieldsBins* MIPPbins =  MIPPNumiYieldsBins::getInstance();
+     vbin_data_pip.reserve(MIPPbins->GetNbins_pip_MIPPNuMI());
+     vbin_data_pim.reserve(MIPPbins->GetNbins_pim_MIPPNuMI());
+     
     std::map<std::string, double> cv_table = cvPars.table;
     std::map<std::string, double> univ_table = univPars.table;
     prt_no_inter = univ_table["prt_no_interacting"];
     char namepar[100];
-    for(int ii=0;ii<124;ii++){
+    for(int ii=0;ii<MIPPbins->GetNbins_pip_MIPPNuMI();ii++){
       sprintf(namepar,"MIPP_NuMI_%s_sys_%d","pip",ii);
       double data_cv  = cv_table[std::string(namepar)];
       double data_sys = univ_table[std::string(namepar)];
@@ -26,7 +30,7 @@ namespace NeutrinoFluxReweight{
       data_cv  /= (1.0-prt_no_inter);
       vbin_data_pip.push_back(data_sys + data_sta - data_cv);
     }
-    for(int ii=0;ii<119;ii++){
+    for(int ii=0;ii<MIPPbins->GetNbins_pim_MIPPNuMI();ii++){
       sprintf(namepar,"MIPP_NuMI_%s_sys_%d","pim",ii);
       double data_cv  = cv_table[std::string(namepar)];
       double data_sys = univ_table[std::string(namepar)];

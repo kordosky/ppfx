@@ -137,6 +137,19 @@ namespace NeutrinoFluxReweight{
     
   }
 
+  int MIPPNumiYieldsBins::GetNbins_pip_MIPPNuMI(){
+    if(pip_data_pzmin.size()==0)throw std::runtime_error("MIPPNumiYieldsBins has not been initialized!!");
+    return pip_data_pzmin.size();
+  }
+  int MIPPNumiYieldsBins::GetNbins_pim_MIPPNuMI(){
+    if(pip_data_pzmin.size()==0)throw std::runtime_error("MIPPNumiYieldsBins has not been initialized!!");
+    return pim_data_pzmin.size();
+  }
+  int MIPPNumiYieldsBins::GetNbins_K_MIPPNuMI(){
+    if(k_pi_data_pzmin.size()==0)throw std::runtime_error("MIPPNumiYieldsBins has not been initialized!!");
+    return k_pi_data_pzmin.size();
+  }
+  
   MIPPNumiYieldsBins* MIPPNumiYieldsBins::getInstance(){
     if (instance == 0) instance = new MIPPNumiYieldsBins;
     return instance;

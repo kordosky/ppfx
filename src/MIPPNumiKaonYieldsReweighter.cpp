@@ -9,13 +9,28 @@
 namespace NeutrinoFluxReweight{
   
   MIPPNumiKaonYieldsReweighter::MIPPNumiKaonYieldsReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars): iUniv(iuniv), cvPars(cv_pars), univPars(univ_pars){
-  
+    
+    MIPPNumiYieldsBins* MIPPbins =  MIPPNumiYieldsBins::getInstance();
+    vbin_datacv_pip.reserve(MIPPbins->GetNbins_pip_MIPPNuMI());
+    vbin_datacv_pim.reserve(MIPPbins->GetNbins_pim_MIPPNuMI());
+    vbin_datasys_pip.reserve(MIPPbins->GetNbins_pip_MIPPNuMI());
+    vbin_datasys_pim.reserve(MIPPbins->GetNbins_pim_MIPPNuMI());
+    vbin_datasta_pip.reserve(MIPPbins->GetNbins_pip_MIPPNuMI());
+    vbin_datasta_pim.reserve(MIPPbins->GetNbins_pim_MIPPNuMI());
+    
+    vbin_datacv_kap_pip.reserve(MIPPbins->GetNbins_K_MIPPNuMI());
+    vbin_datacv_kam_pim.reserve(MIPPbins->GetNbins_K_MIPPNuMI());
+    vbin_datasys_kap_pip.reserve(MIPPbins->GetNbins_K_MIPPNuMI());
+    vbin_datasys_kam_pim.reserve(MIPPbins->GetNbins_K_MIPPNuMI());
+    vbin_datasta_kap_pip.reserve(MIPPbins->GetNbins_K_MIPPNuMI());
+    vbin_datasta_kam_pim.reserve(MIPPbins->GetNbins_K_MIPPNuMI());
+
      std::map<std::string, double> univ_table = univPars.table;
      std::map<std::string, double> cv_table = cvPars.table;
      prt_no_inter = univ_table["prt_no_interacting"];
      
      char namepar[100];
-     for(int ii=0;ii<124;ii++){
+     for(int ii=0;ii<MIPPbins->GetNbins_pip_MIPPNuMI();ii++){
       sprintf(namepar,"MIPP_NuMI_%s_sys_%d","pip",ii);
       double data_cv  = cv_table[std::string(namepar)];
       double data_sys = univ_table[std::string(namepar)];
@@ -29,7 +44,7 @@ namespace NeutrinoFluxReweight{
       vbin_datasta_pip.push_back(data_sta);
      }
      
-     for(int ii=0;ii<119;ii++){
+     for(int ii=0;ii<MIPPbins->GetNbins_pim_MIPPNuMI();ii++){
       sprintf(namepar,"MIPP_NuMI_%s_sys_%d","pim",ii);
       double data_cv  = cv_table[std::string(namepar)];
       double data_sys = univ_table[std::string(namepar)];
@@ -42,7 +57,7 @@ namespace NeutrinoFluxReweight{
       vbin_datasys_pim.push_back(data_sys);
       vbin_datasta_pim.push_back(data_sta);
      }
-    for(int ii=0;ii<24;ii++){
+    for(int ii=0;ii<MIPPbins->GetNbins_K_MIPPNuMI();ii++){
       sprintf(namepar,"MIPP_NuMI_%s_sys_%d","kap_pip",ii);
       double data_cv  = cv_table[std::string(namepar)];
       double data_sys = univ_table[std::string(namepar)];
