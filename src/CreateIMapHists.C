@@ -200,6 +200,11 @@ void name_hists(HistList * hists, TFile * out_file){
     hists->_h_aveint_vs_enu_others          = new TH1D("h_aveint_vs_enu_others","Others;neutrino energy (GeV); number of interactions",120,0,120);
     hists->_h_aveint_vs_enu_tot             = new TH1D("h_aveint_vs_enu_tot","total;neutrino energy (GeV); number of interactions",120,0,120);
     hists->_h_nuflux   = new TH1D("h_nuflux","#nu flux;neutrino energy (GeV); #nu/m^{2}",120,0,120);
+
+    hists->_h_occ_xfpt_pc_pip = new TH2D("h_occ_xfpt_pc_pip",";xF; pT (GeV/c)",100,0,1.0,50,0,1.0);
+    hists->_h_occ_xfpt_pc_kp = new TH2D("h_occ_xfpt_pc_kp",";xF; pT (GeV/c)",100,0,1.0,50,0,1.0);
+    hists->_h_hpwgt_xfpt_pc_pip = new TH2D("h_hpwgt_xfpt_pc_pip",";xF; pT (GeV/c)",100,0,1.0,50,0,1.0);
+    hists->_h_hpwgt_xfpt_pc_kp = new TH2D("h_hpwgt_xfpt_pc_kp",";xF; pT (GeV/c)",100,0,1.0,50,0,1.0);
     
     for(int k=0;k<IMap::npop;k++)
     {
@@ -295,7 +300,7 @@ void name_hists(HistList * hists, TFile * out_file){
             hists->_hxfpt[j][k]=new TH2D(namefile,"",500,-1,1,100,0,2);
         }
     }
-
+    
 }
 
 
@@ -325,6 +330,14 @@ void scale_hists(HistList * hists, double total_weight){
     hists->_h_aveint_vs_enu_thin_nucleona->Scale(1./pival);
     hists->_h_aveint_vs_enu_others->Scale(1./pival);
     hists->_h_aveint_vs_enu_tot->Scale(1./pival);
+
+    hists->_h_occ_xfpt_pc_pip->Scale(1.0/total_weight);
+    hists->_h_occ_xfpt_pc_kp->Scale(1.0/total_weight);
+    hists->_h_hpwgt_xfpt_pc_pip->Scale(1.0/total_weight);
+    hists->_h_hpwgt_xfpt_pc_kp->Scale(1.0/total_weight);
+
+    hists->_h_hpwgt_xfpt_pc_pip->Divide(hists->_h_occ_xfpt_pc_pip);
+    hists->_h_hpwgt_xfpt_pc_kp->Divide(hists->_h_occ_xfpt_pc_kp);
 
     // loop over all particle-specific histograms
     for(int j=0;j<IMap::npop;j++)
@@ -415,4 +428,10 @@ void write_hists(HistList * hists, TFile * out_file){
   hists->_h_aveint_vs_enu_others->Write();
   hists->_h_aveint_vs_enu_tot->Write();
   hists->_h_nuflux->Write();
+
+  hists->_h_occ_xfpt_pc_pip->Write();
+  hists->_h_occ_xfpt_pc_kp->Write();
+  hists->_h_hpwgt_xfpt_pc_pip->Write();
+  hists->_h_hpwgt_xfpt_pc_kp->Write();
+
 }

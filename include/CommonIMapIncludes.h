@@ -57,6 +57,13 @@ struct HistList{
   TH1D * _h_aveint_vs_enu_others;
   TH1D * _h_aveint_vs_enu_tot;
   TH1D * _h_nuflux;
+
+  // histograms documenting the HP weights as a function of xF,pT
+  TH2D* _h_occ_xfpt_pc_pip;
+  TH2D* _h_hpwgt_xfpt_pc_pip;
+  TH2D* _h_occ_xfpt_pc_kp;
+  TH2D* _h_hpwgt_xfpt_pc_kp;
+
 };
 
 namespace IMap {

@@ -137,10 +137,21 @@ double FillOneEntry(bsim::Dk2Nu* dk2nu, bsim::DkMeta* dkmeta, HistList* hists, c
     if(reweighters->ThinTargetpCPion->canReweight(interdata)){
       covered_by_thintarget = true;
       if(! opts->cut_thintarget) hists->_h_aveint_vs_enu_thin_pCpion->Fill(enu,weight);
+      if(interdata.Prod_pdg==211){
+	hists->_h_occ_xfpt_pc_pip->Fill(interdata.xF,interdata.Pt,weight);
+	double hpweight=reweighters->ThinTargetpCPion->calculateWeight(interdata);
+	hists->_h_hpwgt_xfpt_pc_pip->Fill(interdata.xF,interdata.Pt,weight*hpweight);	
+      }
     }
     else if(reweighters->ThinTargetpCKaon->canReweight(interdata)){
       covered_by_thintarget = true;
       if(! opts->cut_thintarget) hists->_h_aveint_vs_enu_thin_pCkaon->Fill(enu,weight);
+      if(interdata.Prod_pdg==321){
+	hists->_h_occ_xfpt_pc_kp->Fill(interdata.xF,interdata.Pt,weight);
+	double hpweight=reweighters->ThinTargetpCKaon->calculateWeight(interdata);
+	hists->_h_hpwgt_xfpt_pc_kp->Fill(interdata.xF,interdata.Pt,weight*hpweight);	
+      }
+
     }
     else if(reweighters->ThinTargetnCPion->canReweight(interdata)){
       covered_by_thintarget = true;
