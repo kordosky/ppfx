@@ -9,7 +9,7 @@
     </inel_piAl_xsec>
     <inel_piC_xsec>
       <cv> 0.0 </cv>
-      <err> 20.0 </err> <!-- mb -->
+      <err> 10.0 </err> <!-- mb -->
     </inel_piC_xsec>
     <inel_kapAl_xsec_lowP>
       <cv> 0.0 </cv>

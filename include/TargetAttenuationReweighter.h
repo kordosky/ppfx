@@ -40,7 +40,7 @@ namespace NeutrinoFluxReweight{
     static double getTargetPenetrationLE(double z_start, double z_end, double z0_budal);
     static double getTargetPenetrationME(double z_start, double z_end, double z0_budal);
     
-    static double getZTgtExitLE(double pos_start[], double mom_start[], double pos_tar[]);
+    static double getZTgtExit(double pos_start[], double mom_start[], bool leflag, bool meflag);
     
   private:
     const ParameterTable& cvPars;

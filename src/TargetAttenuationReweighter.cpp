@@ -169,6 +169,8 @@ namespace NeutrinoFluxReweight{
       }
       totmatZ = getTargetPenetrationME(startZ,endZ,startZ);
     }   
+
+    if(totmatZ<0)totmatZ=0;
     
     totmatZ *= avog_x_mb2cm2;
     totmatZ /= graphite_A;
@@ -262,8 +264,7 @@ namespace NeutrinoFluxReweight{
 	else if(!ends_tgt){
 	  double startpart[3] = {(vec_inter[ii-1].Vtx)[0],(vec_inter[ii-1].Vtx)[1],(vec_inter[ii-1].Vtx)[2]};
 	  double momtar[3]    = {tar.Px,tar.Py,tar.Pz};
-	  double postar[3]    = {tar.Vx,tar.Vy,tar.Vz};
-	  double zf  = getZTgtExitLE(startpart,momtar,postar);
+	  zf  = getZTgtExit(startpart,momtar,is_le,is_me);
 	}
 	if(is_le) totmatZ = getTargetPenetrationLE(zi,zf,startZ);
 	if(is_me) totmatZ = getTargetPenetrationME(zi,zf,startZ);
@@ -307,12 +308,12 @@ namespace NeutrinoFluxReweight{
   }
   
   bool TargetAttenuationReweighter::isLE(const std::string& tgtcfg){
-    return tgtcfg.find("LE")||tgtcfg.find("le")||tgtcfg.find("Le");
+    return (tgtcfg.find("LE")==0)|| (tgtcfg.find("le")==0) || (tgtcfg.find("Le")==0);
   }
 
 
   bool TargetAttenuationReweighter::isME(const std::string& tgtcfg){
-    return tgtcfg.find("ME")||tgtcfg.find("me")||tgtcfg.find("Me");
+    return (tgtcfg.find("ME")==0) || (tgtcfg.find("me")==0) || (tgtcfg.find("Me")==0);
   }
 
   double TargetAttenuationReweighter::shiftPlaylist(const int ipl){
@@ -529,68 +530,49 @@ namespace NeutrinoFluxReweight{
 
   }
   
-  double TargetAttenuationReweighter::getZTgtExitLE(double pos_start[], double mom_start[], double pos_tar[]){
+  double TargetAttenuationReweighter::getZTgtExit(double pos_start[], double mom_start[], bool leflag, bool meflag){
+    //check:
+    //    if(mom_start[2]<0)std::cout<<"alert momz<0"<<std::endl;
     //this function approximates the z position of the particle that exit the target
     //for LE assuming 1.5 cm x 0.64 cm. xy view.
     
     //First, find the xy point where the partice leaves the target:
-    const double aa = 0.75;
-    const double bb = 0.32;
-    double TEX, TEY;
-    if(mom_start[0]==0)return 0.0;
-    double mm  = mom_start[1]/mom_start[0];
-    double XA  = (bb-pos_start[1])/mm + pos_start[0];
-    double XAP = (1.*bb-pos_start[1])/mm + pos_start[0];
-    double YB  = (aa-pos_start[0])*mm + pos_start[1];
-    double YBP = (-1.*aa-pos_start[0])*mm + pos_start[1];
-    //1C:
-    if(mom_start[0]>=0 && mom_start[1]>=0){
-      if(XA>aa){
-	TEX = aa;
-	TEY = YB;
-      }
-      else{
-	TEX = XA;
-	TEY = bb;
-      }
+    double a = -1;
+    double b = -1;
+    if(leflag){
+       a = 0.32;
+       b = 0.75;
     }
-     //2C:
-    if(mom_start[0]<0 && mom_start[1]>0){
-      if(XA<-1.*aa){
-	TEX = -1.*aa;
-	TEY = YBP;
-      }
-      else{
-	TEX = XA;
-	TEY = bb;
-      }
-    }
-    //3C:
-    if(mom_start[0]<0 && mom_start[1]<0){
-      if(XAP<-1.*aa){
-	TEX = -1.*aa;
-	TEY = YBP;
-      }
-      else{
-	TEX = XAP;
-	TEY = -1.*bb;
-      }
-    }
-     //4C:
-    if(mom_start[0]>0 && mom_start[1]<0){
-      if(XAP>aa){
-	TEX = aa;
-	TEY = YB;
-      }
-      else{
-	TEX = XAP;
-	TEY = -1.*bb;
-      }
+    if(meflag){
+       a = 0.37;
+       b = 5.93;
     }
     
-    //Now from the 3 dimensional line equation using TEX:
-    double wanted_z = pos_start[2] + (pos_tar[2]-pos_start[2])*(TEX-pos_start[0])/(pos_tar[0]-pos_start[0]);
-    return wanted_z;
+    double shift = -1;
+
+    //X:
+    double mx  = mom_start[0]/mom_start[2];
+    if(mx>0)shift = (a-pos_start[0])/mx;
+    else shift = (-1.*a-pos_start[0])/mx;    
+    double z_usingx = pos_start[2] + shift;
+    
+    //Y:
+    double my  = mom_start[1]/mom_start[2];
+    if(my>0){
+      if(leflag)shift = (b-pos_start[1])/my;
+      if(meflag)shift = (a-pos_start[1])/my;
+    }
+    else{
+      shift = (-1.*b-pos_start[1])/my;        
+    }
+    double z_usingy = pos_start[2] + shift;  
+    
+       
+    
+    double zout = z_usingx;
+    if(z_usingy<z_usingx)zout = z_usingy;
+    
+    return zout;
     
   }
 
