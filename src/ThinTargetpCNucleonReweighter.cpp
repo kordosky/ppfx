@@ -12,20 +12,20 @@ namespace NeutrinoFluxReweight{
     
     vbin_data_p.reserve(Thinbins->GetNbins_pC_pX_NA49());
     vbin_data_n.reserve(Thinbins->GetNbins_pC_nX_NA49());
-    std::map<std::string, double> cv_table   = cvPars.table;
-    std::map<std::string, double> univ_table = univPars.table;
+    // const boost::interprocess::flat_map<std::string, double>& cv_table   = cvPars.getMap();
+    // const boost::interprocess::flat_map<std::string, double>& univ_table = univPars.getMap();
     
-     data_prod_xs = univ_table["prod_prtC_xsec"];
+     data_prod_xs = univPars.getParameterValue("prod_prtC_xsec");
     
     //the number of bins needs to be written from the xmls files 
     char namepar[100];
     for(int ii=0;ii<Thinbins->GetNbins_pC_pX_NA49();ii++){
       
       sprintf(namepar,"ThinTarget_pC_%s_sys_%d","p",ii);
-      double data_cv  = cv_table[std::string(namepar)];
-      double data_sys = univ_table[std::string(namepar)];
+      double data_cv  = cvPars.getParameterValue(std::string(namepar));
+      double data_sys = univPars.getParameterValue(std::string(namepar));
       sprintf(namepar,"ThinTarget_pC_%s_stats_%d","p",ii);
-      double data_sta = univ_table[std::string(namepar)];       
+      double data_sta = univPars.getParameterValue(std::string(namepar));       
       vbin_data_p.push_back(data_sta + data_sys - data_cv);
       
     }    
@@ -33,10 +33,10 @@ namespace NeutrinoFluxReweight{
     for(int ii=0;ii<Thinbins->GetNbins_pC_nX_NA49();ii++){
       
       sprintf(namepar,"ThinTarget_pC_%s_sys_%d","n",ii);
-      double data_cv  = cv_table[std::string(namepar)];
-      double data_sys = univ_table[std::string(namepar)];
+      double data_cv  = cvPars.getParameterValue(std::string(namepar));
+      double data_sys = univPars.getParameterValue(std::string(namepar));
       sprintf(namepar,"ThinTarget_pC_%s_stats_%d","n",ii);
-      double data_sta = univ_table[std::string(namepar)];       
+      double data_sta = univPars.getParameterValue(std::string(namepar));       
       vbin_data_n.push_back(data_sta + data_sys - data_cv);
       
     }   

@@ -11,8 +11,8 @@ namespace NeutrinoFluxReweight{
   
   NucleonAbsorptionOutOfTargetReweighter::NucleonAbsorptionOutOfTargetReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars):iUniv(iuniv),cvPars(cv_pars),univPars(univ_pars){ 
 
-    std::map<std::string, double> dsig_table = univPars.table;
-    inel_piAl_xsec = dsig_table["inel_piAl_xsec"];
+    // const boost::interprocess::flat_map<std::string, double>& dsig_table = univPars.getMap();
+    inel_piAl_xsec = univPars.getParameterValue("inel_piAl_xsec");
 
   }
   NucleonAbsorptionOutOfTargetReweighter::~NucleonAbsorptionOutOfTargetReweighter(){

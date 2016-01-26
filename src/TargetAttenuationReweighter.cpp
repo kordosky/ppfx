@@ -14,14 +14,14 @@ namespace NeutrinoFluxReweight{
   TargetAttenuationReweighter::TargetAttenuationReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars)
     :iUniv(iuniv),cvPars(cv_pars),univPars(univ_pars){
     
-     std::map<std::string, double> this_table = univPars.table;
-     prod_prtC_xsec = this_table["prod_prtC_xsec"];
-     qe_prtC_xsec   = this_table["qe_prtC_xsec"];
-     delta_sigma_piC_xsec = this_table["inel_piC_xsec"];
-     delta_sigma_kapC_xsec_lowP  = this_table["inel_kapC_xsec_lowP"];
-     delta_sigma_kapC_xsec_highP = this_table["inel_kapC_xsec_highP"];
-     delta_sigma_kamC_xsec_lowP  = this_table["inel_kamC_xsec_lowP"];
-     delta_sigma_kamC_xsec_highP = this_table["inel_kamC_xsec_highP"];
+    // const boost::interprocess::flat_map<std::string, double>& this_table = univPars.getMap();
+     prod_prtC_xsec = univPars.getParameterValue("prod_prtC_xsec");
+     qe_prtC_xsec   = univPars.getParameterValue("qe_prtC_xsec");
+     delta_sigma_piC_xsec = univPars.getParameterValue("inel_piC_xsec");
+     delta_sigma_kapC_xsec_lowP  = univPars.getParameterValue("inel_kapC_xsec_lowP");
+     delta_sigma_kapC_xsec_highP = univPars.getParameterValue("inel_kapC_xsec_highP");
+     delta_sigma_kamC_xsec_lowP  = univPars.getParameterValue("inel_kamC_xsec_lowP");
+     delta_sigma_kamC_xsec_highP = univPars.getParameterValue("inel_kamC_xsec_highP");
 
   }
   TargetAttenuationReweighter::~TargetAttenuationReweighter(){

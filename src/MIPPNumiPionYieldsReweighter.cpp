@@ -15,16 +15,16 @@ namespace NeutrinoFluxReweight{
      vbin_data_pip.reserve(MIPPbins->GetNbins_pip_MIPPNuMI());
      vbin_data_pim.reserve(MIPPbins->GetNbins_pim_MIPPNuMI());
      
-    std::map<std::string, double> cv_table = cvPars.table;
-    std::map<std::string, double> univ_table = univPars.table;
-    prt_no_inter = univ_table["prt_no_interacting"];
+    const boost::interprocess::flat_map<std::string, double>& cv_table = cvPars.getMap();
+    const boost::interprocess::flat_map<std::string, double>& univ_table = univPars.getMap();
+    prt_no_inter = univPars.getParameterValue("prt_no_interacting");
     char namepar[100];
     for(int ii=0;ii<MIPPbins->GetNbins_pip_MIPPNuMI();ii++){
       sprintf(namepar,"MIPP_NuMI_%s_sys_%d","pip",ii);
-      double data_cv  = cv_table[std::string(namepar)];
-      double data_sys = univ_table[std::string(namepar)];
+      double data_cv  = cvPars.getParameterValue(std::string(namepar));
+      double data_sys = univPars.getParameterValue(std::string(namepar));
       sprintf(namepar,"MIPP_NuMI_%s_stats_%d","pip",ii);
-      double data_sta = univ_table[std::string(namepar)];
+      double data_sta = univPars.getParameterValue(std::string(namepar));
       data_sys /= (1.0-prt_no_inter);
       data_sta /= (1.0-prt_no_inter);
       data_cv  /= (1.0-prt_no_inter);
@@ -32,10 +32,10 @@ namespace NeutrinoFluxReweight{
     }
     for(int ii=0;ii<MIPPbins->GetNbins_pim_MIPPNuMI();ii++){
       sprintf(namepar,"MIPP_NuMI_%s_sys_%d","pim",ii);
-      double data_cv  = cv_table[std::string(namepar)];
-      double data_sys = univ_table[std::string(namepar)];
+      double data_cv  = cvPars.getParameterValue(std::string(namepar));
+      double data_sys = univPars.getParameterValue(std::string(namepar));
       sprintf(namepar,"MIPP_NuMI_%s_stats_%d","pim",ii);
-      double data_sta = univ_table[std::string(namepar)];
+      double data_sta = univPars.getParameterValue(std::string(namepar));
       data_sys /= (1.0-prt_no_inter);
       data_sta /= (1.0-prt_no_inter);
       data_cv  /= (1.0-prt_no_inter);

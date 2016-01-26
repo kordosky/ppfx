@@ -30,7 +30,7 @@ namespace NeutrinoFluxReweight{
     const ParameterTable& cvPars;
     const ParameterTable& univPars;
     ThinTargetpCPionReweighter* tt_pCPionRew;
-    InteractionData* aux_aa;
+    // InteractionData* aux_aa;
     
   };
 

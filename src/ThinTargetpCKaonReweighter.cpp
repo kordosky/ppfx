@@ -15,43 +15,43 @@ namespace NeutrinoFluxReweight{
     mipp_vbin_data_kap_pip.reserve(Thinbins->GetNbins_pC_KX_MIPP());
     mipp_vbin_data_kam_pim.reserve(Thinbins->GetNbins_pC_KX_MIPP());
 
-    std::map<std::string, double> cv_table   = cvPars.table;
-    std::map<std::string, double> univ_table = univPars.table;
+    // const boost::interprocess::flat_map<std::string, double>& cv_table   = cvPars.getMap();
+    // const boost::interprocess::flat_map<std::string, double>& univ_table = univPars.getMap();
        
-    data_prod_xs = univ_table["prod_prtC_xsec"];
+    data_prod_xs = univPars.getParameterValue("prod_prtC_xsec");
     char namepar[100];
     for(int ii=0;ii<Thinbins->GetNbins_pC_KX_NA49();ii++){
       
       sprintf(namepar,"ThinTargetLowxF_pC_%s_sys_%d","kap",ii);
-      double data_cv  = cv_table[std::string(namepar)];
-      double data_sys = univ_table[std::string(namepar)];
+      double data_cv  = cvPars.getParameterValue(std::string(namepar));
+      double data_sys = univPars.getParameterValue(std::string(namepar));
       sprintf(namepar,"ThinTargetLowxF_pC_%s_stats_%d","kap",ii);
-      double data_sta = univ_table[std::string(namepar)];
+      double data_sta = univPars.getParameterValue(std::string(namepar));
       vbin_data_kap.push_back(data_sta + data_sys - data_cv);
       
       sprintf(namepar,"ThinTargetLowxF_pC_%s_sys_%d","kam",ii);
-      data_cv  = cv_table[std::string(namepar)];
-      data_sys = univ_table[std::string(namepar)];
+      data_cv  = cvPars.getParameterValue(std::string(namepar));
+      data_sys = univPars.getParameterValue(std::string(namepar));
       sprintf(namepar,"ThinTargetLowxF_pC_%s_stats_%d","kam",ii);
-      data_sta = univ_table[std::string(namepar)];
+      data_sta = univPars.getParameterValue(std::string(namepar));
       vbin_data_kam.push_back(data_sta + data_sys - data_cv);
       
     }
     
-   for(int ii=0;ii<Thinbins->GetNbins_pC_KX_MIPP();ii++){
+    for(int ii=0;ii<Thinbins->GetNbins_pC_KX_MIPP();ii++){
       
       sprintf(namepar,"ThinTarget_kap_pip_sys_%d",ii);
-      double data_cv  = cv_table[std::string(namepar)];
-      double data_sys = univ_table[std::string(namepar)];
+      double data_cv  = cvPars.getParameterValue(std::string(namepar));
+      double data_sys = univPars.getParameterValue(std::string(namepar));
       sprintf(namepar,"ThinTarget_kap_pip_stats_%d",ii);
-      double data_sta = univ_table[std::string(namepar)];
+      double data_sta = univPars.getParameterValue(std::string(namepar));
       mipp_vbin_data_kap_pip.push_back(data_sta + data_sys - data_cv);
 
       sprintf(namepar,"ThinTarget_kam_pim_sys_%d",ii);
-      data_cv  = cv_table[std::string(namepar)];
-      data_sys = univ_table[std::string(namepar)];
+      data_cv  = cvPars.getParameterValue(std::string(namepar));
+      data_sys = univPars.getParameterValue(std::string(namepar));
       sprintf(namepar,"ThinTarget_kam_pim_stats_%d",ii);
-      data_sta = univ_table[std::string(namepar)];
+      data_sta = univPars.getParameterValue(std::string(namepar));
       mipp_vbin_data_kam_pim.push_back(data_sta + data_sys - data_cv);
 
     } 
@@ -62,7 +62,7 @@ namespace NeutrinoFluxReweight{
     
   }
   bool ThinTargetpCKaonReweighter::canReweight(const InteractionData& aa){
-     //checking:
+    //checking:
     if(aa.Inc_pdg != 2212)return false;
     if(aa.Inc_P < 12.0)return false;
     if(aa.Vol != "TGT1" && aa.Vol != "BudalMonitor" && aa.Vol != "Budal_HFVS" && aa.Vol != "Budal_VFHS")return false;
@@ -85,11 +85,11 @@ namespace NeutrinoFluxReweight{
     if(iUniv==-1)tt_pCPionRew = (makerew->cv_rw)->THINTARGET_PC_PION_Universe;
     else tt_pCPionRew = (makerew->vec_rws[iUniv])->THINTARGET_PC_PION_Universe;   
 
-    aux_aa = new InteractionData(aa.gen, inc_mom,2212,prod_mom,211,aa.Vol,aa.Proc,vtx_int);   
-    bool there_is_pip = tt_pCPionRew->canReweight(*aux_aa);    
+    InteractionData aux_intData(aa.gen, inc_mom,2212,prod_mom,211,aa.Vol,aa.Proc,vtx_int);   
+    bool there_is_pip = tt_pCPionRew->canReweight(aux_intData);    
     
-    aux_aa = new InteractionData(aa.gen, inc_mom,2212,prod_mom,-211,aa.Vol,aa.Proc,vtx_int);   
-    bool there_is_pim = tt_pCPionRew->canReweight(*aux_aa); 
+    InteractionData aux_intData2(aa.gen, inc_mom,2212,prod_mom,-211,aa.Vol,aa.Proc,vtx_int);   
+    bool there_is_pim = tt_pCPionRew->canReweight(aux_intData2); 
 
     if(aa.Prod_pdg == 321)return there_is_pip;
     else if(aa.Prod_pdg ==-321)return there_is_pim;
@@ -118,11 +118,11 @@ namespace NeutrinoFluxReweight{
       if(aa.Prod_pdg == 321)dataval = vbin_data_kap[bin];
       else if(aa.Prod_pdg == -321) dataval = vbin_data_kam[bin];
       else if(aa.Prod_pdg == 130 || aa.Prod_pdg == 310){
-	dataval = 0.25*(vbin_data_kap[bin]+3.*vbin_data_kam[bin]);
+        dataval = 0.25*(vbin_data_kap[bin]+3.*vbin_data_kam[bin]);
       }
       else{
-	std::cout<<"Something is wrong, pdg_prod: "<< aa.Prod_pdg  <<std::endl;
-	return wgt;
+        std::cout<<"Something is wrong, pdg_prod: "<< aa.Prod_pdg  <<std::endl;
+        return wgt;
       }
     }
     else if(mipp_bin>=0){
@@ -137,28 +137,28 @@ namespace NeutrinoFluxReweight{
       double pip_data = -1.0; 
       double pim_data = -1.0; 
       int bin_pi = -1;
-      aux_aa = new InteractionData(aa.gen, inc_mom,2212,prod_mom,211,aa.Vol,aa.Proc,vtx_int);    
-      if(aux_aa->xF<=0.5){
-	bin_pi = Thinbins->BinID_pC_pi(aux_aa->xF,aux_aa->Pt,aux_aa->Prod_pdg);
-	if(bin_pi<0)return 1.0;
-	pip_data = tt_pCPionRew->vbin_data_pip[bin_pi];
-	pim_data = tt_pCPionRew->vbin_data_pim[bin_pi];	
+      InteractionData aux_aa(aa.gen, inc_mom,2212,prod_mom,211,aa.Vol,aa.Proc,vtx_int);    
+      if(aux_aa.xF<=0.5){
+        bin_pi = Thinbins->BinID_pC_pi(aux_aa.xF,aux_aa.Pt,aux_aa.Prod_pdg);
+        if(bin_pi<0)return 1.0;
+        pip_data = tt_pCPionRew->vbin_data_pip[bin_pi];
+        pim_data = tt_pCPionRew->vbin_data_pim[bin_pi];	
       }
-      else if(aux_aa->xF>0.5){
-	bin_pi = Thinbins->barton_BinID_pC_pi(aux_aa->xF,aux_aa->Pt,aux_aa->Prod_pdg);
-	if(bin_pi<0)return 1.0;
-	pip_data = tt_pCPionRew->bart_vbin_data_pip[bin_pi];
-	pim_data = tt_pCPionRew->bart_vbin_data_pim[bin_pi];	
+      else if(aux_aa.xF>0.5){
+        bin_pi = Thinbins->barton_BinID_pC_pi(aux_aa.xF,aux_aa.Pt,aux_aa.Prod_pdg);
+        if(bin_pi<0)return 1.0;
+        pip_data = tt_pCPionRew->bart_vbin_data_pip[bin_pi];
+        pim_data = tt_pCPionRew->bart_vbin_data_pim[bin_pi];	
       }
 
       if(aa.Prod_pdg == 321){
-	dataval = mipp_vbin_data_kap_pip[mipp_bin]*pip_data;
+        dataval = mipp_vbin_data_kap_pip[mipp_bin]*pip_data;
       }
       else if(aa.Prod_pdg ==-321){
-	dataval = mipp_vbin_data_kam_pim[mipp_bin]*pim_data;
+        dataval = mipp_vbin_data_kam_pim[mipp_bin]*pim_data;
       }
       else if(aa.Prod_pdg == 130 || aa.Prod_pdg == 310){
-	dataval = 0.25*(mipp_vbin_data_kap_pip[mipp_bin]*pip_data +3.0*(mipp_vbin_data_kam_pim[mipp_bin]*pim_data));
+        dataval = 0.25*(mipp_vbin_data_kap_pip[mipp_bin]*pip_data +3.0*(mipp_vbin_data_kam_pim[mipp_bin]*pim_data));
       }
     }
          
@@ -220,8 +220,8 @@ namespace NeutrinoFluxReweight{
     int idx_hip  = -1;
     for(int i=0;i<Nscl-1;i++){
       if(inc_mom>=double(moms[i]) && inc_mom<double(moms[i+1])){
-	idx_lowp=i;
-	idx_hip =i+1;
+        idx_lowp=i;
+        idx_hip =i+1;
       }
     }
     if(idx_lowp<0 || idx_hip<0){

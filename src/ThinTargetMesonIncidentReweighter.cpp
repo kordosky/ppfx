@@ -45,13 +45,13 @@ namespace NeutrinoFluxReweight{
     vbin_k0_inc_p.reserve(Thinbins->GetNbins_meson_incident());
     vbin_k0_inc_n.reserve(Thinbins->GetNbins_meson_incident());
 
-    std::map<std::string, double> cv_table   = cvPars.table;
-    std::map<std::string, double> univ_table = univPars.table;
+    // const boost::interprocess::flat_map<std::string, double>& cv_table   = cvPars.getMap();
+    // const boost::interprocess::flat_map<std::string, double>& univ_table = univPars.getMap();
     char namepar[100];
 
     //meson left over:
     sprintf(namepar,"ThinTarget_mesonleftover_incident_%d",0);
-    double dataval = univ_table[std::string(namepar)];
+    double dataval = univPars.getParameterValue(std::string(namepar));
     bin_mesonleftover_inc = dataval;
     
     //5 incident particles, 7 produced particles:
@@ -63,7 +63,7 @@ namespace NeutrinoFluxReweight{
 	for(int kk=0;kk<4;kk++){
 	  
 	  sprintf(namepar,"ThinTarget_%s_incident_%s_%d",cinc[ii],cpro[jj],kk);
-	  dataval = univ_table[std::string(namepar)];
+	  dataval = univPars.getParameterValue(std::string(namepar));
 	  if(ii==0 && jj==0)vbin_pip_inc_pip.push_back(dataval);
 	  if(ii==0 && jj==1)vbin_pip_inc_pim.push_back(dataval);
 	  if(ii==0 && jj==2)vbin_pip_inc_kap.push_back(dataval);

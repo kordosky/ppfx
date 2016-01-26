@@ -47,7 +47,7 @@ namespace NeutrinoFluxReweight{
     static CentralValuesAndUncertainties* instance;
     //for now commenting out:    ParameterTable& uncorrelated_pars;
     ParameterTable uncorrelated_pars;
-    std::map<std::string, double> uncorrelated_errors;
+    boost::interprocess::flat_map<std::string, double> uncorrelated_errors;
     std::vector<ParameterTable> correlated_par_tables;
     std::vector<TMatrixD> covariance_matrices;
     TRandom3 *r3;

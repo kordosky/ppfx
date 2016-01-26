@@ -63,23 +63,28 @@ namespace NeutrinoFluxReweight{
     std::cout<<"Initializing reweight drivers for "<<Nuniverses<<" universes"<<std::endl;
     
     const int base_universe=1000000;
-    cvPars.reserve(Nuniverses+1);
+    // cvPars.reserve(Nuniverses+1);
     univPars.reserve(Nuniverses+1);
+
+    ParameterTable cvPars=cvu->getCVPars();
+
+    std::cout<<"Loading parameters for universe: ";
     for(int ii=0;ii<Nuniverses;ii++){
-      std::cout<<"Loading parameters for universe: "<<ii<<std::endl;
-      cvPars.push_back(cvu->getCVPars());
+      std::cout << ii << " " << std::flush;
+      // cvPars.push_back(cvu->getCVPars());
       univPars.push_back(cvu->calculateParsForUniverse(ii+base_universe));
-      vec_rws.push_back(new ReweightDriver(ii,cvPars[ii],univPars[ii],fileOptions));
+      vec_rws.push_back(new ReweightDriver(ii,cvPars,univPars[ii],fileOptions));
       vec_wgts.push_back(1.0);
     }
-    
+    std::cout << std::endl;
+
     //Central Value driver:
     //by convention, we use universe -1 to hold the cv. It is in agreement with CentralValueAndUncertainties  
     const int cv_id = -1;
     std::cout<<"Loading parameters for cv"<<std::endl;
-    cvPars.push_back(cvu->getCVPars());
+    // cvPars.push_back(cvu->getCVPars());
     univPars.push_back(cvu->calculateParsForUniverse(cv_id));
-    cv_rw = new ReweightDriver(cv_id,cvPars[Nuniverses],univPars[Nuniverses],fileOptions); 
+    cv_rw = new ReweightDriver(cv_id,cvPars,univPars[Nuniverses],fileOptions); 
 
     cv_wgt = 1.0;
 
@@ -92,13 +97,13 @@ namespace NeutrinoFluxReweight{
   }
   /////
   void MakeReweight::calculateWeights(nu_g4numi* nu, const char* tgtcfg, const char* horncfg){
-    InteractionChainData* inter_chain = new InteractionChainData(nu,tgtcfg,horncfg);
-    doTheJob(inter_chain);
+    InteractionChainData inter_chain(nu,tgtcfg,horncfg);
+    doTheJob(&inter_chain);
   }
   /////
   void MakeReweight::calculateWeights(bsim::Dk2Nu* nu, bsim::DkMeta* meta){  
-    InteractionChainData* inter_chain = new InteractionChainData(nu,meta);
-    doTheJob(inter_chain);
+    InteractionChainData inter_chain(nu,meta);
+    doTheJob(&inter_chain);
   }
   /////
   void MakeReweight::doTheJob(InteractionChainData* icd){

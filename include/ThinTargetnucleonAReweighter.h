@@ -35,7 +35,7 @@ namespace NeutrinoFluxReweight{
     ThinTargetnCPionReweighter*    tt_nCPionRew;
     ThinTargetpCKaonReweighter*    tt_pCKaonRew;
 
-    InteractionData* aux_aa;
+    // InteractionData* aux_aa;
 
   };
 

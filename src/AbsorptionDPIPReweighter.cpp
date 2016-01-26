@@ -11,12 +11,12 @@ namespace NeutrinoFluxReweight{
   
   AbsorptionDPIPReweighter::AbsorptionDPIPReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars):iUniv(iuniv),cvPars(cv_pars),univPars(univ_pars){ 
     
-    std::map<std::string, double> dsig_table = univPars.table;
-    inel_piAl_xsec = dsig_table["inel_piAl_xsec"];
-    inel_kapAl_xsec_lowP  = dsig_table["inel_kapAl_xsec_lowP"];
-    inel_kapAl_xsec_highP = dsig_table["inel_kapAl_xsec_highP"];
-    inel_kamAl_xsec_lowP  = dsig_table["inel_kamAl_xsec_lowP"];
-    inel_kamAl_xsec_highP = dsig_table["inel_kamAl_xsec_highP"];
+    // const boost::interprocess::flat_map<std::string, double>& dsig_table = univPars.getMap();
+    inel_piAl_xsec = univPars.getParameterValue("inel_piAl_xsec");
+    inel_kapAl_xsec_lowP  = univPars.getParameterValue("inel_kapAl_xsec_lowP");
+    inel_kapAl_xsec_highP = univPars.getParameterValue("inel_kapAl_xsec_highP");
+    inel_kamAl_xsec_lowP  = univPars.getParameterValue("inel_kamAl_xsec_lowP");
+    inel_kamAl_xsec_highP = univPars.getParameterValue("inel_kamAl_xsec_highP");
     
   }
   AbsorptionDPIPReweighter::~AbsorptionDPIPReweighter(){

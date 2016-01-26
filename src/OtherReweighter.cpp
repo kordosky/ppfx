@@ -6,8 +6,8 @@ namespace NeutrinoFluxReweight{
   
   OtherReweighter::OtherReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars):iUniv(iuniv),cvPars(cv_pars),univPars(univ_pars){
     
-    std::map<std::string, double> dsig_table = univPars.table;
-    inel_A_scaling = dsig_table["inel_A_scaling"];
+    // const boost::interprocess::flat_map<std::string, double>& dsig_table = univPars.getMap();
+    inel_A_scaling = univPars.getParameterValue("inel_A_scaling");
     
   }
   

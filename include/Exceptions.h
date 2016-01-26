@@ -3,13 +3,22 @@
 
 #include <iostream>
 #include <exception>
-using namespace std;
+#include <string>
 
-struct NoParameterFound : public exception{
+struct NoParameterFound : public std::exception{
 
-  const char* what() const throw(){
-    return "=> The asked parameter is not definied!!";
+  NoParameterFound(const std::string& name)
+  {
+    m_error=std::string("Parameter not defined: ")+name;
   }
+
+  virtual ~NoParameterFound() throw() {}
+
+  virtual const char* what() const throw(){
+    return m_error.c_str();
+  }
+
+  std::string m_error;
 };
 
 #endif

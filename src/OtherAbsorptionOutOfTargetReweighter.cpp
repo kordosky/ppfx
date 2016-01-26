@@ -11,9 +11,9 @@ namespace NeutrinoFluxReweight{
   
   OtherAbsorptionOutOfTargetReweighter::OtherAbsorptionOutOfTargetReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars):iUniv(iuniv),cvPars(cv_pars),univPars(univ_pars){ 
     
-    std::map<std::string, double> dsig_table = univPars.table;
-    inel_kapAl_xsec_lowP  = dsig_table["inel_kapAl_xsec_lowP"];
-    inel_kapAl_xsec_highP = dsig_table["inel_kapAl_xsec_highP"];
+    // const boost::interprocess::flat_map<std::string, double>& dsig_table = univPars.getMap();
+    inel_kapAl_xsec_lowP  = univPars.getParameterValue("inel_kapAl_xsec_lowP");
+    inel_kapAl_xsec_highP = univPars.getParameterValue("inel_kapAl_xsec_highP");
   }
   OtherAbsorptionOutOfTargetReweighter::~OtherAbsorptionOutOfTargetReweighter(){
     

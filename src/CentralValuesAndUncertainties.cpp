@@ -150,8 +150,8 @@ namespace NeutrinoFluxReweight{
     double sigma_pc_p   = r3->Gaus(0.0,1.0);
     double sigma_pc_n   = r3->Gaus(0.0,1.0);
 
-    std::map<std::string, double> table_uncorr_pars = uncorrelated_pars.table;
-    std::map<std::string, double>::iterator it = table_uncorr_pars.begin();
+    const boost::interprocess::flat_map<std::string, double>& table_uncorr_pars = uncorrelated_pars.getMap();
+    boost::interprocess::flat_map<std::string, double>::const_iterator it = table_uncorr_pars.begin();
     for(;it!=table_uncorr_pars.end();++it){
       double sigma = r3->Gaus(0.0,1.0);
       //redefining sigma for 100% correlation:
@@ -184,8 +184,8 @@ namespace NeutrinoFluxReweight{
       }   
       TVectorD vecDShift = MxV*vsigma;
       
-      std::map<std::string, double> tb = (correlated_par_tables[ii]).table;
-      std::map<std::string, double>::iterator it_tb = tb.begin();
+      const boost::interprocess::flat_map<std::string, double>& tb = (correlated_par_tables[ii]).getMap();
+      boost::interprocess::flat_map<std::string, double>::const_iterator it_tb = tb.begin();
 
       for(;it_tb != tb.end();++it_tb){
 	std::string tmp_name = it_tb->first;
@@ -208,12 +208,8 @@ namespace NeutrinoFluxReweight{
 
     ParameterTable ptableCV;
     
-    std::map<std::string, double> table_pars;
-    std::map<std::string, double>::iterator it;
-
-    //Uncorrelated:
-    table_pars = uncorrelated_pars.table;
-    it = table_pars.begin();
+    const boost::interprocess::flat_map<std::string, double>& table_pars=uncorrelated_pars.getMap();
+    boost::interprocess::flat_map<std::string, double>::const_iterator it = table_pars.begin();
     for(;it!=table_pars.end();it++){
       Parameter p(it->first,it->second); 
       ptableCV.setParameter(p);      
@@ -221,9 +217,9 @@ namespace NeutrinoFluxReweight{
     
     //Correlated:
     for(int ii=0;ii<covariance_matrices.size();ii++){
-      table_pars = (correlated_par_tables[ii]).table;
-      it = table_pars.begin();
-      for(;it != table_pars.end();it++){
+      const boost::interprocess::flat_map<std::string, double>& corr_table_pars = correlated_par_tables[ii].getMap();
+      it = corr_table_pars.begin();
+      for(;it != corr_table_pars.end();it++){
 	Parameter p(it->first,it->second); 
 	ptableCV.setParameter(p);
       }

@@ -25,17 +25,17 @@ namespace NeutrinoFluxReweight{
     vbin_datasta_kap_pip.reserve(MIPPbins->GetNbins_K_MIPPNuMI());
     vbin_datasta_kam_pim.reserve(MIPPbins->GetNbins_K_MIPPNuMI());
 
-     std::map<std::string, double> univ_table = univPars.table;
-     std::map<std::string, double> cv_table = cvPars.table;
-     prt_no_inter = univ_table["prt_no_interacting"];
+     const boost::interprocess::flat_map<std::string, double>& univ_table = univPars.getMap();
+     const boost::interprocess::flat_map<std::string, double>& cv_table = cvPars.getMap();
+     prt_no_inter = univPars.getParameterValue("prt_no_interacting");
      
      char namepar[100];
      for(int ii=0;ii<MIPPbins->GetNbins_pip_MIPPNuMI();ii++){
       sprintf(namepar,"MIPP_NuMI_%s_sys_%d","pip",ii);
-      double data_cv  = cv_table[std::string(namepar)];
-      double data_sys = univ_table[std::string(namepar)];
+      double data_cv  = cvPars.getParameterValue(std::string(namepar));
+      double data_sys = univPars.getParameterValue(std::string(namepar));
       sprintf(namepar,"MIPP_NuMI_%s_stats_%d","pip",ii);
-      double data_sta = univ_table[std::string(namepar)];
+      double data_sta = univPars.getParameterValue(std::string(namepar));
       data_sys /= (1.0-prt_no_inter);
       data_sta /= (1.0-prt_no_inter);
       data_cv  /= (1.0-prt_no_inter);
@@ -46,10 +46,10 @@ namespace NeutrinoFluxReweight{
      
      for(int ii=0;ii<MIPPbins->GetNbins_pim_MIPPNuMI();ii++){
       sprintf(namepar,"MIPP_NuMI_%s_sys_%d","pim",ii);
-      double data_cv  = cv_table[std::string(namepar)];
-      double data_sys = univ_table[std::string(namepar)];
+      double data_cv  = cvPars.getParameterValue(std::string(namepar));
+      double data_sys = univPars.getParameterValue(std::string(namepar));
       sprintf(namepar,"MIPP_NuMI_%s_stats_%d","pim",ii);
-      double data_sta = univ_table[std::string(namepar)];
+      double data_sta = univPars.getParameterValue(std::string(namepar));
       data_sys /= (1.0-prt_no_inter);
       data_sta /= (1.0-prt_no_inter);
       data_cv  /= (1.0-prt_no_inter);
@@ -59,24 +59,24 @@ namespace NeutrinoFluxReweight{
      }
     for(int ii=0;ii<MIPPbins->GetNbins_K_MIPPNuMI();ii++){
       sprintf(namepar,"MIPP_NuMI_%s_sys_%d","kap_pip",ii);
-      double data_cv  = cv_table[std::string(namepar)];
-      double data_sys = univ_table[std::string(namepar)];
+      double data_cv  = cvPars.getParameterValue(std::string(namepar));
+      double data_sys = univPars.getParameterValue(std::string(namepar));
       sprintf(namepar,"MIPP_NuMI_%s_stats_%d","kap_pip",ii);
-      double data_sta = univ_table[std::string(namepar)];
+      double data_sta = univPars.getParameterValue(std::string(namepar));
       vbin_datacv_kap_pip.push_back(data_cv);
       vbin_datasys_kap_pip.push_back(data_sys);
       vbin_datasta_kap_pip.push_back(data_sta);
       
       sprintf(namepar,"MIPP_NuMI_%s_sys_%d","kam_pim",ii);
-      data_cv  = cv_table[std::string(namepar)];
-      data_sys = univ_table[std::string(namepar)];
+      data_cv  = cvPars.getParameterValue(std::string(namepar));
+      data_sys = univPars.getParameterValue(std::string(namepar));
       sprintf(namepar,"MIPP_NuMI_%s_stats_%d","kam_pim",ii);
-      data_sta = univ_table[std::string(namepar)];
+      data_sta = univPars.getParameterValue(std::string(namepar));
       vbin_datacv_kam_pim.push_back(data_cv);
       vbin_datasys_kam_pim.push_back(data_sys);
       vbin_datasta_kam_pim.push_back(data_sta);
     } 
-    aux_par = univ_table["aux_parameter"];
+    aux_par = univPars.getParameterValue("aux_parameter");
     if(aux_par<1.e-15)aux_par = 1.0;
     
   }

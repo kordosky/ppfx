@@ -15,43 +15,43 @@ namespace NeutrinoFluxReweight{
     bart_vbin_data_pip.reserve(Thinbins->GetNbins_pC_piX_Barton());
     bart_vbin_data_pim.reserve(Thinbins->GetNbins_pC_piX_Barton());
     
-    std::map<std::string, double> cv_table   = cvPars.table;
-    std::map<std::string, double> univ_table = univPars.table;
+    // const boost::interprocess::flat_map<std::string, double>& cv_table   = cvPars.getMap();
+    // const boost::interprocess::flat_map<std::string, double>& univ_table = univPars.getMap();
     
-    data_prod_xs = univ_table["prod_prtC_xsec"];
+    data_prod_xs = univPars.getParameterValue("prod_prtC_xsec");
     
     //the number of bins needs to be written from the xmls files 
     char namepar[100];
     for(int ii=0;ii<Thinbins->GetNbins_pC_piX_NA49();ii++){
       
       sprintf(namepar,"ThinTarget_pC_%s_sys_%d","pip",ii);
-      double data_cv  = cv_table[std::string(namepar)];
-      double data_sys = univ_table[std::string(namepar)];
+      double data_cv  = cvPars.getParameterValue(std::string(namepar));
+      double data_sys = univPars.getParameterValue(std::string(namepar));
       sprintf(namepar,"ThinTarget_pC_%s_stats_%d","pip",ii);
-      double data_sta = univ_table[std::string(namepar)];       
+      double data_sta = univPars.getParameterValue(std::string(namepar));       
       vbin_data_pip.push_back(data_sta + data_sys - data_cv);
       
       sprintf(namepar,"ThinTarget_pC_%s_sys_%d","pim",ii);
-      data_cv  = cv_table[std::string(namepar)];
-      data_sys = univ_table[std::string(namepar)];
+      data_cv  = cvPars.getParameterValue(std::string(namepar));
+      data_sys = univPars.getParameterValue(std::string(namepar));
       sprintf(namepar,"ThinTarget_pC_%s_stats_%d","pim",ii);
-      data_sta = univ_table[std::string(namepar)];
+      data_sta = univPars.getParameterValue(std::string(namepar));
       vbin_data_pim.push_back(data_sta + data_sys - data_cv);
       
     }    
     for(int ii=0;ii<Thinbins->GetNbins_pC_piX_Barton();ii++){
       
       sprintf(namepar,"ThinTargetBarton_pC_%s_%d","pip",ii);
-      double data_err = univ_table[std::string(namepar)];
+      double data_err = univPars.getParameterValue(std::string(namepar));
       bart_vbin_data_pip.push_back(data_err);
       
       sprintf(namepar,"ThinTargetBarton_pC_%s_%d","pim",ii);
-      data_err = univ_table[std::string(namepar)];      
+      data_err = univPars.getParameterValue(std::string(namepar));      
       bart_vbin_data_pim.push_back(data_err);
       
     } 
     
-    aux_par = univ_table["aux_parameter"];
+    aux_par = univPars.getParameterValue("aux_parameter");
     if(aux_par<1.e-15)aux_par = 1.0;
 
   }
