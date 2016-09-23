@@ -4,11 +4,11 @@
 #include "MakeReweight.h"
 
 #include <string>
-#include <cstddef>
 #include <vector>
 #include <iostream>
 #include <stdlib.h>
 #include <iomanip>
+
 #include "TH1D.h"
 
 //Some constants::
@@ -80,27 +80,12 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
   TChain* chain_meta   = new TChain("dkmetaTree");  
   bsim::Dk2Nu*  dk2nu  = new bsim::Dk2Nu;  
   bsim::DkMeta* dkmeta = new bsim::DkMeta;
-
+  
   std::cout<<" Adding ntuple at: "<<inputFile<<std::endl;
-
-  std::string instr= inputFile;
-  std::size_t dlmntr = instr.find_last_of("/\\");
-  TString ffname= instr.substr(0,dlmntr+1)+std::string("f_")+instr.substr(dlmntr+1);
-  TFile friendfile(ffname,"recreate");
-  TTree *f_dk2nuTree= new TTree("dk2nuTree","dk2nuTree Friend");
 
   chain_evts->Add(inputFile);
   chain_evts->SetBranchAddress("dk2nu",&dk2nu);
-  int nentries  = chain_evts->GetEntries(); 
-
-  //declaring variables and branches for friend tree
-  //TBranch *b_Nuniverses = chain_events->Branch("Nuniverses",&Nuniverses, "Nuniverses/I");//Does this vary across events?
-  Double_t cv_wgt, uni_wgt[Nuniverses];
-  TString uw_str;
-  uw_str.Form("uni_wgt[%d]/D",Nuniverses);
-  f_dk2nuTree->Branch("cv_wgt",&cv_wgt,"cv_wgt/D");
-  f_dk2nuTree->Branch("uni_wgt",&uni_wgt,uw_str);
-
+  int nentries  = chain_evts->GetEntries();
 
   chain_meta->Add(inputFile);
   chain_meta->SetBranchAddress("dkmeta",&dkmeta);
@@ -120,7 +105,6 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
  
   std::cout<<"N of entries: "<<nentries<<std::endl;
   
-
   for(int ii=0;ii<nentries;ii++){  
     if(ii%1000==0)std::cout<<ii/1000<<" k evts"<<std::endl;
     vwgt_mipp_pi.clear();  
@@ -145,7 +129,6 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
     if(nuidx<0){
       std::cout<<"=> Wrong neutrino file"<<std::endl;
     }
-
     hnom[nuidx]->Fill(nuenergy,fluxWGT);
     hcv[nuidx]->Fill(nuenergy,fluxWGT*makerew->GetCVWeight());
 
@@ -161,9 +144,7 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
     vwgt_ttnua   = makerew->GetWeights("ThinTargetnucleonA");
     vwgt_oth     = makerew->GetWeights("Other"); 
 
-    cv_wgt=makerew->GetCVWeight();
-
-
+    
     for(int jj=0;jj<Nuniverses;jj++){
       double wgt_thin = vwgt_ttpCpi[jj]*vwgt_ttpCk[jj]*vwgt_ttnCpi[jj]*vwgt_ttpCnu[jj]*vwgt_ttmesinc[jj]*vwgt_ttnua[jj];
       double wgt_mipp = vwgt_mipp_pi[jj]*vwgt_mipp_K[jj];
@@ -174,19 +155,9 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
       hothers[nuidx][jj]->Fill(nuenergy,fluxWGT*vwgt_oth[jj]);
       htotal[nuidx][jj]->Fill(nuenergy,fluxWGT*wgt_thin*wgt_mipp*wgt_att*vwgt_oth[jj]);
 
-      uni_wgt[jj]=wgt_thin*wgt_mipp*wgt_att*vwgt_oth[jj]; //total weight of this universe
     }
-
-    f_dk2nuTree->Fill();  //
-
   }
-  f_dk2nuTree->Print();//
-  friendfile.cd();
-  f_dk2nuTree->Write();//
 
-
-  //  chain_evts->AddFriend("dk2nuTree","f_"+inputfile);
-  //chain_evts->Draw("cv_wgt");
   std::cout<<"storing general histos"<<std::endl;
   fOut->cd();
   for(int ii=0;ii<Nnuhel;ii++){
@@ -203,7 +174,6 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
   }
 
   std::cout<<"End of run()"<<std::endl;
- 
 
 }
   
