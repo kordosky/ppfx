@@ -43,7 +43,8 @@ echo "List of the inputs subdirectory=$_CONDOR_SCRATCH_DIR/inputs"
 echo "The list follows: "
 echo ls -l $_CONDOR_SCRATCH_DIR/inputs
 
-$PPFX_DIR/bin/CreateIMapHists $OUTFILE "inputs/*.root" $ELOW $EHIGH $INU $CUTNA49 $CUTMIPP 
+$PPFX_DIR/bin/CreateIMapHists $OUTFILE "inputs/*.root" $ELOW $EHIGH $INU $CUTNA49 $CUTMIPP
+
 
 echo "ls -lh on working directory:"
 ls -lh ./
