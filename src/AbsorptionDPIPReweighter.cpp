@@ -35,7 +35,7 @@ namespace NeutrinoFluxReweight{
     for(int ii=0;ii<3;ii++){
       passVOL = passVOL || (vec_ptv[index_vol].AmountMat[ii] >low_val && (abs(vec_ptv[index_vol].Pdgs[ii])==211 || abs(vec_ptv[index_vol].Pdgs[ii])==321));
     }
-    if(passVOL)this_nodes.push_back(passVOL);
+    this_nodes.push_back(passVOL);
     return this_nodes;
     
   }
