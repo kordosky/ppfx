@@ -5,6 +5,7 @@
 #include "ThinTargetBins.h"
 
 #include <iostream>
+#include <cstdlib>
 namespace NeutrinoFluxReweight{
   
   ThinTargetpCPionReweighter::ThinTargetpCPionReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars):iUniv(iuniv),cvPars(cv_pars),univPars(univ_pars){
@@ -60,11 +61,16 @@ namespace NeutrinoFluxReweight{
     
   }
   bool ThinTargetpCPionReweighter::canReweight(const InteractionData& aa){
- 
+    std::string mode(getenv("MODE"));
     //checking:
     if(aa.Inc_pdg != 2212)return false;
     if(aa.Inc_P < 12.0)return false;
+    if(mode=="NUMI"){
     if(aa.Vol != "TGT1" && aa.Vol != "BudalMonitor" && aa.Vol != "Budal_HFVS" && aa.Vol != "Budal_VFHS")return false;
+    }
+    if((mode=="REF")||(mode=="OPT")){
+        if(aa.Vol != "TargetFinHorizontal" && aa.Vol != "TargetNoSplitSegment")return false;
+    }
     if(aa.Prod_pdg != 211 && aa.Prod_pdg != -211)return false;
     
     ThinTargetBins*  Thinbins =  ThinTargetBins::getInstance();

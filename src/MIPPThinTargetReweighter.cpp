@@ -1,6 +1,7 @@
 
 #include "MIPPThinTargetReweighter.h"
 #include <iostream>
+#include <cstdlib>
 
 namespace NeutrinoFluxReweight{
   
@@ -15,6 +16,7 @@ namespace NeutrinoFluxReweight{
     
     //Currently we are correcting kaon production from proton interacions. 
     //K0L pdg code is 130 
+    std::string mode(getenv("MODE"));
     bool is_inter = (aa.Inc_pdg == 2212) && 
       (aa.Prod_pdg==321 || aa.Prod_pdg==-321 || aa.Prod_pdg==130);
 
@@ -25,11 +27,26 @@ namespace NeutrinoFluxReweight{
     Bool_t is_data_covered = (aa.xF>0.2 && aa.xF<=0.5) && (aa.Pt>0.0 && aa.Pt<2.0);
 
     //Volume:
-    bool in_Target = (aa.Vol == "TGT1") || (aa.Vol == "BudalMonitor");
-    bool in_DPIP   = aa.Vol  == "DPIP";
-    bool in_DVOL   = aa.Vol  == "DVOL";
-    bool in_TGAR   = aa.Vol  == "TGAR";
-    bool in_HORNIC = (aa.Vol == "HORN1IC") || (aa.Vol == "HORN2IC");    
+    //need to account for different volumes for decay pipe and decay volume
+    bool in_Target = false;
+    bool in_DPIP = false;
+    bool in_DVOL = false;
+    bool in_TGAR = false;
+    bool in_HORNIC = false;
+    if(mode=="NUMI"){
+     in_Target = (aa.Vol == "TGT1") || (aa.Vol == "BudalMonitor");
+     in_DPIP   = aa.Vol  == "DPIP";
+     in_DVOL   = aa.Vol  == "DVOL";
+     in_TGAR   = aa.Vol  == "TGAR";
+     in_HORNIC = (aa.Vol == "HORN1IC") || (aa.Vol == "HORN2IC");
+    }
+    if((mode=="REF")||(mode=="OPT")){
+     in_Target = (aa.Vol == "TargetNoSplitSegment") || (aa.Vol == "TargetFinHorizontal");
+     in_DPIP   = aa.Vol  == "DecayPipe";
+     in_DVOL   = aa.Vol  == "DecayVolume";
+     in_TGAR   = aa.Vol  == "TGAR";
+     in_HORNIC = (aa.Vol == "Horn1IC") || (aa.Vol == "Horn2IC");     
+    }    
     bool is_wanted_volume = in_Target || in_DPIP || in_DVOL || in_TGAR || in_HORNIC;
     
     if(is_inter && is_mom && is_data_covered && is_wanted_volume){

@@ -197,7 +197,7 @@ namespace NeutrinoFluxReweight{
     att_wgt = 1.0;
     attenuation_nodes = TARG_ATT_Universe->canReweight(icd);   
     //we just see for the first position (prmary proton)
-    if(attenuation_nodes[0]==true){
+    if(attenuation_nodes.size()>0 && attenuation_nodes[0]==true){
       att_wgt *= TARG_ATT_Universe->calculateWeight(icd);
     }
     tot_wgt *= att_wgt;
@@ -208,7 +208,9 @@ namespace NeutrinoFluxReweight{
     // Correction of the pi & K absorption in volumes (Al)    
     abs_ic_wgt = 1.0;    
     absorption_nodes = VOL_ABS_IC_Universe->canReweight(icd);
-    if(absorption_nodes[0]==true){
+    //std::cout<<"size of absorption_nodes is "<<absorption_nodes.size()<<std::endl;
+
+    if(absorption_nodes.size()>0 && absorption_nodes[0]==true){
       abs_ic_wgt *= VOL_ABS_IC_Universe->calculateWeight(icd);
     }
     tot_wgt     *= abs_ic_wgt;
@@ -217,7 +219,7 @@ namespace NeutrinoFluxReweight{
     //Correction of the pi & K absorption in volumes (Fe)
     abs_dpip_wgt = 1.0;    
     absorption_nodes = VOL_ABS_DPIP_Universe->canReweight(icd);
-    if(absorption_nodes[0]==true){
+    if(absorption_nodes.size()>0 && absorption_nodes[0]==true){
       abs_dpip_wgt *= VOL_ABS_DPIP_Universe->calculateWeight(icd);
     }
     tot_wgt     *= abs_dpip_wgt;
@@ -227,7 +229,7 @@ namespace NeutrinoFluxReweight{
     //Correction of the pi & K absorption in volumes (He)
     abs_dvol_wgt = 1.0;    
     absorption_nodes = VOL_ABS_DVOL_Universe->canReweight(icd);
-    if(absorption_nodes[0]==true){
+    if(absorption_nodes.size()>0 && absorption_nodes[0]==true){
       abs_dvol_wgt *= VOL_ABS_DVOL_Universe->calculateWeight(icd);
     }
     tot_wgt     *= abs_dvol_wgt;
@@ -236,7 +238,7 @@ namespace NeutrinoFluxReweight{
     //Correction of nucleons on Al, Fe and He.
     abs_nucleon_wgt = 1.0;    
     absorption_nodes = VOL_ABS_NUCLEON_Universe->canReweight(icd);
-    if(absorption_nodes[0]==true){
+    if(absorption_nodes.size()>0 && absorption_nodes[0]==true){
       abs_nucleon_wgt *= VOL_ABS_NUCLEON_Universe->calculateWeight(icd);
     }
     tot_wgt     *= abs_nucleon_wgt;
@@ -245,7 +247,7 @@ namespace NeutrinoFluxReweight{
     //Correction of any other particle on Al, Fe and He.
     abs_other_wgt = 1.0;    
     absorption_nodes = VOL_ABS_OTHER_Universe->canReweight(icd);
-    if(absorption_nodes[0]==true){
+    if(absorption_nodes.size()>0 && absorption_nodes[0]==true){
       abs_other_wgt *= VOL_ABS_OTHER_Universe->calculateWeight(icd);
     }
     tot_wgt     *= abs_other_wgt;
