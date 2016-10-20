@@ -166,11 +166,11 @@ double FillOneEntry(bsim::Dk2Nu* dk2nu, bsim::DkMeta* dkmeta, HistList* hists, c
       if(! opts->cut_thintarget) hists->_h_aveint_vs_enu_thin_mesoninc->Fill(enu,weight);
     }
     else if(reweighters->ThinTargetnucleonA->canReweight(interdata)){
-      covered_by_thintarget = true;
+      covered_by_thintarget = true; //Amit Changed this...default was true.
       if(! opts->cut_thintarget) hists->_h_aveint_vs_enu_thin_nucleona->Fill(enu,weight);
     }
     else{
-      covered_by_thintarget = false;
+      covered_by_thintarget = false; 
       hists->_h_aveint_vs_enu_others->Fill(enu,weight);
     }
     
@@ -194,7 +194,8 @@ double FillOneEntry(bsim::Dk2Nu* dk2nu, bsim::DkMeta* dkmeta, HistList* hists, c
     // fill a 2D histogram of projectile vs. material
     const string proj_name=pdg->GetParticle(interdata.Inc_pdg)->GetName();
     const string prod_name=pdg->GetParticle(interdata.Prod_pdg)->GetName();
-    hists->_h_in_vs_mat->Fill(IMap::materials[mv_idx],proj_name.c_str(),weight);
+    //if(covered_by_thintarget) //Uncomment this to get the thin target coverage after turning off the nucleonA reweighter off above.
+     hists->_h_in_vs_mat->Fill(IMap::materials[mv_idx],proj_name.c_str(),weight);
     // figure out if the produced particle is one that we want
     // to record in histograms
     // The list of such particles is in IMap::popparticle
