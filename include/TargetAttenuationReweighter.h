@@ -50,6 +50,7 @@ namespace NeutrinoFluxReweight{
     float delta_sigma_piC_xsec;
     float delta_sigma_kapC_xsec_lowP, delta_sigma_kapC_xsec_highP;
     float delta_sigma_kamC_xsec_lowP, delta_sigma_kamC_xsec_highP;
+
   };
   
   
