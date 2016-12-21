@@ -1,7 +1,5 @@
 #!/bin/bash
 
-
-# source /grid/fermiapp/minerva/software_releases/v10r7p3/setup.sh
 setup(){
     . "/grid/fermiapp/products/minerva/etc/setups.sh"
     local TOP=${PWD}
@@ -28,10 +26,10 @@ setup(){
 }
 HOST=$(hostname -f)
 echo $HOST
-if echo "$HOST" | grep 'minerva';then
-echo "executing for the minerva machine"
-setup
-fi
 if echo "$HOST" | grep 'dune';then
-echo "This is not a dune machine. Try setup_for_dune.sh <MODE>"
+    echo "This is not a dune machine. Try setup_for_dune.sh <MODE>"
+else 
+    echo "executing for the $HOST"
+    setup
 fi
+
