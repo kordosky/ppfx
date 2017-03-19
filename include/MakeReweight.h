@@ -38,7 +38,8 @@ namespace NeutrinoFluxReweight{
   public:
     void SetOptions(std::string fileIn);    
     static MakeReweight* getInstance();
-
+    static void resetInstance();
+    
     /*! calculate the weights for this event using the old flux ntuple format
      * (filled in nu_g4numi object),  the tgtcfg (the target configuration, example: le010z) 
      * and the horncfg (horn configuration, example: 185i)

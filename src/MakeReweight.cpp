@@ -160,4 +160,10 @@ namespace NeutrinoFluxReweight{
     if (instance == 0) instance = new MakeReweight;
     return instance;
   }
+  ////
+  void MakeReweight::resetInstance()
+   {
+      delete instance; 
+      instance = 0; 
+   }
 }

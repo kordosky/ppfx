@@ -173,6 +173,9 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
     }
   }
 
+  //Releasing memory:
+  makerew->resetInstance();
+  
   std::cout<<"End of run()"<<std::endl;
 
 }

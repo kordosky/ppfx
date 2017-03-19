@@ -59,6 +59,9 @@ double FillIMapHists(TChain* tdk2nu, TChain* tdkmeta, HistList* hists, const Fil
     total_weight+=FillOneEntry(dk2nu,dkmeta,hists,opts,&reweighters); 
     // std::cout<<"tot wgt: "<<total_weight<<" "<<dk2nu->decay.ntype<<std::endl;
   }
+  //Releasing memory:
+  makerew->resetInstance();
+  
   return total_weight;
 }
 

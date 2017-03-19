@@ -184,6 +184,8 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
   friendfile.cd();
   f_dk2nuTree->Write();//
 
+  //Releasing memory:
+  makerew->resetInstance();  
 
   //  chain_evts->AddFriend("dk2nuTree","f_"+inputfile);
   //chain_evts->Draw("cv_wgt");
