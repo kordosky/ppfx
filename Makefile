@@ -1,35 +1,32 @@
 
 OBJS_LIB = $(shell ls src/*.cpp | sed 's/\.cpp/.o/')
 PROGS = $(shell ls src/*.C | sed 's/\.C//' | sed 's/src\///')
-INCLUDES = -I./include -I$(shell root-config --incdir) -I$(BOOSTROOT)
+INCLUDES = -I./include -I$(shell root-config --incdir) -I$(BOOSTROOT) -I$(DK2NU_INC)
 DEPLIBS=$(shell root-config --libs) -lEG
-DK2NU_INCLUDES= include/dk2nu.h include/dkmeta.h include/LinkDef.h
-DK2NU_SRCS= src/dk2nu.cc src/dkmeta.cc
-DK2NU_OBJS := $(patsubst %.cc, %.o, $(DK2NU_SRCS) ) 
 CC	=	g++
 
-COPTS	=	-fPIC -DLINUX -O0  -g $(shell root-config --cflags) $(M32)
+COPTS	=	-fPIC -DLINUX -O0  -g $(shell root-config --cflags) 
 
 FLAGS   =       -g
 
 all:    lib programs doxy
 
-lib: libppfx.so libDKLib.so
+lib: libppfx.so 
 
 libppfx.so: $(OBJS_LIB)
 	if [ ! -d lib ]; then mkdir -p lib; fi
 
-	$(CC) -shared $(M32) -o lib/$@ $^
+	$(CC) -shared -o lib/$@ $^ -L${DK2NU_LIB} -ldk2nuTree
 
 
 programs: $(PROGS)
 	echo making $(PROGS)
 
-$(PROGS): % : src/%.o $(OBJS_LIB) libDKLib.so libppfx.so
+$(PROGS): % : src/%.o $(OBJS_LIB) libppfx.so
 	if [ ! -d bin ]; then mkdir -p bin; fi
 
 
-	$(CC) -Wall $(M32) -o bin/$@ $< $(PPFX_OBJS) $(DEPLIBS) -L$(PPFX_DIR)/lib -lDKLib -lppfx
+	$(CC) -Wall -o bin/$@ $< $(PPFX_OBJS) $(DEPLIBS) -L$(PPFX_DIR)/lib -lppfx -L${DK2NU_LIB} -ldk2nuTree
 
 
 %.o: %.cpp
@@ -43,14 +40,6 @@ $(PROGS): % : src/%.o $(OBJS_LIB) libDKLib.so libppfx.so
 
 %.o: %.cxx
 	$(CC) $(COPTS) $(INCLUDES) -c -o $@ $<
-
-DKDict.cxx: $(DK2NU_INCLUDES)
-	rootcint -f $@ -c $(FLAGS) -p ${INCLUDES} $^
-
-libDKLib.so: DKDict.o $(DK2NU_OBJS)
-	g++ -shared -o$@ `root-config --ldflags` $(FLAGS) ${INCLUDES} $^
-	mv $@ lib
-	mv DKDict* lib
 
 doxy: 
 	doxygen doxygen/config_doxygen
