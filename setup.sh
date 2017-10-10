@@ -2,7 +2,7 @@
 
 setup(){
 
-    # the default mode is NuMI anyway.
+    # the default mode is NuMI
     export MODE="NUMI"
 
     . "/nusoft/app/externals/setup"
