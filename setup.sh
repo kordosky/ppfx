@@ -5,6 +5,7 @@ setup(){
     # the default mode is NuMI
     export MODE="NUMI"
 
+    # set package to be used
     . "/nusoft/app/externals/setup"
     #ROOT: 
     setup -q debug:e2 -f Linux64bit+2.6-2.5 root v5_34_05
