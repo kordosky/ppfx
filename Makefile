@@ -1,7 +1,7 @@
 
 OBJS_LIB = $(shell ls src/*.cpp | sed 's/\.cpp/.o/')
 PROGS = $(shell ls src/*.C | sed 's/\.C//' | sed 's/src\///')
-INCLUDES = -I./include -I$(shell root-config --incdir) -I$(BOOSTROOT) -I$(DK2NU_INC)
+INCLUDES = -I./include -I$(shell root-config --incdir) -I$(BOOSTROOT) -I$(DK2NU)/include
 DEPLIBS=$(shell root-config --libs) -lEG
 CC	=	g++
 

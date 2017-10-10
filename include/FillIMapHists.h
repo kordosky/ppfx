@@ -3,8 +3,8 @@
 
 #include "CommonIMapIncludes.h"
 #include "TChain.h"
-#include "dk2nu.h"
-#include "dkmeta.h"
+#include "dk2nu/tree/dk2nu.h"
+#include "dk2nu/tree/dkmeta.h"
 #include <string>
 
 #include "MIPPNumiKaonYieldsReweighter.h"

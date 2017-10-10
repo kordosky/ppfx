@@ -1,6 +1,6 @@
 
-#include "dkmeta.h"
-#include "dk2nu.h"
+#include "dk2nu/tree/dkmeta.h"
+#include "dk2nu/tree/dk2nu.h"
 #include "MakeReweight.h"
 
 #include <string>

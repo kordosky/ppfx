@@ -15,8 +15,8 @@
 #include "nu_g4numi.h"
 #include "Numi2Pdg.h"
 
-#include "dkmeta.h"
-#include "dk2nu.h"
+#include "dk2nu/tree/dkmeta.h"
+#include "dk2nu/tree/dk2nu.h"
 
 #include <string>
 #include <vector>
