@@ -18,7 +18,7 @@ setup(){
     
     # setup for jobsub client
     # according to the prescription in Mike Kirby's talk
-    # minerva doc-10551, Dec 2014
+    # minerva doc-10551, Dec 2014 (same doc can be found for other experiments)
     source /grid/fermiapp/products/common/etc/setups.sh
     setup jobsub_client
     setup ifdhc
