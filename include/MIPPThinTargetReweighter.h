@@ -34,5 +34,5 @@ namespace NeutrinoFluxReweight{
   };
 
   
-};
+}
 #endif

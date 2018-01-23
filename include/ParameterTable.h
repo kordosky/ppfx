@@ -52,5 +52,5 @@ namespace NeutrinoFluxReweight{
     mutable bool m_vectorMode;
   };
   
-};
+}
 #endif
