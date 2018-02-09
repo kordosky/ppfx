@@ -1,4 +1,4 @@
-#include <cstdlib>
+
 #include "InteractionChainData.h"
 #include "Numi2Pdg.h"
 
@@ -71,7 +71,7 @@ namespace NeutrinoFluxReweight{
   
   InteractionChainData::InteractionChainData(bsim::Dk2Nu* nu, 
 					     bsim::DkMeta* meta){
-      static Numi2Pdg numi2pdg;
+    
     // Fill in information about the hadron exiting the target
     // this information is needed in order to reweight yields
     // off the target (i.e., MIPP)
@@ -119,15 +119,15 @@ namespace NeutrinoFluxReweight{
       // Generally for hadron production studies, the second case isn't interesting
     //  if(nu->ancestor[itraj].pprodpz==0)std::cout<<"Found incident proton with 0 GeV Energy"<<std::endl;
       if( nu->ancestor[itraj].pprodpz != 0){
-      incP[0] = nu->ancestor[itraj].pprodpx;
-      incP[1] = nu->ancestor[itraj].pprodpy;
-      incP[2] = nu->ancestor[itraj].pprodpz;
+	incP[0] = nu->ancestor[itraj].pprodpx;
+	incP[1] = nu->ancestor[itraj].pprodpy;
+	incP[2] = nu->ancestor[itraj].pprodpz;
       
       }
       else{
-      incP[0]=nu->ancestor[itraj].stoppx;
-      incP[1]=nu->ancestor[itraj].stoppy;
-      incP[2]=nu->ancestor[itraj].stoppz;
+	incP[0]=nu->ancestor[itraj].stoppx;
+	incP[1]=nu->ancestor[itraj].stoppy;
+	incP[2]=nu->ancestor[itraj].stoppz;
       }
       Int_t itraj_prod = itraj + 1;
       Int_t pdg_prod   = nu->ancestor[itraj_prod].pdg;
@@ -151,9 +151,9 @@ namespace NeutrinoFluxReweight{
       vtx[2]=nu->ancestor[itraj_prod].startz;
       std::string this_vol=nu->ancestor[itraj_prod].ivol;
       
-            //Get Rid of Hydrogen
-        if(pdg_prod == 1000010020||pdg_inc == 1000010020){
-      // std::cout<<"InteractionChainData::Unusual pdgcode found "<<pdg_prod<<std::endl; //For now just skipping these deutreons
+      //Get Rid of Hydrogen
+        if(pdg_prod == 1000010020 || pdg_inc == 1000010020){
+      // std::cout<<"InteractionChainData::Unusual pdgcode found "<<pdg_prod<<std::endl; //For now just skipping these deuterons
 	continue;
 	}
       
@@ -162,14 +162,14 @@ namespace NeutrinoFluxReweight{
       interaction_chain.push_back(inter);
 
     }// end loop over trajectories
-    int tptype = numi2pdg.GetPdg(nu->tgtexit.tptype);
-    if(mode=="NUMI")tptype = nu->tgtexit.tptype;
+    /*&int tptype = numi2pdg.GetPdg(nu->tgtexit.tptype);
+    if(mode=="NUMI")tptype = nu->tgtexit.tptype; this was added by DUNE... seems not right (Leo) */
       //  std::cout<<"The tptype::InteractionChainData "<<tptype<<" "<<nu->tgtexit.tptype<<std::endl;
     if(meta->vintnames.size()==0){
-    tar_info = TargetData(tarP,tptype,tarV,-1);
+      tar_info = TargetData(tarP,nu->tgtexit.tptype,tarV,-1);
     }
     else{    
-    tar_info = TargetData(tarP,tptype,tarV,nu->vint[0]-Nskip);
+      tar_info = TargetData(tarP,nu->tgtexit.tptype,tarV,nu->vint[0]-Nskip);
     }
     
     //Filling here the ParticlesThroughVolumesData info:
@@ -198,7 +198,6 @@ namespace NeutrinoFluxReweight{
       amount_IC[ii]   = (nu->vdbl)[ii] + (nu->vdbl)[ii+3];
       amount_DPIP[ii] = (nu->vdbl)[ii+6];
       amount_DVOL[ii] = (nu->vdbl)[ii+9];
-     // std::cout<<"InteractionChainData::IC "<<amount_IC[ii]<<" DVOL "<<amount_DVOL[ii]<<std::endl;
     }
     
     ParticlesThroughVolumesData tmp_ptv_IC(pdgs,amount_IC,moms,"IC");

@@ -22,11 +22,13 @@ namespace NeutrinoFluxReweight{
     std::string mode(getenv("MODE"));
     if(aa.Inc_pdg != 2112)return false;
     if(aa.Inc_P < 12.0)return false;
-    if(mode=="NUMI"){
-    if(aa.Vol != "TGT1" && aa.Vol != "BudalMonitor" && aa.Vol != "Budal_HFVS" && aa.Vol != "Budal_VFHS")return false;}
-    if((mode=="REF")||(mode=="OPT")){
-    if(aa.Vol != "TargetFinHorizontal" && aa.Vol != "TargetNoSplitSegment")return false;}
-    
+    //volume check: 
+    bool is_wrong_volume = aa.Vol != "TGT1" && aa.Vol != "BudalMonitor" && aa.Vol != "Budal_HFVS" && aa.Vol != "Budal_VFHS";
+    if( (mode=="REF") || (mode=="OPT") ){
+      is_wrong_volume = aa.Vol != "TargetFinHorizontal" && aa.Vol != "TargetNoSplitSegment";
+    }
+    if(is_wrong_volume)return false;
+    //
     if(aa.Prod_pdg != 211 && aa.Prod_pdg != -211)return false;
     
     double inc_mom[3]  = {aa.Inc_P4[0], aa.Inc_P4[1], aa.Inc_P4[2]};

@@ -130,7 +130,7 @@ namespace NeutrinoFluxReweight{
   double ThinTargetnucleonAReweighter::calculateWeight(const InteractionData& aa){
 
     double wgt = 1.0;
-     std::string mode(getenv("MODE"));
+    std::string mode(getenv("MODE"));
     //checking:
     if(aa.Inc_pdg != 2212 && aa.Inc_pdg != 2112)return wgt;
     /*
@@ -140,26 +140,22 @@ namespace NeutrinoFluxReweight{
     */
     ThinTargetBins*  Thinbins =  ThinTargetBins::getInstance();
     int bin = Thinbins->material_scaling_BinID(aa.xF,aa.Pt,aa.Prod_pdg);
-    bool is_data_based = false;
-    if(mode=="NUMI"){
-    is_data_based = (aa.Inc_P >= 12.0) && (aa.Vol != "TGT1" && aa.Vol != "BudalMonitor" && aa.Vol != "Budal_HFVS" && aa.Vol != "Budal_VFHS") && 
+    bool is_data_based = (aa.Inc_P >= 12.0) && (aa.Vol != "TGT1" && aa.Vol != "BudalMonitor" && aa.Vol != "Budal_HFVS" && aa.Vol != "Budal_VFHS") && 
       (aa.Prod_pdg == 211 || aa.Prod_pdg == -211 || aa.Prod_pdg ==321 || aa.Prod_pdg == -321 || aa.Prod_pdg ==310 || aa.Prod_pdg == 130) &&
       (bin>=0);
-    }
+    
     if((mode=="REF")||(mode=="OPT")){
-    is_data_based = (aa.Inc_P >= 12.0) && (aa.Vol != "TargetNoSplitSegment" && aa.Vol != "TargetFinHorizontal") && 
-      (aa.Prod_pdg == 211 || aa.Prod_pdg == -211 || aa.Prod_pdg ==321 || aa.Prod_pdg == -321 || aa.Prod_pdg ==310 || aa.Prod_pdg == 130) &&
-      (bin>=0);
+      is_data_based = (aa.Inc_P >= 12.0) && (aa.Vol != "TargetNoSplitSegment" && aa.Vol != "TargetFinHorizontal") && 
+	(aa.Prod_pdg == 211 || aa.Prod_pdg == -211 || aa.Prod_pdg ==321 || aa.Prod_pdg == -321 || aa.Prod_pdg ==310 || aa.Prod_pdg == 130) &&
+	(bin>=0);
     }
     double inc_mom[3]  = {aa.Inc_P4[0], aa.Inc_P4[1], aa.Inc_P4[2]};
     double prod_mom[3] = {aa.Prod_P4[0],aa.Prod_P4[1],aa.Prod_P4[2]};
     double vtx_int[3]  = {aa.Vtx[0],aa.Vtx[1],aa.Vtx[2]};
-    std::string tgtent ="";
-    if(mode=="NUMI")tgtent="TGT1";
+    std::string tgtent = "TGT1";
     if((mode=="REF")||(mode=="OPT"))tgtent="TargetFinHorizontal";
     InteractionData aux_aa2(aa.gen,inc_mom,aa.Inc_pdg,prod_mom,aa.Prod_pdg,tgtent,aa.Proc,vtx_int);
-
-
+    
     bool not_handled = false;
     if(is_data_based){
       

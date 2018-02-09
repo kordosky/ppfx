@@ -1,12 +1,11 @@
 
 OBJS_LIB = $(shell ls src/*.cpp | sed 's/\.cpp/.o/')
 PROGS = $(shell ls src/*.C | sed 's/\.C//' | sed 's/src\///')
-INCLUDES = -I./include -I$(shell root-config --incdir) -I$(BOOSTROOT) -I$(DK2NU)/include
+INCLUDES = -I./include -I$(shell root-config --incdir) -I$(BOOSTROOT) -I${DK2NU}/include
 DEPLIBS=$(shell root-config --libs) -lEG
+
 CC	=	g++
-
 COPTS	=	-fPIC -DLINUX -O0  -g $(shell root-config --cflags) 
-
 FLAGS   =       -g
 
 all:    lib programs doxy
@@ -22,7 +21,7 @@ libppfx.so: $(OBJS_LIB)
 programs: $(PROGS)
 	echo making $(PROGS)
 
-$(PROGS): % : src/%.o $(OBJS_LIB) libppfx.so
+$(PROGS): % : src/%.o $(OBJS_LIB)  libppfx.so
 	if [ ! -d bin ]; then mkdir -p bin; fi
 
 
