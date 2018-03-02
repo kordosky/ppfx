@@ -1,0 +1,5 @@
+add_subdirectory(BINS)
+add_subdirectory(MC)
+add_subdirectory(MIPP)
+add_subdirectory(NA49)
+add_subdirectory(SCALING)
