@@ -1,0 +1,45 @@
+# The parent line must be the first non-comment line in the file
+# This line defines the product name and version
+parent ppfx  v02_01
+defaultqual     e14
+
+# These optional lines define the installed directories where
+# headers, libraries, and executables will be found
+# Use them only if your product does not conform to the defaults
+# Format: directory_type directory_path directory_name
+# The only recognized values of the first field are incdir, libdir, and bindir
+# The only recognized values of the second field are product_dir and fq_dir
+# The third field is not constrained
+# The examples here reflect the defaults
+incdir      product_dir include
+libdir      fq_dir      lib
+bindir      fq_dir      bin
+#
+# note that art -q  depends, via root, on geant4 and more
+# this means that we only need to list art, cry, and genie as a dependencies
+product         version
+dk2nugenie      v01_06_00
+dk2nudata       v01_06_00
+geant4          v4_10_3_p01b
+ifdh_art        v2_05_03
+
+cetbuildtools   v7_00_03        -        only_for_build
+end_product_list
+
+
+# -nq- here means there is no qualifier
+# a - here means the dependent product is not required by the parent and will not be setup
+qualifier     dk2nugenie dk2nudata   geant4    ifdh_art           notes
+c2:debug      c2:debug   c2:debug    c2:debug  c2:s62:debug
+c2:prof       c2:prof    c2:prof     c2:prof   c2:s62:prof
+e14:debug     e14:debug  e14:debug   e14:debug e14:s62:nu:debug
+e14:prof      e14:prof   e14:prof    e14:prof  e14:s62:nu:prof
+end_qualifier_list
+
+# Preserve tabs and formatting in emacs and vi / vim:
+
+### Local Variables:
+### tab-width: 8
+### End:
+
+# vi:set ts=8 noexpandtab:
