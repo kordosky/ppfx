@@ -230,12 +230,12 @@ namespace NeutrinoFluxReweight{
       <<"\n *target info*\n  ";
     tar_info.print(os);
     os<<"\n *ancestors*\n";
-    for(int i=0; i<interaction_chain.size(); i++){
+    for(size_t i=0; i<interaction_chain.size(); i++){
       os<<"   ";
       interaction_chain[i].print(os);
     }
     os<<"\n *Particlethrough volumes:*\n";
-    for(int i=0; i<ptv_info.size(); i++){
+    for(size_t i=0; i<ptv_info.size(); i++){
       os<<"   ";
       ptv_info[i].print(os);
     }

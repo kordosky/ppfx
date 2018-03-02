@@ -62,10 +62,10 @@ namespace NeutrinoFluxReweight{
     InteractionData::Pz = Prod_P*cos_theta; 
     
     if(Inc_pdg != 1000010020)Inc_Mass = particle->GetParticle(Inc_pdg)->Mass();
-    else {Inc_Mass == 1.875;}
+    else {Inc_Mass = 1.875;}
     
     if(Prod_pdg != 1000010020)Prod_Mass = particle->GetParticle(Prod_pdg)->Mass();
-    else{Prod_Mass == 1.875;}
+    else{Prod_Mass = 1.875;}
      
     InteractionData::Inc_Mass  = particle->GetParticle(Inc_pdg)->Mass();
     InteractionData::Prod_Mass = particle->GetParticle(Prod_pdg)->Mass();

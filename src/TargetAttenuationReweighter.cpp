@@ -12,7 +12,7 @@
 namespace NeutrinoFluxReweight{
   
   TargetAttenuationReweighter::TargetAttenuationReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars)
-    :iUniv(iuniv),cvPars(cv_pars),univPars(univ_pars){
+    :cvPars(cv_pars),univPars(univ_pars),iUniv(iuniv){
     
     // const boost::interprocess::flat_map<std::string, double>& this_table = univPars.getMap();
      prod_prtC_xsec = univPars.getParameterValue("prod_prtC_xsec");
@@ -224,7 +224,7 @@ namespace NeutrinoFluxReweight{
     //Calculating the weight for secondaries, tertiaries, etc:
     double wgt_sec = 1.0;
     if(!domipp){
-      for(int ii=1;ii<vec_inter.size();ii++){
+      for(size_t ii=1;ii<vec_inter.size();ii++){
 	bool starts_tgt = vec_inter[ii-1].Vol == "BudalMonitor" || vec_inter[ii-1].Vol == "TGT1" || vec_inter[ii-1].Vol == "Budal_HFVS"  || vec_inter[ii-1].Vol == "Budal_VFHS";
 	if((mode=="REF")||(mode=="OPT")){
 	  starts_tgt = vec_inter[ii-1].Vol == "TargetFinHorizontal" || vec_inter[ii-1].Vol == "TargetNoSplitSegment";
@@ -234,7 +234,7 @@ namespace NeutrinoFluxReweight{
 	if((mode=="REF")||(mode=="OPT")){
 	  ends_tgt = vec_inter[ii].Vol   == "TargetFinHorizontal" || vec_inter[ii].Vol   == "TargetNoSplitSegment";
 	}
-	double totmatR  = 0.0;
+	//double totmatR  = 0.0;
 	double dsigma   = 0.0;
 	double fact_int = 1.0;	
 	double fact     = 1.0;	
@@ -324,7 +324,7 @@ namespace NeutrinoFluxReweight{
     }
     // pull out all the numbers, recording them into a string
     std::string just_nums;
-    for (int i=0; i<tgtcfg.length(); ++i) {
+    for (size_t i=0; i<tgtcfg.length(); ++i) {
       if(isdigit(tgtcfg[i])) just_nums.push_back(tgtcfg[i]);
       if(tgtcfg[i]=='z') break;
     }

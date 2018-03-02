@@ -24,7 +24,7 @@ namespace NeutrinoFluxReweight{
     ptree& binsPIP = top.get_child("bins.MIPP_Numi_pip");
      
     ptree::iterator it = binsPIP.begin();
-    int idx=0;
+    //int idx=0;
     double aux_pzmin,aux_pzmax,aux_ptmin,aux_ptmax;
 
     for(; it!=binsPIP.end(); ++it){
@@ -83,7 +83,7 @@ namespace NeutrinoFluxReweight{
     ptree& binsK_PI = top.get_child("bins.MIPP_Numi_k_pi");
      
     ptree::iterator it = binsK_PI.begin();
-    int idx=0;
+    //int idx=0;
     double aux_pzmin,aux_pzmax,aux_ptmin,aux_ptmax;
 
     for(; it!=binsK_PI.end(); ++it){

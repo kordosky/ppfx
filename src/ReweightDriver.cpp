@@ -70,7 +70,7 @@ namespace NeutrinoFluxReweight{
     mipp_pion_wgt = 1.0;
     if(doMIPPNumi){
       interaction_nodes = MIPP_NUMI_PION_Universe->canReweight(icd);
-      for(int ii=0;ii<interaction_nodes.size();ii++){
+      for(size_t ii=0;ii<interaction_nodes.size();ii++){
 	if(interaction_nodes[ii]==true){
 	  has_mipp = true;
 	  mipp_pion_wgt = MIPP_NUMI_PION_Universe->calculateWeight(icd);
@@ -85,7 +85,7 @@ namespace NeutrinoFluxReweight{
     if(!has_mipp && doMIPPNumi){
       interaction_nodes = MIPP_NUMI_KAON_Universe->canReweight(icd);
 
-      for(int ii=0;ii<interaction_nodes.size();ii++){
+      for(size_t ii=0;ii<interaction_nodes.size();ii++){
 	if(interaction_nodes[ii]==true){
 	  has_mipp = true;
 	  mipp_kaon_wgt = MIPP_NUMI_KAON_Universe->calculateWeight(icd);
@@ -281,4 +281,4 @@ namespace NeutrinoFluxReweight{
     delete OTHER_Universe;
   }
 
-};
+}

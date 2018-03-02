@@ -9,7 +9,7 @@
 
 namespace NeutrinoFluxReweight{
   
-  OtherAbsorptionOutOfTargetReweighter::OtherAbsorptionOutOfTargetReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars):iUniv(iuniv),cvPars(cv_pars),univPars(univ_pars){ 
+  OtherAbsorptionOutOfTargetReweighter::OtherAbsorptionOutOfTargetReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars):cvPars(cv_pars),univPars(univ_pars),iUniv(iuniv){ 
     
     // const boost::interprocess::flat_map<std::string, double>& dsig_table = univPars.getMap();
     inel_kapAl_xsec_lowP  = univPars.getParameterValue("inel_kapAl_xsec_lowP");
@@ -21,7 +21,7 @@ namespace NeutrinoFluxReweight{
   std::vector<bool> OtherAbsorptionOutOfTargetReweighter::canReweight(const InteractionChainData& aa){
  
     std::vector<bool> this_nodes;
-    int index_vol = 0;
+    //int index_vol = 0;
     double low_val = 1.E-20;    
   
     std::vector<ParticlesThroughVolumesData>  vec_ptv = aa.ptv_info;

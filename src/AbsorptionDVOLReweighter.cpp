@@ -9,7 +9,7 @@
 
 namespace NeutrinoFluxReweight{
   
-  AbsorptionDVOLReweighter::AbsorptionDVOLReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars):iUniv(iuniv),cvPars(cv_pars),univPars(univ_pars){ 
+  AbsorptionDVOLReweighter::AbsorptionDVOLReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars):cvPars(cv_pars),univPars(univ_pars),iUniv(iuniv){ 
     
     // const boost::interprocess::flat_map<std::string, double>& dsig_table = univPars.getMap();
     inel_piAl_xsec = univPars.getParameterValue("inel_piAl_xsec");

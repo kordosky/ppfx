@@ -23,7 +23,7 @@ namespace NeutrinoFluxReweight{
     ptree& binsPI = top.get_child("bins.ThinTarget_pC_pi"); 
     ptree::iterator it = binsPI.begin();
 
-    int idx=0;
+    //int idx=0;
     double aux_xfmin,aux_xfmax,aux_ptmin,aux_ptmax;
     for(; it!=binsPI.end(); ++it){
       std::string xf_string=it->second.get<std::string>("xfrange");
@@ -50,7 +50,7 @@ namespace NeutrinoFluxReweight{
     ptree& binsPI = top.get_child("bins.ThinTargetBarton_pC_pi"); 
     ptree::iterator it = binsPI.begin();
 
-    int idx=0;
+    //int idx=0;
     double aux_xfmin,aux_xfmax,aux_ptmin,aux_ptmax;
     for(; it!=binsPI.end(); ++it){
       std::string xf_string=it->second.get<std::string>("xfrange");
@@ -77,7 +77,7 @@ namespace NeutrinoFluxReweight{
     ptree& binsP = top.get_child("bins.ThinTarget_pC_p"); 
     ptree::iterator it = binsP.begin();
 
-    int idx=0;
+    //int idx=0;
     double aux_xfmin,aux_xfmax,aux_ptmin,aux_ptmax;
     for(; it!=binsP.end(); ++it){
       std::string xf_string=it->second.get<std::string>("xfrange");
@@ -104,7 +104,7 @@ void ThinTargetBins::pC_n_from_xml(const char* filename){
     ptree& binsN = top.get_child("bins.ThinTarget_pC_n"); 
     ptree::iterator it = binsN.begin();
 
-    int idx=0;
+    //int idx=0;
     double aux_xfmin,aux_xfmax;
     for(; it!=binsN.end(); ++it){
       std::string xf_string=it->second.get<std::string>("xfrange");
@@ -125,7 +125,7 @@ void ThinTargetBins::pC_n_from_xml(const char* filename){
     ptree& binsK = top.get_child("bins.ThinTargetLowxF_pC_k"); 
     ptree::iterator it = binsK.begin();
     
-    int idx=0;
+    //int idx=0;
     double aux_xfmin,aux_xfmax,aux_ptmin,aux_ptmax;
     for(; it!=binsK.end(); ++it){
       std::string xf_string=it->second.get<std::string>("xfrange");
@@ -152,7 +152,7 @@ void ThinTargetBins::pC_n_from_xml(const char* filename){
     ptree& binsK = top.get_child("bins.ThinTarget_k_pi"); 
     ptree::iterator it = binsK.begin();
 
-    int idx=0;
+    //int idx=0;
     double aux_pzmin,aux_pzmax,aux_ptmin,aux_ptmax;
     for(; it!=binsK.end(); ++it){
       std::string pz_string=it->second.get<std::string>("pzrange");
@@ -179,7 +179,7 @@ void ThinTargetBins::pC_n_from_xml(const char* filename){
     ptree& bins = top.get_child("bins.ThinTarget_MesonIncident"); 
     ptree::iterator it = bins.begin();
     
-    int idx=0;
+    //int idx=0;
     double aux_xfmin,aux_xfmax,aux_ptmin,aux_ptmax;
     for(; it!=bins.end(); ++it){
       std::string xf_string=it->second.get<std::string>("xfrange");
@@ -206,7 +206,7 @@ void ThinTargetBins::pC_n_from_xml(const char* filename){
     ptree& bins = top.get_child("bins.ThinTarget_material_scaling"); 
     ptree::iterator it = bins.begin();
     
-    int idx=0;
+    //int idx=0;
     double aux_xfmin,aux_xfmax,aux_ptmin,aux_ptmax;
     for(; it!=bins.end(); ++it){
       std::string xf_string=it->second.get<std::string>("xfrange");

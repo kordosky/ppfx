@@ -1,4 +1,5 @@
 
+#include <algorithm>
 #include "ParameterTable.h"
 #include "Exceptions.h"
 
@@ -68,4 +69,4 @@ namespace NeutrinoFluxReweight{
     m_vectorMode=false;
   }
 
-};
+}

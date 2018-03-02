@@ -48,9 +48,9 @@ namespace NeutrinoFluxReweight{
     for(int i=0;i<qe_size;i++){
       if(i<qe_size-1){
 	fqe_corr[i] = new TFile(Form("%s/MC/FTFP/invxs_qe_corr_%s.root",dirData,spart_qe_corr[i].c_str()),"read");
-	for(int j=0;j<mom_inc.size();j++)vqe_corr_p.push_back((TH2D*)fqe_corr[i]->Get(Form("frac_prod_xF_pT_%dGeV",mom_inc[j])));
+	for(size_t j=0;j<mom_inc.size();j++)vqe_corr_p.push_back((TH2D*)fqe_corr[i]->Get(Form("frac_prod_xF_pT_%dGeV",mom_inc[j])));
       }
-      else if(i==qe_size-1){
+      else if(i==(qe_size-1)){
 	fqe_corr[i] = new TFile(Form("%s/MC/FTFP/yield_qe_corr_%s.root",dirData,spart_qe_corr[i].c_str()),"read");
 	for(int j=0;j<mom_size;j++)vqe_corr_n.push_back((TH1D*)fqe_corr[i]->Get(Form("frac_prod_xf_%dGeV",mom_inc[j])));
       }      
@@ -91,7 +91,7 @@ namespace NeutrinoFluxReweight{
     int idx_qe_corr = -1;
     int idx_lowp = -1;
     int idx_hip  = -1;
-    for(int i=0;i<mom_inc.size()-1;i++){
+    for(size_t i=0;i<mom_inc.size()-1;i++){
       if(incP>=double(mom_inc[i]) && incP<=double(mom_inc[i+1])){
 	idx_lowp=i;
 	idx_hip =i+1;

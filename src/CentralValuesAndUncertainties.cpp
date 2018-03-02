@@ -168,7 +168,7 @@ namespace NeutrinoFluxReweight{
     
     TDecompChol *decomp;
     
-    for(int ii=0;ii<covariance_matrices.size();++ii){
+    for(size_t ii=0;ii<covariance_matrices.size();++ii){
       
       decomp=new TDecompChol(covariance_matrices[ii],0.0);
       
@@ -216,7 +216,7 @@ namespace NeutrinoFluxReweight{
     }
     
     //Correlated:
-    for(int ii=0;ii<covariance_matrices.size();ii++){
+    for(size_t ii=0;ii<covariance_matrices.size();ii++){
       const boost::interprocess::flat_map<std::string, double>& corr_table_pars = correlated_par_tables[ii].getMap();
       it = corr_table_pars.begin();
       for(;it != corr_table_pars.end();it++){

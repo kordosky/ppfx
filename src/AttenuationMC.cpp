@@ -59,4 +59,4 @@ namespace NeutrinoFluxReweight{
     return instance;
   }
   
-};
+}

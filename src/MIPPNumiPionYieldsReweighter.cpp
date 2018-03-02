@@ -9,14 +9,14 @@
 
 namespace NeutrinoFluxReweight{
   
-  MIPPNumiPionYieldsReweighter::MIPPNumiPionYieldsReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars):iUniv(iuniv),cvPars(cv_pars),univPars(univ_pars){ 
+  MIPPNumiPionYieldsReweighter::MIPPNumiPionYieldsReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars):cvPars(cv_pars),univPars(univ_pars),iUniv(iuniv){ 
 
      MIPPNumiYieldsBins* MIPPbins =  MIPPNumiYieldsBins::getInstance();
      vbin_data_pip.reserve(MIPPbins->GetNbins_pip_MIPPNuMI());
      vbin_data_pim.reserve(MIPPbins->GetNbins_pim_MIPPNuMI());
      
-    const boost::interprocess::flat_map<std::string, double>& cv_table = cvPars.getMap();
-    const boost::interprocess::flat_map<std::string, double>& univ_table = univPars.getMap();
+     //const boost::interprocess::flat_map<std::string, double>& cv_table = cvPars.getMap();
+     //const boost::interprocess::flat_map<std::string, double>& univ_table = univPars.getMap();
     prt_no_inter = univPars.getParameterValue("prt_no_interacting");
     char namepar[100];
     for(int ii=0;ii<MIPPbins->GetNbins_pip_MIPPNuMI();ii++){
@@ -51,7 +51,7 @@ namespace NeutrinoFluxReweight{
  
     MIPPNumiYieldsBins*  MIPPbins =  MIPPNumiYieldsBins::getInstance();
     std::vector<bool> this_nodes;
-    for(int ii=0;ii<(aa.interaction_chain).size();ii++){
+    for(size_t ii=0;ii<(aa.interaction_chain).size();ii++){
       this_nodes.push_back(false);
     }
    
@@ -59,7 +59,7 @@ namespace NeutrinoFluxReweight{
     //if the code find a MIPP Numi event, it will look 
     //for how many interaction nodes covers
     //if not, return all nodes false.
-    bool is_there_mipp = false;   
+    //bool is_there_mipp = false;   
     TargetData tar = aa.tar_info;
     //Cheking if the particle is a pion plus and pion minus:
     if(tar.Tar_pdg != 211 && tar.Tar_pdg != -211)return this_nodes;
