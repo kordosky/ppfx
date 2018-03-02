@@ -193,9 +193,10 @@ endif()
 
 # source
 add_subdirectory (src)
-#add_subdirectory (data)
-#add_subdirectory (scripts)
-#add_subdirectory (uncertainties)
+add_subdirectory (include)
+add_subdirectory (data)
+add_subdirectory (scripts)
+add_subdirectory (uncertainties)
 
 # ups - table and config files
 add_subdirectory(ups)
