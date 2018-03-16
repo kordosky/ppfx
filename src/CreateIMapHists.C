@@ -152,8 +152,8 @@ void make_directories(TFile *f){
     for(int j=0;j<IMap::npop;j++){
       f->cd("Projectile");
       // Projectile/{particle}
-      gDirectory->mkdir(popparticle[j]);
-      gDirectory->cd(popparticle[j]);
+      gDirectory->mkdir(popparticle[j].c_str());
+      gDirectory->cd(popparticle[j].c_str());
       // Projectile/{particle}/Energy_Materials
       gDirectory->mkdir("Energy_Materials");
       // Projectile/{particle}/Energy_Volumes
@@ -163,7 +163,7 @@ void make_directories(TFile *f){
     for(int j=0;j<IMap::npop;j++){
       f->cd("Produced");
       // Produced/{particle}
-      gDirectory->mkdir(popparticle[j]);
+      gDirectory->mkdir(popparticle[j].c_str());
     }
 }
 
@@ -208,50 +208,50 @@ void name_hists(HistList * hists, TFile * out_file){
     
     for(int k=0;k<IMap::npop;k++)
     {
-        sprintf(namefile,"Projectile/%s",popparticle[k]);
+        sprintf(namefile,"Projectile/%s",popparticle[k].c_str());
         out_file->cd(namefile);
         
-        sprintf(namefile,"hmats%s",popparticle[k]);
+        sprintf(namefile,"hmats%s",popparticle[k].c_str());
         // Projectile/{particle}/hmats{particle}
-        hists->_hmat[k]=new TH2D(namefile,popparticle[k],50,0,50,50,0,50);
+        hists->_hmat[k]=new TH2D(namefile,popparticle[k].c_str(),50,0,50,50,0,50);
 			
-        sprintf(namefile,"hvols%s",popparticle[k]);
+        sprintf(namefile,"hvols%s",popparticle[k].c_str());
         // Projectile/{particle}/hvols{particle}
-        hists->_hvol[k]=new TH2D(namefile,popparticle[k],50,0,50,50,0,50);
+        hists->_hvol[k]=new TH2D(namefile,popparticle[k].c_str(),50,0,50,50,0,50);
         
         
-        sprintf(namefile,"henergy%s",popparticle[k]);
+        sprintf(namefile,"henergy%s",popparticle[k].c_str());
         // Projectile/{particle}/henergy{particle}
-        hists->_henergytotal[k] = new TH1F(namefile,popparticle[k],1000,0,200);
+        hists->_henergytotal[k] = new TH1F(namefile,popparticle[k].c_str(),1000,0,200);
         
         hists->_henergytotal[k]->GetXaxis()->SetTitle("Energy (GeV)");
         hists->_henergytotal[k]->GetYaxis()->SetTitle("Fraction of ancestry");
         
-        sprintf(namefile,"Projectile/%s/Energy_Materials",popparticle[k]);
+        sprintf(namefile,"Projectile/%s/Energy_Materials",popparticle[k].c_str());
         out_file->cd(namefile);
         
         for(int i=0;i<IMap::nspecialmat;i++)
 	 {
-            sprintf(namefile,"henergy%s%s",popparticle[k],matlist[i]);
+            sprintf(namefile,"henergy%s%s",popparticle[k].c_str(),matlist[i].c_str());
             // Projectile/{particle}/Energy_Materials/henergy{particle}{material}
             hists->_henergymaterial[i][k] = new TH1F(namefile,"",1000,0,200);
-            sprintf(namefile,"%s in %s",popparticle[k],matlist[i]);
+            sprintf(namefile,"%s in %s",popparticle[k].c_str(),matlist[i].c_str());
 						hists->_henergymaterial[i][k]->SetTitle(namefile);
             hists->_henergymaterial[i][k]->GetXaxis()->SetTitle("Energy (GeV)");
             hists->_henergymaterial[i][k]->GetYaxis()->SetTitle("Event Counts");
 	
 	 }
         
-        sprintf(namefile,"Projectile/%s/Energy_Volumes",popparticle[k]);
+        sprintf(namefile,"Projectile/%s/Energy_Volumes",popparticle[k].c_str());
         out_file->cd(namefile);
         
         for(int i=0;i<IMap::nvol;i++)
         {
             
-	  sprintf(namefile,"henergy%s%s",popparticle[k],IMap::volume[i]);
+	  sprintf(namefile,"henergy%s%s",popparticle[k].c_str(),IMap::volume[i].c_str());
             // Projectile/{particle}/Energy_Volumes/henergy{particle}{volume}
             hists->_henergyvolume[i][k]=new TH1F(namefile,"",1000,0,200);
-            sprintf(namefile,"%s in %s",popparticle[k],IMap::volume[i]);
+            sprintf(namefile,"%s in %s",popparticle[k].c_str(),IMap::volume[i].c_str());
 						hists->_henergyvolume[i][k]->SetTitle(namefile);
             hists->_henergyvolume[i][k]->GetXaxis()->SetTitle("Energy (GeV)");
             hists->_henergyvolume[i][k]->GetYaxis()->SetTitle("Event Counts");
@@ -272,30 +272,30 @@ void name_hists(HistList * hists, TFile * out_file){
     // hxfpt[9][9]
     for(int j=0;j<IMap::npop;j++)
     {
-        sprintf(namefile,"Produced/%s",popparticle[j]);
+        sprintf(namefile,"Produced/%s",popparticle[j].c_str());
         out_file->cd(namefile);
-        sprintf(namefile,"hmatbkg%s",popparticle[j]);
+        sprintf(namefile,"hmatbkg%s",popparticle[j].c_str());
         // Produced/{particle}/hmatbkg{particle}
-        hists->_hmatbkw[j]=new TH2D(namefile,popparticle[j],50,0,50,50,0,50);
-        sprintf(namefile,"hke%s",popparticle[j]);
+        hists->_hmatbkw[j]=new TH2D(namefile,popparticle[j].c_str(),50,0,50,50,0,50);
+        sprintf(namefile,"hke%s",popparticle[j].c_str());
         // Produced/{particle}/hke{particle}
         hists->_hkepop_tot[j]=new TH1F(namefile,"",1000,0,200);
-        sprintf(namefile,"htm%s",popparticle[j]);
+        sprintf(namefile,"htm%s",popparticle[j].c_str());
         // Produced/{particle}/htm{particle}
         hists->_htmpop_tot[j]=new TH1F(namefile,"",1000,0,200);
-        sprintf(namefile,"hxfpt%s",popparticle[j]);
+        sprintf(namefile,"hxfpt%s",popparticle[j].c_str());
         // Produced/{particle}/hxfpt{particle}
         hists->_hxfpt_tot[j]=new TH2D(namefile,"",500,-1,1,100,0,2);
         
         for(int k=0;k<IMap::npop;k++)
         {
-            sprintf(namefile,"hke%s_%s",popparticle[j],popparticle[k]);
+            sprintf(namefile,"hke%s_%s",popparticle[j].c_str(),popparticle[k].c_str());
             // Produced/{particle}/hke{particle}_{other particle}
             hists->_hkepop[j][k]=new TH1F(namefile,"",1000,0,200);
-            sprintf(namefile,"htm%s_%s",popparticle[j],popparticle[k]);
+            sprintf(namefile,"htm%s_%s",popparticle[j].c_str(),popparticle[k].c_str());
             // Produced/{particle}/htm{particle}_{other particle}
             hists->_htmpop[j][k]=new TH1F(namefile,"",1000,0,200);
-            sprintf(namefile,"hxfpt%s_%s",popparticle[j],popparticle[k]);
+            sprintf(namefile,"hxfpt%s_%s",popparticle[j].c_str(),popparticle[k].c_str());
             // Produced/{particle}/hxfpt{particle}_{other particle}
             hists->_hxfpt[j][k]=new TH2D(namefile,"",500,-1,1,100,0,2);
         }
@@ -373,7 +373,7 @@ void write_hists(HistList * hists, TFile * out_file){
   using namespace IMap;
   for(int j=0;j<IMap::npop;j++)
     {
-        sprintf(namefile,"Projectile/%s",popparticle[j]);
+        sprintf(namefile,"Projectile/%s",popparticle[j].c_str());
         out_file->cd(namefile);
         hists->_hmat[j]->Write();
         hists->_hvol[j]->Write();
@@ -397,7 +397,7 @@ void write_hists(HistList * hists, TFile * out_file){
     
   for(int j=0;j<IMap::npop;j++)
     {
-        sprintf(namefile,"Produced/%s",popparticle[j]);
+        sprintf(namefile,"Produced/%s",popparticle[j].c_str());
         out_file->cd(namefile);
         hists->_hmatbkw[j]->Write();
         hists->_hkepop_tot[j]->Write();

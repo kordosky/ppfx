@@ -68,7 +68,7 @@ struct HistList{
 
 namespace IMap {
   static const int npop=9;
-  static const char* popparticle[npop] = {"proton","pi+","pi-","neutron","K+","K-","K_S0","K_L0","Lambda0"};
+  static const std::string popparticle[npop] = {"proton","pi+","pi-","neutron","K+","K-","K_S0","K_L0","Lambda0"};
 
 static const int nspecialmat=5;
  static const std::string matlist[nspecialmat] = {"Iron","Aluminum","Carbon","Helium","Steel"};
