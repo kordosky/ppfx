@@ -33,7 +33,6 @@ int idx_hel(int pdgdcode);
 void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char* optionsFile){ 
   
   const char* thisDir = getenv("PPFX_DIR");
-  const char* OutputDir=thisDir;
  
   std::cout<< "Instance of MakeReweight()" <<std::endl;
   MakeReweight* makerew = MakeReweight::getInstance();
