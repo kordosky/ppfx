@@ -40,11 +40,20 @@ namespace NeutrinoFluxReweight{
       std::string this_proc = std::string(nu->proc[itraj_prod]);
       // skip over etas and other swiftly decaying particles
       // we are interested in their daughters
-      while( (pdg_prod==221) || (pdg_prod==331) || 
-	   (pdg_prod==3212) || (pdg_prod==113) || (pdg_prod==223) ){
-	itraj_prod++;
-	pdg_prod = nu->pdg[itraj_prod];
-      }           
+ 
+      //It seems that the next while is causing seg fault in gcc 6.3:
+      /*  while( is_fast_decay(pdg_prod) ){
+	  itraj_prod++;
+	  pdg_prod = nu->pdg[itraj_prod];
+	  } */   
+      if( is_fast_decay(pdg_prod) ){
+	for(int ifast = itraj_prod + 1; ifast < (ntraj-1); ifast++ ){
+	  pdg_prod = nu->pdg[ifast];
+	  itraj_prod++;
+	  pdg_prod = nu->pdg[itraj_prod];
+	  if( !is_fast_decay(pdg_prod) ) break;	  
+	}
+      }        
       double prodP[3];
       prodP[0] = nu->startpx[itraj_prod]/1000.;
       prodP[1] = nu->startpy[itraj_prod]/1000.;
@@ -135,11 +144,20 @@ namespace NeutrinoFluxReweight{
       
       // skip over etas and other swiftly decaying particles
       // we are interested in their daughters
-      while( is_fast_decay(pdg_prod)){
+      //It seems that the next while is causing seg fault in gcc 6.3:
+      /*while( is_fast_decay(pdg_prod) ){
 	itraj_prod++;
 	Nskip++;
 	pdg_prod = nu->ancestor[itraj_prod].pdg;
-      }           
+	}*/
+      if( is_fast_decay(pdg_prod) ){
+	for(int ifast = itraj_prod + 1; ifast < (ntraj-1); ifast++ ){
+	  itraj_prod++;
+	  Nskip++;
+          pdg_prod = nu->ancestor[itraj_prod].pdg;
+	  if( !is_fast_decay(pdg_prod) ) break;	  
+	}
+      }
       double prodP[3];
       prodP[0] = nu->ancestor[itraj_prod].startpx;
       prodP[1] = nu->ancestor[itraj_prod].startpy;
