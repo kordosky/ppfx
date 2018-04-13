@@ -23,7 +23,7 @@ dk2nudata       v01_06_00
 geant4          v4_10_3_p01b
 ifdh_art        v2_05_03
 
-cetbuildtools   v7_00_02        -        only_for_build
+cetbuildtools   v7_00_03        -        only_for_build
 end_product_list
 
 
