@@ -1,6 +1,6 @@
 # The parent line must be the first non-comment line in the file
 # This line defines the product name and version
-parent ppfx  v02_01
+parent ppfx  v02_03
 defaultqual     e14
 
 # These optional lines define the installed directories where
