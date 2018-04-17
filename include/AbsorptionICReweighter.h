@@ -4,6 +4,10 @@
 #include "IInteractionChainReweighting.h"
 #include "ParameterTable.h"
 
+#if defined __clang__
+  #pragma clang diagnostic push
+  #pragma clang diagnostic ignored "-Wunused-private-field"
+#endif
 namespace NeutrinoFluxReweight{
   
   /*! \class AbsorptionReweighter
@@ -34,4 +38,8 @@ namespace NeutrinoFluxReweight{
 
   
 }
+#if defined __clang__
+  #pragma clang diagnostic pop
+#endif
+
 #endif
