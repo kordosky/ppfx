@@ -18,22 +18,26 @@ bindir      fq_dir      bin
 # note that art -q  depends, via root, on geant4 and more
 # this means that we only need to list art, cry, and genie as a dependencies
 product         version
-dk2nugenie      v01_06_00
-dk2nudata       v01_06_00
-geant4          v4_10_3_p01b
-ifdh_art        v2_05_03
+dk2nugenie      v01_06_01e
+dk2nudata       v01_06_01b
+geant4          v4_10_3_p01d
+ifdh_art        v2_06_01
 
-cetbuildtools   v7_00_03        -        only_for_build
+cetbuildtools   v7_02_01        -        only_for_build
 end_product_list
 
 
 # -nq- here means there is no qualifier
 # a - here means the dependent product is not required by the parent and will not be setup
 qualifier     dk2nugenie dk2nudata   geant4    ifdh_art           notes
-c2:debug      c2:debug   c2:debug    c2:debug  c2:s62:debug
-c2:prof       c2:prof    c2:prof     c2:prof   c2:s62:prof
-e14:debug     e14:debug  e14:debug   e14:debug e14:s62:nu:debug
-e14:prof      e14:prof   e14:prof    e14:prof  e14:s62:nu:prof
+c2:debug      c2:debug   c2:debug    c2:debug  c2:s67:debug
+c2:prof       c2:prof    c2:prof     c2:prof   c2:s67:prof
+e17:debug     e17:debug  e17:debug   e17:debug e17:s67:debug
+e17:prof      e17:prof   e17:prof    e17:prof  e17:s67:prof
+e15:debug     e15:debug  e15:debug   e15:debug e15:s67:debug
+e15:prof      e15:prof   e15:prof    e15:prof  e15:s67:prof
+e14:debug     e14:debug  e14:debug   e14:debug e14:s67:debug
+e14:prof      e14:prof   e14:prof    e14:prof  e14:s67:prof
 end_qualifier_list
 
 # Preserve tabs and formatting in emacs and vi / vim:
