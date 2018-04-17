@@ -1,6 +1,4 @@
 
-# FIXME: hzpos may be uninitialized in TargetAttenuationReweighter.cpp
-cet_add_compiler_flags(CXX -Wno-maybe-uninitialized)
 
 include_directories( ${CMAKE_SOURCE_DIR}/include )
 

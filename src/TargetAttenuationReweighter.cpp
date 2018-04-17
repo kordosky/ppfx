@@ -8,7 +8,14 @@
 #include "MIPPNumiYieldsBins.h"
 #include "MakeReweight.h"
 #include "ReweightDriver.h"
-         
+
+
+// FIXME: hzpos may be uninitialized in TargetAttenuationReweighter.cpp
+#if defined __clang__
+#elif defined __GNUC__
+  #pragma GCC diagnostic push
+  #pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
+#endif
 namespace NeutrinoFluxReweight{
   
   TargetAttenuationReweighter::TargetAttenuationReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars)
@@ -647,3 +654,7 @@ namespace NeutrinoFluxReweight{
   }
 
 }
+#if defined __clang__
+#elif defined __GNUC__
+  #pragma GCC diagnostic pop
+#endif
