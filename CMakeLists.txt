@@ -50,7 +50,6 @@ find_ups_product( fftw       )
 find_ups_product( libwda     )
 find_ups_product( postgresql )
 find_ups_product( boost )
-find_ups_geant4( )
 find_ups_root( )
 find_ups_product( cetbuildtools )
 

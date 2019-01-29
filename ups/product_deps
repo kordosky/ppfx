@@ -20,7 +20,6 @@ bindir      fq_dir      bin
 product         version
 dk2nugenie      v01_07_02c
 dk2nudata       v01_07_02
-geant4          v4_10_3_p01d
 ifdh_art        v2_07_00
 
 cetbuildtools   v7_06_02        -        only_for_build
@@ -29,15 +28,15 @@ end_product_list
 
 # -nq- here means there is no qualifier
 # a - here means the dependent product is not required by the parent and will not be setup
-qualifier     dk2nugenie dk2nudata   geant4    ifdh_art           notes
-c2:debug      c2:debug   c2:debug    c2:debug  c2:s74:debug
-c2:prof       c2:prof    c2:prof     c2:prof   c2:s74:prof
-e17:debug     e17:debug  e17:debug   e17:debug e17:s74:debug
-e17:prof      e17:prof   e17:prof    e17:prof  e17:s74:prof
-e15:debug     e15:debug  e15:debug   e15:debug e15:s74:debug
-e15:prof      e15:prof   e15:prof    e15:prof  e15:s74:prof
-e14:debug     e14:debug  e14:debug   e14:debug e14:s74:debug
-e14:prof      e14:prof   e14:prof    e14:prof  e14:s74:prof
+qualifier     dk2nugenie dk2nudata   ifdh_art           notes
+c2:debug      c2:debug   c2:debug    c2:s74:debug
+c2:prof       c2:prof    c2:prof     c2:s74:prof
+e17:debug     e17:debug  e17:debug   e17:s74:debug
+e17:prof      e17:prof   e17:prof    e17:s74:prof
+e15:debug     e15:debug  e15:debug   e15:s74:debug
+e15:prof      e15:prof   e15:prof    e15:s74:prof
+e14:debug     e14:debug  e14:debug   e14:s74:debug
+e14:prof      e14:prof   e14:prof    e14:s74:prof
 end_qualifier_list
 
 # Preserve tabs and formatting in emacs and vi / vim:
