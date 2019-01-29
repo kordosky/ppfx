@@ -35,8 +35,6 @@ e17:debug     e17:debug  e17:debug   e17:s74:debug
 e17:prof      e17:prof   e17:prof    e17:s74:prof
 e15:debug     e15:debug  e15:debug   e15:s74:debug
 e15:prof      e15:prof   e15:prof    e15:s74:prof
-e14:debug     e14:debug  e14:debug   e14:s74:debug
-e14:prof      e14:prof   e14:prof    e14:s74:prof
 end_qualifier_list
 
 # Preserve tabs and formatting in emacs and vi / vim:
