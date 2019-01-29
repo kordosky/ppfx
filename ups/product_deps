@@ -1,7 +1,7 @@
 # The parent line must be the first non-comment line in the file
 # This line defines the product name and version
-parent ppfx  v02_03
-defaultqual     e14
+parent ppfx  v02_04
+defaultqual     e15
 
 # These optional lines define the installed directories where
 # headers, libraries, and executables will be found
@@ -11,33 +11,33 @@ defaultqual     e14
 # The only recognized values of the second field are product_dir and fq_dir
 # The third field is not constrained
 # The examples here reflect the defaults
-incdir      product_dir include
+incdir      product_dir 
 libdir      fq_dir      lib
 bindir      fq_dir      bin
 #
 # note that art -q  depends, via root, on geant4 and more
 # this means that we only need to list art, cry, and genie as a dependencies
 product         version
-dk2nugenie      v01_06_01e
-dk2nudata       v01_06_01b
+dk2nugenie      v01_07_02c
+dk2nudata       v01_07_02
 geant4          v4_10_3_p01d
-ifdh_art        v2_06_01
+ifdh_art        v2_07_00
 
-cetbuildtools   v7_02_01        -        only_for_build
+cetbuildtools   v7_06_02        -        only_for_build
 end_product_list
 
 
 # -nq- here means there is no qualifier
 # a - here means the dependent product is not required by the parent and will not be setup
 qualifier     dk2nugenie dk2nudata   geant4    ifdh_art           notes
-c2:debug      c2:debug   c2:debug    c2:debug  c2:s67:debug
-c2:prof       c2:prof    c2:prof     c2:prof   c2:s67:prof
-e17:debug     e17:debug  e17:debug   e17:debug e17:s67:debug
-e17:prof      e17:prof   e17:prof    e17:prof  e17:s67:prof
-e15:debug     e15:debug  e15:debug   e15:debug e15:s67:debug
-e15:prof      e15:prof   e15:prof    e15:prof  e15:s67:prof
-e14:debug     e14:debug  e14:debug   e14:debug e14:s67:debug
-e14:prof      e14:prof   e14:prof    e14:prof  e14:s67:prof
+c2:debug      c2:debug   c2:debug    c2:debug  c2:s74:debug
+c2:prof       c2:prof    c2:prof     c2:prof   c2:s74:prof
+e17:debug     e17:debug  e17:debug   e17:debug e17:s74:debug
+e17:prof      e17:prof   e17:prof    e17:prof  e17:s74:prof
+e15:debug     e15:debug  e15:debug   e15:debug e15:s74:debug
+e15:prof      e15:prof   e15:prof    e15:prof  e15:s74:prof
+e14:debug     e14:debug  e14:debug   e14:debug e14:s74:debug
+e14:prof      e14:prof   e14:prof    e14:prof  e14:s74:prof
 end_qualifier_list
 
 # Preserve tabs and formatting in emacs and vi / vim:
