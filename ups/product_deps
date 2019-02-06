@@ -20,7 +20,7 @@ bindir      fq_dir      bin
 product         version
 dk2nugenie      v01_07_02c
 dk2nudata       v01_07_02
-ifdh_art        v2_07_00
+ifdh_art        v2_07_01
 
 cetbuildtools   v7_06_02        -        only_for_build
 end_product_list
