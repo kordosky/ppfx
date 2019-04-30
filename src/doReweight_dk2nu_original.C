@@ -2,6 +2,7 @@
 #include "dk2nu/tree/dkmeta.h"
 #include "dk2nu/tree/dk2nu.h"
 #include "MakeReweight.h"
+#include "NuWeight.h"
 
 #include <string>
 #include <vector>
@@ -30,10 +31,25 @@ int idx_hel(int pdgdcode);
  * Run the reweighting for a single file (inputFile) for
  * particular MIPP covariance matrix given in input.xml file. 
  */
-void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char* optionsFile){ 
+void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char* optionsFile, const char* cxxdet, const char* cyydet, const char* czzdet){ 
   
   const char* thisDir = getenv("PPFX_DIR");
- 
+  int idet = -1;
+  bool doing_precalculated_pos = false;
+  
+  NeutrinoFluxAuxiliar::NuWeight* nuweight;			  
+  if( std::string(cyydet) == "none" && std::string(czzdet) == "none" ){
+    idet = atoi(cxxdet);
+    doing_precalculated_pos = true;
+  }
+  else{
+    std::vector<double> vdet;
+    double xxdet = atof(cxxdet); vdet.push_back(xxdet);
+    double yydet = atof(cyydet); vdet.push_back(yydet);
+    double zzdet = atof(czzdet); vdet.push_back(zzdet);
+    nuweight = new NeutrinoFluxAuxiliar::NuWeight(vdet);
+  }
+  
   std::cout<< "Instance of MakeReweight()" <<std::endl;
   MakeReweight* makerew = MakeReweight::getInstance();
   makerew->SetOptions(optionsFile); 
@@ -41,16 +57,6 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
   std::cout<<"Making an output file to store histograms"<<std::endl;
   TFile* fOut = new TFile(outputFile,"recreate");
   std::cout<<"File name: "<<fOut->GetName()<<std::endl;
-  
-  fOut->mkdir("nom");
-  for(int ii=0;ii<Nnuhel;ii++){
-    fOut->mkdir(Form("%s_thintarget",nuhel[ii]));
-    fOut->mkdir(Form("%s_mippnumi",nuhel[ii]));
-    fOut->mkdir(Form("%s_attenuation",nuhel[ii]));
-    fOut->mkdir(Form("%s_others",nuhel[ii]));
-    fOut->mkdir(Form("%s_total",nuhel[ii]));
-  }
-  std::cout<<"Done making the output file"<<std::endl;
   
   int Nuniverses = makerew->GetNumberOfUniversesUsed();
   
@@ -90,6 +96,12 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
   chain_meta->SetBranchAddress("dkmeta",&dkmeta);
   chain_meta->GetEntry(0); //all entries are the same     
   
+  std::string detname = "UserPosition";
+  if(doing_precalculated_pos){
+    detname = (dkmeta->location)[idet].name;
+  }
+  std::cout<<"=> Doing the analysis for: "<< detname <<std::endl; 
+
   std::vector<double> vwgt_mipp_pi;
   std::vector<double> vwgt_mipp_K;
   std::vector<double> vwgt_abs;
@@ -103,7 +115,9 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
   std::vector<double> vwgt_oth;
  
   std::cout<<"N of entries: "<<nentries<<std::endl;
- 
+  double fluxWGT  = 0;
+  double nuenergy = 0;
+
   for(int ii=0;ii<nentries;ii++){  
     if(ii%1000==0)std::cout<<ii/1000<<" k evts"<<std::endl;
     vwgt_mipp_pi.clear();  
@@ -120,11 +134,18 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
      
     chain_evts->GetEntry(ii);     
     makerew->calculateWeights(dk2nu,dkmeta);
-    
-    double fluxWGT = ( (dk2nu->nuray)[1].wgt )*(dk2nu->decay.nimpwt)/3.1416;
+    if(doing_precalculated_pos){
+      fluxWGT = ( (dk2nu->nuray)[idet].wgt )*(dk2nu->decay.nimpwt)/3.1416;
+      nuenergy = (dk2nu->nuray)[idet].E; 
+    }
+    else{
+      nuweight->calculate_weight(dk2nu);
+      fluxWGT  = (nuweight->wgt)*(dk2nu->decay.nimpwt)/3.1416;
+      nuenergy = nuweight->enu;
+    }
+
     int nuidx = idx_hel(dk2nu->decay.ntype);
-    double nuenergy = (dk2nu->nuray)[1].E; 
-    
+        
     if(nuidx<0){
       std::cout<<"=> Wrong neutrino file"<<std::endl;
     }
@@ -159,19 +180,29 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
 
   std::cout<<"storing general histos"<<std::endl;
   fOut->cd();
+  
+  fOut->mkdir("nom");
+  for(int ii=0;ii<Nnuhel;ii++){
+    fOut->mkdir(Form("%s_thintarget",nuhel[ii]));
+    fOut->mkdir(Form("%s_mippnumi",nuhel[ii]));
+    fOut->mkdir(Form("%s_attenuation",nuhel[ii]));
+    fOut->mkdir(Form("%s_others",nuhel[ii]));
+    fOut->mkdir(Form("%s_total",nuhel[ii]));
+  }
+  
   for(int ii=0;ii<Nnuhel;ii++){
     fOut->cd("nom");
     hnom[ii]->Write();
     hcv[ii]->Write();
     for(int jj=0;jj< Nuniverses; jj++){
-      fOut->cd(Form("%s_thintarget",nuhel[ii]));  hthin[ii][jj]->Write();
-      fOut->cd(Form("%s_mippnumi",nuhel[ii]));    hmipp[ii][jj]->Write();
-      fOut->cd(Form("%s_attenuation",nuhel[ii])); hatt[ii][jj]->Write();
-      fOut->cd(Form("%s_others",nuhel[ii]));      hothers[ii][jj]->Write();
-      fOut->cd(Form("%s_total",nuhel[ii]));       htotal[ii][jj]->Write();      
+      fOut->cd(Form("%s_thintarget" ,nuhel[ii]));  hthin[ii][jj]->Write();
+      fOut->cd(Form("%s_mippnumi"   ,nuhel[ii]));  hmipp[ii][jj]->Write();
+      fOut->cd(Form("%s_attenuation",nuhel[ii]));  hatt[ii][jj]->Write();
+      fOut->cd(Form("%s_others"     ,nuhel[ii]));  hothers[ii][jj]->Write();
+      fOut->cd(Form("%s_total"      ,nuhel[ii]));  htotal[ii][jj]->Write();      
     }
   }
-
+  
   //Releasing memory:
   makerew->resetInstance();
   
@@ -187,13 +218,37 @@ int idx_hel(int pdgcode){
   if(pdgcode == -12)idx = 3;
   return idx;
 }
-
+void usage(){
+  std::cout<<"This script calculates the flux at one position in the NuMI beamline: "<<std::endl;
+  std::cout<<"Using a precalculated detector positions:"<<std::endl;
+  std::cout<<"  bin/doReweight_dk2nu [inputFile] [outputFile] [optionsFile] [idet]"<<std::endl;
+  std::cout<<"Using a user input position:"<<std::endl;
+  std::cout<<"  bin/doReweight_dk2nu [inputFile] [outputFile] [optionsFile] [xpos] [ypos] [zpos]"<<std::endl;
+  std::cout<<"  "<<std::endl;
+  std::cout<<"Inputs  "<<std::endl;
+  std::cout<<"[inputFile] : g4numi ntuple in dk2nu/dkmeta format (v6 minerva branch is recommended)"<<std::endl;
+  std::cout<<"[outputFile] : user definied output file name."<<std::endl;
+  std::cout<<"[optionsFile] :xml file with the ppfx input parameters (look at ${PPFX_DIR}/script/input_default.xml)"<<std::endl;
+  std::cout<<"[idet] : index of the precalculated detector (look at the location.name in the dkmeta tree of the g4numi ntuple)"<<std::endl;
+  std::cout<<"[xpos], [ypos], [zpos] : position (cm) respect to the MC NuMI coordinate systema to calculate the flux"<<std::endl;
+  std::cout<<"  "<<std::endl;
+}
 //////////////
 
 #ifndef __CINT__
 int main(int argc, const char* argv[]){
+
+  if(argc==5){   
+    doReweight_dk2nu(argv[1],argv[2],argv[3],argv[4],"none","none");    
+  }
+  else if(argc==7){
+    doReweight_dk2nu(argv[1],argv[2],argv[3],argv[4],argv[5],argv[6]);
+  }
+  else{
+    usage();
+    exit (1);
+    }
   
-  doReweight_dk2nu(argv[1],argv[2],argv[3]);
   return 0;
 }
 #endif
