@@ -19,6 +19,7 @@ const double emin  =   0.;
 const double emax  = 120.;
 const int Nnuhel   = 4;
 const char* nuhel[Nnuhel] = {"numu","numubar","nue","nuebar"};
+const char* nulabel[Nnuhel] = {"#nu_{#mu}","#bar#nu_{#mu}","#nu_{e}","#bar#nu_{e}"};
 
 using namespace NeutrinoFluxReweight;
 
@@ -69,14 +70,37 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
   TH1D* htotal[Nnuhel][Nuniverses];
   
   for(int ii=0;ii<Nnuhel;ii++){
-    hnom[ii] = new TH1D(Form("hnom_%s",nuhel[ii]),"",NbinsE,emin,emax);
-    hcv[ii]  = new TH1D(Form("hcv_%s",nuhel[ii]),"",NbinsE,emin,emax);
+    const TString xtitle = "E_{#nu} [GeV]";
+    const TString ytitle = "##nu_{unoscillated} [m^{-2}]";
+    hnom[ii] = new TH1D(Form("hnom_%s",nuhel[ii]), Form("Uncorrected %s flux",nulabel[ii]), NbinsE,emin,emax);
+    hnom[ii]->SetXTitle(xtitle);
+    hnom[ii]->SetYTitle(ytitle);
+
+    hcv[ii]  = new TH1D(Form("hcv_%s",nuhel[ii]), Form("Fully PPFX-corrected %s flux (central value)", nulabel[ii]),NbinsE,emin,emax);
+    hcv[ii]->SetXTitle(xtitle);
+    hcv[ii]->SetYTitle(ytitle);
+
+
     for(int jj=0;jj< Nuniverses; jj++){
-      hthin[ii][jj]   = new TH1D(Form("hthin_%s_%d",  nuhel[ii],jj),"",NbinsE,emin,emax);
-      hmipp[ii][jj]   = new TH1D(Form("hmipp_%s_%d",  nuhel[ii],jj),"",NbinsE,emin,emax);
-      hatt[ii][jj]    = new TH1D(Form("hatt_%s_%d",   nuhel[ii],jj),"",NbinsE,emin,emax);
-      hothers[ii][jj] = new TH1D(Form("hothers_%s_%d",nuhel[ii],jj),"",NbinsE,emin,emax);
-      htotal[ii][jj]  = new TH1D(Form("htotal_%s_%d", nuhel[ii],jj),"",NbinsE,emin,emax);
+      hthin[ii][jj]   = new TH1D(Form("hthin_%s_%d",  nuhel[ii],jj),Form("%s flux corrected based on thin target data, univ. #%i", nulabel[ii], jj), NbinsE,emin,emax);
+      hthin[ii][jj]->SetXTitle(xtitle);
+      hthin[ii][jj]->SetYTitle(ytitle);
+
+      hmipp[ii][jj]   = new TH1D(Form("hmipp_%s_%d",  nuhel[ii],jj),Form("%s flux corrected based on MIPP NuMI target data, univ. #%i", nulabel[ii], jj),NbinsE,emin,emax);
+      hmipp[ii][jj]->SetXTitle(xtitle);
+      hmipp[ii][jj]->SetYTitle(ytitle);
+
+      hatt[ii][jj]    = new TH1D(Form("hatt_%s_%d",   nuhel[ii],jj),Form("%s flux corrected for attenuation in target, univ. #%i", nulabel[ii], jj),NbinsE,emin,emax);
+      hatt[ii][jj]->SetXTitle(xtitle);
+      hatt[ii][jj]->SetYTitle(ytitle);
+
+      hothers[ii][jj] = new TH1D(Form("hothers_%s_%d",nuhel[ii],jj),Form("%s flux corrected for other effects, univ. #%i", nulabel[ii], jj),NbinsE,emin,emax);
+      hothers[ii][jj]->SetXTitle(xtitle);
+      hothers[ii][jj]->SetYTitle(ytitle);
+
+      htotal[ii][jj]  = new TH1D(Form("htotal_%s_%d", nuhel[ii],jj),Form("%s flux corrected for all effects, univ. #%i", nulabel[ii], jj),NbinsE,emin,emax);
+      htotal[ii][jj]->SetXTitle(xtitle);
+      htotal[ii][jj]->SetYTitle(ytitle);
     }
   }
   
