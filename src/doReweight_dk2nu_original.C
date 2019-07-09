@@ -254,7 +254,7 @@ void usage(){
   std::cout<<"[outputFile] : user definied output file name."<<std::endl;
   std::cout<<"[optionsFile] :xml file with the ppfx input parameters (look at ${PPFX_DIR}/script/input_default.xml)"<<std::endl;
   std::cout<<"[idet] : index of the precalculated detector (look at the location.name in the dkmeta tree of the g4numi ntuple)"<<std::endl;
-  std::cout<<"[xpos], [ypos], [zpos] : position (cm) respect to the MC NuMI coordinate systema to calculate the flux"<<std::endl;
+  std::cout<<"[xpos], [ypos], [zpos] : position (cm) respect to the MC NuMI coordinate system to calculate the flux"<<std::endl;
   std::cout<<"  "<<std::endl;
 }
 //////////////
