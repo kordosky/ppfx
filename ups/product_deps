@@ -1,6 +1,6 @@
 # The parent line must be the first non-comment line in the file
 # This line defines the product name and version
-parent ppfx  v02_07
+parent ppfx  v02_08
 defaultqual     e17
 
 # These optional lines define the installed directories where
@@ -18,9 +18,9 @@ bindir      fq_dir      bin
 # note that art -q  depends, via root, on geant4 and more
 # this means that we only need to list art, cry, and genie as a dependencies
 product         version
-dk2nugenie      v01_08_00a
+dk2nugenie      v01_08_00e
 dk2nudata       v01_08_00a
-ifdh_art        v2_07_04
+ifdh_art        v2_07_05
 cetbuildtools   v7_12_01        -        only_for_build
 end_product_list
 
