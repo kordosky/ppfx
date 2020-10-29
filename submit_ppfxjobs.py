@@ -75,6 +75,10 @@ if not os.path.exists(options.output_dir):
 #first thing look at the list of inputfiles
 #read the text file line by line
 text_file =str(options.file_list)
+if text_file not in os.listdir(os.getcwd()):
+    print text_file, "not in ",os.getcwd()
+    sys.exit()
+
 _list = []
 _textfile = open(text_file,'r')
 for line in _textfile:
