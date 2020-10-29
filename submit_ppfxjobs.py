@@ -58,7 +58,7 @@ parser.add_option("-o","--output_dir",dest="output_dir",
                   help="Output Directory ",default="/pnfs/dune/scratch/users/"+user+"/ppfxfiles/reweights")
 
 parser.add_option("-t","--file_list",dest="file_list",
-                  help = "Text file with a list of dk2nu input root files Should be in Same directory as teh job submission script ",default="BLA")
+                  help = "Text file with a list of dk2nu input root files Should be in Same directory as teh job submission script (Only the name of the files) ",default="BLA")
 
 parser.add_option("-i","--input_dir",dest="input_dir",
                   help="Input Directory where the dk2nu root files live ",default = "$PWD")
