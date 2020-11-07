@@ -8,7 +8,7 @@ import random,time,platform
 #USAGE
 #THIS SCRIPT IS TO GENERATE THE PPFX FILES FROM ALREADY EXISTING DK2NU FILES
 # ls path_to_dk2nufiles/*.root >file_list.txt
-# python submit_ppfxjobs.py -t file_list.txt -i path/to/input/file/ -o /path/to/outputfile/ -n detector_index
+# python submit_ppfxjobs.py -t file_list.txt -o /path/to/outputfile/ -n detector_index
 #END USAGE#####################################################
 
 
