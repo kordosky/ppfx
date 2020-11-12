@@ -61,7 +61,7 @@ void trial_ivol(const char* inputFile,const char* outputFile){
   //get the interaction volume info....
   std::cout<<"IC:Entry "<<i<<" PARENT "<<icd.ptv_info[0].Pdgs[0]<<" GRANDPARENT"<<icd.ptv_info[0].Pdgs[1]<<" great GRANT PARENT "<<icd.ptv_info[0].Pdgs[2]<<std::endl;
   std::cout<<"DPIP:Entry "<<i<<" PARENT "<<icd.ptv_info[1].Pdgs[0]<<" GRANDPARENT"<<icd.ptv_info[1].Pdgs[1]<<" great GRANT PARENT "<<icd.ptv_info[1].Pdgs[2]<<std::endl;
-  std::cout<<"DVOL:Entry "<<i<<" PARENT "<<icd.ptv_info[1].Pdgs[0]<<" GRANDPARENT"<<icd.ptv_info[1].Pdgs[1]<<" great GRANT PARENT "<<icd.ptv_info[1].Pdgs[2]<<std::endl; 
+  std::cout<<"DVOL:Entry "<<i<<" PARENT "<<icd.ptv_info[2].Pdgs[0]<<" GRANDPARENT"<<icd.ptv_info[2].Pdgs[1]<<" great GRANT PARENT "<<icd.ptv_info[2].Pdgs[2]<<std::endl; 
   std::cout<<"VOL INFO "<<icd.ptv_info[0].Vol<<" "<<icd.ptv_info[1].Vol<<" "<<icd.ptv_info[2].Vol<<std::endl; 
  }  
 
