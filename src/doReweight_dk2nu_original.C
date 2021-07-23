@@ -4,6 +4,10 @@
 #include "MakeReweight.h"
 #include "NuWeight.h"
 
+#include "TFile.h"
+#include "TH2D.h"
+#include "TChain.h"
+#include <fstream>
 #include <string>
 #include <vector>
 #include <iostream>
@@ -14,7 +18,7 @@
 
 //Some constants::
 
-const int NbinsE   = 120;
+const int NbinsE   = 1200;
 const double emin  =   0.;
 const double emax  = 120.;
 const int Nnuhel   = 4;
@@ -64,6 +68,7 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
   TH1D* hnom[Nnuhel];
   TH1D* hcv[Nnuhel];
   TH1D* hthin[Nnuhel][Nuniverses];
+  TH1D* hthinmeson[Nnuhel][Nuniverses];
   TH1D* hmipp[Nnuhel][Nuniverses];
   TH1D* hatt[Nnuhel][Nuniverses];
   TH1D* hothers[Nnuhel][Nuniverses];
@@ -85,6 +90,11 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
       hthin[ii][jj]   = new TH1D(Form("hthin_%s_%d",  nuhel[ii],jj),Form("%s flux corrected based on thin target data, univ. #%i", nulabel[ii], jj), NbinsE,emin,emax);
       hthin[ii][jj]->SetXTitle(xtitle);
       hthin[ii][jj]->SetYTitle(ytitle);
+
+      hthinmeson[ii][jj]   = new TH1D(Form("hthinmeson_%s_%d",  nuhel[ii],jj),Form("%s flux corrected based on thin target incident meson data, univ. #%i", nulabel[ii], jj), NbinsE,emin,emax);
+      hthinmeson[ii][jj]->SetXTitle(xtitle);
+      hthinmeson[ii][jj]->SetYTitle(ytitle);
+
 
       hmipp[ii][jj]   = new TH1D(Form("hmipp_%s_%d",  nuhel[ii],jj),Form("%s flux corrected based on MIPP NuMI target data, univ. #%i", nulabel[ii], jj),NbinsE,emin,emax);
       hmipp[ii][jj]->SetXTitle(xtitle);
@@ -111,6 +121,20 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
   bsim::DkMeta* dkmeta = new bsim::DkMeta;
   
   std::cout<<" Adding ntuple at: "<<inputFile<<std::endl;
+
+  std::ifstream ifs(inputFile);
+  //  ifs.open(inputFile);
+  std::string line;
+  int counter = 0;
+  while (ifs.good()) {
+    getline(ifs,line);
+    if(line.find(".root")>10000)continue;
+    chain_evts->Add(line.c_str());   
+    if(counter==0)chain_meta->Add(line.c_str());
+    std::cout<<"Entering: "<<line<<std::endl;
+    counter++;
+  }
+  ifs.close();
 
   chain_evts->Add(inputFile);
   chain_evts->SetBranchAddress("dk2nu",&dk2nu);
@@ -142,7 +166,8 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
   double fluxWGT  = 0;
   double nuenergy = 0;
 
-  for(int ii=0;ii<nentries;ii++){  
+  //for(int ii=0;ii<nentries;ii++){  
+    for(int ii=0;ii<nentries;ii++){
     if(ii%1000==0)std::cout<<ii/1000<<" k evts"<<std::endl;
     vwgt_mipp_pi.clear();  
     vwgt_mipp_K.clear();  
@@ -194,6 +219,7 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
       double wgt_mipp = vwgt_mipp_pi[jj]*vwgt_mipp_K[jj];
       double wgt_att = vwgt_att[jj]*vwgt_abs[jj];
       hthin[nuidx][jj]->Fill(nuenergy,fluxWGT*wgt_thin);
+      hthinmeson[nuidx][jj]->Fill(nuenergy,fluxWGT*vwgt_ttmesinc[jj]);
       hmipp[nuidx][jj]->Fill(nuenergy,fluxWGT*wgt_mipp);
       hatt[nuidx][jj]->Fill(nuenergy,fluxWGT*wgt_att);
       hothers[nuidx][jj]->Fill(nuenergy,fluxWGT*vwgt_oth[jj]);
@@ -208,6 +234,7 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
   fOut->mkdir("nom");
   for(int ii=0;ii<Nnuhel;ii++){
     fOut->mkdir(Form("%s_thintarget",nuhel[ii]));
+    fOut->mkdir(Form("%s_thintargetmeson",nuhel[ii]));
     fOut->mkdir(Form("%s_mippnumi",nuhel[ii]));
     fOut->mkdir(Form("%s_attenuation",nuhel[ii]));
     fOut->mkdir(Form("%s_others",nuhel[ii]));
@@ -220,6 +247,7 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
     hcv[ii]->Write();
     for(int jj=0;jj< Nuniverses; jj++){
       fOut->cd(Form("%s_thintarget" ,nuhel[ii]));  hthin[ii][jj]->Write();
+      fOut->cd(Form("%s_thintargetmeson" ,nuhel[ii]));  hthinmeson[ii][jj]->Write();
       fOut->cd(Form("%s_mippnumi"   ,nuhel[ii]));  hmipp[ii][jj]->Write();
       fOut->cd(Form("%s_attenuation",nuhel[ii]));  hatt[ii][jj]->Write();
       fOut->cd(Form("%s_others"     ,nuhel[ii]));  hothers[ii][jj]->Write();
@@ -229,6 +257,7 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
   
   //Releasing memory:
   makerew->resetInstance();
+  fOut->Close();
   
   std::cout<<"End of run()"<<std::endl;
 
