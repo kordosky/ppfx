@@ -163,7 +163,8 @@ namespace NeutrinoFluxReweight{
     int binpartC = (dtH->hXS_prtC)->FindBin(vec_inter[0].Inc_P);
     double mcval = (dtH->hXS_prtC)->GetBinContent(binpartC);
     if(mcval<1.e-12){
-      throw std::runtime_error("MC Cross section is zero... check!");
+      std::cout<<"This seems especial cases in which the proton interact before the target (Air?). we need to investigate it."<<std::endl;
+      return 1.;
     }
     ratio_sigma = delta_sigma / mcval;
     delta_sigma -= mcval;
