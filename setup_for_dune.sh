@@ -5,10 +5,11 @@ export MODE=$1
 echo "setting up for MODE $MODE"
 setup(){
     #. "/grid/fermiapp/products/minerva/etc/setups.sh"
-    source /cvmfs/fermilab.opensciencegrid.org/products/common/etc/setups
+    #source /cvmfs/fermilab.opensciencegrid.org/products/common/etc/setups
+    source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
     setup ifdhc
     local TOP=${PWD}
-    source /cvmfs/fermilab.opensciencegrid.org/products/larsoft/setup
+    #source /cvmfs/fermilab.opensciencegrid.org/products/larsoft/setup
 
     #setup -q debug -f Linux+2.6-2.5 root v5_30_00
     #setup geant4 v4_10_1_p02 -q e7:prof
@@ -29,7 +30,7 @@ setup(){
     #    setup jobsub_tools
         setup jobsub_client
     fi
-    export BOOSTROOT=/cvmfs/fermilab.opensciencegrid.org/products/larsoft/boost/v1_57_0a/source/boost_1_57_0/
+    export BOOSTROOT=/cvmfs/larsoft.opensciencegrid.org/products/boost/v1_57_0a/source/boost_1_57_0/
     # bash magic pulled off of stack exchange
     # gets the full path to the location of setup.sh
     export PPFX_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
