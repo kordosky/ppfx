@@ -40,10 +40,14 @@ namespace NeutrinoFluxReweight{
     int ninter = vec_inter.size();
     std::string mode(getenv("MODE"));
     //Looking if there is a proton-Target interaction:
-    for(int ii=0;ii<ninter;ii++){
-  
+    for(int ii=0;ii<ninter;ii++){          
+        if(vec_inter[ii].Inc_P==0.0){
+	  can_rws.push_back(false);
+	  return can_rws;
+	}
+    if(ii==0){
       //first interaction in the target or a primary proton passing through the target 
-      if(ii==0){
+
 	bool is_tgt_int = vec_inter[0].Vol == "BudalMonitor" || vec_inter[0].Vol == "TGT1" || vec_inter[0].Vol == "Budal_HFVS"  || vec_inter[0].Vol == "Budal_VFHS";
 	if((mode=="REF")||(mode=="OPT")){
 	  is_tgt_int = vec_inter[0].Vol == "TargetFinHorizontal" || vec_inter[0].Vol == "TargetNoSplitSegment";
@@ -163,7 +167,7 @@ namespace NeutrinoFluxReweight{
     int binpartC = (dtH->hXS_prtC)->FindBin(vec_inter[0].Inc_P);
     double mcval = (dtH->hXS_prtC)->GetBinContent(binpartC);
     if(mcval<1.e-12){
-      std::cout<<"This seems especial cases in which the proton interact before the target (Air?). we need to investigate it."<<std::endl;
+      std::cout<<"This seems especial cases in which the proton interact before the target (Air?). we need to investigate it."<<" Inc_P "<<vec_inter[0].Inc_P<<std::endl;
       return 1.;
     }
     ratio_sigma = delta_sigma / mcval;
@@ -186,6 +190,7 @@ namespace NeutrinoFluxReweight{
 	}
       }
       totmatZ = getTargetPenetrationLE(startZ,endZ,startZ);
+      //std::cout<<" Start Z "<<startZ<<" End Z "<<endZ<<" totMatZ "<<totmatZ<<std::endl;
     }
     else if( is_me ){ 
       //check of initial z position:
@@ -284,7 +289,13 @@ namespace NeutrinoFluxReweight{
 	  mcval    = (dtH->hXS_kapC)->GetBinContent(binpartC);
 	  fact_int = (dsigma+mcval)/mcval;
 	}
-	
+       if(mcval<1.e-12){
+       
+      //std::cout<<"This seems especial cases in which the proton interact before the target (Air?). we need to investigate it."<<" Inc_P "<<vec_inter[0].Inc_P<<std::endl;
+      
+      return 1.;
+      
+    }
 	//Two cases: 1) ending in th target and leaving the target.
 	double zi = (vec_inter[ii-1].Vtx)[2];
 	double zf = 0.0;
@@ -299,15 +310,22 @@ namespace NeutrinoFluxReweight{
 	}
 	if(is_le) totmatZ = getTargetPenetrationLE(zi,zf,startZ);
 	if(is_me) totmatZ = getTargetPenetrationME(zi,zf,startZ);
-
+      
+        if(totmatZ<1.e-12){
+	  dsigma = 0.0;
+	  fact = 1.0;
+	}
+	
 	totmatZ *= avog_x_mb2cm2;
 	totmatZ /= graphite_A;
 	totmatZ *= graphite_density;	
 	wgt_sec *= fact*exp(-1.0*totmatZ*dsigma);
+	if(isinf(wgt_sec))std::cout<<"BAD "<<zi<<" "<<zf<<" "<<totmatZ<<" "<<startZ<<
+	" "<<dsigma<<" "<<fact<<std::endl;
 	
       }
     }
-    
+   // if(isinf(wgt_pri*wgt_sec))std::cout<<wgt_pri<<" "<<wgt_sec<<" "<<zi<<" "<<zf<<std::endl;
     return wgt = wgt_pri*wgt_sec;
     
   }
@@ -320,7 +338,7 @@ namespace NeutrinoFluxReweight{
     // check to see if we are in LE config and adjust accordingly
     if( isLE(tgtcfg) ) {
       z0=-51.72; // determined by ntuple tomography
-      if(mode=="OPT")z0=-27.3347;  
+      if(mode=="OPT")z0=0.0;//-27.3347;  
       if(mode=="REF")z0=-64.7002;
       // check to see if we are in ME config and adjust accordingly
     }else if( isME(tgtcfg) ){ 
@@ -426,7 +444,7 @@ namespace NeutrinoFluxReweight{
 					  -4.2909, -2.2609, -0.2309, 1.7991, 3.8291, 5.8591, 7.8891, 9.9191, 11.9491, 13.9791, 16.0091, 
 					  18.0391, 20.0691, 22.0991, 24.1291, 26.1591, 28.1891, 30.2191,
 					  32.2491, 34.2791, 36.3091, 38.3391, 40.3691, 42.3991, 44.4291, 46.4591, 48.4891};
-    
+/*    
     const int nfins_opt = 119;
     const double us_edges_opt[nfins_opt] = {-27.3347,-0.0054, 4.0917, 6.0876, 8.1176, 10.1476, 12.1776, 14.2076, 16.2376, 18.2676, 20.2976, 22.3276, 24.3576, 26.3876, 28.4176, 30.4476, 32.4776, 34.5076, 36.5376, 38.5676, 40.5976,
 					    42.6276, 44.6576, 46.6876, 48.7176, 50.7476, 52.7776, 54.8076, 56.8376, 58.8676, 60.8976, 62.9276, 64.9576, 66.9876, 69.0176, 71.0476, 73.0776, 75.1076, 77.1376, 79.1676, 81.1976,
@@ -436,6 +454,10 @@ namespace NeutrinoFluxReweight{
 					    205.028, 207.058, 209.088, 211.118, 213.148, 215.178, 217.208, 219.238, 221.268, 223.298, 225.328, 227.358, 229.388,
 					    231.418, 233.448, 235.478, 237.508};
     
+*/
+    const int nfins_opt = 1;
+    const double us_edges_opt[nfins_opt] = {0.0};
+	
     std::vector<double> vus_edges;
     for(int i = 0;i<nfins;i++){
       vus_edges.push_back(us_edges[i]);
@@ -448,7 +470,7 @@ namespace NeutrinoFluxReweight{
     }
     if(mode=="OPT"){
       vus_edges.clear();
-      for(int i = 0;i<nfins_opt-1;i++){
+      for(int i = 0;i<nfins_opt;i++){ //this was still nfins_opt
   	vus_edges.push_back(us_edges_opt[i]);
       }      
     }
@@ -456,7 +478,7 @@ namespace NeutrinoFluxReweight{
     const double budal_us_edge=vus_edges.at(0); // fin[0] is the budal
     double fin_width=2.0;
     //just to be not confused...this is fin thickness....the number taken from GEANT4. //Amit Bashyal
-    if(mode=="OPT")fin_width = 1.95;
+    if(mode=="OPT")fin_width = 150.0;//1.95;
     if(mode=="REF")fin_width = 2.02;
  
     // budal_us_edge + z_trans = z0_budal
