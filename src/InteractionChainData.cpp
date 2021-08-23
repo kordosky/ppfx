@@ -109,6 +109,7 @@ namespace NeutrinoFluxReweight{
       
       int pdg_inc=nu->ancestor[itraj].pdg;
       double incP[3];
+      incP[0]=0.0;incP[1]=0.0;incP[2]=0.0;
       // itraj is the index of the projectile in each interaction.
       // one can find out what it did by looking at
       //       ancestor[itraj+1].proc
@@ -170,7 +171,7 @@ namespace NeutrinoFluxReweight{
       std::string this_vol=nu->ancestor[itraj_prod].ivol;
       
       //Get Rid of Hydrogen
-        if(pdg_prod == 1000010020 || pdg_inc == 1000010020){
+        if(pdg_prod == 1000010020 || pdg_inc == 1000010020|| pdg_inc == 1000020030||pdg_prod==1000020030){
       // std::cout<<"InteractionChainData::Unusual pdgcode found "<<pdg_prod<<std::endl; //For now just skipping these deuterons
 	continue;
 	}
@@ -229,7 +230,7 @@ namespace NeutrinoFluxReweight{
     
     target_config=meta->tgtcfg;
     horn_config=meta->horncfg;
-
+    if((mode=="REF")||(mode=="OPT"))target_config = "le00zmi";
     //special tgt configuration for Minerva (exact longitudinal position after survey)
     //check for other experiments
     if(meta->vintnames.size()>1){
