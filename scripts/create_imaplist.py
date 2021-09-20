@@ -40,9 +40,9 @@ for vol in vol_list:
     material_name = vol_list[vol]
     volume_name = vol
     if material_name=="Target":
-        material_name=="Carbon"
+        material_name="Carbon"
     if material_name=="TitaniumG5":
-        material_name=="Titanium"
+        material_name="Titanium"
     #print (volume_name,"  ",material_name)
     volume.append(volume_name)
     material.append(material_name)
