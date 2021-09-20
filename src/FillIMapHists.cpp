@@ -189,6 +189,15 @@ double FillOneEntry(bsim::Dk2Nu* dk2nu, bsim::DkMeta* dkmeta, HistList* hists, c
     // get an index into the large arrays listing the volume names
     // and the material of each volume.
     int mv_idx=FindIndexFromVolume(interdata.Vol);
+    std::string mode = getenv("MODE");
+    std::string volume_name = IMap::volume[mv_idx];
+    std::string material_name = IMap::materials[mv_idx];
+    
+    if(mode=="REF"||mode=="OPT"){
+      volume_name = IMap::volumedune[mv_idx];
+      material_name = IMap::materialsdune[mv_idx];
+    }
+    
     if(mv_idx==-1){
       std::cout<<"Skipping unknown volume "<< interdata.Vol
 	       <<" for interaction "<<iinter<<std::endl;
@@ -198,7 +207,7 @@ double FillOneEntry(bsim::Dk2Nu* dk2nu, bsim::DkMeta* dkmeta, HistList* hists, c
     const string proj_name=pdg->GetParticle(interdata.Inc_pdg)->GetName();
     const string prod_name=pdg->GetParticle(interdata.Prod_pdg)->GetName();
     //if(covered_by_thintarget) //Uncomment this to get the thin target coverage after turning off the nucleonA reweighter off above.
-    hists->_h_in_vs_mat->Fill(IMap::materials[mv_idx].c_str(),proj_name.c_str(),weight);
+    hists->_h_in_vs_mat->Fill(material_name.c_str(),proj_name.c_str(),weight);
     // figure out if the produced particle is one that we want
     // to record in histograms
     // The list of such particles is in IMap::popparticle
@@ -222,7 +231,7 @@ double FillOneEntry(bsim::Dk2Nu* dk2nu, bsim::DkMeta* dkmeta, HistList* hists, c
 
       // histogram the material that the interaction occured in
       // along with the projectile that made the particle in question
-      hists->_hmatbkw[prod_pop_idx]->Fill(IMap::materials[mv_idx].c_str(),proj_name.c_str(),weight);
+      hists->_hmatbkw[prod_pop_idx]->Fill(material_name.c_str(),proj_name.c_str(),weight);
       
       // now, dig deeper
       if(proj_pop_idx!=-1){ // for each of the common *projectiles*
@@ -240,8 +249,8 @@ double FillOneEntry(bsim::Dk2Nu* dk2nu, bsim::DkMeta* dkmeta, HistList* hists, c
       const double projectile_KE=interdata.Inc_P4[3]-interdata.Inc_Mass;
       hists->_henergytotal[proj_pop_idx]->Fill(projectile_KE,weight);
       // histogram the volume/material and the produced particle
-      hists->_hmat[proj_pop_idx]->Fill(IMap::materials[mv_idx].c_str(),prod_name.c_str(),weight);
-      hists->_hvol[proj_pop_idx]->Fill(IMap::volume[mv_idx].c_str(),prod_name.c_str(),weight);
+      hists->_hmat[proj_pop_idx]->Fill(material_name.c_str(),prod_name.c_str(),weight);
+      hists->_hvol[proj_pop_idx]->Fill(volume_name.c_str(),prod_name.c_str(),weight);
       // histogram the energy of the projectile for each volume
       // This may be overkill!
       if(mv_idx!=-1) hists->_henergyvolume[mv_idx][proj_pop_idx]->Fill(projectile_KE,weight);
@@ -262,8 +271,16 @@ double FillOneEntry(bsim::Dk2Nu* dk2nu, bsim::DkMeta* dkmeta, HistList* hists, c
 
 
 int FindIndexFromVolume(const std::string& wanted){
+  std::string mode(getenv("MODE"));
+  if((mode=="REF"||mode=="OPT")){
+  for(int i=0; i<IMap::nvoldune; i++){
+    if(wanted== std::string(IMap::volumedune[i])) return i;
+  }
+  }
+  else{
   for(int i=0; i<IMap::nvol; i++){
     if(wanted== std::string(IMap::volume[i])) return i;
+  }  
   }
   return -1;
 }

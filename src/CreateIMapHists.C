@@ -58,6 +58,8 @@ int main( int argc, char *argv[])
 int CreateHists(const char* output_filename, const char* filename, int elow, int ehigh, int nu_id=56, bool NA49cuts=false, bool MIPPcuts=false)
 {
         //single array histos	
+	int nvol = IMap::nvol;
+	if(getenv("MODE")=="REF"||getenv("MODE")=="OPT") nvol = IMap::nvoldune;
 	vector<TH2D *> hmat(IMap::npop);
 	vector<TH2D *> hvol(IMap::npop);
 	vector<TH2D *> hmatbkw(IMap::npop);
@@ -69,7 +71,7 @@ int CreateHists(const char* output_filename, const char* filename, int elow, int
 	//double array histos
 	vector< vector<TH2D *> > hxfpt(IMap::npop, vector<TH2D*>(IMap::npop));
 	vector< vector<TH1F *> > henergymaterial(IMap::nspecialmat, vector<TH1F*>(IMap::npop));
-	vector< vector<TH1F *> > henergyvolume(IMap::nvol, vector<TH1F*>(IMap::npop));
+	vector< vector<TH1F *> > henergyvolume(nvol, vector<TH1F*>(IMap::npop));
 	vector< vector<TH1F *> > hkepop(IMap::npop, vector<TH1F*>(IMap::npop));
 	vector< vector<TH1F *> > htmpop(IMap::npop, vector<TH1F*>(IMap::npop));
   
@@ -245,7 +247,7 @@ void name_hists(HistList * hists, TFile * out_file){
         sprintf(namefile,"Projectile/%s/Energy_Volumes",popparticle[k].c_str());
         out_file->cd(namefile);
         
-        for(int i=0;i<IMap::nvol;i++)
+        for(int i=0;i<nvol;i++)
         {
             
 	  sprintf(namefile,"henergy%s%s",popparticle[k].c_str(),IMap::volume[i].c_str());
@@ -388,7 +390,7 @@ void write_hists(HistList * hists, TFile * out_file){
         }
         gDirectory->cd("..");
         gDirectory->cd("Energy_Volumes");
-        for(int m=0;m<IMap::nvol;m++)
+        for(int m=0;m<nvol;m++)
         {
             hists->_henergyvolume[m][j]->Write();
         }
