@@ -25,7 +25,8 @@ namespace NeutrinoFluxReweight{
     //volume check: 
     bool is_wrong_volume = aa.Vol != "TGT1" && aa.Vol != "BudalMonitor" && aa.Vol != "Budal_HFVS" && aa.Vol != "Budal_VFHS";
     if( (mode=="REF") || (mode=="OPT") ){
-      is_wrong_volume = aa.Vol != "TargetFinHorizontal" && aa.Vol != "TargetNoSplitSegment";
+     // is_wrong_volume = aa.Vol != "TargetFinHorizontal" && aa.Vol != "TargetNoSplitSegment";
+      is_wrong_volume = aa.Vol != "TargetFinHorizontal" && aa.Vol != "TargetNoSplitSegment" && aa.Vol!="tCoreLog";     
     }
     if(is_wrong_volume)return false;
     //
