@@ -63,12 +63,13 @@ namespace NeutrinoFluxReweight{
   bool ThinTargetpCPionReweighter::canReweight(const InteractionData& aa){
     std::string mode(getenv("MODE"));
     //checking:
+    //std::cout<<"ThingTargetpcPionReweighter:: "<<aa.Inc_pdg<<" "<<aa.Vol<<" "<<aa.Prod_pdg<<" "<<std::endl;
     if(aa.Inc_pdg != 2212)return false;
     if(aa.Inc_P < 12.0)return false;
     //volume check: 
     bool is_wrong_volume = aa.Vol != "TGT1" && aa.Vol != "BudalMonitor" && aa.Vol != "Budal_HFVS" && aa.Vol != "Budal_VFHS";
     if( (mode=="REF") || (mode=="OPT") ){
-      is_wrong_volume = aa.Vol != "TargetFinHorizontal" && aa.Vol != "TargetNoSplitSegment";
+      is_wrong_volume = aa.Vol != "TargetFinHorizontal" && aa.Vol != "TargetNoSplitSegment" && aa.Vol!="tCoreLog";
     }
     if(is_wrong_volume)return false;
     //
@@ -117,10 +118,11 @@ namespace NeutrinoFluxReweight{
     double mc_cv = mc->getMCval_pC_X(aa.Inc_P,aa.xF,aa.Pt,aa.Prod_pdg); 
     double mc_prod = mc->getMCxs_pC_piK(aa.gen,aa.Inc_P);
     mc_cv /= mc_prod;
-
+   // std::cout<<aa.Prod_pdg<<" "<<aa.Pt<<" "<<mc_cv<<" "<<dataval/mc_cv<<std::endl;
     if(mc_cv<1.e-12)return wgt;
     wgt = dataval/mc_cv;
     if(wgt<low_value){
+    
       //std::cout<<"TTPCPI check wgt(<0) "<<iUniv<<" "<<aa.Inc_P<<" "<<aa.xF<<" "<<aa.Pt<<" "<<aa.Prod_pdg<<std::endl;
       return aux_par;
     }
