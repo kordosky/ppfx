@@ -145,7 +145,7 @@ namespace NeutrinoFluxReweight{
       (bin>=0);
     
     if((mode=="REF")||(mode=="OPT")){
-      is_data_based = (aa.Inc_P >= 12.0) && (aa.Vol != "TargetNoSplitSegment" && aa.Vol != "TargetFinHorizontal") && 
+      is_data_based = (aa.Inc_P >= 12.0) && (aa.Vol != "TargetNoSplitSegment" && aa.Vol != "TargetFinHorizontal") && aa.Vol!= "tCoreLog" && 
 	(aa.Prod_pdg == 211 || aa.Prod_pdg == -211 || aa.Prod_pdg ==321 || aa.Prod_pdg == -321 || aa.Prod_pdg ==310 || aa.Prod_pdg == 130) &&
 	(bin>=0);
     }
@@ -153,7 +153,7 @@ namespace NeutrinoFluxReweight{
     double prod_mom[3] = {aa.Prod_P4[0],aa.Prod_P4[1],aa.Prod_P4[2]};
     double vtx_int[3]  = {aa.Vtx[0],aa.Vtx[1],aa.Vtx[2]};
     std::string tgtent = "TGT1";
-    if((mode=="REF")||(mode=="OPT"))tgtent="TargetFinHorizontal";
+    if((mode=="REF")||(mode=="OPT"))tgtent= "tCoreLog";//"TargetFinHorizontal";
     InteractionData aux_aa2(aa.gen,inc_mom,aa.Inc_pdg,prod_mom,aa.Prod_pdg,tgtent,aa.Proc,vtx_int);
     
     bool not_handled = false;
