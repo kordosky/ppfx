@@ -50,7 +50,7 @@ namespace NeutrinoFluxReweight{
 
 	bool is_tgt_int = vec_inter[0].Vol == "BudalMonitor" || vec_inter[0].Vol == "TGT1" || vec_inter[0].Vol == "Budal_HFVS"  || vec_inter[0].Vol == "Budal_VFHS";
 	if((mode=="REF")||(mode=="OPT")){
-	  is_tgt_int = vec_inter[0].Vol == "TargetFinHorizontal" || vec_inter[0].Vol == "TargetNoSplitSegment";
+	  is_tgt_int = vec_inter[0].Vol == "TargetFinHorizontal" || vec_inter[0].Vol == "TargetNoSplitSegment" || vec_inter[0].Vol=="tCoreLog";
 	}
 	if(is_tgt_int)can_rws.push_back(true);
 	else if(vec_inter[0].Inc_pdg == 2212)can_rws.push_back(true);
@@ -61,8 +61,8 @@ namespace NeutrinoFluxReweight{
         bool starts_tgt = vec_inter[ii-1].Vol == "BudalMonitor" || vec_inter[ii-1].Vol == "TGT1" || vec_inter[ii-1].Vol == "Budal_HFVS"  || vec_inter[ii-1].Vol == "Budal_VFHS";
 	bool ends_tgt   = vec_inter[ii].Vol   == "BudalMonitor" || vec_inter[ii].Vol   == "TGT1" || vec_inter[ii-1].Vol == "Budal_HFVS"  || vec_inter[ii-1].Vol == "Budal_VFHS";
 	if((mode=="REF")||(mode=="OPT")){
-	  starts_tgt = vec_inter[ii-1].Vol == "TargetFinHorizontal" || vec_inter[ii-1].Vol == "TargetNoSplitSegment";
-	  ends_tgt = vec_inter[ii-1].Vol == "TargetFinHorizontal" || vec_inter[ii-1].Vol == "TargetNoSplitSegment";
+	  starts_tgt = vec_inter[ii-1].Vol == "TargetFinHorizontal" || vec_inter[ii-1].Vol == "TargetNoSplitSegment"|| vec_inter[0].Vol=="tCoreLog";
+	  ends_tgt = vec_inter[ii-1].Vol == "TargetFinHorizontal" || vec_inter[ii-1].Vol == "TargetNoSplitSegment"||vec_inter[0].Vol=="tCoreLog";
 	}
 	if(starts_tgt && ends_tgt){
 	  can_rws.push_back(true);
@@ -153,7 +153,8 @@ namespace NeutrinoFluxReweight{
       it_is_survival = true;
     }    
     if((mode=="REF")||(mode=="OPT")){
-      if(!there_is_MIPP && vec_inter[0].Vol!="TargetFinHorizontal" && vec_inter[0].Vol!="TargetNoSplitSegment"){
+      if(!there_is_MIPP && vec_inter[0].Vol!="TargetFinHorizontal" && vec_inter[0].Vol!="TargetNoSplitSegment" && vec_inter[0].Vol!="tCoreLog"){
+
 	it_is_survival = true;
       }
     }
@@ -190,7 +191,7 @@ namespace NeutrinoFluxReweight{
 	}
       }
       totmatZ = getTargetPenetrationLE(startZ,endZ,startZ);
-      //std::cout<<" Start Z "<<startZ<<" End Z "<<endZ<<" totMatZ "<<totmatZ<<std::endl;
+     // std::cout<<"TargetAttenuation:: Start Z "<<startZ<<" End Z "<<endZ<<" totMatZ "<<totmatZ<<" "<<vec_inter[0].Vol<<std::endl;
     }
     else if( is_me ){ 
       //check of initial z position:
@@ -240,12 +241,12 @@ namespace NeutrinoFluxReweight{
       for(size_t ii=1;ii<vec_inter.size();ii++){
 	bool starts_tgt = vec_inter[ii-1].Vol == "BudalMonitor" || vec_inter[ii-1].Vol == "TGT1" || vec_inter[ii-1].Vol == "Budal_HFVS"  || vec_inter[ii-1].Vol == "Budal_VFHS";
 	if((mode=="REF")||(mode=="OPT")){
-	  starts_tgt = vec_inter[ii-1].Vol == "TargetFinHorizontal" || vec_inter[ii-1].Vol == "TargetNoSplitSegment";
+	  starts_tgt = vec_inter[ii-1].Vol == "TargetFinHorizontal" || vec_inter[ii-1].Vol == "TargetNoSplitSegment"|| vec_inter[ii-1].Vol == "tCoreLog";
 	}
 	if(!starts_tgt)continue;
 	bool ends_tgt = vec_inter[ii].Vol   == "BudalMonitor" || vec_inter[ii].Vol   == "TGT1" || vec_inter[ii].Vol   == "Budal_HFVS"  || vec_inter[ii].Vol   == "Budal_VFHS";
 	if((mode=="REF")||(mode=="OPT")){
-	  ends_tgt = vec_inter[ii].Vol   == "TargetFinHorizontal" || vec_inter[ii].Vol   == "TargetNoSplitSegment";
+	  ends_tgt = vec_inter[ii].Vol   == "TargetFinHorizontal" || vec_inter[ii].Vol   == "TargetNoSplitSegment" || vec_inter[ii].Vol == "tCoreLog";
 	}
 	//double totmatR  = 0.0;
 	double dsigma   = 0.0;
@@ -444,7 +445,7 @@ namespace NeutrinoFluxReweight{
 					  -4.2909, -2.2609, -0.2309, 1.7991, 3.8291, 5.8591, 7.8891, 9.9191, 11.9491, 13.9791, 16.0091, 
 					  18.0391, 20.0691, 22.0991, 24.1291, 26.1591, 28.1891, 30.2191,
 					  32.2491, 34.2791, 36.3091, 38.3391, 40.3691, 42.3991, 44.4291, 46.4591, 48.4891};
-/*    
+    
     const int nfins_opt = 119;
     const double us_edges_opt[nfins_opt] = {-27.3347,-0.0054, 4.0917, 6.0876, 8.1176, 10.1476, 12.1776, 14.2076, 16.2376, 18.2676, 20.2976, 22.3276, 24.3576, 26.3876, 28.4176, 30.4476, 32.4776, 34.5076, 36.5376, 38.5676, 40.5976,
 					    42.6276, 44.6576, 46.6876, 48.7176, 50.7476, 52.7776, 54.8076, 56.8376, 58.8676, 60.8976, 62.9276, 64.9576, 66.9876, 69.0176, 71.0476, 73.0776, 75.1076, 77.1376, 79.1676, 81.1976,
@@ -454,9 +455,9 @@ namespace NeutrinoFluxReweight{
 					    205.028, 207.058, 209.088, 211.118, 213.148, 215.178, 217.208, 219.238, 221.268, 223.298, 225.328, 227.358, 229.388,
 					    231.418, 233.448, 235.478, 237.508};
     
-*/
-    const int nfins_opt = 1;
-    const double us_edges_opt[nfins_opt] = {0.0};
+
+   // const int nfins_opt = 1;
+   // const double us_edges_opt[nfins_opt] = {0.0};
 	
     std::vector<double> vus_edges;
     for(int i = 0;i<nfins;i++){
@@ -478,7 +479,7 @@ namespace NeutrinoFluxReweight{
     const double budal_us_edge=vus_edges.at(0); // fin[0] is the budal
     double fin_width=2.0;
     //just to be not confused...this is fin thickness....the number taken from GEANT4. //Amit Bashyal
-    if(mode=="OPT")fin_width = 150.0;//1.95;
+    if(mode=="OPT")fin_width = 1.95;
     if(mode=="REF")fin_width = 2.02;
  
     // budal_us_edge + z_trans = z0_budal
@@ -496,6 +497,8 @@ namespace NeutrinoFluxReweight{
     // z_up and z_end to get the material traversed.
 
     double mat_start=0.0;
+    double mat_end = 0.0;
+
     for(unsigned int ifin=0; ifin<vus_edges.size(); ifin++){
       const double fin_us_edge=vus_edges.at(ifin)+z_trans;
       const double fin_ds_edge=fin_us_edge+fin_width;
@@ -510,7 +513,7 @@ namespace NeutrinoFluxReweight{
     }
     
     // now do the same thing for z_end
-    double mat_end=0.0;
+ 
     for(unsigned int ifin=0; ifin<vus_edges.size(); ifin++){
       const double fin_us_edge=vus_edges.at(ifin)+z_trans;
       const double fin_ds_edge=fin_us_edge+fin_width;
@@ -523,7 +526,12 @@ namespace NeutrinoFluxReweight{
 	mat_end+=fin_width;
       }
     }
+    
+
     double mat_traversed=mat_end-mat_start;
+    
+   // std::cout<<"material traversed is "<<mat_traversed<<std::endl;
+    
     return mat_traversed;
     
   }
@@ -617,6 +625,8 @@ namespace NeutrinoFluxReweight{
       }
     }
     double mat_traversed=mat_end-mat_start;
+    
+
     return mat_traversed;
 
   }
