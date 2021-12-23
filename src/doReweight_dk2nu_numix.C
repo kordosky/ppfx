@@ -19,6 +19,7 @@ const double emax  = 120.;
 const int Nnuhel   = 4;
 const char* nuhel[Nnuhel] = {"numu","numubar","nue","nuebar"};
 const char* nulabel[Nnuhel] = {"#nu_{#mu}","#bar#nu_{#mu}","#nu_{e}","#bar#nu_{e}"};
+const double pi    = 3.14159265358979323846;
 
 using namespace NeutrinoFluxReweight;
 
@@ -184,7 +185,7 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
     chain_evts->GetEntry(ii);     
     makerew->calculateWeights(dk2nu,dkmeta);
     if(doing_precalculated_pos){
-      fluxWGT = ( (dk2nu->nuray)[idet].wgt )*(dk2nu->decay.nimpwt)/3.1416;
+      fluxWGT = ( (dk2nu->nuray)[idet].wgt )*(dk2nu->decay.nimpwt)/pi;	//	3.1416;
       nuenergy = (dk2nu->nuray)[idet].E; 
     }
     else{

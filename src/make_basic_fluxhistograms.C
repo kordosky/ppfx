@@ -19,6 +19,7 @@ const int Nhad    = 3;
 const int NbinsE  = 480;
 const int NbinsPt = 100;
 const int NbinsxF = 200;
+const double pi    = 3.14159265358979323846;
 //
 const char* hel[Nhel]   = {"numu","numubar","nue","nuebar"};
 const double emin       =   0.;
@@ -93,7 +94,7 @@ void make_basic_fluxhistograms(const char* inputFile, const char* outputFile, co
     if(ii%100000==0)std::cout<<ii/1000<<" k evts"<<std::endl;
     chain_evts->GetEntry(ii);     
 
-    double flxwgt = ( (dk2nu->nuray)[idet].wgt )*(dk2nu->decay.nimpwt)/3.1416;
+    double flxwgt = ( (dk2nu->nuray)[idet].wgt )*(dk2nu->decay.nimpwt)/pi; //	3.1416;
     double enu    = (dk2nu->nuray)[idet].E; 
 
     int nuidx = idx_hel(dk2nu->decay.ntype);        

@@ -26,6 +26,7 @@ const char* hel[Nhel]  = {"numu","numubar"};
 const char* det[Ndet]  = {"MINOS_ND","NOvA_ND","NOvA_FD"};
 //check in dkmetaTree if these indices are right for the g4numi ntuples being used.  
 const int idet[Ndet]   = {2,3,9}; 
+const double pi    = 3.14159265358979323846;
 
 using namespace NeutrinoFluxReweight;
 
@@ -117,7 +118,7 @@ void minos2nova(const char* inputFiles, const char* outputFile, const char* opti
     makerew->calculateWeights(dk2nu,dkmeta);    
     double cvwgt = makerew->GetCVWeight();    
     for(int kk=0;kk<Ndet;kk++){
-      flxwgt[kk] = ( (dk2nu->nuray)[idet[kk]].wgt )*(dk2nu->decay.nimpwt)/3.1416;
+      flxwgt[kk] = ( (dk2nu->nuray)[idet[kk]].wgt )*(dk2nu->decay.nimpwt)/pi;	// 3.1416;
       enu[kk]    =   (dk2nu->nuray)[idet[kk]].E;
       if(flxwgt[kk]<0 || enu[kk]<0)std::cout<<"=> Wrong enu, wgt values"<<std::endl; 
       
