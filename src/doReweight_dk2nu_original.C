@@ -8,7 +8,7 @@
 #include "TH2D.h"
 #include "TChain.h"
 #include <fstream>
-#include <string>
+#include <string.h>
 #include <vector>
 #include <iostream>
 #include <stdlib.h>
@@ -31,6 +31,9 @@ class nu_g4numi;
 class Numi2Pdg;
 
 int idx_hel(int pdgdcode);
+//! returns string with "proper" xrootd enabled path if reading from PNFS (dCache)
+std::string change_to_xrootd_path(std::string temp);
+
 
 /*!
  * Run the reweighting for a single file (inputFile) for
@@ -59,11 +62,12 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
   MakeReweight* makerew = MakeReweight::getInstance();
   makerew->SetOptions(optionsFile); 
   
-  std::cout<<"Making an output file to store histograms"<<std::endl;
+  std::cout<<"Making an output file to store histograms " << outputFile <<std::endl;
   TFile* fOut = new TFile(outputFile,"recreate");
-  std::cout<<"File name: "<<fOut->GetName()<<std::endl;
+  std::cout<<"File name: " << fOut->GetName() << std::endl;
   
   int Nuniverses = makerew->GetNumberOfUniversesUsed();
+  printf("\n Number of universes: %d \n", Nuniverses);
   
   TH1D* hnom[Nnuhel];
   TH1D* hcv[Nnuhel];
@@ -120,27 +124,44 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
   bsim::Dk2Nu*  dk2nu  = new bsim::Dk2Nu;  
   bsim::DkMeta* dkmeta = new bsim::DkMeta;
   
-  std::cout<<" Adding ntuple at: "<<inputFile<<std::endl;
+  // First copy the inputFile into a string to determine if the file is a root file or not.
+  // pnfs - dCache access via XROOTD logic
+  bool enable_xrootd = true;
+  std::string temp_inputFile = inputFile;
+  bool inputFile_is_ROOTfile = temp_inputFile.find(".root") != std::string::npos ? true : false;  // if it finds the .root extension
+  // if the input file is NOT a root file:
+  if( !inputFile_is_ROOTfile ){
+  	std::cout<<" Adding ntuple list at: "<<inputFile<<std::endl;
+  	std::ifstream ifs(inputFile);
+  	//  ifs.open(inputFile);
+  	std::string line;
+  	int counter = 0;
+  	while (ifs.good()) {
+  	  getline(ifs,line);
+  	  if(line.find(".root")>10000)continue;
+	  if( !inputFile_is_ROOTfile ){
+		inputFile_is_ROOTfile = true; 
+		temp_inputFile = line;   // save for later
+		counter++;	 
+		continue; 
+	  } // may want a continue here to not have double counting of a file
+	  line = change_to_xrootd_path(line);
+  	  chain_evts->Add(line.c_str());   
+  	  if(counter==0)chain_meta->Add(line.c_str());
+  	  std::cout<<"Entering: "<<line<<std::endl;
+  	  counter++;
+  	}// end while
+  	ifs.close();
+  } // end checking if the file is a root file or not
 
-  std::ifstream ifs(inputFile);
-  //  ifs.open(inputFile);
-  std::string line;
-  int counter = 0;
-  while (ifs.good()) {
-    getline(ifs,line);
-    if(line.find(".root")>10000)continue;
-    chain_evts->Add(line.c_str());   
-    if(counter==0)chain_meta->Add(line.c_str());
-    std::cout<<"Entering: "<<line<<std::endl;
-    counter++;
-  }
-  ifs.close();
-
-  chain_evts->Add(inputFile);
+  printf("\n\tAttempting to change the path name %s for xrootd\n", temp_inputFile.c_str() );
+  temp_inputFile = change_to_xrootd_path(temp_inputFile);
+  std::cout<<"\n Setting Branch Addresses for "<< temp_inputFile << std::endl;
+  chain_evts->Add(temp_inputFile.c_str() );	//	inputFile);
   chain_evts->SetBranchAddress("dk2nu",&dk2nu);
   int nentries  = chain_evts->GetEntries();
 
-  chain_meta->Add(inputFile);
+  chain_meta->Add(temp_inputFile.c_str() );     //		inputFile);
   chain_meta->SetBranchAddress("dkmeta",&dkmeta);
   chain_meta->GetEntry(0); //all entries are the same     
   
@@ -261,7 +282,39 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
   
   std::cout<<"End of run()"<<std::endl;
 
+}// doReweight_dk2nu
+
+std::string change_to_xrootd_path(std::string temp){
+//  pnfs access via root streaming is now not OK. Must switch to xrootd. Dec 2021 -Pierce Weatherly
+//  std::string input_flux_dir_fe =  "/pnfs/dune/"+disk+"/users/"+input_user+"/fluxfiles/g4lbne/"+version+"/"+physics_list+"/"+macro+"/"+current+"/flux/";
+//  std::string rootxdstr = "root://fndca1.fnal.gov:1094/pnfs/fnal.gov/usr/dune/";
+//  std::string input_flux_dir =  rootxdstr+disk+"/users/"+input_user+"/fluxfiles/g4lbne/"+version+"/"+physics_list+"/"+macro+"/"+current+"/flux/";
+//  std::cout<<"\n\t Using input directory: "<<input_flux_dir<<std::endl;
+//  if(on_grid) {
+//    input_flux_dir = getenv("_CONDOR_SCRATCH_DIR");
+//    input_flux_dir += "/";
+//    std::cout<<"Running on grid, so getting flux files from local disk: "<<input_flux_dir<<std::endl;
+//  }
+
+  // pnfs - dCache access via XROOTD logic
+  bool enable_xrootd = true;
+  std::string temp_inputFile = temp;
+  std::string rootxdstr = "root://fndca1.fnal.gov:1094/pnfs/fnal.gov/usr/";
+  std::size_t index = temp_inputFile.find("/pnfs/");
+  std::cout<<"  Index for /pnfs/ : "<< index << std::endl;
+  if( index == std::string::npos || index != 0) enable_xrootd = false; // cannot find /pnfs/
+  else if(index == 0) enable_xrootd = true; // if the path starts with /pnfs/ , then go ahead and use xrootd.
+//  if(enable_xrootd && temp_inputFile.find(grid_dir) != string::npos) enable_xrootd = false;  // if on-grid, leave alone
+//  if(enable_xrootd && temp_inputFile.find("/data/") != string::npos) enable_xrootd = false;  // if grabing from dune/data or whatever, leave along; make sure not in pnfs
+ // if(enable_xrootd && temp_inputFile.find("root:/") != string::npos) enable_xrootd = false;  // if it looks like it is xrootd already
+  if(enable_xrootd){
+        temp_inputFile.replace(0,6,rootxdstr);
+        //printf("\n Replacing string for inputFIle %s\n\t with XROOTD path: %s\n", temp.c_str(), temp_inputFile.c_str() );
+        std::cerr<<std::endl<<"  Replacing string for inputFIle "<<temp<<std::endl<<"  with XROOTD path: "<< temp_inputFile << std::endl;
+  }else printf("\n Input File not on /pnfs/ (dCache); File path: %s\n", temp_inputFile.c_str() );
+  return temp_inputFile;
 }
+
   
 int idx_hel(int pdgcode){
   int idx = -1;
@@ -271,6 +324,7 @@ int idx_hel(int pdgcode){
   if(pdgcode == -12)idx = 3;
   return idx;
 }
+
 void usage(){
   std::cout<<"This script calculates the flux at one position in the NuMI beamline: "<<std::endl;
   std::cout<<"Using a precalculated detector positions:"<<std::endl;

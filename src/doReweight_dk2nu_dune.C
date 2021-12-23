@@ -4,11 +4,11 @@
 #include "MakeReweight.h"
 
 #include <string>
-#include <cstddef>
 #include <vector>
 #include <iostream>
 #include <stdlib.h>
 #include <iomanip>
+
 #include "TH1D.h"
 
 //Some constants::
@@ -34,10 +34,49 @@ std::string change_to_xrootd_path(std::string temp);
  * particular MIPP covariance matrix given in input.xml file. 
  */
 void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char* optionsFile){ 
+
+std::vector<Double_t>var_bins_numu;
+std::vector<Double_t>var_bins_nue;
+/*
+for(int i =0;i<6/0.5;i++)var_bins_numu.push_back(i*0.5);
+for(int i = 0;i<(8-6)/1;i++)var_bins_numu.push_back(6.0+i*1);
+for(int i = 0;i<(20-8)/4;i++)var_bins_numu.push_back(8.0+i*4);
+for(int i = 0;i<(40-20)/20;i++)var_bins_numu.push_back(20+i*20);
+for(int i = 0;i<(100-40)/60;i++)var_bins_numu.push_back(40+i*40);
+var_bins_numu.push_back(100.0);
+
+//now for nue
+for(int i = 0;i<10/2;i++)var_bins_nue.push_back(i*2);
+for(int i = 0;i<(20-10)/10;i++)var_bins_nue.push_back(10+i*10);
+for(int i = 0;i<(100-20)/80;i++)var_bins_nue.push_back(20+i*80);
+var_bins_nue.push_back(100.0);
   
+*/
+  std::vector<Double_t>var_bins;
+  //1 GeV bin width upto 30 GeV
+ // for(int i = 0;i<5/1;i++)var_bins.push_back(i*1);
+  //2 GeV bin width upto 120 GeV
+ // for (int i = 0;i<(120-5)/2;i++)var_bins.push_back(5+i*2);
+for(int i = 0;i<120/0.5;i++)var_bins.push_back(i*0.5);
+//for(int i = 0;i<120/1;i++)var_bins_nue.push_back(i*1);    
   const char* thisDir = getenv("PPFX_DIR");
   const char* OutputDir=thisDir;
  
+
+  // pnfs - dCache access via XROOTD logic
+  std::string infile = change_to_xrootd_path( std::string(inputFile) ) ;		//inputFile);
+
+  std::string outfile =std::string(outputFile);
+  //Create 2 outputs for both near detector and far detector
+  std::string near = "DUNEND";  // or LBNFND
+  std::string far  = "DUNEFD";  // or LBNFFD
+  int detindex = 1; // 1 = Near Detector, 2 = Far Detector
+  std::size_t foundnear = outfile.find(near);
+  std::size_t foundfar = outfile.find(far);
+  if(foundnear != std::string::npos)detindex=1;
+  if(foundfar != std::string::npos)detindex=2;
+  
+  std::cout<<" The detector index is "<<detindex<<std::endl;
   std::cout<< "Instance of MakeReweight()" <<std::endl;
   MakeReweight* makerew = MakeReweight::getInstance();
   makerew->SetOptions(optionsFile); 
@@ -53,6 +92,16 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
     fOut->mkdir(Form("%s_attenuation",nuhel[ii]));
     fOut->mkdir(Form("%s_others",nuhel[ii]));
     fOut->mkdir(Form("%s_total",nuhel[ii]));
+    fOut->mkdir(Form("%s_totabsorption",nuhel[ii]));
+    fOut->mkdir(Form("%s_tgtabsorption",nuhel[ii]));
+    fOut->mkdir(Form("%s_targetpcpi",nuhel[ii]));
+    fOut->mkdir(Form("%s_targetpck",nuhel[ii]));      
+    fOut->mkdir(Form("%s_targetncpi",nuhel[ii]));    
+    fOut->mkdir(Form("%s_targetpcnu",nuhel[ii]));      
+    fOut->mkdir(Form("%s_targetmesonInc",nuhel[ii]));      
+    fOut->mkdir(Form("%s_targetnuA",nuhel[ii]));     
+    
+    
   }
   std::cout<<"Done making the output file"<<std::endl;
   
@@ -65,49 +114,76 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
   TH1D* hatt[Nnuhel][Nuniverses];
   TH1D* hothers[Nnuhel][Nuniverses];
   TH1D* htotal[Nnuhel][Nuniverses];
+  TH1D* htotab[Nnuhel][Nuniverses];
+  TH1D* htgtab[Nnuhel][Nuniverses];
+  TH1D* httpcpi[Nnuhel][Nuniverses];
+  TH1D* httpck[Nnuhel][Nuniverses]; 
+  TH1D* httncpi[Nnuhel][Nuniverses]; 
+  TH1D* httpcnu[Nnuhel][Nuniverses];  
+  TH1D* httmesinc[Nnuhel][Nuniverses];  
+  TH1D* httnua[Nnuhel][Nuniverses]; 
   
   for(int ii=0;ii<Nnuhel;ii++){
-    hnom[ii] = new TH1D(Form("hnom_%s",nuhel[ii]),"",NbinsE,emin,emax);
-    hcv[ii]  = new TH1D(Form("hcv_%s",nuhel[ii]),"",NbinsE,emin,emax);
+ // std::vector<Double_t>var_bins;
+  //clone the binning vector
+ // if((ii==0)||(ii==1))var_bins = var_bins_numu;
+ // if((ii==2)||(ii==3))var_bins = var_bins_nue;
+  std::cout<<" ii "<<var_bins.at(ii);
+    hnom[ii] = new TH1D(Form("hnom_%s",nuhel[ii]),"",var_bins.size()-1,&var_bins[0]);
+    hcv[ii]  = new TH1D(Form("hcv_%s",nuhel[ii]),"",var_bins.size()-1,&var_bins[0]);
     for(int jj=0;jj< Nuniverses; jj++){
-      hthin[ii][jj]   = new TH1D(Form("hthin_%s_%d",  nuhel[ii],jj),"",NbinsE,emin,emax);
-      hmipp[ii][jj]   = new TH1D(Form("hmipp_%s_%d",  nuhel[ii],jj),"",NbinsE,emin,emax);
-      hatt[ii][jj]    = new TH1D(Form("hatt_%s_%d",   nuhel[ii],jj),"",NbinsE,emin,emax);
-      hothers[ii][jj] = new TH1D(Form("hothers_%s_%d",nuhel[ii],jj),"",NbinsE,emin,emax);
-      htotal[ii][jj]  = new TH1D(Form("htotal_%s_%d", nuhel[ii],jj),"",NbinsE,emin,emax);
+      hthin[ii][jj]   = new TH1D(Form("hthin_%s_%d",  nuhel[ii],jj),"",var_bins.size()-1,&var_bins[0]);
+      hmipp[ii][jj]   = new TH1D(Form("hmipp_%s_%d",  nuhel[ii],jj),"",var_bins.size()-1,&var_bins[0]);
+      hatt[ii][jj]    = new TH1D(Form("hatt_%s_%d",   nuhel[ii],jj),"",var_bins.size()-1,&var_bins[0]);
+      hothers[ii][jj] = new TH1D(Form("hothers_%s_%d",nuhel[ii],jj),"",var_bins.size()-1,&var_bins[0]);
+      htotal[ii][jj]  = new TH1D(Form("htotal_%s_%d", nuhel[ii],jj),"",var_bins.size()-1,&var_bins[0]);
+      htotab[ii][jj]  = new TH1D(Form("habsorption_%s_%d",nuhel[ii],jj),"",var_bins.size()-1,&var_bins[0]);
+      htgtab[ii][jj]  = new TH1D(Form("htargetabsorption_%s_%d",nuhel[ii],jj),"",var_bins.size()-1,&var_bins[0]);
+      httpcpi[ii][jj]  = new TH1D(Form("htargetpcpi_%s_%d",nuhel[ii],jj),"",var_bins.size()-1,&var_bins[0]);
+      httpck[ii][jj]  = new TH1D(Form("htargetpcK_%s_%d",nuhel[ii],jj),"",var_bins.size()-1,&var_bins[0]);  
+      httncpi[ii][jj]  = new TH1D(Form("htargetncpi_%s_%d",nuhel[ii],jj),"",var_bins.size()-1,&var_bins[0]);
+      httpcnu[ii][jj]  = new TH1D(Form("htargetpcnu_%s_%d",nuhel[ii],jj),"",var_bins.size()-1,&var_bins[0]);      
+      httmesinc[ii][jj]  = new TH1D(Form("htargetmesonInc_%s_%d",nuhel[ii],jj),"",var_bins.size()-1,&var_bins[0]);  
+      httnua[ii][jj]  = new TH1D(Form("htargetnucleonA_%s_%d",nuhel[ii],jj),"",var_bins.size()-1,&var_bins[0]);    
+    
+    
+    
     }
   }
+  
+    
+    for(int ii=0;ii<Nnuhel;ii++){
+    for(int jj=0;jj<Nuniverses;jj++){
+      hthin[ii][jj]->Sumw2();
+      hmipp[ii][jj]->Sumw2();
+      hatt[ii][jj]->Sumw2();
+      hothers[ii][jj]->Sumw2();
+      htotal[ii][jj]->Sumw2();
+      htotab[ii][jj]->Sumw2();
+      htgtab[ii][jj]->Sumw2();
+      httpcpi[ii][jj]->Sumw2();
+      httpck[ii][jj]->Sumw2(); 
+      httncpi[ii][jj]->Sumw2();
+      httpcnu[ii][jj]->Sumw2();
+      httmesinc[ii][jj]->Sumw2();
+      httnua[ii][jj]->Sumw2();    
+    
+    }
+    }
   
   //Loading ntuples:
   TChain* chain_evts   = new TChain("dk2nuTree");  
   TChain* chain_meta   = new TChain("dkmetaTree");  
   bsim::Dk2Nu*  dk2nu  = new bsim::Dk2Nu;  
   bsim::DkMeta* dkmeta = new bsim::DkMeta;
+  
+  std::cout<<" Adding ntuple at: "<< infile <<std::endl;	//inputFile<<std::endl;
 
-  // pnfs - dCache access via XROOTD logic
-  std::string instr = change_to_xrootd_path( std::string(inputFile) );              //inputFile);  std::string instr= inputFile;
-
-  std::cout<<" Adding ntuple at: "<< instr <<std::endl;  //	inputFile<<std::endl;
-
-  std::size_t dlmntr = instr.find_last_of("/\\");
-  TString ffname= instr.substr(0,dlmntr+1)+std::string("f_")+instr.substr(dlmntr+1);
-  TFile friendfile(ffname,"recreate");
-  TTree *f_dk2nuTree= new TTree("dk2nuTree","dk2nuTree Friend");
-
-  chain_evts->Add( instr.c_str() );	//inputFile);
+  chain_evts->Add(infile.c_str());
   chain_evts->SetBranchAddress("dk2nu",&dk2nu);
-  int nentries  = chain_evts->GetEntries(); 
+  int nentries  = chain_evts->GetEntries();
 
-  //declaring variables and branches for friend tree
-  //TBranch *b_Nuniverses = chain_events->Branch("Nuniverses",&Nuniverses, "Nuniverses/I");//Does this vary across events?
-  Double_t cv_wgt, uni_wgt[Nuniverses];
-  TString uw_str;
-  uw_str.Form("uni_wgt[%d]/D",Nuniverses);
-  f_dk2nuTree->Branch("cv_wgt",&cv_wgt,"cv_wgt/D");
-  f_dk2nuTree->Branch("uni_wgt",&uni_wgt,uw_str);
-
-
-  chain_meta->Add( instr.c_str() );     //	inputFile);
+  chain_meta->Add(infile.c_str());
   chain_meta->SetBranchAddress("dkmeta",&dkmeta);
   chain_meta->GetEntry(0); //all entries are the same     
   
@@ -125,7 +201,6 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
  
   std::cout<<"N of entries: "<<nentries<<std::endl;
   
-
   for(int ii=0;ii<nentries;ii++){  
     if(ii%1000==0)std::cout<<ii/1000<<" k evts"<<std::endl;
     vwgt_mipp_pi.clear();  
@@ -143,14 +218,16 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
     chain_evts->GetEntry(ii);     
     makerew->calculateWeights(dk2nu,dkmeta);
     
-    double fluxWGT = ( (dk2nu->nuray)[1].wgt )*(dk2nu->decay.nimpwt)/3.1416;
+    double fluxWGT = ( (dk2nu->nuray)[detindex].wgt )*(dk2nu->decay.nimpwt)/3.1416;
     int nuidx = idx_hel(dk2nu->decay.ntype);
-    double nuenergy = (dk2nu->nuray)[1].E; 
+    double nuenergy = (dk2nu->nuray)[detindex].E;
+    double vz = (dk2nu->decay.vz);
+    double size = (dk2nu->ancestor).size();
+    double startz = (dk2nu->ancestor)[size-2].startz; 
     
     if(nuidx<0){
       std::cout<<"=> Wrong neutrino file"<<std::endl;
     }
-
     hnom[nuidx]->Fill(nuenergy,fluxWGT);
     hcv[nuidx]->Fill(nuenergy,fluxWGT*makerew->GetCVWeight());
 
@@ -165,10 +242,8 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
     vwgt_ttmesinc= makerew->GetWeights("ThinTargetMesonIncident");
     vwgt_ttnua   = makerew->GetWeights("ThinTargetnucleonA");
     vwgt_oth     = makerew->GetWeights("Other"); 
-
-    cv_wgt=makerew->GetCVWeight();
-
-
+    
+    
     for(int jj=0;jj<Nuniverses;jj++){
       double wgt_thin = vwgt_ttpCpi[jj]*vwgt_ttpCk[jj]*vwgt_ttnCpi[jj]*vwgt_ttpCnu[jj]*vwgt_ttmesinc[jj]*vwgt_ttnua[jj];
       double wgt_mipp = vwgt_mipp_pi[jj]*vwgt_mipp_K[jj];
@@ -178,22 +253,23 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
       hatt[nuidx][jj]->Fill(nuenergy,fluxWGT*wgt_att);
       hothers[nuidx][jj]->Fill(nuenergy,fluxWGT*vwgt_oth[jj]);
       htotal[nuidx][jj]->Fill(nuenergy,fluxWGT*wgt_thin*wgt_mipp*wgt_att*vwgt_oth[jj]);
-
-      uni_wgt[jj]=wgt_thin*wgt_mipp*wgt_att*vwgt_oth[jj]; //total weight of this universe
-    }
-
-    f_dk2nuTree->Fill();  //
-
+      htotab[nuidx][jj]->Fill(nuenergy,fluxWGT*vwgt_abs[jj]);
+      htgtab[nuidx][jj]->Fill(nuenergy,fluxWGT*vwgt_att[jj]);
+      httpcpi[nuidx][jj]->Fill(nuenergy,fluxWGT*vwgt_ttpCpi[jj]);
+      httpck[nuidx][jj]->Fill(nuenergy,fluxWGT*vwgt_ttpCk[jj]); 
+      httncpi[nuidx][jj]->Fill(nuenergy,fluxWGT*vwgt_ttnCpi[jj]);
+      httpcnu[nuidx][jj]->Fill(nuenergy,fluxWGT*vwgt_ttpCnu[jj]);
+      httmesinc[nuidx][jj]->Fill(nuenergy,fluxWGT*vwgt_ttmesinc[jj]);
+      httnua[nuidx][jj]->Fill(nuenergy,fluxWGT*vwgt_ttnua[jj]);
+	    
+      //if(wgt_att>2)std::cout<<" hatt entry is "<<nuenergy<<" "<<vwgt_att[jj]<<std::endl;
+      //std::cout<<"Target Attenuation Weights "<<wgt_att<<" vwgt quantity "<<vwgt_oth[jj]<<std::endl;
+      
+      //std::cout<<"Target attenuation "<<vwgt_att[jj]<<" Total Absorption "<<vwgt_abs[jj]<<std::endl;
+     // if(vwgt_abs[jj]<1)std::cout<<vz<<" "<<startz<<" "<<vwgt_att[jj]<<std::endl;
+    }  
   }
-  f_dk2nuTree->Print();//
-  friendfile.cd();
-  f_dk2nuTree->Write();//
-
-  //Releasing memory:
-  makerew->resetInstance();  
-
-  //  chain_evts->AddFriend("dk2nuTree","f_"+inputfile);
-  //chain_evts->Draw("cv_wgt");
+  
   std::cout<<"storing general histos"<<std::endl;
   fOut->cd();
   for(int ii=0;ii<Nnuhel;ii++){
@@ -205,14 +281,23 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
       fOut->cd(Form("%s_mippnumi",nuhel[ii]));    hmipp[ii][jj]->Write();
       fOut->cd(Form("%s_attenuation",nuhel[ii])); hatt[ii][jj]->Write();
       fOut->cd(Form("%s_others",nuhel[ii]));      hothers[ii][jj]->Write();
-      fOut->cd(Form("%s_total",nuhel[ii]));       htotal[ii][jj]->Write();      
+      fOut->cd(Form("%s_total",nuhel[ii]));       htotal[ii][jj]->Write();  
+      fOut->cd(Form("%s_totabsorption",nuhel[ii]));htotab[ii][jj]->Write();
+      fOut->cd(Form("%s_tgtabsorption",nuhel[ii]));htgtab[ii][jj]->Write();
+      fOut->cd(Form("%s_targetpcpi",nuhel[ii]));httpcpi[ii][jj]->Write();
+      fOut->cd(Form("%s_targetpck",nuhel[ii]));httpck[ii][jj]->Write();      
+      fOut->cd(Form("%s_targetncpi",nuhel[ii]));httncpi[ii][jj]->Write();     
+      fOut->cd(Form("%s_targetpcnu",nuhel[ii]));httpcnu[ii][jj]->Write();      
+      fOut->cd(Form("%s_targetmesonInc",nuhel[ii]));httmesinc[ii][jj]->Write();      
+      fOut->cd(Form("%s_targetnuA",nuhel[ii]));httnua[ii][jj]->Write();      
+           
     }
   }
-
+  fOut->Close();
+  makerew->resetInstance(); //Releasing memory: 
   std::cout<<"End of run()"<<std::endl;
- 
 
-}// end doReweight
+} // end doReweight
 
 std::string change_to_xrootd_path(std::string temp){
 //  pnfs access via root streaming is now not OK. Must switch to xrootd. Dec 2021 -Pierce Weatherly
@@ -239,8 +324,7 @@ std::string change_to_xrootd_path(std::string temp){
   if(enable_xrootd){
         temp_inputFile.replace(0,6,rootxdstr);
         printf("\n Replacing string for inputFIle %s\n\t with XROOTD path: %s\n", temp.c_str(), temp_inputFile.c_str() );
-  }
-  else printf("\n Input File not on /pnfs/ (dCache); File path: %s\n", temp_inputFile.c_str() );
+  }else printf("\n Input File not on /pnfs/ (dCache); File path: %s\n", temp_inputFile.c_str() );
   return temp_inputFile;
 }
 

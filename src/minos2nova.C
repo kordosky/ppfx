@@ -33,6 +33,9 @@ class nu_g4numi;
 class Numi2Pdg;
 
 int idx_hel(int pdgdcode);
+//! returns string with "proper" xrootd enabled path if reading from PNFS (dCache)
+std::string change_to_xrootd_path(std::string temp);
+
 
 /*!
  * Run to get the MINOS to NOvA ND/FD transformation matrices. The input is file with a list of ntuples, 
@@ -86,6 +89,7 @@ void minos2nova(const char* inputFiles, const char* outputFile, const char* opti
   if(fileIn->is_open()){
     while(getline(*fileIn,line)){
       if(line.find(".root")<2000){
+	line = change_to_xrootd_path(line);
 	chain_evts->Add(line.c_str());
 	std::cout<<"File In: "<<line<<std::endl;
 	count_files++;
@@ -160,6 +164,36 @@ void minos2nova(const char* inputFiles, const char* outputFile, const char* opti
   std::cout<<"End of run()"<<std::endl;
 
 }
+
+std::string change_to_xrootd_path(std::string temp){
+//  pnfs access via root streaming is now not OK. Must switch to xrootd. Dec 2021 -Pierce Weatherly
+//  std::string input_flux_dir_fe =  "/pnfs/dune/"+disk+"/users/"+input_user+"/fluxfiles/g4lbne/"+version+"/"+physics_list+"/"+macro+"/"+current+"/flux/";
+//  std::string rootxdstr = "root://fndca1.fnal.gov:1094/pnfs/fnal.gov/usr/dune/";
+//  std::string input_flux_dir =  rootxdstr+disk+"/users/"+input_user+"/fluxfiles/g4lbne/"+version+"/"+physics_list+"/"+macro+"/"+current+"/flux/";
+//  std::cout<<"\n\t Using input directory: "<<input_flux_dir<<std::endl;
+//  if(on_grid) {
+//    input_flux_dir = getenv("_CONDOR_SCRATCH_DIR");
+//    input_flux_dir += "/";
+//    std::cout<<"Running on grid, so getting flux files from local disk: "<<input_flux_dir<<std::endl;
+//  }
+
+  // pnfs - dCache access via XROOTD logic
+  bool enable_xrootd = true;
+  std::string temp_inputFile = temp;
+  std::string rootxdstr = "root://fndca1.fnal.gov:1094/pnfs/fnal.gov/usr/";
+  std::size_t index = temp_inputFile.find("/pnfs/");
+  if( index == std::string::npos || index != 0) enable_xrootd = false; // cannot find /pnfs/
+  else if(index == 0) enable_xrootd = true; // if the path starts with /pnfs/ , then go ahead and use xrootd.
+//  if(enable_xrootd && temp_inputFile.find(grid_dir) != string::npos) enable_xrootd = false;  // if on-grid, leave alone
+//  if(enable_xrootd && temp_inputFile.find("/data/") != string::npos) enable_xrootd = false;  // if grabing from dune/data or whatever, leave along; make sure not in pnfs
+ // if(enable_xrootd && temp_inputFile.find("root:/") != string::npos) enable_xrootd = false;  // if it looks like it is xrootd already
+  if(enable_xrootd){
+        temp_inputFile.replace(0,6,rootxdstr);
+        printf("\n Replacing string for inputFIle %s\n\t with XROOTD path: %s\n", temp.c_str(), temp_inputFile.c_str() );
+  }else printf("\n Input File not on /pnfs/ (dCache); File path: %s\n", temp_inputFile.c_str() );
+  return temp_inputFile;
+}
+
   
 int idx_hel(int pdgcode){
   int idx = -1;

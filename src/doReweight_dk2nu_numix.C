@@ -26,6 +26,9 @@ class nu_g4numi;
 class Numi2Pdg;
 
 int idx_hel(int pdgdcode);
+//! returns string with "proper" xrootd enabled path if reading from PNFS (dCache)
+std::string change_to_xrootd_path(std::string temp);
+
 
 /*!
  * Run the reweighting for a single file (inputFile) for
@@ -108,23 +111,34 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
   TChain* chain_meta   = new TChain("dkmetaTree");  
   bsim::Dk2Nu*  dk2nu  = new bsim::Dk2Nu;  
   bsim::DkMeta* dkmeta = new bsim::DkMeta;
-  
-  std::cout<<" Adding ntuple at: "<<inputFile<<std::endl;
-  
-  std::ifstream ifs(inputFile);
-  //  ifs.open(inputFile);
-  std::string line;
-  int counter = 0;
-  while (ifs.good()) {
-    getline(ifs,line);
-    if(line.find(".root")>10000)continue;
-    chain_evts->Add(line.c_str());   
-    if(counter==0)chain_meta->Add(line.c_str());
-    std::cout<<"Entering: "<<line<<std::endl;
-    counter++;
+ // First copy the inputFile into a string to determine if the file is a root file or not.
+  // pnfs - dCache access via XROOTD logic
+  bool enable_xrootd = true;
+  std::string temp_inputFile = inputFile;
+  bool inputFile_is_ROOTfile = temp_inputFile.find(".root") != std::string::npos ? true : false;  // if it finds the .root extension
+  // if the input file is NOT a root file:
+  if( !inputFile_is_ROOTfile ){  
+  	std::cout<<" Adding ntuple list at: "<<inputFile<<std::endl;
+  	std::ifstream ifs(inputFile);
+	//  ifs.open(inputFile);
+	std::string line;
+	int counter = 0;
+	while (ifs.good()) {
+	    getline(ifs,line);
+	    if(line.find(".root")>10000)continue;
+	    line = change_to_xrootd_path(line);
+	    chain_evts->Add(line.c_str());   
+	    if(counter==0)chain_meta->Add(line.c_str());
+	    std::cout<<"Entering: "<<line<<std::endl;
+	    counter++;
+	}
+  	ifs.close();  
+  }else{
+	temp_inputFile = change_to_xrootd_path(temp_inputFile);
+	chain_evts->Add(temp_inputFile.c_str());
+	chain_meta->Add(temp_inputFile.c_str());
   }
-  ifs.close();  
-
+  
   chain_evts->SetBranchAddress("dk2nu",&dk2nu);
   int nentries  = chain_evts->GetEntries();
 
@@ -243,7 +257,37 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
   
   std::cout<<"End of run()"<<std::endl;
 
+} // end doReweight
+
+std::string change_to_xrootd_path(std::string temp){
+//  pnfs access via root streaming is now not OK. Must switch to xrootd. Dec 2021 -Pierce Weatherly
+//  std::string input_flux_dir_fe =  "/pnfs/dune/"+disk+"/users/"+input_user+"/fluxfiles/g4lbne/"+version+"/"+physics_list+"/"+macro+"/"+current+"/flux/";
+//  std::string rootxdstr = "root://fndca1.fnal.gov:1094/pnfs/fnal.gov/usr/dune/";
+//  std::string input_flux_dir =  rootxdstr+disk+"/users/"+input_user+"/fluxfiles/g4lbne/"+version+"/"+physics_list+"/"+macro+"/"+current+"/flux/";
+//  std::cout<<"\n\t Using input directory: "<<input_flux_dir<<std::endl;
+//  if(on_grid) {
+//    input_flux_dir = getenv("_CONDOR_SCRATCH_DIR");
+//    input_flux_dir += "/";
+//    std::cout<<"Running on grid, so getting flux files from local disk: "<<input_flux_dir<<std::endl;
+//  }
+
+  // pnfs - dCache access via XROOTD logic
+  bool enable_xrootd = true;
+  std::string temp_inputFile = temp;
+  std::string rootxdstr = "root://fndca1.fnal.gov:1094/pnfs/fnal.gov/usr/";
+  std::size_t index = temp_inputFile.find("/pnfs/");
+  if( index == std::string::npos || index != 0) enable_xrootd = false; // cannot find /pnfs/
+  else if(index == 0) enable_xrootd = true; // if the path starts with /pnfs/ , then go ahead and use xrootd.
+//  if(enable_xrootd && temp_inputFile.find(grid_dir) != string::npos) enable_xrootd = false;  // if on-grid, leave alone
+//  if(enable_xrootd && temp_inputFile.find("/data/") != string::npos) enable_xrootd = false;  // if grabing from dune/data or whatever, leave along; make sure not in pnfs
+ // if(enable_xrootd && temp_inputFile.find("root:/") != string::npos) enable_xrootd = false;  // if it looks like it is xrootd already
+  if(enable_xrootd){
+        temp_inputFile.replace(0,6,rootxdstr);
+        printf("\n Replacing string for inputFIle %s\n\t with XROOTD path: %s\n", temp.c_str(), temp_inputFile.c_str() );
+  }else printf("\n Input File not on /pnfs/ (dCache); File path: %s\n", temp_inputFile.c_str() );
+  return temp_inputFile;
 }
+
   
 int idx_hel(int pdgcode){
   int idx = -1;

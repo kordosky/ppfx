@@ -34,6 +34,9 @@ using namespace NeutrinoFluxReweight;
 void usage();
 int idx_hel(int pdgdcode);
 int idx_had(int pdgdcode);
+//! returns string with "proper" xrootd enabled path if reading from PNFS (dCache)
+std::string change_to_xrootd_path(std::string temp);
+
 
 void make_basic_fluxhistograms(const char* inputFile, const char* outputFile, const char* cdet){ 
   
@@ -59,12 +62,15 @@ void make_basic_fluxhistograms(const char* inputFile, const char* outputFile, co
   bsim::Dk2Nu*  dk2nu  = new bsim::Dk2Nu;  
   bsim::DkMeta* dkmeta = new bsim::DkMeta;
   
+
+
   std::ifstream* fileIn = new std::ifstream(inputFile);
   std::string line;
   int count_files = 0;
   if(fileIn->is_open()){
     while(getline(*fileIn,line)){
       if(line.find(".root")<1000){
+        line = change_to_xrootd_path(line);
 	chain_evts->Add(line.c_str());
 	std::cout<<"File In: "<<line<<std::endl;
 	count_files++;
@@ -72,6 +78,7 @@ void make_basic_fluxhistograms(const char* inputFile, const char* outputFile, co
       }
     }
   }
+
   chain_evts->SetBranchAddress("dk2nu",&dk2nu);
   int nentries  = chain_evts->GetEntries();
 
@@ -119,7 +126,40 @@ void make_basic_fluxhistograms(const char* inputFile, const char* outputFile, co
 
   std::cout<<"End of run()"<<std::endl;
 
+} // end make_basic_flux_histograms
+
+std::string change_to_xrootd_path(std::string temp){
+//  pnfs access via root streaming is now not OK. Must switch to xrootd. Dec 2021 -Pierce Weatherly
+//  std::string input_flux_dir_fe =  "/pnfs/dune/"+disk+"/users/"+input_user+"/fluxfiles/g4lbne/"+version+"/"+physics_list+"/"+macro+"/"+current+"/flux/";
+//  std::string rootxdstr = "root://fndca1.fnal.gov:1094/pnfs/fnal.gov/usr/dune/";
+//  std::string input_flux_dir =  rootxdstr+disk+"/users/"+input_user+"/fluxfiles/g4lbne/"+version+"/"+physics_list+"/"+macro+"/"+current+"/flux/";
+//  std::cout<<"\n\t Using input directory: "<<input_flux_dir<<std::endl;
+//  if(on_grid) {
+//    input_flux_dir = getenv("_CONDOR_SCRATCH_DIR");
+//    input_flux_dir += "/";
+//    std::cout<<"Running on grid, so getting flux files from local disk: "<<input_flux_dir<<std::endl;
+//  }
+
+  // pnfs - dCache access via XROOTD logic
+  bool enable_xrootd = true;
+  std::string temp_inputFile = temp;
+  std::string rootxdstr = "root://fndca1.fnal.gov:1094/pnfs/fnal.gov/usr/";
+  std::size_t index = temp_inputFile.find("/pnfs/");
+  if( index == std::string::npos || index != 0) enable_xrootd = false; // cannot find /pnfs/
+  else if(index == 0) enable_xrootd = true; // if the path starts with /pnfs/ , then go ahead and use xrootd.
+//  if(enable_xrootd && temp_inputFile.find(grid_dir) != string::npos) enable_xrootd = false;  // if on-grid, leave alone
+//  if(enable_xrootd && temp_inputFile.find("/data/") != string::npos) enable_xrootd = false;  // if grabing from dune/data or whatever, leave along; make sure not in pnfs
+ // if(enable_xrootd && temp_inputFile.find("root:/") != string::npos) enable_xrootd = false;  // if it looks like it is xrootd already
+  if(enable_xrootd){
+        temp_inputFile.replace(0,6,rootxdstr);
+        printf("\n Replacing string for inputFIle %s\n\t with XROOTD path: %s\n", temp.c_str(), temp_inputFile.c_str() );
+  }else printf("\n Input File not on /pnfs/ (dCache); File path: %s\n", temp_inputFile.c_str() );
+  return temp_inputFile;
 }
+
+
+
+
 int idx_hel(int pdgcode){
   int idx = -1;
   if(pdgcode ==  14)idx = 0;
