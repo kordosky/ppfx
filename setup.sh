@@ -19,10 +19,11 @@ setup_for_dune(){
     echo "Sourcing DUNE setup script"
     source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
     setup ifdhc
-    local TOP=${PWD}
-    setup dk2nu v01_05_01b -q e15:prof
+    setup dk2nudata v01_10_00d -q e20:prof
+    setup dk2nugenie v01_10_00d -q e20:prof
     export M32=-m64
     setup fftw v3_3_4 -q prof
+    setup boost v1_75_0 -q e20:prof
 
     # setup for jobsub client
     # according to the prescription in Mike Kirby's talk
@@ -32,7 +33,6 @@ setup_for_dune(){
         echo "_CONDOR_SCRATCH_DIR is not set... so I'm assuming we're not running on a grid node.... Setting up jobsub  tools."
         setup jobsub_client
     fi
-    export BOOSTROOT=/cvmfs/larsoft.opensciencegrid.org/products/boost/v1_57_0a/source/boost_1_57_0/
 
     # bash magic pulled off of stack exchange
     # gets the full path to the location of setup.sh

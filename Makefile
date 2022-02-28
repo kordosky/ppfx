@@ -1,7 +1,7 @@
 
 OBJS_LIB = $(shell ls src/*.cpp | sed 's/\.cpp/.o/')
 PROGS = $(shell ls src/*.C | sed 's/\.C//' | sed 's/src\///')
-INCLUDES = -I./include -I$(shell root-config --incdir) -I$(BOOSTROOT) -I${DK2NU}/include
+INCLUDES = -I./include -I$(shell root-config --incdir) -I${BOOST_INC} -I${DK2NU}/include
 DEPLIBS=$(shell root-config --libs) -lEG
 
 CC	=	g++
@@ -15,7 +15,7 @@ lib: libppfx.so
 libppfx.so: $(OBJS_LIB)
 	if [ ! -d lib ]; then mkdir -p lib; fi
 
-	$(CC) -shared -o lib/$@ $^ -L${DK2NU_LIB} -ldk2nuTree
+	$(CC) -shared -o lib/$@ $^ -L${DK2NU}/lib -ldk2nuTree
 
 
 programs: $(PROGS)
@@ -25,7 +25,7 @@ $(PROGS): % : src/%.o $(OBJS_LIB)  libppfx.so
 	if [ ! -d bin ]; then mkdir -p bin; fi
 
 
-	$(CC) -Wall -o bin/$@ $< $(PPFX_OBJS) $(DEPLIBS) -L$(PPFX_DIR)/lib -lppfx -L${DK2NU_LIB} -ldk2nuTree
+	$(CC) -Wall -o bin/$@ $< $(PPFX_OBJS) $(DEPLIBS) -L$(PPFX_DIR)/lib -lppfx -L${DK2NU}/lib -ldk2nuTree
 
 
 %.o: %.cpp
