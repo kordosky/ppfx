@@ -13,6 +13,9 @@ setup_for_nova(){
     export PPFX_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
     echo "setting PPFX_DIR=${PPFX_DIR}"
     export LD_LIBRARY_PATH=$PPFX_DIR/lib:$LD_LIBRARY_PATH
+    if [ -z "${_CONDOR_SCRATCH_DIR}" ]; then
+      kx509; voms-proxy-init -rfc -valid 196:00 -noregen -voms nova:/nova/Role=Analysis
+    fi
 }
 
 setup_for_dune(){
@@ -32,6 +35,7 @@ setup_for_dune(){
     if [ -z "${_CONDOR_SCRATCH_DIR}" ]; then
         echo "_CONDOR_SCRATCH_DIR is not set... so I'm assuming we're not running on a grid node.... Setting up jobsub  tools."
         setup jobsub_client
+	/cvmfs/dune.opensciencegrid.org/products/dune/duneutil/v09_42_00/bin/setup_fnal_security -f -b
     fi
 
     # bash magic pulled off of stack exchange

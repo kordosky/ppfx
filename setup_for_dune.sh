@@ -30,6 +30,7 @@ setup(){
         echo "_CONDOR_SCRATCH_DIR is not set... so I'm assuming we're not running on a grid node.... Setting up jobsub  tools."
     #    setup jobsub_tools
         setup jobsub_client
+        /cvmfs/dune.opensciencegrid.org/products/dune/duneutil/v09_42_00/bin/setup_fnal_security -f -b
     fi
     export BOOSTROOT=/cvmfs/larsoft.opensciencegrid.org/products/boost/v1_57_0a/source/boost_1_57_0/
     # bash magic pulled off of stack exchange
