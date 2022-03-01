@@ -4,7 +4,7 @@
 export MODE=$1
 echo "setting up for MODE $MODE"
 setup(){
-    echo "WARNING: This setup script is depreciated. Use setup.sh for dune machines as well."
+    echo "WARNING: This setup script is depreciated and will likely cause errors during build. Use setup.sh for dune machines as well."
     #. "/grid/fermiapp/products/minerva/etc/setups.sh"
     #source /cvmfs/fermilab.opensciencegrid.org/products/common/etc/setups
     source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh

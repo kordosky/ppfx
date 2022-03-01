@@ -1,6 +1,7 @@
 #!/bin/bash
 
 setup_for_grid(){
+    echo "WARNING: This setup script is depreciated and will likely cause errors during build. Use setup.sh instead."
 
     # the default mode is NuMI
     export MODE="NUMI"
