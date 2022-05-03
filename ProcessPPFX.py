@@ -5,20 +5,19 @@
 ##################################################
 import os, optparse, random, shutil, tarfile, sys
 import subprocess, string
-#Line edited by BHUMIKA
-CACHE_PNFS_AREA = "/pnfs/nova/scratch/users/bmehta/grid_cache/".format(USER = os.getenv("USER"))
+
+CACHE_PNFS_AREA = "/pnfs/nova/scratch/users/{USER}/grid_cache/".format(USER = os.getenv("USER"))
 PWD = os.getenv("PWD")
 
 ##################################################
 # Job Defaults
 ##################################################
 N_JOBS             = 1
-OUTDIR             = "/pnfs/nova/persistent/users/bmehta/Final_PPFX/test/".format(USER = os.getenv("USER"))
+OUTDIR             = "/pnfs/nova/persistent/users/{USER}/ppfx/test/".format(USER = os.getenv("USER"))
 #INPUT_OPTIONS      = "{0}/scripts/inputs_default.xml".format(PWD)
 INPUT_OPTIONS      = "scripts/inputs_default.xml"
 IDET               = "3"
-#INDIR              = "/pnfs/nova/data/flux/g4numi/v6r1"
-INDIR             ="/pnfs/nova/persistent/users/bmehta/flux/test/"
+INDIR              = "/pnfs/nova/data/flux/g4numi/v6r1"
 TARFILE_NAME       = "local_install.tar.gz"
 BEAMCONFIG         = "me000z200i"
 
@@ -31,20 +30,20 @@ def main():
   os.makedirs(cache_folder)
   
   os.makedirs(options.outdir)
-#Edit by BHUMIKA
-  print ("\nTarring up local area...")
+
+  print "\nTarring up local area..."
   make_tarfile(TARFILE_NAME, ".")
 
   shutil.move(TARFILE_NAME,    cache_folder) 
   shutil.copy("ppfx_job.sh", cache_folder)
-#Edit by BHUMIKA for print command  
-  print ("\nTarball of local area:", cache_folder + TARFILE_NAME)
+  
+  print "\nTarball of local area:", cache_folder + TARFILE_NAME
 
   logfile = options.outdir + "/ppfx_{BEAMCONFIG}_\$PROCESS.log".format(BEAMCONFIG = options.beamconfig)                                                                               
- #Edit by BHUMIKA 
-  print ("\nOutput logfile(s):",logfile)
+  
+  print "\nOutput logfile(s):",logfile
 
-  submit_command = ("jobsub_submit {GRID} {MEMORY} -N {NJOBS} -d G4NUMI {OUTDIR} "
+  submit_command = ("jobsub_submit {GRID} {MEMORY} -N {NJOBS} -dPPFX {OUTDIR} "
       "-G nova "
       "-e BEAMCONFIG={BEAMCONFIG} " 
       "-e IN_DIR={IN_DIR} " 
@@ -68,9 +67,8 @@ def main():
       CACHE      = cache_folder)
   )
 
-  #Ship it 
-  #Edit by BHUMIKA fourth
-  print ("\nSubmitting to grid:\n"+submit_command+"\n")
+  #Ship it
+  print "\nSubmitting to grid:\n"+submit_command+"\n"
   status = subprocess.call(submit_command, shell=True)
 
 def get_options():
