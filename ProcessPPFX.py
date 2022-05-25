@@ -6,18 +6,19 @@
 import os, optparse, random, shutil, tarfile, sys
 import subprocess, string
 
-CACHE_PNFS_AREA = "/pnfs/nova/scratch/users/{USER}/grid_cache/".format(USER = os.getenv("USER"))
+CACHE_PNFS_AREA = "/pnfs/nova/scratch/users/bmehta/grid_cache/".format(USER = os.getenv("USER"))
 PWD = os.getenv("PWD")
 
 ##################################################
 # Job Defaults
 ##################################################
 N_JOBS             = 1
-OUTDIR             = "/pnfs/nova/persistent/users/{USER}/ppfx/test/".format(USER = os.getenv("USER"))
+OUTDIR             = "/pnfs/nova/persistent/users/bmehta/25Swim/test/".format(USER = os.getenv("USER"))
 #INPUT_OPTIONS      = "{0}/scripts/inputs_default.xml".format(PWD)
 INPUT_OPTIONS      = "scripts/inputs_default.xml"
 IDET               = "3"
-INDIR              = "/pnfs/nova/data/flux/g4numi/v6r1"
+#INDIR              = "/pnfs/nova/data/flux/g4numi/v6r1"
+INDIR             ="/pnfs/nova/persistent/users/bmehta/direct/"
 TARFILE_NAME       = "local_install.tar.gz"
 BEAMCONFIG         = "me000z200i"
 
@@ -31,17 +32,17 @@ def main():
   
   os.makedirs(options.outdir)
 
-  print "\nTarring up local area..."
+  print ("\nTarring up local area...")
   make_tarfile(TARFILE_NAME, ".")
 
   shutil.move(TARFILE_NAME,    cache_folder) 
   shutil.copy("ppfx_job.sh", cache_folder)
   
-  print "\nTarball of local area:", cache_folder + TARFILE_NAME
+  print ("\nTarball of local area:", cache_folder + TARFILE_NAME)
 
   logfile = options.outdir + "/ppfx_{BEAMCONFIG}_\$PROCESS.log".format(BEAMCONFIG = options.beamconfig)                                                                               
   
-  print "\nOutput logfile(s):",logfile
+  print ("\nOutput logfile(s):",logfile)
 
   submit_command = ("jobsub_submit {GRID} {MEMORY} -N {NJOBS} -dPPFX {OUTDIR} "
       "-G nova "
@@ -68,7 +69,7 @@ def main():
   )
 
   #Ship it
-  print "\nSubmitting to grid:\n"+submit_command+"\n"
+  print ("\nSubmitting to grid:\n"+submit_command+"\n")
   status = subprocess.call(submit_command, shell=True)
 
 def get_options():
