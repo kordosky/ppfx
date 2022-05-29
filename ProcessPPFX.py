@@ -6,46 +6,49 @@
 import os, optparse, random, shutil, tarfile, sys
 import subprocess, string
 
-CACHE_PNFS_AREA = "/pnfs/nova/scratch/users/bmehta/grid_cache/".format(USER = os.getenv("USER"))
+CACHE_PNFS_AREA = "/pnfs/nova/scratch/users/{USER}/grid_cache/".format(USER = os.getenv("USER"))
 PWD = os.getenv("PWD")
 
 ##################################################
 # Job Defaults
 ##################################################
 N_JOBS             = 1
-OUTDIR             = "/pnfs/nova/persistent/users/bmehta/25Swim/test/".format(USER = os.getenv("USER"))
+OUTDIR             = "/pnfs/nova/persistent/users/{USER}/ppfx/test".format(USER = os.getenv("USER"))
 #INPUT_OPTIONS      = "{0}/scripts/inputs_default.xml".format(PWD)
 INPUT_OPTIONS      = "scripts/inputs_default.xml"
 IDET               = "3"
 #INDIR              = "/pnfs/nova/data/flux/g4numi/v6r1"
-INDIR             ="/pnfs/nova/persistent/users/bmehta/direct/"
+INDIR              = "/pnfs/nova/persistent/stash/flux/g4numi/v6r1"
+
 TARFILE_NAME       = "local_install.tar.gz"
 BEAMCONFIG         = "me000z200i"
+#EXPERIMENT         = "nova"
 
 ##################################################
 
 def main():
   options = get_options()
+  #EXPERIMENT = os.getenv("EXPERIMENT")
   
   cache_folder = CACHE_PNFS_AREA + str(random.randint(10000,99999)) + "/"
   os.makedirs(cache_folder)
   
-  os.makedirs(options.outdir)
+  os.makedirs(options.outdir, exist_ok=True)
 
-  print ("\nTarring up local area...")
+  print("\nTarring up local area...")
   make_tarfile(TARFILE_NAME, ".")
 
   shutil.move(TARFILE_NAME,    cache_folder) 
   shutil.copy("ppfx_job.sh", cache_folder)
   
-  print ("\nTarball of local area:", cache_folder + TARFILE_NAME)
+  print("\nTarball of local area:", cache_folder + TARFILE_NAME)
 
   logfile = options.outdir + "/ppfx_{BEAMCONFIG}_\$PROCESS.log".format(BEAMCONFIG = options.beamconfig)                                                                               
   
-  print ("\nOutput logfile(s):",logfile)
+  print("\nOutput logfile(s):",logfile)
 
-  submit_command = ("jobsub_submit {GRID} {MEMORY} -N {NJOBS} -dPPFX {OUTDIR} "
-      "-G nova "
+  submit_command = ("jobsub_submit {GRID} {MEMORY} -N {NJOBS} -d PPFX {OUTDIR} "
+      "-G {EXPERIMENT} "
       "-e BEAMCONFIG={BEAMCONFIG} " 
       "-e IN_DIR={IN_DIR} " 
       "-e INPUT_OPTIONS={INPUT_OPTIONS} " 
@@ -56,20 +59,21 @@ def main():
       GRID       = ("--OS=SL7 -g "
                     "--resource-provides=usage_model=DEDICATED,OPPORTUNISTIC "
                     "--role=Analysis "),
-      MEMORY     = "--memory 200MB ",
+      MEMORY     = "--memory 2000MB ",
       NJOBS      = options.n_jobs,
       OUTDIR     = options.outdir,
       BEAMCONFIG = options.beamconfig,
       IN_DIR     = INDIR,
       INPUT_OPTIONS = options.input_options,
-      IDET       =  options.idet,
+      EXPERIMENT = os.getenv("EXPERIMENT"),
+      IDET       = options.idet,
       TARFILE    = cache_folder + TARFILE_NAME,
       LOGFILE    = logfile,
       CACHE      = cache_folder)
   )
 
   #Ship it
-  print ("\nSubmitting to grid:\n"+submit_command+"\n")
+  print("\nSubmitting to grid:\n"+submit_command+"\n")
   status = subprocess.call(submit_command, shell=True)
 
 def get_options():
@@ -83,6 +87,10 @@ def get_options():
   grid_group.add_option("--n_jobs",
                         default = N_JOBS,
                         help = "Number of g4numi jobs. Default = %default.")
+
+  #grid_group.add_option("--group",  
+  #                      default = EXPERIMENT,
+  #                      help = "Experiment group, e.g. nova, dune. Default = %default.")
   
   beam_group   = optparse.OptionGroup(parser, "Beam Options")
   
