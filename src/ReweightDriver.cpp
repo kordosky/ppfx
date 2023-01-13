@@ -69,11 +69,20 @@ namespace NeutrinoFluxReweight{
     bool has_mipp = false;
     mipp_pion_wgt = 1.0;
     if(doMIPPNumi){
+      // The MIPP reweighting reweights a portion of the chain
+      // since it needs to handle the case of reinteractions in the target
+      // and figure out where in the chain the particle leaves the target
+      // and then mark everything upstream of that as a 1
+      // this is why it returns a vector. Since we run it first
+      // we just overwrite the existing vector.
       interaction_nodes = MIPP_NUMI_PION_Universe->canReweight(icd);
+      
       for(size_t ii=0;ii<interaction_nodes.size();ii++){
 	if(interaction_nodes[ii]==true){
-	  has_mipp = true;
+	  has_mipp = true; 
 	  mipp_pion_wgt = MIPP_NUMI_PION_Universe->calculateWeight(icd);
+	  // this odd structure is because the MIPP data
+	  // was taken on a numi target and can only produce a single weight
 	  break; 
 	}
       }
@@ -83,12 +92,15 @@ namespace NeutrinoFluxReweight{
     //MIPP NuMI Kaons:
     mipp_kaon_wgt = 1.0;
     if(!has_mipp && doMIPPNumi){
+      // see message above
       interaction_nodes = MIPP_NUMI_KAON_Universe->canReweight(icd);
-
+      
       for(size_t ii=0;ii<interaction_nodes.size();ii++){
 	if(interaction_nodes[ii]==true){
 	  has_mipp = true;
 	  mipp_kaon_wgt = MIPP_NUMI_KAON_Universe->calculateWeight(icd);
+	  // this odd structure is because the MIPP data
+	  // was taken on a numi target and can only produce a single weight
 	  break; 
 	}
       }

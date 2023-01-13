@@ -69,7 +69,11 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
   
   int Nuniverses = makerew->GetNumberOfUniversesUsed();
   printf("\n Number of universes: %d \n", Nuniverses);
-  
+
+//////////////// a long bit of code to make histograms //////////////////
+// MAK: 1/12/23 NEED to document what these histograms are and what their use is
+// Can this code also be pulled out into a function?
+// it's long and messy but does something simple to describe
   TH1D* hnom[Nnuhel];
   TH1D* hcv[Nnuhel];
   TH1D* hthin[Nnuhel][Nuniverses];
@@ -118,6 +122,7 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
       htotal[ii][jj]->SetYTitle(ytitle);
     }
   }
+///////////////// end of histogram making code ////////////////////////////
   
   //Loading ntuples:
   TChain* chain_evts   = new TChain("dk2nuTree");  
