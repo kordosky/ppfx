@@ -5,8 +5,8 @@
 namespace NeutrinoFluxReweight{ 
   InteractionChainData::InteractionChainData(){}
   InteractionChainData::InteractionChainData(nu_g4numi* nu, 
-					     const char* tgtcfg,
-					     const char* horncfg){
+                                             const char* tgtcfg,
+                                             const char* horncfg){
     
     // Fill in information about the hadron exiting the target
     // this information is needed in order to reweight yields
@@ -24,7 +24,7 @@ namespace NeutrinoFluxReweight{
     tar_info = TargetData(tarP,numi2pdg.GetPdg(nu->tptype),tarV,-1);
     
     // loop over trajectories, create InteractionData objects,
-    // and add them to the interaction_chain vector    
+    // and add them to the interaction_chain vector
     //(Note about units: In nudata format, the momentum unit is MeV)
     
     Int_t ntraj = nu->ntrajectory;
@@ -43,17 +43,17 @@ namespace NeutrinoFluxReweight{
  
       //It seems that the next while is causing seg fault in gcc 6.3:
       /*  while( is_fast_decay(pdg_prod) ){
-	  itraj_prod++;
-	  pdg_prod = nu->pdg[itraj_prod];
-	  } */   
+          itraj_prod++;
+          pdg_prod = nu->pdg[itraj_prod];
+          } */   
       if( is_fast_decay(pdg_prod) ){
-	for(int ifast = itraj_prod + 1; ifast < (ntraj-1); ifast++ ){
-	  pdg_prod = nu->pdg[ifast];
-	  itraj_prod++;
-	  pdg_prod = nu->pdg[itraj_prod];
-	  if( !is_fast_decay(pdg_prod) ) break;	  
-	}
-      }        
+        for(int ifast = itraj_prod + 1; ifast < (ntraj-1); ifast++ ){
+          pdg_prod = nu->pdg[ifast];
+          itraj_prod++;
+          pdg_prod = nu->pdg[itraj_prod];
+          if( !is_fast_decay(pdg_prod) ) break;
+        }
+      }
       double prodP[3];
       prodP[0] = nu->startpx[itraj_prod]/1000.;
       prodP[1] = nu->startpy[itraj_prod]/1000.;
@@ -64,7 +64,9 @@ namespace NeutrinoFluxReweight{
       vtx[1]=nu->starty[itraj_prod];
       vtx[2]=nu->startz[itraj_prod];
 
-      InteractionData inter(itraj, incP,nu->pdg[itraj],prodP,pdg_prod,std::string(nu->fvol[itraj]),this_proc,vtx);   
+      std::cout<<"Error, the following function call has not updated nucleus field"<<std::endl;
+      exit(1);
+      InteractionData inter(itraj, incP,nu->pdg[itraj],prodP,pdg_prod,std::string(nu->fvol[itraj]),0,this_proc,vtx);
       interaction_chain.push_back(inter);
     }
     
@@ -79,7 +81,7 @@ namespace NeutrinoFluxReweight{
   }
   
   InteractionChainData::InteractionChainData(bsim::Dk2Nu* nu, 
-					     bsim::DkMeta* meta){
+                                             bsim::DkMeta* meta){
     
     // Fill in information about the hadron exiting the target
     // this information is needed in order to reweight yields
@@ -109,7 +111,6 @@ namespace NeutrinoFluxReweight{
       
       int pdg_inc=nu->ancestor[itraj].pdg;
       double incP[3];
-      incP[0]=0.0;incP[1]=0.0;incP[2]=0.0;
       // itraj is the index of the projectile in each interaction.
       // one can find out what it did by looking at
       //       ancestor[itraj+1].proc
@@ -129,15 +130,15 @@ namespace NeutrinoFluxReweight{
       // Generally for hadron production studies, the second case isn't interesting
     //  if(nu->ancestor[itraj].pprodpz==0)std::cout<<"Found incident proton with 0 GeV Energy"<<std::endl;
       if( nu->ancestor[itraj].pprodpz != 0){
-	incP[0] = nu->ancestor[itraj].pprodpx;
-	incP[1] = nu->ancestor[itraj].pprodpy;
-	incP[2] = nu->ancestor[itraj].pprodpz;
+        incP[0] = nu->ancestor[itraj].pprodpx;
+        incP[1] = nu->ancestor[itraj].pprodpy;
+        incP[2] = nu->ancestor[itraj].pprodpz;
       
       }
       else{
-	incP[0]=nu->ancestor[itraj].stoppx;
-	incP[1]=nu->ancestor[itraj].stoppy;
-	incP[2]=nu->ancestor[itraj].stoppz;
+        incP[0]=nu->ancestor[itraj].stoppx;
+        incP[1]=nu->ancestor[itraj].stoppy;
+        incP[2]=nu->ancestor[itraj].stoppz;
       }
       Int_t itraj_prod = itraj + 1;
       Int_t pdg_prod   = nu->ancestor[itraj_prod].pdg;
@@ -147,17 +148,17 @@ namespace NeutrinoFluxReweight{
       // we are interested in their daughters
       //It seems that the next while is causing seg fault in gcc 6.3:
       /*while( is_fast_decay(pdg_prod) ){
-	itraj_prod++;
-	Nskip++;
-	pdg_prod = nu->ancestor[itraj_prod].pdg;
-	}*/
+        itraj_prod++;
+        Nskip++;
+        pdg_prod = nu->ancestor[itraj_prod].pdg;
+        }*/
       if( is_fast_decay(pdg_prod) ){
-	for(int ifast = itraj_prod + 1; ifast < (ntraj-1); ifast++ ){
-	  itraj_prod++;
-	  Nskip++;
+        for(int ifast = itraj_prod + 1; ifast < (ntraj-1); ifast++ ){
+          itraj_prod++;
+          Nskip++;
           pdg_prod = nu->ancestor[itraj_prod].pdg;
-	  if( !is_fast_decay(pdg_prod) ) break;	  
-	}
+          if( !is_fast_decay(pdg_prod) ) break;
+        }
       }
       double prodP[3];
       prodP[0] = nu->ancestor[itraj_prod].startpx;
@@ -169,15 +170,24 @@ namespace NeutrinoFluxReweight{
       vtx[1]=nu->ancestor[itraj_prod].starty;
       vtx[2]=nu->ancestor[itraj_prod].startz;
       std::string this_vol=nu->ancestor[itraj_prod].ivol;
+      int nucleus_pdg=nu->ancestor[itraj].nucleus; //nucleus on which the particle was produced is stored in previous entry
+
       
       //Get Rid of Hydrogen
-        if(pdg_prod == 1000010020 || pdg_inc == 1000010020|| pdg_inc == 1000020030||pdg_prod==1000020030){
+        if(pdg_prod == 1000010020 || pdg_inc == 1000010020){
       // std::cout<<"InteractionChainData::Unusual pdgcode found "<<pdg_prod<<std::endl; //For now just skipping these deuterons
-	continue;
-	}
+        continue;
+        }
       
-      InteractionData inter(itraj, incP,pdg_inc,prodP,pdg_prod,
-			    this_vol,this_proc,vtx);   
+      InteractionData inter(itraj,       //genid
+                            incP,        //incMom[]
+                            pdg_inc,     //incPdg
+                            prodP,       //prodMom[]
+                            pdg_prod,    //prodPdg
+                            this_vol,    //volname
+                            nucleus_pdg, //nucleus_pdg
+                            this_proc,   //procname
+                            vtx);        //vtx[]
       interaction_chain.push_back(inter);
 
     }// end loop over trajectories
@@ -187,7 +197,7 @@ namespace NeutrinoFluxReweight{
     if(meta->vintnames.size()==0){
       tar_info = TargetData(tarP,nu->tgtexit.tptype,tarV,-1);
     }
-    else{    
+    else{
       tar_info = TargetData(tarP,nu->tgtexit.tptype,tarV,nu->vint[0]-Nskip);
     }
     
@@ -206,13 +216,13 @@ namespace NeutrinoFluxReweight{
       if(nu->ancestor.size()==3 && ii==2)continue;
       pdgs[ii] = nu->ancestor[nu->ancestor.size()-ii-2].pdg;
       moms[ii] = sqrt(pow(nu->ancestor[nu->ancestor.size()-ii-2].startpx,2)+
-			pow(nu->ancestor[nu->ancestor.size()-ii-2].startpy,2)+
-			pow(nu->ancestor[nu->ancestor.size()-ii-2].startpz,2));
+                        pow(nu->ancestor[nu->ancestor.size()-ii-2].startpy,2)+
+                        pow(nu->ancestor[nu->ancestor.size()-ii-2].startpz,2));
       
       //Amounts:
       //control:
       if( (nu->vdbl)[ii] <0 || (nu->vdbl)[ii+3] <0 || (nu->vdbl)[ii+6] <0 || (nu->vdbl)[ii+9] <0){
-	std::cout<< "ERROR FILLING AMOUNT OF MATERIAL CROSSED (In InteractionChainData) !!!" <<std::endl;
+        std::cout<< "ERROR FILLING AMOUNT OF MATERIAL CROSSED (In InteractionChainData) !!!" <<std::endl;
       }
       amount_IC[ii]   = (nu->vdbl)[ii] + (nu->vdbl)[ii+3];
       amount_DPIP[ii] = (nu->vdbl)[ii+6];
@@ -230,7 +240,7 @@ namespace NeutrinoFluxReweight{
     
     target_config=meta->tgtcfg;
     horn_config=meta->horncfg;
-    if((mode=="REF")||(mode=="OPT"))target_config = "le00zmi";
+
     //special tgt configuration for Minerva (exact longitudinal position after survey)
     //check for other experiments
     if(meta->vintnames.size()>1){
@@ -239,7 +249,6 @@ namespace NeutrinoFluxReweight{
     else{
       playlist = -1;
     }
-    
   }
 
   std::ostream& InteractionChainData::print(std::ostream& os) const{
@@ -268,5 +277,4 @@ namespace NeutrinoFluxReweight{
     if( (pdg==221)||(pdg==331)||(pdg==3212)||(pdg==113)||(pdg==223) )fast_decay = true;
     return fast_decay;
   }
-
 }

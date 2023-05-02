@@ -112,16 +112,11 @@ namespace NeutrinoFluxReweight{
     if(aa.Inc_pdg != 211 && aa.Inc_pdg != -211 && aa.Inc_pdg != 321 && aa.Inc_pdg != -321 && aa.Inc_pdg != 130 && aa.Inc_pdg != 310)return false;
     if(aa.Prod_pdg != 211 && aa.Prod_pdg != -211 && aa.Prod_pdg != 321 && aa.Prod_pdg != -321 && aa.Prod_pdg != 130 && aa.Prod_pdg != 310 && aa.Prod_pdg != 2212 && aa.Prod_pdg != 2112)return false;
     */
-    
-    // this returns false if Inelastic is not in the Process string
-    // should test if the result of find == std::string::npos  (no position)
     if(aa.Proc.find("Inelastic")>100)return false;
     
     //  ThinTargetBins*  Thinbins =  ThinTargetBins::getInstance();
     //int bin      = Thinbins->meson_inc_BinID(aa.xF,aa.Pt,aa.Prod_pdg);
-
-    // this test will be true for all mesons, including exotic ones (JLab friends), but those are not
-    // produced by GEANT
+    
     bool is_mesoninc = (aa.Inc_pdg >99 && aa.Inc_pdg < 1000) || (aa.Inc_pdg <-99 && aa.Inc_pdg > -1000);
 
     //    if(bin>=0 || is_mesoninc)return true;

@@ -39,7 +39,6 @@ src/AbsorptionDVOLReweighter.cpp
 src/AbsorptionICReweighter.cpp
 src/AttenuationMC.cpp
 src/CentralValuesAndUncertainties.cpp
-src/FillIMapHists.cpp
 src/InteractionChainData.cpp
 src/InteractionData.cpp
 src/MIPPNumiKaonYieldsReweighter.cpp

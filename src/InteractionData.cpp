@@ -34,10 +34,11 @@ namespace NeutrinoFluxReweight{
     Gammacm = -1000.;
     
     Vol = "NoDefinied";
+    nucleus = -1;
     
   }
   
-  InteractionData::InteractionData(int genid, double incMom[], int incPdg, double prodMom[], int prodPdg, std::string volname, std::string procname, double vtx[]){
+  InteractionData::InteractionData(int genid, double incMom[], int incPdg, double prodMom[], int prodPdg, std::string volname, int nucleus_pdg, std::string procname, double vtx[]){
 
     particle = TDatabasePDG::Instance();
     // Z direction along the direction of the incident particle
@@ -70,11 +71,19 @@ namespace NeutrinoFluxReweight{
     InteractionData::Inc_Mass  = particle->GetParticle(Inc_pdg)->Mass();
     InteractionData::Prod_Mass = particle->GetParticle(Prod_pdg)->Mass();
 
-
     //Ecm, gamma:
+    /**
+     * Center of mass of the system of projectile
+     * and nucleon (not the nucleus!)
+     */
+    static const double NUCLEON_MASS =
+      (particle->GetParticle("proton")->Mass()
+      + particle->GetParticle("neutron")->Mass())/2;
+    static const double NUCLEON_MASS2 = NUCLEON_MASS * NUCLEON_MASS;
+
     double inc_E_lab = std::sqrt(Inc_P*Inc_P + pow(Inc_Mass,2));
-    InteractionData::Ecm       = std::sqrt(2.*pow(Inc_Mass,2)+2.*inc_E_lab*Inc_Mass); 
-    InteractionData::Betacm    = std::sqrt(pow(inc_E_lab,2)-pow(Inc_Mass,2.0))/(inc_E_lab + Inc_Mass); 
+    InteractionData::Ecm       = std::sqrt(pow(Inc_Mass,2) + NUCLEON_MASS2 + 2.*inc_E_lab*NUCLEON_MASS); 
+    InteractionData::Betacm    = std::sqrt(pow(inc_E_lab,2)-pow(Inc_Mass,2.0))/(inc_E_lab + NUCLEON_MASS); 
     InteractionData::Gammacm   = 1./std::sqrt(1.-pow(Betacm,2.0));
     
     //xF:
@@ -90,6 +99,15 @@ namespace NeutrinoFluxReweight{
     
     //Volume:
     InteractionData::Vol = volname;
+
+    //target nucleus z
+    if(!(nucleus_pdg / 1000000000)) {
+//       std::cout<<"Error! "<<nucleus_pdg<<" is not a nucleus code! Vol = "<<volname<<", Proc = "<<procname<<std::endl;
+      InteractionData::nucleus = -1;
+    }
+    else {
+      InteractionData::nucleus = (nucleus_pdg / 10000) % 1000;
+    }
 
     //Process:
     InteractionData::Proc = procname;

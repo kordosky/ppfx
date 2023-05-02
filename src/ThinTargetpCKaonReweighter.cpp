@@ -58,9 +58,8 @@ namespace NeutrinoFluxReweight{
     
   }
   
-  ThinTargetpCKaonReweighter::~ThinTargetpCKaonReweighter(){
-    
-  }
+  ThinTargetpCKaonReweighter::~ThinTargetpCKaonReweighter(){}
+  
   bool ThinTargetpCKaonReweighter::canReweight(const InteractionData& aa){
     //checking:
     std::string mode(getenv("MODE"));
@@ -69,7 +68,7 @@ namespace NeutrinoFluxReweight{
     //volume check: 
     bool is_wrong_volume = aa.Vol != "TGT1" && aa.Vol != "BudalMonitor" && aa.Vol != "Budal_HFVS" && aa.Vol != "Budal_VFHS";
     if( (mode=="REF") || (mode=="OPT") ){
-      is_wrong_volume = aa.Vol != "TargetFinHorizontal" && aa.Vol != "TargetNoSplitSegment" && aa.Vol!="tCoreLog";
+      is_wrong_volume = aa.Vol != "TargetFinHorizontal" && aa.Vol != "TargetNoSplitSegment";
     }
     if(is_wrong_volume)return false;
     //
@@ -92,10 +91,10 @@ namespace NeutrinoFluxReweight{
     if(iUniv==-1)tt_pCPionRew = (makerew->cv_rw)->THINTARGET_PC_PION_Universe;
     else tt_pCPionRew = (makerew->vec_rws[iUniv])->THINTARGET_PC_PION_Universe;   
 
-    InteractionData aux_intData(aa.gen, inc_mom,2212,prod_mom,211,aa.Vol,aa.Proc,vtx_int);   
+    InteractionData aux_intData(aa.gen, inc_mom,2212,prod_mom,211,aa.Vol,aa.nucleus,aa.Proc,vtx_int);   
     bool there_is_pip = tt_pCPionRew->canReweight(aux_intData);    
     
-    InteractionData aux_intData2(aa.gen, inc_mom,2212,prod_mom,-211,aa.Vol,aa.Proc,vtx_int);   
+    InteractionData aux_intData2(aa.gen, inc_mom,2212,prod_mom,-211,aa.Vol,aa.nucleus,aa.Proc,vtx_int);   
     bool there_is_pim = tt_pCPionRew->canReweight(aux_intData2); 
 
     if(aa.Prod_pdg == 321)return there_is_pip;
@@ -140,7 +139,7 @@ namespace NeutrinoFluxReweight{
       double pip_data = -1.0; 
       double pim_data = -1.0; 
       int bin_pi = -1;
-      InteractionData aux_aa(aa.gen, inc_mom,2212,prod_mom,211,aa.Vol,aa.Proc,vtx_int);    
+      InteractionData aux_aa(aa.gen, inc_mom,2212,prod_mom,211,aa.Vol,aa.nucleus,aa.Proc,vtx_int);
       if(aux_aa.xF<=0.5){
         bin_pi = Thinbins->BinID_pC_pi(aux_aa.xF,aux_aa.Pt,aux_aa.Prod_pdg);
         if(bin_pi<0)return 1.0;

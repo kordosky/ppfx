@@ -27,7 +27,7 @@ namespace NeutrinoFluxReweight{
     std::vector<bool> this_nodes;
     int index_vol = 1;
     double low_val = 1.E-20;    
-
+  
     std::vector<ParticlesThroughVolumesData>  vec_ptv = aa.ptv_info;
 
     bool passVOL = false;
@@ -43,7 +43,7 @@ namespace NeutrinoFluxReweight{
     
     std::vector<ParticlesThroughVolumesData>  vec_ptv = aa.ptv_info;
     std::string namepar;
-    double NA_mb    = 6.02E-4; // how is this number computed? Does it depend on material?
+    double NA_mb    = 6.02E-4;
     double wgt      = 1.0;
     double tot_dist = 0.0;
     double low_val  = 1.E-20;   
@@ -55,7 +55,6 @@ namespace NeutrinoFluxReweight{
       if(tot_dist<low_val)continue;
       if(abs(vec_ptv[index_vol].Pdgs[ii])!=321 && abs(vec_ptv[index_vol].Pdgs[ii])!=211)continue;
       
-      // what are the units of shift?
       if(abs(vec_ptv[index_vol].Pdgs[ii])== 211)shift = inel_piAl_xsec;
       else if(vec_ptv[index_vol].Pdgs[ii]== 321 && vec_ptv[index_vol].Moms[ii]<2.0)shift = inel_kapAl_xsec_lowP;
       else if(vec_ptv[index_vol].Pdgs[ii]== 321 && vec_ptv[index_vol].Moms[ii]>2.0)shift = inel_kapAl_xsec_highP;

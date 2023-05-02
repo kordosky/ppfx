@@ -50,7 +50,7 @@ namespace NeutrinoFluxReweight{
      *    -# ditto. call MIPP, then theory
      */
     double calculateWeight(const InteractionChainData& icd);
-    
+
     /*!  MIPP NuMI yield weight   */
     double mipp_pion_wgt;
 
@@ -82,28 +82,43 @@ namespace NeutrinoFluxReweight{
 
     /*! nuA    */
     double nuA_wgt;
+    double pC_QEL_wgt;
+    double nuAlFe_wgt;
     
     /*! Meson incident weights   */
     double meson_inc_wgt;
+
+    double meson_inc_projectile_pip_wgt;
+    double meson_inc_projectile_pim_wgt;
+    double meson_inc_projectile_Kp_wgt;
+    double meson_inc_projectile_Km_wgt;
+    double meson_inc_projectile_K0_wgt;
+
+    double meson_inc_daughter_pip_wgt;
+    double meson_inc_daughter_pim_wgt;
+    double meson_inc_daughter_Kp_wgt;
+    double meson_inc_daughter_Km_wgt;
+    double meson_inc_daughter_K0_wgt;
+
     
      /*!   Any other hadronic interaction not corrected yet   */
     double other_wgt;
     
-    MIPPNumiPionYieldsReweighter* MIPP_NUMI_PION_Universe;
-    MIPPNumiKaonYieldsReweighter* MIPP_NUMI_KAON_Universe;
-    TargetAttenuationReweighter* TARG_ATT_Universe;
-    AbsorptionICReweighter*   VOL_ABS_IC_Universe;
-    AbsorptionDPIPReweighter* VOL_ABS_DPIP_Universe;
-    AbsorptionDVOLReweighter* VOL_ABS_DVOL_Universe;
+    MIPPNumiPionYieldsReweighter*           MIPP_NUMI_PION_Universe;
+    MIPPNumiKaonYieldsReweighter*           MIPP_NUMI_KAON_Universe;
+    TargetAttenuationReweighter*            TARG_ATT_Universe;
+    AbsorptionICReweighter*                 VOL_ABS_IC_Universe;
+    AbsorptionDPIPReweighter*               VOL_ABS_DPIP_Universe;
+    AbsorptionDVOLReweighter*               VOL_ABS_DVOL_Universe;
     NucleonAbsorptionOutOfTargetReweighter* VOL_ABS_NUCLEON_Universe;
-    OtherAbsorptionOutOfTargetReweighter* VOL_ABS_OTHER_Universe;
-    ThinTargetpCPionReweighter* THINTARGET_PC_PION_Universe;
-    ThinTargetpCKaonReweighter* THINTARGET_PC_KAON_Universe;
-    ThinTargetnCPionReweighter* THINTARGET_NC_PION_Universe;
-    ThinTargetpCNucleonReweighter* THINTARGET_PC_NUCLEON_Universe;
-    ThinTargetMesonIncidentReweighter* THINTARGET_MESON_INCIDENT_Universe;
+    OtherAbsorptionOutOfTargetReweighter*   VOL_ABS_OTHER_Universe;
+    ThinTargetpCPionReweighter*             THINTARGET_PC_PION_Universe;
+    ThinTargetpCKaonReweighter*             THINTARGET_PC_KAON_Universe;
+    ThinTargetnCPionReweighter*             THINTARGET_NC_PION_Universe;
+    ThinTargetpCNucleonReweighter*          THINTARGET_PC_NUCLEON_Universe;
+    ThinTargetMesonIncidentReweighter*      THINTARGET_MESON_INCIDENT_Universe;
 
-    ThinTargetnucleonAReweighter* THINTARGET_NUCLEON_A_Universe;
+    ThinTargetnucleonAReweighter*           THINTARGET_NUCLEON_A_Universe;
 
     OtherReweighter* OTHER_Universe;
 

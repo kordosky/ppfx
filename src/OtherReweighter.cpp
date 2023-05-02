@@ -15,12 +15,7 @@ namespace NeutrinoFluxReweight{
     
   }
   bool OtherReweighter::canReweight(const InteractionData& aa){
- 
-    if(aa.Proc.find("Inelastic")<100){
-      return true;
-    }
-    else return false;
-    
+    return aa.Proc.find("Inelastic") != aa.Proc.npos;
   }
   
   double OtherReweighter::calculateWeight(const InteractionData& thisid){

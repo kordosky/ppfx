@@ -43,14 +43,12 @@ namespace NeutrinoFluxReweight{
      
     std::vector<ParticlesThroughVolumesData>  vec_ptv = aa.ptv_info;
     std::string namepar;
-    // document how this number was computed
-    double NA_mb    = 6.02E-4; // conversion factor to get tot_dist below into unitless numbers
+    double NA_mb    = 6.02E-4;
     double wgt      = 1.0;
     double tot_dist = 0.0;
     double low_val  = 1.E-20;   
     int index_vol = 0;
     
-    // need to document
     for(int ii=0;ii<3;ii++){
       float shift = 0.0;
       tot_dist = vec_ptv[index_vol].AmountMat[ii];
@@ -62,7 +60,7 @@ namespace NeutrinoFluxReweight{
       else if(vec_ptv[index_vol].Pdgs[ii]== 321 && vec_ptv[index_vol].Moms[ii]>2.0)shift = inel_kapAl_xsec_highP;
       else if(vec_ptv[index_vol].Pdgs[ii]==-321 && vec_ptv[index_vol].Moms[ii]<2.0)shift = inel_kamAl_xsec_lowP;
       else if(vec_ptv[index_vol].Pdgs[ii]==-321 && vec_ptv[index_vol].Moms[ii]>2.0)shift = inel_kamAl_xsec_highP;
-      // converts tot_dist into a unitless number and applies MU shift
+      
       tot_dist *= NA_mb;
       tot_dist *= shift;
       

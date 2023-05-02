@@ -3,6 +3,8 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/xml_parser.hpp>
 
+#include "PDGParticleCodes.h"
+
 namespace NeutrinoFluxReweight{
 
   MakeReweight* MakeReweight::instance = 0;
@@ -28,7 +30,7 @@ namespace NeutrinoFluxReweight{
   void MakeReweight::Initialize(){
     
     //Getting MIPP binning and the correlation parameters:
-    CentralValuesAndUncertainties* cvu = CentralValuesAndUncertainties::getInstance();;
+    CentralValuesAndUncertainties* cvu = CentralValuesAndUncertainties::getInstance();
     MIPPNumiYieldsBins*  myb =  MIPPNumiYieldsBins::getInstance(); 
     ThinTargetBins*  thinbin =  ThinTargetBins::getInstance(); 
     MIPPNumiMC*  mymc =  MIPPNumiMC::getInstance(); 
@@ -101,13 +103,52 @@ namespace NeutrinoFluxReweight{
     doTheJob(&inter_chain);
   }
   /////
-  void MakeReweight::calculateWeights(bsim::Dk2Nu* nu, bsim::DkMeta* meta){  
+  void MakeReweight::calculateWeights(bsim::Dk2Nu* nu, bsim::DkMeta* meta){
     InteractionChainData inter_chain(nu,meta);
     doTheJob(&inter_chain);
   }
   /////
   void MakeReweight::doTheJob(InteractionChainData* icd){
-  
+    
+    //check if there was any QEL-like interaction
+    bool reprocess_qel = false;
+    std::vector<bool> qel;
+    for(const InteractionData & aa : icd->interaction_chain) {
+      if((aa.Inc_pdg == pdg::P || aa.Inc_pdg == pdg::N) && aa.Inc_pdg == aa.Prod_pdg && (aa.xF > 0.95 || (aa.Pt < aa.xF - 0.5))) {
+        qel.push_back(true);
+        reprocess_qel = true;
+      }
+      else {
+        qel.push_back(false);
+      }
+    }
+    InteractionChainData * icd_qel;
+    if(reprocess_qel) {
+      icd_qel = new InteractionChainData(*icd);
+      for(int i = 0; i < icd_qel->interaction_chain.size() - 1; i++) {
+        if(qel[i]){
+          const double momentum_adjustment = icd_qel->interaction_chain[i].Inc_P/icd_qel->interaction_chain[i+1].Inc_P;
+          icd_qel->interaction_chain[i+1].Inc_P4[0] *= momentum_adjustment; 
+          icd_qel->interaction_chain[i+1].Inc_P4[1] *= momentum_adjustment; 
+          icd_qel->interaction_chain[i+1].Inc_P4[2] *= momentum_adjustment; 
+          
+          icd_qel->interaction_chain[i+1].Inc_P     = icd_qel->interaction_chain[i].Inc_P;
+          icd_qel->interaction_chain[i+1].Inc_P4[3] = icd_qel->interaction_chain[i].Inc_P4[3];
+          icd_qel->interaction_chain[i+1].Ecm       = icd_qel->interaction_chain[i].Ecm;
+          icd_qel->interaction_chain[i+1].Betacm    = icd_qel->interaction_chain[i].Betacm;
+          icd_qel->interaction_chain[i+1].Gammacm   = icd_qel->interaction_chain[i].Gammacm;
+          /**
+           * The intention of the code above was to pretend the QEL
+           * interaction did not occur at all, but I realize this
+           * approach is oversimplified, because as I modify the
+           * particle momentum, PPFX will also look for data in another
+           * MC bin. A proper study would require more changes to the
+           * code
+           */
+        }
+      }
+    }
+    
     //universe calculation:
     map_rew_wgts.clear();
     for(int ii=0;ii<Nuniverses;ii++){
@@ -116,7 +157,7 @@ namespace NeutrinoFluxReweight{
       map_rew_wgts["MIPPNumiPionYields"].push_back(vec_rws[ii]->mipp_pion_wgt);
       map_rew_wgts["MIPPNumiKaonYields"].push_back(vec_rws[ii]->mipp_kaon_wgt);
       
-      map_rew_wgts["TargetAttenuation"].push_back(vec_rws[ii]->att_wgt);            
+      map_rew_wgts["TargetAttenuation"].push_back(vec_rws[ii]->att_wgt);
       map_rew_wgts["AbsorptionIC"].push_back(vec_rws[ii]->abs_ic_wgt);
       map_rew_wgts["AbsorptionDPIP"].push_back(vec_rws[ii]->abs_dpip_wgt);
       map_rew_wgts["AbsorptionDVOL"].push_back(vec_rws[ii]->abs_dvol_wgt);
@@ -129,9 +170,28 @@ namespace NeutrinoFluxReweight{
       map_rew_wgts["ThinTargetnCPion"].push_back(vec_rws[ii]->nC_pi_wgt);
       map_rew_wgts["ThinTargetpCNucleon"].push_back(vec_rws[ii]->pC_nu_wgt);
       map_rew_wgts["ThinTargetMesonIncident"].push_back(vec_rws[ii]->meson_inc_wgt);
+      map_rew_wgts["ThinTargetMesonIncident_ProjectilePip"].push_back(vec_rws[ii]->meson_inc_projectile_pip_wgt);
+      map_rew_wgts["ThinTargetMesonIncident_ProjectilePim"].push_back(vec_rws[ii]->meson_inc_projectile_pim_wgt);
+      map_rew_wgts["ThinTargetMesonIncident_ProjectileKp"].push_back(vec_rws[ii]->meson_inc_projectile_Kp_wgt);
+      map_rew_wgts["ThinTargetMesonIncident_ProjectileKm"].push_back(vec_rws[ii]->meson_inc_projectile_Km_wgt);
+      map_rew_wgts["ThinTargetMesonIncident_ProjectileK0"].push_back(vec_rws[ii]->meson_inc_projectile_K0_wgt);
+      map_rew_wgts["ThinTargetMesonIncident_DaughterPip"].push_back(vec_rws[ii]->meson_inc_daughter_pip_wgt);
+      map_rew_wgts["ThinTargetMesonIncident_DaughterPim"].push_back(vec_rws[ii]->meson_inc_daughter_pim_wgt);
+      map_rew_wgts["ThinTargetMesonIncident_DaughterKp"].push_back(vec_rws[ii]->meson_inc_daughter_Kp_wgt);
+      map_rew_wgts["ThinTargetMesonIncident_DaughterKm"].push_back(vec_rws[ii]->meson_inc_daughter_Km_wgt);
+      map_rew_wgts["ThinTargetMesonIncident_DaughterK0"].push_back(vec_rws[ii]->meson_inc_daughter_K0_wgt);
       map_rew_wgts["ThinTargetnucleonA"].push_back(vec_rws[ii]->nuA_wgt);
+      map_rew_wgts["ThinTargetnucleonAlFe"].push_back(vec_rws[ii]->nuAlFe_wgt);
       map_rew_wgts["Other"].push_back(vec_rws[ii]->other_wgt);
-
+      
+      if(reprocess_qel) {
+        //reprocess the whole chain with QEL disabled
+        double new_weight = vec_rws[ii]->calculateWeight(*icd_qel);
+        map_rew_wgts["ThinTargetpCQEL"].push_back(vec_wgts[ii] - new_weight + 1);
+      }
+      else {
+        map_rew_wgts["ThinTargetpCQEL"].push_back(1);
+      }
     }
     
     //cv calculation:

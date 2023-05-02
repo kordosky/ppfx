@@ -133,8 +133,6 @@ namespace NeutrinoFluxReweight{
     baseSeed = val;
   }
   ParameterTable CentralValuesAndUncertainties::calculateParsForUniverse(int universe){
-
-    // WARNING: if you add new data here it needs to be added at the end
     
     //If universe = -1, then it is the central value:
     double cvfactor = 1.0;

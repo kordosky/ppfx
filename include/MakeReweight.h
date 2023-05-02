@@ -31,12 +31,12 @@ namespace NeutrinoFluxReweight{
    */
   class MakeReweight{
  
-  private:   
+  private:
     MakeReweight();
     ~MakeReweight();
     
   public:
-    void SetOptions(std::string fileIn);    
+    void SetOptions(std::string fileIn);
     static MakeReweight* getInstance();
     static void resetInstance();
     
@@ -67,7 +67,7 @@ namespace NeutrinoFluxReweight{
     //! Reweighter Drivers for the central value
     ReweightDriver* cv_rw;
 
-  private:    
+  private:
     /*!
      * Inititalize the job and configurethe ReweighterDrivier
      */
@@ -80,7 +80,7 @@ namespace NeutrinoFluxReweight{
     std::vector<ParameterTable> cvPars,univPars;
     int Nuniverses;
     std::string mippCorrOption;
-    std::string fileOptions;    
+    std::string fileOptions;
     std::vector<double> vec_wgts;
     std::map<std::string,std::vector<double> > map_rew_wgts;
     double cv_wgt;

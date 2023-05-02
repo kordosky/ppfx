@@ -25,8 +25,7 @@ namespace NeutrinoFluxReweight{
     //volume check: 
     bool is_wrong_volume = aa.Vol != "TGT1" && aa.Vol != "BudalMonitor" && aa.Vol != "Budal_HFVS" && aa.Vol != "Budal_VFHS";
     if( (mode=="REF") || (mode=="OPT") ){
-     // is_wrong_volume = aa.Vol != "TargetFinHorizontal" && aa.Vol != "TargetNoSplitSegment";
-      is_wrong_volume = aa.Vol != "TargetFinHorizontal" && aa.Vol != "TargetNoSplitSegment" && aa.Vol!="tCoreLog";     
+      is_wrong_volume = aa.Vol != "TargetFinHorizontal" && aa.Vol != "TargetNoSplitSegment";
     }
     if(is_wrong_volume)return false;
     //
@@ -36,7 +35,7 @@ namespace NeutrinoFluxReweight{
     double prod_mom[3] = {aa.Prod_P4[0],aa.Prod_P4[1],aa.Prod_P4[2]};
     double vtx_int[3]  = {aa.Vtx[0],aa.Vtx[1],aa.Vtx[2]};
     
-    InteractionData intData(aa.gen, inc_mom,2212,prod_mom,-1*aa.Prod_pdg,aa.Vol,aa.Proc,vtx_int);
+    InteractionData intData(aa.gen, inc_mom,2212,prod_mom,-1*aa.Prod_pdg,aa.Vol,aa.nucleus,aa.Proc,vtx_int);
     return tt_pCPionRew->canReweight(intData);
     
   }
@@ -50,7 +49,7 @@ namespace NeutrinoFluxReweight{
     double inc_mom[3]  = {aa.Inc_P4[0], aa.Inc_P4[1], aa.Inc_P4[2]};
     double prod_mom[3] = {aa.Prod_P4[0],aa.Prod_P4[1],aa.Prod_P4[2]};
     double vtx_int[3]  = {aa.Vtx[0],aa.Vtx[1],aa.Vtx[2]};
-    InteractionData intData(aa.gen, inc_mom,2212,prod_mom,-1*aa.Prod_pdg,aa.Vol,aa.Proc,vtx_int);
+    InteractionData intData(aa.gen, inc_mom,2212,prod_mom,-1*aa.Prod_pdg,aa.Vol,aa.nucleus,aa.Proc,vtx_int);
 
     double wgt = tt_pCPionRew->calculateWeight(intData);
 

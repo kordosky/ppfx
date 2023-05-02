@@ -24,7 +24,7 @@ namespace NeutrinoFluxReweight{
     InteractionData();
 
     //! Constructor given kinematic of the interaction.
-    InteractionData(int genid, double incMom[], int incPdg, double prodMom[], int prodPdg, std::string volname, std::string procname, double vtx[]);
+    InteractionData(int genid, double incMom[], int incPdg, double prodMom[], int prodPdg, std::string volname, int nucleus_pdg, std::string procname, double vtx[]);
 
     virtual ~InteractionData();
 
@@ -81,6 +81,9 @@ namespace NeutrinoFluxReweight{
 
     //! Interaction volume 
     std::string Vol;
+
+    //target nucleus (pdg code)
+    int nucleus;
 
     //! Interaction process
     std::string Proc;
