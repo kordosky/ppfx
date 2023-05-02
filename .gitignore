@@ -1,0 +1,6 @@
+*.swp
+src/*.o
+bin/
+html/
+latex/
+lib/
