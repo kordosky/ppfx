@@ -4,7 +4,7 @@ INCLUDES = -I./include -I$(shell root-config --incdir) -I${BOOST_INC} -I${DK2NU}
 DEPLIBS=$(shell root-config --libs) -lEG
 
 CC	=	g++
-COPTS	=	-fPIC -DLINUX -O0  -g $(shell root-config --cflags) 
+COPTS	=	-fPIC -DLINUX -O2  -g $(shell root-config --cflags) 
 FLAGS   =       -g
 
 all:    lib programs doxy
