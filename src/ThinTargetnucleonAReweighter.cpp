@@ -98,7 +98,7 @@ namespace NeutrinoFluxReweight{
     //if(aa.Prod_pdg != 211 && aa.Prod_pdg != -211 && aa.Prod_pdg !=321 && aa.Prod_pdg != -321 && aa.Prod_pdg !=310 && aa.Prod_pdg != 130)return false;
     
     // ThinTargetBins*  Thinbins =  ThinTargetBins::getInstance();
-    //int bin = Thinbins->material_scaling_BinID(aa.xF,aa.Pt,aa.Prod_pdg);
+    // int bin = Thinbins->material_scaling_BinID(aa.xF,aa.Pt,aa.Prod_pdg);
     // if(bin<0)return false;
     
     /*
@@ -219,29 +219,47 @@ namespace NeutrinoFluxReweight{
  
     //trick... using a function for meson incident... same binning.
     int binnu      = Thinbins->meson_inc_BinID(aa.xF,aa.Pt,211);
-    if(binnu<0)return 1.0;
+    // we've modified the meson bins to include negative xF, so these are unphysical bins 
+    // but don't return 1. either way
+    if(binnu < 0){
+      if(aa.Inc_pdg == 2212) return bin_prtleftover_inc;
+      else if(aa.Inc_pdg == 2112) return bin_neuleftover_inc;
+    }
 
     if(aa.Inc_pdg ==2212){
-      if(aa.Prod_pdg == 211) wgt = vbin_prt_inc_pip[binnu];
-      else if(aa.Prod_pdg ==-211) wgt = vbin_prt_inc_pim[binnu];
-      else if(aa.Prod_pdg == 321) wgt = vbin_prt_inc_kap[binnu];
-      else if(aa.Prod_pdg ==-321) wgt = vbin_prt_inc_kam[binnu];
-      else if(aa.Prod_pdg ==130 || aa.Prod_pdg ==310) wgt = vbin_prt_inc_k0[binnu];
-      else if(aa.Prod_pdg ==2212) wgt = vbin_prt_inc_p[binnu];
-      else if(aa.Prod_pdg ==2112) wgt = vbin_prt_inc_n[binnu];	
-      else wgt = bin_prtleftover_inc;	
+    
+      // add extra uncertainties for xF < 0
+      // treatment here is basically 40% corr. across hadron species + 40% uncorr. across all species, xF bins 
+      double negxF_corrunc = 1.;
+      if(aa.xF < 0.) negxF_corrunc = bin_prtleftover_inc;
+      
+      if(aa.Prod_pdg == 211) wgt = vbin_prt_inc_pip[binnu] * negxF_corrunc;
+      else if(aa.Prod_pdg ==-211) wgt = vbin_prt_inc_pim[binnu] * negxF_corrunc;
+      else if(aa.Prod_pdg == 321) wgt = vbin_prt_inc_kap[binnu] * negxF_corrunc;
+      else if(aa.Prod_pdg ==-321) wgt = vbin_prt_inc_kam[binnu] * negxF_corrunc;
+      else if(aa.Prod_pdg ==130 || aa.Prod_pdg ==310) wgt = vbin_prt_inc_k0[binnu] * negxF_corrunc;
+      else if(aa.Prod_pdg ==2212) wgt = vbin_prt_inc_p[binnu] * negxF_corrunc;
+      else if(aa.Prod_pdg ==2112) wgt = vbin_prt_inc_n[binnu] * negxF_corrunc;	
+      else wgt = bin_prtleftover_inc;
     }
     else if(aa.Inc_pdg ==2112){
-      if(aa.Prod_pdg == 211) wgt = vbin_neu_inc_pip[binnu];
-      else if(aa.Prod_pdg ==-211) wgt = vbin_neu_inc_pim[binnu];
-      else if(aa.Prod_pdg == 321) wgt = vbin_neu_inc_kap[binnu];
-      else if(aa.Prod_pdg ==-321) wgt = vbin_neu_inc_kam[binnu];
-      else if(aa.Prod_pdg ==130 || aa.Prod_pdg ==310) wgt = vbin_neu_inc_k0[binnu];
-      else if(aa.Prod_pdg ==2212) wgt = vbin_neu_inc_p[binnu];
-      else if(aa.Prod_pdg ==2112) wgt = vbin_neu_inc_n[binnu];
+   
+      double negxF_corrunc = 1.;
+      if(aa.xF < 0.) negxF_corrunc = bin_neuleftover_inc;
+      
+      if(aa.Prod_pdg == 211) wgt = vbin_neu_inc_pip[binnu] * negxF_corrunc;
+      else if(aa.Prod_pdg ==-211) wgt = vbin_neu_inc_pim[binnu] * negxF_corrunc;
+      else if(aa.Prod_pdg == 321) wgt = vbin_neu_inc_kap[binnu] * negxF_corrunc;
+      else if(aa.Prod_pdg ==-321) wgt = vbin_neu_inc_kam[binnu] * negxF_corrunc;
+      else if(aa.Prod_pdg ==130 || aa.Prod_pdg ==310) wgt = vbin_neu_inc_k0[binnu] * negxF_corrunc;
+      else if(aa.Prod_pdg ==2212) wgt = vbin_neu_inc_p[binnu] * negxF_corrunc;
+      else if(aa.Prod_pdg ==2112) wgt = vbin_neu_inc_n[binnu] * negxF_corrunc;
       else wgt = bin_neuleftover_inc;	
     }						
-  
+    
+    if(wgt < 0.) return 0.0001; // cap this at near-0 instead of returning 1.
+    if(wgt > 10.) return 1.0;   // ignore larger weights than this
+
     return wgt;
     
   }
