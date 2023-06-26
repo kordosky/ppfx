@@ -5,25 +5,45 @@
     <ThinTarget_MesonIncident>
  
       <ThinTarget_MesonIncident_0>
-	<xfrange>0.00 0.25</xfrange>
+	<xfrange>-1.00 -0.75</xfrange>
 	<ptrange>0.00 2.00</ptrange>
       </ThinTarget_MesonIncident_0>      
 
       <ThinTarget_MesonIncident_1>
-	<xfrange>0.25 0.50</xfrange>
+	<xfrange>-0.75 -0.50</xfrange>
 	<ptrange>0.00 2.00</ptrange>
       </ThinTarget_MesonIncident_1>
 
       <ThinTarget_MesonIncident_2>
-	<xfrange>0.50 0.75</xfrange>
+	<xfrange>-0.50 -0.25</xfrange>
 	<ptrange>0.00 2.00</ptrange>
       </ThinTarget_MesonIncident_2>
 
       <ThinTarget_MesonIncident_3>
-	<xfrange>0.75 1.0</xfrange>
+	<xfrange>-0.25 0.00</xfrange>
 	<ptrange>0.00 2.00</ptrange>
       </ThinTarget_MesonIncident_3>
 
+      <ThinTarget_MesonIncident_4>
+	<xfrange>0.00 0.25</xfrange>
+	<ptrange>0.00 2.00</ptrange>
+      </ThinTarget_MesonIncident_4>      
+
+      <ThinTarget_MesonIncident_5>
+	<xfrange>0.25 0.50</xfrange>
+	<ptrange>0.00 2.00</ptrange>
+      </ThinTarget_MesonIncident_5>
+
+      <ThinTarget_MesonIncident_6>
+	<xfrange>0.50 0.75</xfrange>
+	<ptrange>0.00 2.00</ptrange>
+      </ThinTarget_MesonIncident_6>
+
+      <ThinTarget_MesonIncident_7>
+	<xfrange>0.75 1.00</xfrange>
+	<ptrange>0.00 2.00</ptrange>
+      </ThinTarget_MesonIncident_7>
+      
     </ThinTarget_MesonIncident>
  
 
