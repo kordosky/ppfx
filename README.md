@@ -1,4 +1,4 @@
-# ppfx
+# PPFX - a Package to Predict the FluX
 
 This is new repository for official PPFX development intended to support experiments over the long term.
 
