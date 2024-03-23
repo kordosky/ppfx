@@ -60,7 +60,7 @@ namespace NeutrinoFluxReweight{
     
     for(int ii=0;ii<5;ii++){
       for(int jj=0;jj<7;jj++){
-	for(int kk=0;kk<4;kk++){
+	for(int kk=0;kk<Thinbins->GetNbins_meson_incident();kk++){
 	  
 	  sprintf(namepar,"ThinTarget_%s_incident_%s_%d",cinc[ii],cpro[jj],kk);
 	  dataval = univPars.getParameterValue(std::string(namepar));
@@ -141,50 +141,54 @@ namespace NeutrinoFluxReweight{
     bool is_mesoninc = (aa.Inc_pdg >99 && aa.Inc_pdg < 1000) || (aa.Inc_pdg <-99 && aa.Inc_pdg > -1000);
     if(bin>=0 && right_inc && right_prod){
 
+      // same treatment as nucleon-A reweighter for xF < 0
+      double negxF_corrunc = 1.;
+      if(aa.xF < 0.) negxF_corrunc = bin_mesonleftover_inc;
+
       if(aa.Inc_pdg == 211){
-	if(aa.Prod_pdg == 211) wgt = vbin_pip_inc_pip[bin];
-	if(aa.Prod_pdg ==-211) wgt = vbin_pip_inc_pim[bin];
-	if(aa.Prod_pdg == 321) wgt = vbin_pip_inc_kap[bin];
-	if(aa.Prod_pdg ==-321) wgt = vbin_pip_inc_kam[bin];
-	if(aa.Prod_pdg ==130 || aa.Prod_pdg ==310) wgt = vbin_pip_inc_k0[bin];
-	if(aa.Prod_pdg ==2212) wgt = vbin_pip_inc_p[bin];
-	if(aa.Prod_pdg ==2112) wgt = vbin_pip_inc_n[bin];	
+	if(aa.Prod_pdg == 211) wgt = vbin_pip_inc_pip[bin] * negxF_corrunc;
+	if(aa.Prod_pdg ==-211) wgt = vbin_pip_inc_pim[bin] * negxF_corrunc;
+	if(aa.Prod_pdg == 321) wgt = vbin_pip_inc_kap[bin] * negxF_corrunc;
+	if(aa.Prod_pdg ==-321) wgt = vbin_pip_inc_kam[bin] * negxF_corrunc;
+	if(aa.Prod_pdg ==130 || aa.Prod_pdg ==310) wgt = vbin_pip_inc_k0[bin] * negxF_corrunc;
+	if(aa.Prod_pdg ==2212) wgt = vbin_pip_inc_p[bin] * negxF_corrunc;
+	if(aa.Prod_pdg ==2112) wgt = vbin_pip_inc_n[bin] * negxF_corrunc;	
       }
       else if(aa.Inc_pdg ==-211){
-	if(aa.Prod_pdg == 211) wgt = vbin_pim_inc_pip[bin];
-	if(aa.Prod_pdg ==-211) wgt = vbin_pim_inc_pim[bin];
-	if(aa.Prod_pdg == 321) wgt = vbin_pim_inc_kap[bin];
-	if(aa.Prod_pdg ==-321) wgt = vbin_pim_inc_kam[bin];
-	if(aa.Prod_pdg ==130 || aa.Prod_pdg ==310) wgt = vbin_pim_inc_k0[bin];
-	if(aa.Prod_pdg ==2212) wgt = vbin_pim_inc_p[bin];
-	if(aa.Prod_pdg ==2112) wgt = vbin_pim_inc_n[bin];	
+	if(aa.Prod_pdg == 211) wgt = vbin_pim_inc_pip[bin] * negxF_corrunc;
+	if(aa.Prod_pdg ==-211) wgt = vbin_pim_inc_pim[bin] * negxF_corrunc;
+	if(aa.Prod_pdg == 321) wgt = vbin_pim_inc_kap[bin] * negxF_corrunc;
+	if(aa.Prod_pdg ==-321) wgt = vbin_pim_inc_kam[bin] * negxF_corrunc;
+	if(aa.Prod_pdg ==130 || aa.Prod_pdg ==310) wgt = vbin_pim_inc_k0[bin] * negxF_corrunc;
+	if(aa.Prod_pdg ==2212) wgt = vbin_pim_inc_p[bin] * negxF_corrunc;
+	if(aa.Prod_pdg ==2112) wgt = vbin_pim_inc_n[bin] * negxF_corrunc;	
       }
       else if(aa.Inc_pdg == 321){
-	if(aa.Prod_pdg == 211) wgt = vbin_kap_inc_pip[bin];
-	if(aa.Prod_pdg ==-211) wgt = vbin_kap_inc_pim[bin];
-	if(aa.Prod_pdg == 321) wgt = vbin_kap_inc_kap[bin];
-	if(aa.Prod_pdg ==-321) wgt = vbin_kap_inc_kam[bin];
-	if(aa.Prod_pdg ==130 || aa.Prod_pdg ==310) wgt = vbin_kap_inc_k0[bin];
-	if(aa.Prod_pdg ==2212) wgt = vbin_kap_inc_p[bin];
-	if(aa.Prod_pdg ==2112) wgt = vbin_kap_inc_n[bin];	
+	if(aa.Prod_pdg == 211) wgt = vbin_kap_inc_pip[bin] * negxF_corrunc;
+	if(aa.Prod_pdg ==-211) wgt = vbin_kap_inc_pim[bin] * negxF_corrunc;
+	if(aa.Prod_pdg == 321) wgt = vbin_kap_inc_kap[bin] * negxF_corrunc;
+	if(aa.Prod_pdg ==-321) wgt = vbin_kap_inc_kam[bin] * negxF_corrunc;
+	if(aa.Prod_pdg ==130 || aa.Prod_pdg ==310) wgt = vbin_kap_inc_k0[bin] * negxF_corrunc;
+	if(aa.Prod_pdg ==2212) wgt = vbin_kap_inc_p[bin] * negxF_corrunc;
+	if(aa.Prod_pdg ==2112) wgt = vbin_kap_inc_n[bin] * negxF_corrunc;	
       }
       else if(aa.Inc_pdg ==-321){
-	if(aa.Prod_pdg == 211) wgt = vbin_kam_inc_pip[bin];
-	if(aa.Prod_pdg ==-211) wgt = vbin_kam_inc_pim[bin];
-	if(aa.Prod_pdg == 321) wgt = vbin_kam_inc_kap[bin];
-	if(aa.Prod_pdg ==-321) wgt = vbin_kam_inc_kam[bin];
-	if(aa.Prod_pdg ==130 || aa.Prod_pdg ==310) wgt = vbin_kam_inc_k0[bin];
-	if(aa.Prod_pdg ==2212) wgt = vbin_kam_inc_p[bin];
-	if(aa.Prod_pdg ==2112) wgt = vbin_kam_inc_n[bin];	
+	if(aa.Prod_pdg == 211) wgt = vbin_kam_inc_pip[bin] * negxF_corrunc;
+	if(aa.Prod_pdg ==-211) wgt = vbin_kam_inc_pim[bin] * negxF_corrunc;
+	if(aa.Prod_pdg == 321) wgt = vbin_kam_inc_kap[bin] * negxF_corrunc;
+	if(aa.Prod_pdg ==-321) wgt = vbin_kam_inc_kam[bin] * negxF_corrunc;
+	if(aa.Prod_pdg ==130 || aa.Prod_pdg ==310) wgt = vbin_kam_inc_k0[bin] * negxF_corrunc;
+	if(aa.Prod_pdg ==2212) wgt = vbin_kam_inc_p[bin] * negxF_corrunc;
+	if(aa.Prod_pdg ==2112) wgt = vbin_kam_inc_n[bin] * negxF_corrunc;	
       }
       else if(aa.Inc_pdg == 130 || aa.Inc_pdg == 310){
-	if(aa.Prod_pdg == 211) wgt = vbin_k0_inc_pip[bin];
-	if(aa.Prod_pdg ==-211) wgt = vbin_k0_inc_pim[bin];
-	if(aa.Prod_pdg == 321) wgt = vbin_k0_inc_kap[bin];
-	if(aa.Prod_pdg ==-321) wgt = vbin_k0_inc_kam[bin];
-	if(aa.Prod_pdg ==130 || aa.Prod_pdg ==310) wgt = vbin_k0_inc_k0[bin];
-	if(aa.Prod_pdg ==2212) wgt = vbin_k0_inc_p[bin];
-	if(aa.Prod_pdg ==2112) wgt = vbin_k0_inc_n[bin];	
+	if(aa.Prod_pdg == 211) wgt = vbin_k0_inc_pip[bin] * negxF_corrunc;
+	if(aa.Prod_pdg ==-211) wgt = vbin_k0_inc_pim[bin] * negxF_corrunc;
+	if(aa.Prod_pdg == 321) wgt = vbin_k0_inc_kap[bin] * negxF_corrunc;
+	if(aa.Prod_pdg ==-321) wgt = vbin_k0_inc_kam[bin] * negxF_corrunc;
+	if(aa.Prod_pdg ==130 || aa.Prod_pdg ==310) wgt = vbin_k0_inc_k0[bin] * negxF_corrunc;
+	if(aa.Prod_pdg ==2212) wgt = vbin_k0_inc_p[bin] * negxF_corrunc;
+	if(aa.Prod_pdg ==2112) wgt = vbin_k0_inc_n[bin] * negxF_corrunc;	
       }
       else{
 	std::cout<<"MESINC Something is wrong with pdg_inc: "<< aa.Inc_pdg  <<" "<<aa.Prod_pdg<<std::endl;
@@ -197,7 +201,8 @@ namespace NeutrinoFluxReweight{
     
     if(wgt<0){
       //std::cout<<"TTMESONINC check wgt(<0) "<<iUniv<<" "<<aa.Inc_P<<" "<<aa.xF<<" "<<aa.Pt<<" "<<aa.Prod_pdg<<std::endl;
-      return 1.0;
+      // same as nucleon-A, cap it to near-0 instead of returning 1.
+      return 0.0001;
     }
     if(wgt>10){
       std::cout<<"BIG WGT IN TTMESONINC "<<iUniv<<" "<<wgt<<" "<<aa.Inc_P<<" "<<aa.xF<<" "<<aa.Pt<<" "<<aa.Prod_pdg<<std::endl;
