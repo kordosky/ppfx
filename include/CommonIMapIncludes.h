@@ -53,6 +53,7 @@ struct HistList{
   TH1D * _h_aveint_vs_enu_thin_nCpion;
   TH1D * _h_aveint_vs_enu_thin_pCnucleon;
   TH1D * _h_aveint_vs_enu_thin_mesoninc;
+  TH1D * _h_aveint_vs_enu_pipCpip;           //Bhumika
   TH1D * _h_aveint_vs_enu_thin_nucleona;
   TH1D * _h_aveint_vs_enu_others;
   TH1D * _h_aveint_vs_enu_tot;

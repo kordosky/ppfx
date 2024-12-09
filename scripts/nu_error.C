@@ -5,6 +5,9 @@
 TH1D* getBand(std::vector<TH1D*> vhIn);
 TH1D* getFractionalError(TH1D* hIn);
 
+
+const char* fname = "/pnfs/nova/persistent/users/bmehta/PPFX/Higher_stat_100U/NA61_statFit/ppfx_me000z200i_run0.root";
+
 void nu_error(const char* fname, const char* nuhel){
   //nuhel: numu, numubar, nue, nuebar
   std::string fhel = "";
@@ -28,8 +31,9 @@ void nu_error(const char* fname, const char* nuhel){
   }
 
   TH1D* herror = getBand(vhuniv);
-  TH1D* hcv  = herror->Clone();
-  TH1D* hfe  = getFractionalError(herror);
+ // TH1D* hcv  =   herror->Clone();
+ TH1D* hcv  =dynamic_cast<TH1D*>(herror->Clone());  
+ TH1D* hfe  = getFractionalError(herror);
   
   //Error band:
   TCanvas* cband = new TCanvas();

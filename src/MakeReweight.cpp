@@ -1,5 +1,5 @@
 #include "MakeReweight.h"
-
+#include <iostream>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/xml_parser.hpp>
 
@@ -30,8 +30,11 @@ namespace NeutrinoFluxReweight{
     //Getting MIPP binning and the correlation parameters:
     CentralValuesAndUncertainties* cvu = CentralValuesAndUncertainties::getInstance();;
     MIPPNumiYieldsBins*  myb =  MIPPNumiYieldsBins::getInstance(); 
-    ThinTargetBins*  thinbin =  ThinTargetBins::getInstance(); 
-    MIPPNumiMC*  mymc =  MIPPNumiMC::getInstance(); 
+    ThinTargetBins*  thinbin =  ThinTargetBins::getInstance();
+    MIPPNumiMC*  mymc =  MIPPNumiMC::getInstance();
+    ThinTargetpipCpipBins*  thinbinpip =    ThinTargetpipCpipBins::getInstance();
+    ThinTargetpipCpipMC*    thinbinpipmc =  ThinTargetpipCpipMC::getInstance();
+
     const char* ppfxDir = getenv("PPFX_DIR");
        
     std::cout<<"Initializing correlation parameters"<<std::endl;
@@ -49,8 +52,16 @@ namespace NeutrinoFluxReweight{
     thinbin->pC_p_from_xml(Form("%s/data/BINS/ThinTarget_pC_p_Bins.xml",ppfxDir));
     thinbin->pC_n_from_xml(Form("%s/data/BINS/ThinTarget_pC_n_Bins.xml",ppfxDir));
     thinbin->material_scaling_from_xml(Form("%s/data/BINS/ThinTarget_material_scaling_Bins.xml",ppfxDir));
+    thinbinpip->pipC_pip_from_xml(Form("%s/data/BINS/ThinTarget_pipC_pip_Bins.xml",ppfxDir));                       
+    thinbinpip->pipC_pim_from_xml(Form("%s/data/BINS/ThinTarget_pipC_pim_Bins.xml",ppfxDir));              
+    thinbinpip->pipC_kp_from_xml(Form("%s/data/BINS/ThinTarget_pipC_kp_Bins.xml",ppfxDir));              
+    thinbinpip->pipC_km_from_xml(Form("%s/data/BINS/ThinTarget_pipC_km_Bins.xml",ppfxDir));              
+    thinbinpip->pipC_p_from_xml(Form("%s/data/BINS/ThinTarget_pipC_p_Bins.xml",ppfxDir));             
+    thinbinpip->pipC_k0s_from_xml(Form("%s/data/BINS/ThinTarget_pipC_k0s_Bins.xml",ppfxDir));              
+    thinbinpip->pipC_lam_from_xml(Form("%s/data/BINS/ThinTarget_pipC_lam_Bins.xml",ppfxDir));              
+    thinbinpip->pipC_alam_from_xml(Form("%s/data/BINS/ThinTarget_pipC_alam_Bins.xml",ppfxDir));              
     
-    std::cout<<"Initializing MC values"<<std::endl;
+   
     mymc->pip_mc_from_xml(Form("%s/data/MIPP/MIPPNuMI_MC_PIP.xml",ppfxDir));
     mymc->pim_mc_from_xml(Form("%s/data/MIPP/MIPPNuMI_MC_PIM.xml",ppfxDir));
     mymc->kap_mc_from_xml(Form("%s/data/MIPP/MIPPNuMI_MC_KAP.xml",ppfxDir));
@@ -58,6 +69,22 @@ namespace NeutrinoFluxReweight{
     mymc->k0l_mc_from_xml(Form("%s/data/MIPP/MIPPNuMI_MC_K0L.xml",ppfxDir));
     mymc->k0s_mc_from_xml(Form("%s/data/MIPP/MIPPNuMI_MC_K0S.xml",ppfxDir));
 
+
+                          
+    thinbinpipmc->pipC_pip_mc_from_xml(Form("%s/data/NA61/pipC_pip_mc.xml",ppfxDir));
+    thinbinpipmc->pipC_pim_mc_from_xml(Form("%s/data/NA61/pipC_pim_mc.xml",ppfxDir));
+    thinbinpipmc->pipC_kp_mc_from_xml(Form("%s/data/NA61/pipC_kp_mc.xml",ppfxDir));
+    thinbinpipmc->pipC_km_mc_from_xml(Form("%s/data/NA61/pipC_km_mc.xml",ppfxDir));
+    thinbinpipmc->pipC_p_mc_from_xml(Form("%s/data/NA61/pipC_p_mc.xml",ppfxDir));
+     thinbinpipmc->pipC_k0s_mc_from_xml(Form("%s/data/NA61/pipC_k0s_mc.xml",ppfxDir));
+    thinbinpipmc->pipC_lam_mc_from_xml(Form("%s/data/NA61/pipC_lam_mc.xml",ppfxDir));
+    thinbinpipmc->pipC_alam_mc_from_xml(Form("%s/data/NA61/pipC_alam_mc.xml",ppfxDir));
+    
+    
+    
+    
+    
+    
     //Reweighter drivers:
     vec_rws.reserve(Nuniverses);
     std::cout<<"Initializing reweight drivers for "<<Nuniverses<<" universes"<<std::endl;
@@ -115,7 +142,8 @@ namespace NeutrinoFluxReweight{
 
       map_rew_wgts["MIPPNumiPionYields"].push_back(vec_rws[ii]->mipp_pion_wgt);
       map_rew_wgts["MIPPNumiKaonYields"].push_back(vec_rws[ii]->mipp_kaon_wgt);
-      
+      map_rew_wgts["ThinTargetpipCpip"].push_back(vec_rws[ii]->pipC_pip_wgt);       
+   
       map_rew_wgts["TargetAttenuation"].push_back(vec_rws[ii]->att_wgt);            
       map_rew_wgts["AbsorptionIC"].push_back(vec_rws[ii]->abs_ic_wgt);
       map_rew_wgts["AbsorptionDPIP"].push_back(vec_rws[ii]->abs_dpip_wgt);
@@ -129,6 +157,7 @@ namespace NeutrinoFluxReweight{
       map_rew_wgts["ThinTargetnCPion"].push_back(vec_rws[ii]->nC_pi_wgt);
       map_rew_wgts["ThinTargetpCNucleon"].push_back(vec_rws[ii]->pC_nu_wgt);
       map_rew_wgts["ThinTargetMesonIncident"].push_back(vec_rws[ii]->meson_inc_wgt);
+    
       map_rew_wgts["ThinTargetnucleonA"].push_back(vec_rws[ii]->nuA_wgt);
       map_rew_wgts["Other"].push_back(vec_rws[ii]->other_wgt);
 

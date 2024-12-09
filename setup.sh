@@ -3,7 +3,7 @@
 setup_for_nova(){
     echo "Sourcing NOvA setup script"
     source /cvmfs/nova.opensciencegrid.org/novasoft/slf7/novasoft/setup/setup_nova.sh "$@"
-    
+    setup fife_utils     
     # setting up for the grid
     export IFDH_GRIDFTP_EXTRA="-st 10" #set ifdh cp stall timeout to 10 sec
     export IFDH_CP_MAXRETRIES=2
@@ -94,6 +94,7 @@ else
     export MODE="NUMI"
     echo "WARNING: This setup script might be outdated if you are not on nova or dune machines."
     echo "Setting up for $HOST in MODE $MODE"
-    setup_for_other
+    #setup_for_other, BHUMIKA, so that I can setup nova always, Roberts scripts
+    setup_for_nova
 fi
 

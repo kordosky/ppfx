@@ -16,13 +16,14 @@ namespace NeutrinoFluxReweight{
   
   void ReweightDriver::Configure(){
     
-    //Creating the vector of reweighters:
     
     if(doMIPPNumi){
       MIPP_NUMI_PION_Universe = new MIPPNumiPionYieldsReweighter(iUniv,cvPars,univPars);
       MIPP_NUMI_KAON_Universe = new MIPPNumiKaonYieldsReweighter(iUniv,cvPars,univPars);
     }
-    
+    if(doNA61){
+      THINTARGET_pipC_pip_Universe = new ThinTargetpipCpipReweighter(iUniv,cvPars,univPars);                      
+    }
     TARG_ATT_Universe = new TargetAttenuationReweighter(iUniv,cvPars,univPars);    
     VOL_ABS_IC_Universe = new AbsorptionICReweighter(iUniv,cvPars,univPars);
     VOL_ABS_DPIP_Universe = new AbsorptionDPIPReweighter(iUniv,cvPars,univPars);
@@ -34,7 +35,9 @@ namespace NeutrinoFluxReweight{
     THINTARGET_PC_KAON_Universe = new ThinTargetpCKaonReweighter(iUniv,cvPars,univPars);
     THINTARGET_NC_PION_Universe = new ThinTargetnCPionReweighter(iUniv,cvPars,univPars);
     THINTARGET_PC_NUCLEON_Universe = new ThinTargetpCNucleonReweighter(iUniv,cvPars,univPars);
+
     THINTARGET_MESON_INCIDENT_Universe = new ThinTargetMesonIncidentReweighter(iUniv,cvPars,univPars);
+
     THINTARGET_NUCLEON_A_Universe = new ThinTargetnucleonAReweighter(iUniv,cvPars,univPars);
     OTHER_Universe = new OtherReweighter(iUniv,cvPars,univPars);
     
@@ -49,8 +52,19 @@ namespace NeutrinoFluxReweight{
     ptree& options = top.get_child("inputs.Settings");
     
     val = options.get<std::string>("Reweighters");
-    if(val=="MIPPNuMIOn")doMIPPNumi = true;
-    else doMIPPNumi = false;
+    if(val=="MIPPNuMIOn"){
+                doMIPPNumi = true; 
+                doNA61 = false;
+                  }
+    else if(val=="NA61On"){doMIPPNumi = false; doNA61=true; 
+        
+}
+    else if(val== "BothOff"){doMIPPNumi = false; doNA61=false;
+        
+
+}
+   
+    else {doMIPPNumi = false;doNA61=false;}
     
   }
   double ReweightDriver::calculateWeight(const InteractionChainData& icd){
@@ -69,20 +83,11 @@ namespace NeutrinoFluxReweight{
     bool has_mipp = false;
     mipp_pion_wgt = 1.0;
     if(doMIPPNumi){
-      // The MIPP reweighting reweights a portion of the chain
-      // since it needs to handle the case of reinteractions in the target
-      // and figure out where in the chain the particle leaves the target
-      // and then mark everything upstream of that as a 1
-      // this is why it returns a vector. Since we run it first
-      // we just overwrite the existing vector.
       interaction_nodes = MIPP_NUMI_PION_Universe->canReweight(icd);
-      
       for(size_t ii=0;ii<interaction_nodes.size();ii++){
 	if(interaction_nodes[ii]==true){
-	  has_mipp = true; 
+	  has_mipp = true;
 	  mipp_pion_wgt = MIPP_NUMI_PION_Universe->calculateWeight(icd);
-	  // this odd structure is because the MIPP data
-	  // was taken on a numi target and can only produce a single weight
 	  break; 
 	}
       }
@@ -92,22 +97,38 @@ namespace NeutrinoFluxReweight{
     //MIPP NuMI Kaons:
     mipp_kaon_wgt = 1.0;
     if(!has_mipp && doMIPPNumi){
-      // see message above
       interaction_nodes = MIPP_NUMI_KAON_Universe->canReweight(icd);
-      
+
       for(size_t ii=0;ii<interaction_nodes.size();ii++){
 	if(interaction_nodes[ii]==true){
 	  has_mipp = true;
 	  mipp_kaon_wgt = MIPP_NUMI_KAON_Universe->calculateWeight(icd);
-	  // this odd structure is because the MIPP data
-	  // was taken on a numi target and can only produce a single weight
 	  break; 
 	}
       }
       tot_wgt *= mipp_kaon_wgt;
     }
+
+//Thin Target pipC-->pip Interaction:
+  pipC_pip_wgt = 1.0;
+  if(doNA61)
+   {
+    for(int ii=(interaction_nodes.size()-1);ii>=0;ii--){
+      if(interaction_nodes[ii]==false){
+        bool is_rew = THINTARGET_pipC_pip_Universe->canReweight((icd.interaction_chain)[ii]);
     
-    //Thin Target pC->piX:
+        if(is_rew){
+          double rewval = THINTARGET_pipC_pip_Universe->calculateWeight((icd.interaction_chain)[ii]);
+          pipC_pip_wgt *= rewval;
+          interaction_nodes[ii]=true;
+        }
+      }
+    }
+
+   tot_wgt *= pipC_pip_wgt;
+ 
+}   
+ //Thin Target pC->piX:
     pC_pi_wgt = 1.0;
     for(int ii=(interaction_nodes.size()-1);ii>=0;ii--){	
       if(interaction_nodes[ii]==false){
@@ -162,6 +183,9 @@ namespace NeutrinoFluxReweight{
       }
     }
     tot_wgt *= pC_nu_wgt;
+
+  
+
     
     //Thin Target Meson Incident:
     meson_inc_wgt = 1.0; 
@@ -176,7 +200,11 @@ namespace NeutrinoFluxReweight{
       }
     }
     tot_wgt *= meson_inc_wgt;    
-    
+ 
+ 
+
+  
+   
     //Thin Target Nucleon Incident not hanldle NA49 or Barton:
     nuA_wgt = 1.0; 
     for(int ii=(interaction_nodes.size()-1);ii>=0;ii--){	
@@ -277,7 +305,11 @@ namespace NeutrinoFluxReweight{
     if(doMIPPNumi){
       delete MIPP_NUMI_PION_Universe;
       delete MIPP_NUMI_KAON_Universe;
-    }    
+    }   
+   if (doNA61){
+      delete THINTARGET_pipC_pip_Universe;
+
+} 
     delete TARG_ATT_Universe;
     delete VOL_ABS_IC_Universe;
     delete VOL_ABS_DPIP_Universe;

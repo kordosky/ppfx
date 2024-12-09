@@ -135,9 +135,10 @@ void drawAtOnePlot (TH1D **histograms, const UInt_t &nHistograms,
 
   //create canvas
   TCanvas *c = new TCanvas (histoName);
+  TLegend *legend = new TLegend(.6,.6,.85,.9);
 
   // create legend
-  legend = new TLegend (0.6,0.6,0.9,0.9);
+  //legend = new TLegend (0.6,0.6,0.9,0.9);
 
   for (UInt_t i = 0; i < nHistograms; i++) // loop over histograms
   {

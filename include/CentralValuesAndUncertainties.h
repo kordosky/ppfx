@@ -8,6 +8,7 @@
 #include "TMatrixD.h"
 #include "TVectorD.h"
 #include <TDecompChol.h>
+#include <TDecompSVD.h>
 //#include "MatrixClass.h"
 
 class TRandom3;
@@ -51,6 +52,9 @@ namespace NeutrinoFluxReweight{
     std::vector<ParameterTable> correlated_par_tables;
     std::vector<TMatrixD> covariance_matrices;
     TRandom3 *r3;
+    TRandom3 *r3_pip;   
+    TRandom3 *r3_ch;  
+
     int baseSeed;
     
   };

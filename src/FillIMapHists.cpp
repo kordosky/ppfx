@@ -5,6 +5,8 @@
 #include "MIPPNumiYieldsBins.h"
 #include "MIPPNumiMC.h"
 #include "ThinTargetBins.h"
+#include "ThinTargetpipCpipBins.h"
+#include "ThinTargetpipCpipMC.h"
 #include "TDatabasePDG.h"
 #include "TParticlePDG.h"
 #include <iostream>
@@ -37,16 +39,17 @@ double FillIMapHists(TChain* tdk2nu, TChain* tdkmeta, HistList* hists, const Fil
 
   const char* ppfxDir = getenv("PPFX_DIR");
   MakeReweight* makerew = MakeReweight::getInstance();
-  makerew->SetOptions(Form("%s/scripts/inputs_imap.xml",ppfxDir));
+  makerew->SetOptions(Form("%s/scripts/inputs_na61.xml",ppfxDir));    //BHUMIKA, imap to na61
 
   FillIMapHistsReweighters reweighters;
-  reweighters.NumiPions               = (makerew->cv_rw)->MIPP_NUMI_PION_Universe;
-  reweighters.NumiKaons               = (makerew->cv_rw)->MIPP_NUMI_KAON_Universe;
+  //reweighters.NumiPions               = (makerew->cv_rw)->MIPP_NUMI_PION_Universe;   //BHUMIKA
+  //reweighters.NumiKaons               = (makerew->cv_rw)->MIPP_NUMI_KAON_Universe;   //BHUMIKA, commented by me as we will not use MIPP
   reweighters.ThinTargetpCPion        = (makerew->cv_rw)->THINTARGET_PC_PION_Universe;
   reweighters.ThinTargetpCKaon        = (makerew->cv_rw)->THINTARGET_PC_KAON_Universe;
   reweighters.ThinTargetnCPion        = (makerew->cv_rw)->THINTARGET_NC_PION_Universe;
   reweighters.ThinTargetpCNucleon     = (makerew->cv_rw)->THINTARGET_PC_NUCLEON_Universe;
   reweighters.ThinTargetMesonIncident = (makerew->cv_rw)->THINTARGET_MESON_INCIDENT_Universe;
+  reweighters.ThinTargetpipCpip       = (makerew->cv_rw)->THINTARGET_pipC_pip_Universe;
   reweighters.ThinTargetnucleonA      = (makerew->cv_rw)->THINTARGET_NUCLEON_A_Universe;
 
   std::cout<<"FillIMapHists looping over "<<ntrees<<" trees with a total of "<<nentries<<" entries."<<std::endl;
@@ -73,7 +76,8 @@ double FillOneEntry(bsim::Dk2Nu* dk2nu, bsim::DkMeta* dkmeta, HistList* hists, c
   // check that the neutrino is of the requested type and that
   // the energy is within range
   const int nu_type=dk2nu->decay.ntype;
-  const int nuray_idx=1; // this corresponds to the location of minerva
+  //const int nuray_idx=1; // this corresponds to the location of minerva
+  const int nuray_idx=3;                                                                    //BHUMIKA, now evaluating for NOvA ND   
   const double enu=dk2nu->nuray[nuray_idx].E; // energy at MINOS ND
 
 #ifdef DEBUG
@@ -102,8 +106,8 @@ double FillOneEntry(bsim::Dk2Nu* dk2nu, bsim::DkMeta* dkmeta, HistList* hists, c
   */
   NeutrinoFluxReweight::InteractionChainData icd(dk2nu,dkmeta);
   const int ninter=icd.interaction_chain.size();
-  std::vector<bool> numi_pion_nodes=reweighters->NumiPions->canReweight(icd);
-  std::vector<bool> numi_kaon_nodes=reweighters->NumiKaons->canReweight(icd);
+  //std::vector<bool> numi_pion_nodes=reweighters->NumiPions->canReweight(icd);      //BHUMIKA COMMENTING THESE TWO ASSUMING THESE ARE ASSOCIATED TO MIPP
+  //std::vector<bool> numi_kaon_nodes=reweighters->NumiKaons->canReweight(icd);
 
 #ifdef DEBUG
   std::cout<<"Passes energy cut and has a weight of "<<weight
@@ -133,9 +137,15 @@ double FillOneEntry(bsim::Dk2Nu* dk2nu, bsim::DkMeta* dkmeta, HistList* hists, c
     // check here if this interaction is covered by NA49, MIPP, etc
     /////////////////////////////////////////////////////////////////////
     
-    if(opts->cut_mipp && numi_pion_nodes[iinter]) continue;
-    if(opts->cut_mipp && numi_kaon_nodes[iinter]) continue;
+    //if(opts->cut_mipp && numi_pion_nodes[iinter]) continue;                        //BHUMIKA, commented as these two are for mipp 
+    //if(opts->cut_mipp && numi_kaon_nodes[iinter]) continue;
     // Thin target reweighters are based on data and theoretical motivated data extensions.
+    bool covered_by_na61 = false;
+    if(reweighters->ThinTargetpipCpip->canReweight(interdata)){
+       covered_by_na61 = true;
+       if(! opts->cut_na61) hists->_h_aveint_vs_enu_pipCpip->Fill(enu,weight);
+                     }
+     
     bool covered_by_thintarget = false;
     if(reweighters->ThinTargetpCPion->canReweight(interdata)){
       covered_by_thintarget = true;
@@ -168,6 +178,10 @@ double FillOneEntry(bsim::Dk2Nu* dk2nu, bsim::DkMeta* dkmeta, HistList* hists, c
       covered_by_thintarget = true;
       if(! opts->cut_thintarget) hists->_h_aveint_vs_enu_thin_mesoninc->Fill(enu,weight);
     }
+     //else if(reweighters->ThinTargetpipCpip->canReweight(interdata)){
+      //covered_by_thintarget = true;
+      //if(! opts->cut_thintarget) hists->_h_aveint_vs_enu_pipCpip->Fill(enu,weight);
+    //}
     else if(reweighters->ThinTargetnucleonA->canReweight(interdata)){
       covered_by_thintarget = true; //Amit Changed this...default was true.
       if(! opts->cut_thintarget) hists->_h_aveint_vs_enu_thin_nucleona->Fill(enu,weight);
@@ -182,7 +196,7 @@ double FillOneEntry(bsim::Dk2Nu* dk2nu, bsim::DkMeta* dkmeta, HistList* hists, c
 	if(!covered_by_thintarget)hists->_h_aveint_vs_enu_tot->Fill(enu,weight);
     }
     
-    if(opts->cut_mipp && covered_by_thintarget) continue;
+    if(opts->cut_na61 && covered_by_thintarget) continue;                                 //BHUMIKA, replaced mipp by na61
     
  
     ninter_cuts++;
@@ -206,7 +220,8 @@ double FillOneEntry(bsim::Dk2Nu* dk2nu, bsim::DkMeta* dkmeta, HistList* hists, c
     // fill a 2D histogram of projectile vs. material
     const string proj_name=pdg->GetParticle(interdata.Inc_pdg)->GetName();
     const string prod_name=pdg->GetParticle(interdata.Prod_pdg)->GetName();
-    //if(covered_by_thintarget) //Uncomment this to get the thin target coverage after turning off the nucleonA reweighter off above.
+    //BHUMIKA The line below is uncommented by me BHUMIKA 
+    if(covered_by_thintarget) //Uncomment this to get the thin target coverage after turning off the nucleonA reweighter off above.
     hists->_h_in_vs_mat->Fill(material_name.c_str(),proj_name.c_str(),weight);
     // figure out if the produced particle is one that we want
     // to record in histograms

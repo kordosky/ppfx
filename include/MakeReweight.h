@@ -10,7 +10,12 @@
 #include "CentralValuesAndUncertainties.h"
 #include "MIPPNumiYieldsBins.h"
 #include "ThinTargetBins.h"
+
+#include "ThinTargetpipCpipBins.h"
+
 #include "MIPPNumiMC.h"
+#include "ThinTargetpipCpipMC.h"
+
 
 #include "nu_g4numi.h"
 #include "Numi2Pdg.h"

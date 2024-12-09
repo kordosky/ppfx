@@ -5,12 +5,12 @@
 #include <string>
 #include <iostream>
 #include <sstream>
-
+#include <TMath.h>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/xml_parser.hpp>
 
 #include "TRandom3.h"
-
+#include "TMatrixD.h"
 //using namespace std;
 
 namespace NeutrinoFluxReweight{ 
@@ -18,19 +18,20 @@ namespace NeutrinoFluxReweight{
   CentralValuesAndUncertainties* CentralValuesAndUncertainties::instance = 0;
 
   CentralValuesAndUncertainties::CentralValuesAndUncertainties(){
-    //! Setting the seed to zero. 
-    r3=new TRandom3(0);
+     
+    r3=new TRandom3(0);    
+    r3_pip=new TRandom3(300);
     baseSeed = 0;
   }
   
   void CentralValuesAndUncertainties::readFromXML(const char* filename){
     using boost::property_tree::ptree;
-    ptree top;
+    ptree top;    
     
     read_xml(filename,top,2); // option 2 removes comment strings
     
     //! Reading the uncorrelated parameters:
-    ptree& uncorrelated = top.get_child("pars.uncorrelated");
+    ptree& uncorrelated = top.get_child("pars.uncorrelated");    
     ptree::iterator it = uncorrelated.begin();
     for(; it!=uncorrelated.end(); ++it){
       // it->first is the name
@@ -45,8 +46,8 @@ namespace NeutrinoFluxReweight{
     ptree& uncorrelated_list = top.get_child("pars.uncorrelated_list");
     it = uncorrelated_list.begin();
     for(; it!=uncorrelated_list.end(); ++it){
-      // it->first is the name
-      // it->second is the child property tree
+      // it->first is the name, for us FIRST IS THE NAME OF THE INTERACTION
+      // it->second is the child property tree, SECOND IS CV/ERROR/COVMX
 
       std::string cvs_string=it->second.get<std::string>("cvs");
       std::string errs_string=it->second.get<std::string>("errs");
@@ -123,7 +124,6 @@ namespace NeutrinoFluxReweight{
     uncorrelated_errors[cv_par.first] = uncertainty;
   }
   
-  //  void CentralValuesAndUncertainties::addCorrelated(ParameterTable& cv_pars, MatrixClass& cov_mx){
   void CentralValuesAndUncertainties::addCorrelated(ParameterTable& cv_pars, TMatrixD& cov_mx){
     correlated_par_tables.push_back(cv_pars);
     covariance_matrices.push_back(cov_mx);
@@ -141,7 +141,7 @@ namespace NeutrinoFluxReweight{
     if(universe==-1)cvfactor = 0.0;
     int univ_seed = baseSeed + universe;
     r3->SetSeed(univ_seed);    
-    
+    r3_pip->SetSeed(univ_seed+300);   
     ParameterTable ptable;
     
     //! We are going to use 100% correlated bin-to-bin for systematic errors in thin target data:
@@ -151,11 +151,15 @@ namespace NeutrinoFluxReweight{
     double sigma_pc_kam = r3->Gaus(0.0,1.0);
     double sigma_pc_p   = r3->Gaus(0.0,1.0);
     double sigma_pc_n   = r3->Gaus(0.0,1.0);
-
+    double sigma_pipC_pip = r3_pip->Gaus(0.0, 1.0);   
     const boost::interprocess::flat_map<std::string, double>& table_uncorr_pars = uncorrelated_pars.getMap();
     boost::interprocess::flat_map<std::string, double>::const_iterator it = table_uncorr_pars.begin();
-    for(;it!=table_uncorr_pars.end();++it){
-      double sigma = r3->Gaus(0.0,1.0);
+
+    
+  for(;it!=table_uncorr_pars.end();++it){
+      double sigma= r3->Gaus(0.0,1.0);
+      double sigma2 = r3_pip->Gaus(0.0,1.0);
+      
       //redefining sigma for 100% correlation:
       if((it->first).find("ThinTarget_pC_pip_sys")<10)sigma = sigma_pc_pip;
       if((it->first).find("ThinTarget_pC_pim_sys")<10)sigma = sigma_pc_pim;
@@ -163,33 +167,66 @@ namespace NeutrinoFluxReweight{
       if((it->first).find("ThinTargetLowxF_pC_kam_sys")<10)sigma = sigma_pc_kam;
       if((it->first).find("ThinTarget_pC_p_sys")<10)  sigma = sigma_pc_p;
       if((it->first).find("ThinTarget_pC_n_sys")<10)  sigma = sigma_pc_n;
+     
+     //Redefination for NA61 data
+        if((it->first).find("ThinTarget_pipC_pip_stat")<10)sigma = sigma2;
+
+     	if((it->first).find("ThinTarget_pipC_pim_stat")<10)sigma = sigma2;
+        if((it->first).find("ThinTarget_pipC_kp_stat")<10)sigma = sigma2;
+        if((it->first).find("ThinTarget_pipC_km_stat")<10)sigma = sigma2;
+        if((it->first).find("ThinTarget_pipC_p_stat")<10)sigma = sigma2;
+        if((it->first).find("ThinTarget_pipC_k0s_stat")<10)sigma = sigma2;
+        if((it->first).find("ThinTarget_pipC_lam_stat")<10)sigma = sigma2;
+        if((it->first).find("ThinTarget_pipC_alam_stat")<10)sigma = sigma2;
+       
       double new_val = it->second  + cvfactor*sigma*uncorrelated_errors[it->first];
       Parameter p(it->first,new_val);
       ptable.setParameter(p);      
-    }
     
-    TDecompChol *decomp;
+    }
+    TDecompSVD *decomp;
     
     for(size_t ii=0;ii<covariance_matrices.size();++ii){
       
-      decomp=new TDecompChol(covariance_matrices[ii],0.0);
+      decomp=new TDecompSVD(covariance_matrices[ii],0.0);
       
-      bool isPosDef=decomp->Decompose();
-      TMatrixD MxU = decomp->GetU();
-      delete decomp;
-      TMatrixD MxV(MxU); 
-      MxV.Transpose(MxU);
-      int nmat = MxV.GetNcols();
+      bool isDecomposed=decomp->Decompose();
+   // if(isDecomposed){std::cout<<"The matrix is being decomposed using SVD decomposition"<<std::endl;}
+      TMatrixD U = decomp->GetU();
+      TVectorD S = decomp->GetSig();
+      TMatrixD Vt = decomp->GetV();
+
+
+      int nmat = S.GetNoElements();
       TVectorD vsigma(nmat);
       for(int jj=0;jj<nmat;jj++){
-	vsigma[jj]=cvfactor*(r3->Gaus(0.0,1.0));
-      }   
-      TVectorD vecDShift = MxV*vsigma;
+       vsigma[jj]= cvfactor*(r3_pip->Gaus(0.0, 1.0));
+      }
+      TMatrixD S_matrix(nmat, nmat);
+      S_matrix.Zero();
+      for (Int_t i = 0; i < nmat; ++i) {
+        S_matrix(i, i) = S[i];
+       }
+     TVectorD sqrtS(nmat);
+       for (Int_t i = 0; i < nmat; ++i) {
+        sqrtS[i] = TMath::Sqrt(S[i]);
+   }
+
+    //The MATRIX FOR NEW VACTOR IS
+   TMatrixD Sq_matrix(nmat, nmat);
+    Sq_matrix.Zero();
+    for (Int_t i = 0; i < nmat; ++i) {
+      Sq_matrix(i, i) = sqrtS[i];}
+    
+
+
+   TVectorD vecDShift =  ((U * Sq_matrix)* vsigma); //Second
+
       
       const boost::interprocess::flat_map<std::string, double>& tb = (correlated_par_tables[ii]).getMap();
-      boost::interprocess::flat_map<std::string, double>::const_iterator it_tb = tb.begin();
+     boost::interprocess::flat_map<std::string, double>::const_iterator it_tb = tb.begin();
 
-      for(;it_tb != tb.end();++it_tb){
+       for(;it_tb != tb.end();++it_tb){
 	std::string tmp_name = it_tb->first;
 	std::string snID = tmp_name.substr((it_tb->first).rfind("_")+1,(it_tb->first).length());
 	std::stringstream ssID(snID);
@@ -197,14 +234,14 @@ namespace NeutrinoFluxReweight{
 	ssID >> nID;
 	double new_val = it_tb->second + vecDShift[nID];	
 	Parameter p(it_tb->first,new_val); 
-	if(isPosDef)ptable.setParameter(p);
-      }
+	if(isDecomposed)ptable.setParameter(p);
       
-    }
-    
+      
+  }  
+  }           
     return ptable; 
     
-  }  
+  }       
   
   ParameterTable CentralValuesAndUncertainties::getCVPars(){      
 
@@ -219,7 +256,7 @@ namespace NeutrinoFluxReweight{
     
     //Correlated:
     for(size_t ii=0;ii<covariance_matrices.size();ii++){
-      const boost::interprocess::flat_map<std::string, double>& corr_table_pars = correlated_par_tables[ii].getMap();
+    const boost::interprocess::flat_map<std::string, double>& corr_table_pars = correlated_par_tables[ii].getMap();
       it = corr_table_pars.begin();
       for(;it != corr_table_pars.end();it++){
 	Parameter p(it->first,it->second); 

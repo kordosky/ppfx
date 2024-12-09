@@ -9,12 +9,12 @@ namespace NeutrinoFluxReweight{
     
     ThinTargetBins* Thinbins =  ThinTargetBins::getInstance();
     
-    vbin_pip_inc_pip.reserve(Thinbins->GetNbins_meson_incident());
-    vbin_pip_inc_pim.reserve(Thinbins->GetNbins_meson_incident());
-    vbin_pip_inc_kap.reserve(Thinbins->GetNbins_meson_incident());
-    vbin_pip_inc_kam.reserve(Thinbins->GetNbins_meson_incident());
-    vbin_pip_inc_k0.reserve(Thinbins->GetNbins_meson_incident());
-    vbin_pip_inc_p.reserve(Thinbins->GetNbins_meson_incident());
+  //  vbin_pip_inc_pip.reserve(Thinbins->GetNbins_meson_incident());  
+   // vbin_pip_inc_pim.reserve(Thinbins->GetNbins_meson_incident());
+  //  vbin_pip_inc_kap.reserve(Thinbins->GetNbins_meson_incident());
+  //  vbin_pip_inc_kam.reserve(Thinbins->GetNbins_meson_incident());
+      vbin_pip_inc_k0.reserve(Thinbins->GetNbins_meson_incident());
+ //   vbin_pip_inc_p.reserve(Thinbins->GetNbins_meson_incident());
     vbin_pip_inc_n.reserve(Thinbins->GetNbins_meson_incident());
     vbin_pim_inc_pip.reserve(Thinbins->GetNbins_meson_incident());
     vbin_pim_inc_pim.reserve(Thinbins->GetNbins_meson_incident());
@@ -64,12 +64,12 @@ namespace NeutrinoFluxReweight{
 	  
 	  sprintf(namepar,"ThinTarget_%s_incident_%s_%d",cinc[ii],cpro[jj],kk);
 	  dataval = univPars.getParameterValue(std::string(namepar));
-	  if(ii==0 && jj==0)vbin_pip_inc_pip.push_back(dataval);
-	  if(ii==0 && jj==1)vbin_pip_inc_pim.push_back(dataval);
-	  if(ii==0 && jj==2)vbin_pip_inc_kap.push_back(dataval);
-	  if(ii==0 && jj==3)vbin_pip_inc_kam.push_back(dataval);
+//	 if(ii==0 && jj==0)vbin_pip_inc_pip.push_back(dataval);   
+//	 if(ii==0 && jj==1)vbin_pip_inc_pim.push_back(dataval);
+  //       if(ii==0 && jj==2)vbin_pip_inc_kap.push_back(dataval);
+//	  if(ii==0 && jj==3)vbin_pip_inc_kam.push_back(dataval);
 	  if(ii==0 && jj==4)vbin_pip_inc_k0.push_back(dataval);
-	  if(ii==0 && jj==5)vbin_pip_inc_p.push_back(dataval);
+//	  if(ii==0 && jj==5)vbin_pip_inc_p.push_back(dataval);
 	  if(ii==0 && jj==6)vbin_pip_inc_n.push_back(dataval);
 	  if(ii==1 && jj==0)vbin_pim_inc_pip.push_back(dataval);
 	  if(ii==1 && jj==1)vbin_pim_inc_pim.push_back(dataval);
@@ -142,12 +142,12 @@ namespace NeutrinoFluxReweight{
     if(bin>=0 && right_inc && right_prod){
 
       if(aa.Inc_pdg == 211){
-	if(aa.Prod_pdg == 211) wgt = vbin_pip_inc_pip[bin];
-	if(aa.Prod_pdg ==-211) wgt = vbin_pip_inc_pim[bin];
-	if(aa.Prod_pdg == 321) wgt = vbin_pip_inc_kap[bin];
-	if(aa.Prod_pdg ==-321) wgt = vbin_pip_inc_kam[bin];
-	if(aa.Prod_pdg ==130 || aa.Prod_pdg ==310) wgt = vbin_pip_inc_k0[bin];
-	if(aa.Prod_pdg ==2212) wgt = vbin_pip_inc_p[bin];
+//	if(aa.Prod_pdg == 211) wgt = vbin_pip_inc_pip[bin];      
+//	if(aa.Prod_pdg ==-211) wgt = vbin_pip_inc_pim[bin];
+ //	if(aa.Prod_pdg == 321) wgt = vbin_pip_inc_kap[bin];
+//	if(aa.Prod_pdg ==-321) wgt = vbin_pip_inc_kam[bin];
+	if(aa.Prod_pdg ==130) wgt = vbin_pip_inc_k0[bin];
+//	if(aa.Prod_pdg ==2212) wgt = vbin_pip_inc_p[bin];
 	if(aa.Prod_pdg ==2112) wgt = vbin_pip_inc_n[bin];	
       }
       else if(aa.Inc_pdg ==-211){

@@ -1,0 +1,10 @@
+<inputs>
+   <Settings>
+     <!--Three modes now modes available: MIPPNuMIOn and MIPPNuMIOff -->
+    <Reweighters>BothOff</Reweighters>
+     <MIPPCorrOption>default</MIPPCorrOption>
+     <NumberOfUniverses>100</NumberOfUniverses>
+   </Settings>
+</inputs>
+
+

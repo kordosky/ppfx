@@ -141,7 +141,7 @@ namespace NeutrinoFluxReweight{
       qe_corr  = qelow + (incP-double(mom_inc[idx_lowp]))*(qehi-qelow)/(double(mom_inc[idx_hip])-double(mom_inc[idx_lowp]));
     }
     
-    mcval /=qe_corr;
+//    mcval /=qe_corr;
     
     //check:
     if(mcval<1.e-12 || mcval!=mcval)return -1;

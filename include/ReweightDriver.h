@@ -17,7 +17,9 @@
 #include "ThinTargetpCKaonReweighter.h"
 #include "ThinTargetnCPionReweighter.h"
 #include "ThinTargetpCNucleonReweighter.h"
+#include "ThinTargetpipCpipReweighter.h"                                  
 #include "ThinTargetMesonIncidentReweighter.h"
+
 #include "ThinTargetnucleonAReweighter.h"
 
 #include "InteractionChainData.h"
@@ -53,7 +55,7 @@ namespace NeutrinoFluxReweight{
     
     /*!  MIPP NuMI yield weight   */
     double mipp_pion_wgt;
-
+ 
      /*!   MIPP NuMI kaons yield weight   */
     double mipp_kaon_wgt;
     
@@ -82,9 +84,16 @@ namespace NeutrinoFluxReweight{
 
     /*! nuA    */
     double nuA_wgt;
+
+   /*! NA61 pip incident weights   */
+    double pipC_pip_wgt;                                                                
     
     /*! Meson incident weights   */
     double meson_inc_wgt;
+
+ 
+
+
     
      /*!   Any other hadronic interaction not corrected yet   */
     double other_wgt;
@@ -101,6 +110,7 @@ namespace NeutrinoFluxReweight{
     ThinTargetpCKaonReweighter* THINTARGET_PC_KAON_Universe;
     ThinTargetnCPionReweighter* THINTARGET_NC_PION_Universe;
     ThinTargetpCNucleonReweighter* THINTARGET_PC_NUCLEON_Universe;
+    ThinTargetpipCpipReweighter* THINTARGET_pipC_pip_Universe;      
     ThinTargetMesonIncidentReweighter* THINTARGET_MESON_INCIDENT_Universe;
 
     ThinTargetnucleonAReweighter* THINTARGET_NUCLEON_A_Universe;
@@ -109,7 +119,8 @@ namespace NeutrinoFluxReweight{
 
      //Flag to select the reweighters:
     bool doMIPPNumi;
-
+    bool doNA61;
+    bool doBoth;
   private:    
     /*!
      * Configures each of the reweighing tools.
