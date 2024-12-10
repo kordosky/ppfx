@@ -13,22 +13,22 @@ PWD = os.getenv("PWD")
 # Job Defaults
 ##################################################
 N_JOBS             = 1
-OUTDIR             = "/pnfs/nova/persistent/users/{USER}/ppfx/test".format(USER = os.getenv("USER"))
-#INPUT_OPTIONS      = "{0}/scripts/inputs_default.xml".format(PWD)
-INPUT_OPTIONS      = "scripts/inputs_default.xml"
+OUTDIR             = "/pnfs/nova/scratch/users/{USER}/PPFX/".format(USER = os.getenv("USER"))
+#INPUT_OPTIONS      = "scripts/inputs_default.xml"
+INPUT_OPTIONS      = "scripts/inputs_na61.xml"
 IDET               = "3"
-#INDIR              = "/pnfs/nova/data/flux/g4numi/v6r1"
-INDIR              = "/pnfs/nova/persistent/stash/flux/g4numi/v6r1"
-
+#INDIR              = "/pnfs/nova/persistent/stash/flux/g4numi/v6r3/old_target"
+#INDIR              = "/pnfs/nova/persistent/users/snopok/120"
+INDIR                   = "/pnfs/nova/persistent/stash/flux/g4numi/g4.10.04/FHC"
 TARFILE_NAME       = "local_install.tar.gz"
 BEAMCONFIG         = "me000z200i"
-#EXPERIMENT         = "nova"
+EXPERIMENT         = "nova"
 
 ##################################################
 
 def main():
   options = get_options()
-  #EXPERIMENT = os.getenv("EXPERIMENT")
+  EXPERIMENT = os.getenv("EXPERIMENT")
   
   cache_folder = CACHE_PNFS_AREA + str(random.randint(10000,99999)) + "/"
   os.makedirs(cache_folder)
@@ -47,8 +47,8 @@ def main():
   
   print("\nOutput logfile(s):",logfile)
 
-  submit_command = ("jobsub_submit {GRID} {MEMORY} -N {NJOBS} -d PPFX {OUTDIR} "
-      "-G {EXPERIMENT} "
+  submit_command = ("jobsub_submit --singularity-image=/cvmfs/singularity.opensciencegrid.org/fermilab/fnal-wn-sl7:latest {GRID} {MEMORY} -N {NJOBS} -d PPFX {OUTDIR} "
+      "-G nova --expected-lifetime=long "
       "-e BEAMCONFIG={BEAMCONFIG} " 
       "-e IN_DIR={IN_DIR} " 
       "-e INPUT_OPTIONS={INPUT_OPTIONS} " 
@@ -56,7 +56,7 @@ def main():
       "-f {TARFILE} "
       "-L {LOGFILE} "
       "file://{CACHE}/ppfx_job.sh".format(
-      GRID       = ("--OS=SL7 -g "
+      GRID       = (
                     "--resource-provides=usage_model=DEDICATED,OPPORTUNISTIC "
                     "--role=Analysis "),
       MEMORY     = "--memory 2000MB ",
@@ -88,9 +88,9 @@ def get_options():
                         default = N_JOBS,
                         help = "Number of g4numi jobs. Default = %default.")
 
-  #grid_group.add_option("--group",  
-  #                      default = EXPERIMENT,
-  #                      help = "Experiment group, e.g. nova, dune. Default = %default.")
+  grid_group.add_option("--group",  
+                        default = EXPERIMENT,
+                        help = "Experiment group, e.g. nova, dune. Default = %default.")
   
   beam_group   = optparse.OptionGroup(parser, "Beam Options")
   

@@ -1,0 +1,109 @@
+<bins>
+  <ThinTarget_pipC_lam>
+
+ <ThinTarget_pipC_lam_0>
+        <prange> 3.00 7.00 </prange>
+        <thetarange> 0.00 0.02 </thetarange>
+     </ThinTarget_pipC_lam_0>
+
+     <ThinTarget_pipC_lam_1>
+         <prange> 7.00 13.00 </prange>
+        <thetarange> 0.00 0.02 </thetarange>
+     </ThinTarget_pipC_lam_1>
+
+     <ThinTarget_pipC_lam_2>
+        <prange> 13.00 25.00 </prange>
+        <thetarange> 0.00 0.02 </thetarange>
+     </ThinTarget_pipC_lam_2>
+
+     <ThinTarget_pipC_lam_3>     
+         <prange> 1.50 7.00 </prange>
+         <thetarange> 0.02 0.04 </thetarange>
+     </ThinTarget_pipC_lam_3>
+
+     <ThinTarget_pipC_lam_4> 
+        <prange> 7.00 11.00</prange>
+        <thetarange> 0.02 0.04 </thetarange>
+     </ThinTarget_pipC_lam_4>
+
+     <ThinTarget_pipC_lam_5>
+         <prange>11.00 23.00 </prange>
+         <thetarange> 0.02 0.04 </thetarange>
+     </ThinTarget_pipC_lam_5>
+
+     <ThinTarget_pipC_lam_6>
+         <prange> 1.50 5.00 </prange>
+         <thetarange> 0.04 0.06 </thetarange>
+     </ThinTarget_pipC_lam_6>
+
+     <ThinTarget_pipC_lam_7>
+         <prange> 5.00 9.00 </prange>
+         <thetarange> 0.04 0.06 </thetarange>
+     </ThinTarget_pipC_lam_7>
+
+     <ThinTarget_pipC_lam_8>
+         <prange>9.00 20.00</prange>
+         <thetarange> 0.04 0.06 </thetarange>
+     </ThinTarget_pipC_lam_8>
+
+     <ThinTarget_pipC_lam_9>
+         <prange> 1.50 4.50 </prange>
+         <thetarange> 0.06 0.1 </thetarange>
+     </ThinTarget_pipC_lam_9>
+
+     <ThinTarget_pipC_lam_10>
+        <prange> 4.50 7.00 </prange>
+        <thetarange> 0.06 0.1 </thetarange>
+     </ThinTarget_pipC_lam_10>
+
+     <ThinTarget_pipC_lam_11>
+        <prange>7.00 15.00 </prange>
+        <thetarange> 0.06 0.1 </thetarange>
+     </ThinTarget_pipC_lam_11>
+
+     <ThinTarget_pipC_lam_12>
+         <prange> 1.50 4.00 </prange>
+         <thetarange> 0.1 0.14 </thetarange>
+     </ThinTarget_pipC_lam_12>
+
+     <ThinTarget_pipC_lam_13>
+        <prange> 4.00 6.00 </prange>
+        <thetarange> 0.1 0.14 </thetarange>
+     </ThinTarget_pipC_lam_13>
+
+     <ThinTarget_pipC_lam_14>
+         <prange> 6.00 12.00 </prange>
+         <thetarange> 0.1 0.14 </thetarange>
+     </ThinTarget_pipC_lam_14>
+
+     <ThinTarget_pipC_lam_15>
+         <prange> 1.50 4.00 </prange>
+         <thetarange> 0.14 0.18 </thetarange>
+     </ThinTarget_pipC_lam_15>
+
+     <ThinTarget_pipC_lam_16>
+         <prange> 4.00 8.00 </prange>
+         <thetarange> 0.14 0.18 </thetarange>
+     </ThinTarget_pipC_lam_16>
+
+     <ThinTarget_pipC_lam_17>
+        <prange> 1.00 3.50 </prange>
+       <thetarange> 0.18 0.24 </thetarange>
+     </ThinTarget_pipC_lam_17>
+
+     <ThinTarget_pipC_lam_18>
+         <prange> 3.50 8.00 </prange>
+         <thetarange> 0.18 0.24 </thetarange>
+     </ThinTarget_pipC_lam_18>
+
+     <ThinTarget_pipC_lam_19>
+        <prange> 1.00 6.00 </prange>
+        <thetarange> 0.24 0.3 </thetarange>
+     </ThinTarget_pipC_lam_19>
+
+     <ThinTarget_pipC_lam_20>
+        <prange> 1.00 4.00 </prange>
+        <thetarange> 0.3 0.36 </thetarange>
+     </ThinTarget_pipC_lam_20>
+ </ThinTarget_pipC_lam>
+</bins>

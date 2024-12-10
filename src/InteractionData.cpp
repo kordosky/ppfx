@@ -57,7 +57,6 @@ namespace NeutrinoFluxReweight{
     
     //Theta in rads:  
     InteractionData::Theta = std::acos(cos_theta);
-    
     InteractionData::Pt = Prod_P*sin_theta;
     InteractionData::Pz = Prod_P*cos_theta; 
     

@@ -1,0 +1,10 @@
+<inputs>
+   <Settings>
+     <!--Two modes available: MIPPNuMIOn and MIPPNuMIOff -->
+    <Reweighters>NA61On</Reweighters>
+     <MIPPCorrOption>default</MIPPCorrOption>
+     <NumberOfUniverses>100</NumberOfUniverses>
+   </Settings>
+</inputs>
+
+

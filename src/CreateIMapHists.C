@@ -9,7 +9,8 @@
 using namespace std;
 
 // declarations of functions found further down in this file
-int CreateHists(const char* output_filename, const char* filename, int elow, int ehigh, int nu_id, bool NA49cuts, bool MIPPcuts);
+int CreateHists(const char* output_filename, const char* filename, int elow, int ehigh, int nu_id, bool NA49cuts, bool NA61cuts); 
+ //Replaced MIPPcuts by NA6cuts in the CreateHists function
 void make_directories(TFile *f);
 void name_hists(HistList * hists, TFile * out_file);
 void scale_hists(HistList * hists, double total_weight=1);
@@ -21,15 +22,15 @@ int main( int argc, char *argv[])
   //! Default parameters
   std::vector<std::string> par;
   par.push_back("CreateHists.cpp");
-  par.push_back("./rootfiles/testout.root");
-  //par.push_back("/minerva/data/flux_hadron_samples/flux/g4numi/v4_test/le010z185i/*_0300_0001.root");
-  //par.push_back("/minerva/data/flux_hadron_samples/flux/g4numi/v4_test/le010z185i/*_031*_0001.root");
-  par.push_back("/minerva/data/flux_hadron_samples/flux/g4numi/v4_test/le010z185i/*.root");
+  par.push_back("limiteduni.root");
+  par.push_back("/pnfs/nova/persistent/stash/flux/g4numi/v6r1/me000z200i/*_0006.root");
+  
+//  par.push_back("");   BHUMIKA
   par.push_back("0");
   par.push_back("120");
-  par.push_back("56");
+  par.push_back("14");
   par.push_back("0");//NA49
-  par.push_back("0");//MIPP
+  par.push_back("0");//MIPP, now it is na61 cut
 
   //! Set user parameters
   for( int i=0; i<argc; ++i){
@@ -42,30 +43,32 @@ int main( int argc, char *argv[])
   int max = atoi(par[4].c_str());
   int nu_id = atoi(par[5].c_str());
   bool NA49cuts = atoi(par[6].c_str());
-  bool MIPPcuts = atoi(par[7].c_str());
+  //bool MIPPcuts = atoi(par[7].c_str());
+  bool NA61cuts = atoi(par[7].c_str());
+
 
   std::cout<<"min E   : "<<min<<"GeV"<<std::endl;
   std::cout<<"max E   : "<<max<<"GeV"<<std::endl;
   std::cout<<"nuhel   : "<<nu_id<<std::endl;  
   std::cout<<"TT cut  : "<<NA49cuts<<std::endl;
-  std::cout<<"MIPP cut: "<<MIPPcuts<<std::endl;
+  std::cout<<"NA61 cut: "<<NA61cuts<<std::endl;
     
     //int CreateHists(const char* output_filename, const char* filename, int elow, int ehigh, int nu_id=56, bool NA49cuts=false, bool MIPPcuts=false))
-  return CreateHists(par[1].c_str(), par[2].c_str(), min, max, nu_id, NA49cuts, MIPPcuts);
+  return CreateHists(par[1].c_str(), par[2].c_str(), min, max, nu_id, NA49cuts, NA61cuts);
 }
 
 
-int CreateHists(const char* output_filename, const char* filename, int elow, int ehigh, int nu_id=56, bool NA49cuts=false, bool MIPPcuts=false)
+int CreateHists(const char* output_filename, const char* filename, int elow, int ehigh, int nu_id=14, bool NA49cuts=false, bool NA61cuts=false)
 {
         //single array histos	
 	int nvol = IMap::nvol;
-	if(getenv("MODE")=="REF"||getenv("MODE")=="OPT") nvol = IMap::nvoldune;
+	//if(getenv("MODE")=="REF"||getenv("MODE")=="OPT") nvol = IMap::nvoldune;  BHUMIKA, as using nova
 	vector<TH2D *> hmat(IMap::npop);
 	vector<TH2D *> hvol(IMap::npop);
 	vector<TH2D *> hmatbkw(IMap::npop);
-	vector<TH2D *> hxfpt_tot(IMap::npop);
+	vector<TH2D *> hxfpt_tot(IMap::npop);   //This has a different phase space
 	vector<TH1F *> henergytotal(IMap::npop);
-	vector<TH1F *> hkepop_tot(IMap::npop);
+	vector<TH1F *> hkepop_tot(IMap::npop);   //KEPOP AND TMPOP, WHAT ARE THESE EXACTLY?
 	vector<TH1F *> htmpop_tot(IMap::npop);
 
 	//double array histos
@@ -106,7 +109,7 @@ int CreateHists(const char* output_filename, const char* filename, int elow, int
 	cout << "Filling histograms" << endl;	
 	FillIMapHistsOpts opts;
 	opts.elow=elow; opts.ehigh=ehigh; opts.nuid=nu_id;
-	opts.cut_thintarget=NA49cuts; opts.cut_mipp=MIPPcuts;
+	opts.cut_thintarget=NA49cuts; opts.cut_na61=NA61cuts;
 	double total_weight=FillIMapHists(tdk2nu, tdkmeta, &hists, &opts);
 	
 	cout<< "Total weight: "<<total_weight<<endl;
@@ -198,7 +201,8 @@ void name_hists(HistList * hists, TFile * out_file){
     hists->_h_aveint_vs_enu_thin_nCpion     = new TH1D("h_aveint_vs_enu_thin_nCpion","thin target nC->pion;neutrino energy (GeV); number of interactions",120,0,120);
     hists->_h_aveint_vs_enu_thin_pCnucleon  = new TH1D("h_aveint_vs_enu_thin_pCnucleon","thin target pC->nucleon;neutrino energy (GeV); number of interactions",120,0,120);
     hists->_h_aveint_vs_enu_thin_mesoninc   = new TH1D("h_aveint_vs_enu_thin_mesoninc","thin target meson incident;neutrino energy (GeV); number of interactions",120,0,120);
-    hists->_h_aveint_vs_enu_thin_nucleona   = new TH1D("h_aveint_vs_enu_thin_nucleona","thin target nuclen-A;neutrino energy (GeV); number of interactions",120,0,120);
+    hists->_h_aveint_vs_enu_pipCpip   = new TH1D("h_aveint_vs_enu_pipCpip","thin target Pi plus incident;neutrino energy (GeV); number of interactions",120,0,120);    //BHUMIKA  
+  hists->_h_aveint_vs_enu_thin_nucleona   = new TH1D("h_aveint_vs_enu_thin_nucleona","thin target nuclen-A;neutrino energy (GeV); number of interactions",120,0,120);
     hists->_h_aveint_vs_enu_others          = new TH1D("h_aveint_vs_enu_others","Others;neutrino energy (GeV); number of interactions",120,0,120);
     hists->_h_aveint_vs_enu_tot             = new TH1D("h_aveint_vs_enu_tot","total;neutrino energy (GeV); number of interactions",120,0,120);
     hists->_h_nuflux   = new TH1D("h_nuflux","#nu flux;neutrino energy (GeV); #nu/m^{2}",120,0,120);
@@ -320,6 +324,7 @@ void scale_hists(HistList * hists, double total_weight){
     hists->_h_aveint_vs_enu_thin_nCpion->Divide(hists->_h_nuflux); 
     hists->_h_aveint_vs_enu_thin_pCnucleon->Divide(hists->_h_nuflux); 
     hists->_h_aveint_vs_enu_thin_mesoninc->Divide(hists->_h_nuflux); 
+    hists->_h_aveint_vs_enu_pipCpip->Divide(hists->_h_nuflux);    //Bhumika
     hists->_h_aveint_vs_enu_thin_nucleona->Divide(hists->_h_nuflux); 
     hists->_h_aveint_vs_enu_others->Divide(hists->_h_nuflux); 
     hists->_h_aveint_vs_enu_tot->Divide(hists->_h_nuflux); 
@@ -329,6 +334,7 @@ void scale_hists(HistList * hists, double total_weight){
     hists->_h_aveint_vs_enu_thin_nCpion->Scale(1./pival);
     hists->_h_aveint_vs_enu_thin_pCnucleon->Scale(1./pival);
     hists->_h_aveint_vs_enu_thin_mesoninc->Scale(1./pival);
+    hists->_h_aveint_vs_enu_pipCpip->Scale(1./pival);            //BHUMIKA
     hists->_h_aveint_vs_enu_thin_nucleona->Scale(1./pival);
     hists->_h_aveint_vs_enu_others->Scale(1./pival);
     hists->_h_aveint_vs_enu_tot->Scale(1./pival);
@@ -426,6 +432,7 @@ void write_hists(HistList * hists, TFile * out_file){
   hists->_h_aveint_vs_enu_thin_nCpion->Write();
   hists->_h_aveint_vs_enu_thin_pCnucleon->Write();
   hists->_h_aveint_vs_enu_thin_mesoninc->Write(); 
+  hists->_h_aveint_vs_enu_pipCpip->Write();              //Bhumika
   hists->_h_aveint_vs_enu_thin_nucleona->Write();
   hists->_h_aveint_vs_enu_others->Write();
   hists->_h_aveint_vs_enu_tot->Write();

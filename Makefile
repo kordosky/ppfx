@@ -7,7 +7,7 @@ CC	=	g++
 COPTS	=	-fPIC -DLINUX -O0  -g $(shell root-config --cflags) 
 FLAGS   =       -g
 
-all:    lib programs doxy
+all:    lib programs #doxy
 
 lib: libppfx.so 
 
@@ -37,8 +37,8 @@ $(PROGS): % : src/%.o $(OBJS_LIB)  libppfx.so
 %.o: %.cxx
 	$(CC) $(COPTS) $(INCLUDES) -c -o $@ $<
 
-doxy: 
-	doxygen doxygen/config_doxygen
+#doxy: 
+#doxygen doxygen/config_doxygen
 
 clean:  deldoxy delobj dellib delbin
 
@@ -51,6 +51,6 @@ dellib:
 delbin:
 	if [ -d bin ]; then rm -rf bin; fi
 
-deldoxy:
-	if [ -d html ]; then rm -rf html; fi
-	if [ -d latex ]; then rm -rf latex; fi
+#deldoxy:
+#	if [ -d html ]; then rm -rf html; fi
+#	if [ -d latex ]; then rm -rf latex; fi
