@@ -16,13 +16,14 @@ namespace NeutrinoFluxReweight{
   
   void ReweightDriver::Configure(){
     
+    //Creating the vector of reweighters:
     
     if(doMIPPNumi){
       MIPP_NUMI_PION_Universe = new MIPPNumiPionYieldsReweighter(iUniv,cvPars,univPars);
       MIPP_NUMI_KAON_Universe = new MIPPNumiKaonYieldsReweighter(iUniv,cvPars,univPars);
     }
     if(doNA61){
-      THINTARGET_pipC_pip_Universe = new ThinTargetpipCpipReweighter(iUniv,cvPars,univPars);                      
+      THINTARGET_pipC_pip_Universe = new ThinTargetpipCpipReweighter(iUniv,cvPars,univPars);                       
     }
     TARG_ATT_Universe = new TargetAttenuationReweighter(iUniv,cvPars,univPars);    
     VOL_ABS_IC_Universe = new AbsorptionICReweighter(iUniv,cvPars,univPars);
@@ -57,10 +58,10 @@ namespace NeutrinoFluxReweight{
                 doNA61 = false;
                   }
     else if(val=="NA61On"){doMIPPNumi = false; doNA61=true; 
-        
+         // std::cout<<"NA61 is on and the other (MIPP) is OFF"<<std::endl;    
 }
     else if(val== "BothOff"){doMIPPNumi = false; doNA61=false;
-        
+         std::cout<<"NA61 and MIPP are OFF, only the NA49 weights would act now"<<std::endl;
 
 }
    
@@ -116,7 +117,7 @@ namespace NeutrinoFluxReweight{
     for(int ii=(interaction_nodes.size()-1);ii>=0;ii--){
       if(interaction_nodes[ii]==false){
         bool is_rew = THINTARGET_pipC_pip_Universe->canReweight((icd.interaction_chain)[ii]);
-    
+   
         if(is_rew){
           double rewval = THINTARGET_pipC_pip_Universe->calculateWeight((icd.interaction_chain)[ii]);
           pipC_pip_wgt *= rewval;

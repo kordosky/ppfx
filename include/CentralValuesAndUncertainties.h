@@ -52,8 +52,8 @@ namespace NeutrinoFluxReweight{
     std::vector<ParameterTable> correlated_par_tables;
     std::vector<TMatrixD> covariance_matrices;
     TRandom3 *r3;
-    TRandom3 *r3_pip;   
-    TRandom3 *r3_ch;  
+    TRandom3 *r3_pip;   //BHUMIKA
+    TRandom3 *r3_ch;   //BHUMIKA
 
     int baseSeed;
     

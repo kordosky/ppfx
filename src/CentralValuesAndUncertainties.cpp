@@ -18,15 +18,15 @@ namespace NeutrinoFluxReweight{
   CentralValuesAndUncertainties* CentralValuesAndUncertainties::instance = 0;
 
   CentralValuesAndUncertainties::CentralValuesAndUncertainties(){
-     
-    r3=new TRandom3(0);    
+    //! Setting the seed to zero. 
+    r3=new TRandom3(0);   //Random number generator class in ROOT, seed is selected to be zero here for reproducibility 
     r3_pip=new TRandom3(300);
     baseSeed = 0;
   }
   
   void CentralValuesAndUncertainties::readFromXML(const char* filename){
     using boost::property_tree::ptree;
-    ptree top;    
+    ptree top;    //Object of type ptree named top
     
     read_xml(filename,top,2); // option 2 removes comment strings
     
@@ -141,7 +141,7 @@ namespace NeutrinoFluxReweight{
     if(universe==-1)cvfactor = 0.0;
     int univ_seed = baseSeed + universe;
     r3->SetSeed(univ_seed);    
-    r3_pip->SetSeed(univ_seed+300);   
+    r3_pip->SetSeed(univ_seed+300);   //BHUMIKA
     ParameterTable ptable;
     
     //! We are going to use 100% correlated bin-to-bin for systematic errors in thin target data:
@@ -151,7 +151,8 @@ namespace NeutrinoFluxReweight{
     double sigma_pc_kam = r3->Gaus(0.0,1.0);
     double sigma_pc_p   = r3->Gaus(0.0,1.0);
     double sigma_pc_n   = r3->Gaus(0.0,1.0);
-    double sigma_pipC_pip = r3_pip->Gaus(0.0, 1.0);   
+    double sigma_pipC_pip = r3_pip->Gaus(0.0, 1.0);   //BHUMIKA
+//    std::cout<<"Sigma for Universe is"<<sigma_pipC_pip<<std::endl;   
     const boost::interprocess::flat_map<std::string, double>& table_uncorr_pars = uncorrelated_pars.getMap();
     boost::interprocess::flat_map<std::string, double>::const_iterator it = table_uncorr_pars.begin();
 
@@ -170,6 +171,7 @@ namespace NeutrinoFluxReweight{
      
      //Redefination for NA61 data
         if((it->first).find("ThinTarget_pipC_pip_stat")<10)sigma = sigma2;
+  //  std::cout<<"Sigma for bins in the Universe is"<<sigma2<<std::endl;
 
      	if((it->first).find("ThinTarget_pipC_pim_stat")<10)sigma = sigma2;
         if((it->first).find("ThinTarget_pipC_kp_stat")<10)sigma = sigma2;
@@ -191,7 +193,7 @@ namespace NeutrinoFluxReweight{
       decomp=new TDecompSVD(covariance_matrices[ii],0.0);
       
       bool isDecomposed=decomp->Decompose();
-   // if(isDecomposed){std::cout<<"The matrix is being decomposed using SVD decomposition"<<std::endl;}
+      if(isDecomposed){std::cout<<"The matrix is being decomposed using SVD decomposition"<<std::endl;}
       TMatrixD U = decomp->GetU();
       TVectorD S = decomp->GetSig();
       TMatrixD Vt = decomp->GetV();
@@ -211,6 +213,8 @@ namespace NeutrinoFluxReweight{
        for (Int_t i = 0; i < nmat; ++i) {
         sqrtS[i] = TMath::Sqrt(S[i]);
    }
+//    std::cout<<"The sqrt S vector is"<<std::endl;
+//    sqrtS.Print();
 
     //The MATRIX FOR NEW VACTOR IS
    TMatrixD Sq_matrix(nmat, nmat);
@@ -238,10 +242,10 @@ namespace NeutrinoFluxReweight{
       
       
   }  
-  }           
+  }      // covariance matrix      
     return ptable; 
     
-  }       
+  }       //universe  
   
   ParameterTable CentralValuesAndUncertainties::getCVPars(){      
 
