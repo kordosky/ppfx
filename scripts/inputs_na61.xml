@@ -1,6 +1,6 @@
 <inputs>
    <Settings>
-     <!--Four modes available: MIPPNuMIOn and MIPPNuMIOff -->
+     <!--Four modes available -->
     <Reweighters>NA61On</Reweighters>
      <MIPPCorrOption>default</MIPPCorrOption>
      <NumberOfUniverses>100</NumberOfUniverses>
