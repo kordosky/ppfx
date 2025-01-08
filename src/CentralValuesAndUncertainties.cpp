@@ -20,7 +20,7 @@ namespace NeutrinoFluxReweight{
   CentralValuesAndUncertainties::CentralValuesAndUncertainties(){
     //! Setting the seed to zero. 
     r3=new TRandom3(0);   //Random number generator class in ROOT, seed is selected to be zero here for reproducibility 
-    r3_pip=new TRandom3(300);
+    r3_pip=new TRandom3(300);   //New generator for the newly introduced reweighter
     baseSeed = 0;
   }
   
@@ -159,7 +159,7 @@ namespace NeutrinoFluxReweight{
     
   for(;it!=table_uncorr_pars.end();++it){
       double sigma= r3->Gaus(0.0,1.0);
-      double sigma2 = r3_pip->Gaus(0.0,1.0);
+      double sigma2 = r3_pip->Gaus(0.0,1.0);   //For pipCpip uncorrelated
       
       //redefining sigma for 100% correlation:
       if((it->first).find("ThinTarget_pC_pip_sys")<10)sigma = sigma_pc_pip;
@@ -190,7 +190,7 @@ namespace NeutrinoFluxReweight{
     
     for(size_t ii=0;ii<covariance_matrices.size();++ii){
       
-      decomp=new TDecompSVD(covariance_matrices[ii],0.0);
+      decomp=new TDecompSVD(covariance_matrices[ii],0.0); 
       
       bool isDecomposed=decomp->Decompose();
       if(isDecomposed){std::cout<<"The matrix is being decomposed using SVD decomposition"<<std::endl;}
@@ -224,7 +224,7 @@ namespace NeutrinoFluxReweight{
     
 
 
-   TVectorD vecDShift =  ((U * Sq_matrix)* vsigma); //Second
+   TVectorD vecDShift =  ((U * Sq_matrix)* vsigma); 
 
       
       const boost::interprocess::flat_map<std::string, double>& tb = (correlated_par_tables[ii]).getMap();
