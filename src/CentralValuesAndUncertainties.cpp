@@ -141,7 +141,7 @@ namespace NeutrinoFluxReweight{
     if(universe==-1)cvfactor = 0.0;
     int univ_seed = baseSeed + universe;
     r3->SetSeed(univ_seed);    
-    r3_pip->SetSeed(univ_seed+300);   //BHUMIKA
+    r3_pip->SetSeed(univ_seed+300);   
     ParameterTable ptable;
     
     //! We are going to use 100% correlated bin-to-bin for systematic errors in thin target data:
@@ -151,8 +151,7 @@ namespace NeutrinoFluxReweight{
     double sigma_pc_kam = r3->Gaus(0.0,1.0);
     double sigma_pc_p   = r3->Gaus(0.0,1.0);
     double sigma_pc_n   = r3->Gaus(0.0,1.0);
-    double sigma_pipC_pip = r3_pip->Gaus(0.0, 1.0);   //BHUMIKA
-//    std::cout<<"Sigma for Universe is"<<sigma_pipC_pip<<std::endl;   
+    double sigma_pipC_pip = r3_pip->Gaus(0.0, 1.0);    
     const boost::interprocess::flat_map<std::string, double>& table_uncorr_pars = uncorrelated_pars.getMap();
     boost::interprocess::flat_map<std::string, double>::const_iterator it = table_uncorr_pars.begin();
 
@@ -171,7 +170,7 @@ namespace NeutrinoFluxReweight{
      
      //Redefination for NA61 data
         if((it->first).find("ThinTarget_pipC_pip_stat")<10)sigma = sigma2;
-  //  std::cout<<"Sigma for bins in the Universe is"<<sigma2<<std::endl;
+  
 
      	if((it->first).find("ThinTarget_pipC_pim_stat")<10)sigma = sigma2;
         if((it->first).find("ThinTarget_pipC_kp_stat")<10)sigma = sigma2;
@@ -213,8 +212,6 @@ namespace NeutrinoFluxReweight{
        for (Int_t i = 0; i < nmat; ++i) {
         sqrtS[i] = TMath::Sqrt(S[i]);
    }
-//    std::cout<<"The sqrt S vector is"<<std::endl;
-//    sqrtS.Print();
 
     //The MATRIX FOR NEW VACTOR IS
    TMatrixD Sq_matrix(nmat, nmat);
