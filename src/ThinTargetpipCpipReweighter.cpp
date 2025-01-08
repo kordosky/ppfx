@@ -208,7 +208,7 @@ return can_reweight;
     }
     
     if (bin < 0) {
-        std::cerr << "Invalid bin: " << bin << std::endl;
+        std::cerr << "Invalid bin: " << bin <<"Momentum,Theta of Produced particle are"<<" "<< aa.Prod_P<<" "<< aa.Theta<<std::endl;
         return wgt;
     } 
     
