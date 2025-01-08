@@ -17,6 +17,7 @@ namespace NeutrinoFluxReweight{
   void ReweightDriver::Configure(){
     
     //Creating the vector of reweighters:
+   //This script will select which reweighters will be used. Reads input variables provided and proceeds accordingly.
     
     if(doMIPPNumi){
       MIPP_NUMI_PION_Universe = new MIPPNumiPionYieldsReweighter(iUniv,cvPars,univPars);
