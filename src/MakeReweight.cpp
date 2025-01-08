@@ -35,7 +35,7 @@ namespace NeutrinoFluxReweight{
     CentralValuesAndUncertainties* cvu = CentralValuesAndUncertainties::getInstance();;
     MIPPNumiYieldsBins*  myb =  MIPPNumiYieldsBins::getInstance(); 
     ThinTargetBins*  thinbin =  ThinTargetBins::getInstance();
-  //BHU, adding all new details 
+   
     MIPPNumiMC*  mymc =  MIPPNumiMC::getInstance();
     ThinTargetpipCpipBins*  thinbinpip =    ThinTargetpipCpipBins::getInstance();
     ThinTargetpipCpipMC*    thinbinpipmc =  ThinTargetpipCpipMC::getInstance();
@@ -73,7 +73,7 @@ namespace NeutrinoFluxReweight{
     mymc->kam_mc_from_xml(Form("%s/data/MIPP/MIPPNuMI_MC_KAM.xml",ppfxDir));
     mymc->k0l_mc_from_xml(Form("%s/data/MIPP/MIPPNuMI_MC_K0L.xml",ppfxDir));
     mymc->k0s_mc_from_xml(Form("%s/data/MIPP/MIPPNuMI_MC_K0S.xml",ppfxDir));
-
+   //Selecting the MC values from the experiment we gave as an input (NOvA[1] or DUNE[2])
     if(Exp==1){
     std::cout<<"Initialising NA61 MC values for NOvA"<<std::endl;                            
     thinbinpipmc->pipC_pip_mc_from_xml(Form("%s/data/NA61/1/pipC_pip_mc.xml",ppfxDir));
