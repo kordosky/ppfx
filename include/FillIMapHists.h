@@ -15,7 +15,7 @@
 #include "ThinTargetpCNucleonReweighter.h"
 #include "ThinTargetMesonIncidentReweighter.h"
 #include "ThinTargetnucleonAReweighter.h"
-#include "ThinTargetpipCpipReweighter.h"   //BHUMIKA
+#include "ThinTargetpipCpipReweighter.h"  
 
 
 struct FillIMapHistsOpts {
