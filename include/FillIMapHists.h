@@ -21,20 +21,20 @@
 struct FillIMapHistsOpts {
   float elow, ehigh;
   Int_t nuid;
-  bool cut_thintarget, cut_mipp, cut_na61;                       //BHUMIKA, introduced na61 cut
+  bool cut_thintarget, cut_mipp, cut_na61;                      
 };
 
 struct FillIMapHistsReweighters {
 
-  //NeutrinoFluxReweight::MIPPNumiPionYieldsReweighter* NumiPions;     //BHUMIKA. commenting as we won't use MIPP
-  //NeutrinoFluxReweight::MIPPNumiKaonYieldsReweighter* NumiKaons; 
+  NeutrinoFluxReweight::MIPPNumiPionYieldsReweighter* NumiPions;    
+  NeutrinoFluxReweight::MIPPNumiKaonYieldsReweighter* NumiKaons; 
 
   NeutrinoFluxReweight::ThinTargetpCPionReweighter*         ThinTargetpCPion;
   NeutrinoFluxReweight::ThinTargetpCKaonReweighter*         ThinTargetpCKaon;
   NeutrinoFluxReweight::ThinTargetnCPionReweighter*         ThinTargetnCPion;
   NeutrinoFluxReweight::ThinTargetpCNucleonReweighter*      ThinTargetpCNucleon;
   NeutrinoFluxReweight::ThinTargetMesonIncidentReweighter*  ThinTargetMesonIncident;
-  NeutrinoFluxReweight::ThinTargetpipCpipReweighter*        ThinTargetpipCpip;      //Bhumika
+  NeutrinoFluxReweight::ThinTargetpipCpipReweighter*        ThinTargetpipCpip;    
 
   NeutrinoFluxReweight::ThinTargetnucleonAReweighter*       ThinTargetnucleonA;
 
