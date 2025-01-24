@@ -122,7 +122,7 @@ namespace NeutrinoFluxReweight{
     
   }
   bool ThinTargetpipCpipReweighter::canReweight(const InteractionData& aa){
-   
+    std::string mode(getenv("MODE"));
    if(aa.Proc.find("Inelastic")>100){       
      
     return false; 
