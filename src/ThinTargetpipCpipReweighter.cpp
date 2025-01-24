@@ -133,7 +133,11 @@ namespace NeutrinoFluxReweight{
      bool corr_pro = (aa.Prod_pdg == 211 ||aa.Prod_pdg == -211 || aa.Prod_pdg == 321|| aa.Prod_pdg == -321 || aa.Prod_pdg == 310 || aa.Prod_pdg == 2212 || aa.Prod_pdg == 3122 || aa.Prod_pdg == -3122 );  
     if(corr_inc && corr_pro)return true;
     else return false;
-
+   bool is_wrong_volume = aa.Vol != "TGT1" && aa.Vol != "BudalMonitor" && aa.Vol != "Budal_HFVS" && aa.Vol != "Budal_VFHS";
+    if( (mode=="REF") || (mode=="OPT") ){
+      is_wrong_volume = aa.Vol != "TargetFinHorizontal" && aa.Vol != "TargetNoSplitSegment" && aa.Vol!="tCoreLog";
+    }
+    if(is_wrong_volume)return false;
   bool can_reweight = false;
  int bin = -1; 
  ThinTargetpipCpipBins*  Thinbins =  ThinTargetpipCpipBins::getInstance();
