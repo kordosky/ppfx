@@ -151,7 +151,7 @@ namespace NeutrinoFluxReweight{
     double sigma_pc_kam = r3->Gaus(0.0,1.0);
     double sigma_pc_p   = r3->Gaus(0.0,1.0);
     double sigma_pc_n   = r3->Gaus(0.0,1.0);
-    double sigma_pipC_pip = r3_pip->Gaus(0.0, 1.0);   
+    // double sigma_pipC_pip = r3_pip->Gaus(0.0, 1.0);   // unused
     const boost::interprocess::flat_map<std::string, double>& table_uncorr_pars = uncorrelated_pars.getMap();
     boost::interprocess::flat_map<std::string, double>::const_iterator it = table_uncorr_pars.begin();
 

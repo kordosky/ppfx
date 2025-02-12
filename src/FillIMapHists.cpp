@@ -140,9 +140,9 @@ double FillOneEntry(bsim::Dk2Nu* dk2nu, bsim::DkMeta* dkmeta, HistList* hists, c
     //if(opts->cut_mipp && numi_pion_nodes[iinter]) continue;                        //BHUMIKA, commented as these two are for mipp 
     //if(opts->cut_mipp && numi_kaon_nodes[iinter]) continue;
     // Thin target reweighters are based on data and theoretical motivated data extensions.
-    bool covered_by_na61 = false;
+    // bool covered_by_na61 = false; // unused
     if(reweighters->ThinTargetpipCpip->canReweight(interdata)){
-       covered_by_na61 = true;
+       // covered_by_na61 = true; // unused
        if(! opts->cut_na61) hists->_h_aveint_vs_enu_pipCpip->Fill(enu,weight);
                      }
      

@@ -238,7 +238,7 @@ namespace NeutrinoFluxReweight{
   int ThinTargetpipCpipBins::pipC_pip_BinID(double Prod_P,double Theta, int Inc_pdg, int Prod_pdg){
     
     int ibinID = -1;
-    int size = 0;
+    //int size = 0; // unused
     bool israngea = (Prod_pdg == 211 && Inc_pdg == 211) ;
       if (israngea){
       for(int ii=0;ii<200;++ii){
@@ -255,7 +255,7 @@ return ibinID;
  int ThinTargetpipCpipBins::pipC_pim_BinID(double Prod_P,double Theta, int Inc_pdg, int Prod_pdg){
 
     int ibinID = -1;
-    int size = 0;
+    //int size = 0; // unused
     bool israngea = (Prod_pdg == -211 && Inc_pdg == 211) ;
       if (israngea){
       for(int ii=0;ii<200;++ii){
@@ -272,7 +272,7 @@ return ibinID;
  int ThinTargetpipCpipBins::pipC_kp_BinID(double Prod_P,double Theta, int Inc_pdg, int Prod_pdg){
 
     int ibinID = -1;
-    int size = 0;
+    //int size = 0; // unused
 
   
     bool israngea = (Prod_pdg == 321 && Inc_pdg == 211) ;
@@ -291,7 +291,7 @@ return ibinID;
  int ThinTargetpipCpipBins::pipC_km_BinID(double Prod_P,double Theta, int Inc_pdg, int Prod_pdg){
 
     int ibinID = -1;
-    int size = 0;
+    //int size = 0; // unused
 
    
     bool israngea = (Prod_pdg == -321 && Inc_pdg == 211) ;
@@ -310,7 +310,7 @@ return ibinID;
    int ThinTargetpipCpipBins::pipC_p_BinID(double Prod_P,double Theta, int Inc_pdg, int Prod_pdg){
 
     int ibinID = -1;
-    int size = 0;
+    //int size = 0; // unused
 
    
     bool israngea = (Prod_pdg == 2212 && Inc_pdg == 211) ;
@@ -330,7 +330,7 @@ return ibinID;
  int ThinTargetpipCpipBins::pipC_k0s_BinID(double Prod_P,double Theta, int Inc_pdg, int Prod_pdg){
 
     int ibinID = -1;
-    int size = 0;
+    //int size = 0; // unused
 
     bool israngea = (Prod_pdg == 310 && Inc_pdg == 211) ;
       if (israngea){
@@ -348,7 +348,7 @@ return ibinID;
  int ThinTargetpipCpipBins::pipC_lam_BinID(double Prod_P,double Theta, int Inc_pdg, int Prod_pdg){
 
     int ibinID = -1;
-    int size = 0;
+    //int size = 0; // unused
 
   
     bool israngea = (Prod_pdg == 3122 && Inc_pdg == 211) ;
@@ -367,7 +367,7 @@ return ibinID;
  int ThinTargetpipCpipBins::pipC_alam_BinID(double Prod_P,double Theta, int Inc_pdg, int Prod_pdg){
 
     int ibinID = -1;
-    int size = 0;
+    //int size = 0; // unused
     bool israngea = (Prod_pdg == -3122 && Inc_pdg == 211) ;
       if (israngea){
       for(int ii=0;ii<11;++ii){
