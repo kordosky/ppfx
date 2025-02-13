@@ -41,7 +41,7 @@ std::string change_to_xrootd_path(std::string temp);
 
 void make_basic_fluxhistograms(const char* inputFile, const char* outputFile, const char* cdet){ 
   
-  const char* thisDir = getenv("PPFX_DIR");
+  //const char* thisDir = getenv("PPFX_DIR"); // unused
   int idet = atoi(cdet);
   
   std::cout<<"Making an output file to store histograms"<<std::endl;
@@ -104,7 +104,7 @@ void make_basic_fluxhistograms(const char* inputFile, const char* outputFile, co
     hflux[nuidx]->Fill(enu,flxwgt);
     
     InteractionChainData ichaindata(dk2nu,dkmeta);
-    unsigned int nanc = (ichaindata.interaction_chain).size();
+    //unsigned int nanc = (ichaindata.interaction_chain).size(); // unused
     InteractionData idata = (ichaindata.interaction_chain)[0];
     double xF  = idata.xF;
     double Pt  = idata.Pt;

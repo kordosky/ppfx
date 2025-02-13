@@ -40,7 +40,7 @@ std::string change_to_xrootd_path(std::string temp);
  */
 void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char* optionsFile, const char* cxxdet, const char* cyydet, const char* czzdet){ 
   
-  const char* thisDir = getenv("PPFX_DIR");
+  //const char* thisDir = getenv("PPFX_DIR"); // unused
   int idet = -1;    //this is identity of the detector
   bool doing_precalculated_pos = false;  //Initially we are assuming that there is no precalculated position of the detector
   
@@ -286,9 +286,9 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
     for(int jj=0;jj<Nuniverses;jj++){
       double wgt_thin = vwgt_ttpCpi[jj]*vwgt_ttpCk[jj]*vwgt_ttnCpi[jj]*vwgt_ttpCnu[jj]*vwgt_ttnua[jj];
      // double wgt_mipp = vwgt_mipp_pi[jj]*vwgt_mipp_K[jj];
-      double wgt_na61 = vwgt_ttpipinc[jj]; 
+      //double wgt_na61 = vwgt_ttpipinc[jj]; //unused
       double wgt_att = vwgt_att[jj]*vwgt_abs[jj];
-      double wgt_mes = vwgt_ttmesinc[jj];   
+      //double wgt_mes = vwgt_ttmesinc[jj];   // unused
    
       hthin[nuidx][jj]->Fill(nuenergy,fluxWGT*wgt_thin);
       hmesinc[nuidx][jj]->Fill(nuenergy,fluxWGT*vwgt_ttmesinc[jj]);
