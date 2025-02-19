@@ -40,7 +40,7 @@ $(PROGS): % : src/%.o $(OBJS_LIB)  libppfx.so
 #doxy: 
 #doxygen doxygen/config_doxygen
 
-clean:  deldoxy delobj dellib delbin
+clean:  delobj dellib delbin
 
 delobj:
 	-rm src/*.o
