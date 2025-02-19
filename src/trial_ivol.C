@@ -18,7 +18,7 @@ void trial_ivol(const char* inputFile,const char* outputFile){
 
 //start with the reweighter...not sure if we need it or not
 
-  MakeReweight* makerew = MakeReweight::getInstance();
+  //MakeReweight* makerew = MakeReweight::getInstance(); // unused
   
   TChain* chain_evts   = new TChain("dk2nuTree");  
   TChain* chain_meta   = new TChain("dkmetaTree");  
@@ -41,20 +41,20 @@ void trial_ivol(const char* inputFile,const char* outputFile){
   ifs.close();  
 
   chain_evts->SetBranchAddress("dk2nu",&dk2nu);
-  int nentries  = chain_evts->GetEntries();
+  //int nentries  = chain_evts->GetEntries(); // unused
 
   chain_meta->SetBranchAddress("dkmeta",&dkmeta);
   chain_meta->GetEntry(0); //all entries are the same    
   
-  int ntot = chain_evts->GetEntries();
+  //int ntot = chain_evts->GetEntries(); // unused
   
   for(int i =0;i<1000;i++){
    chain_evts->GetEntry(i);
    NeutrinoFluxReweight::InteractionChainData icd(dk2nu,dkmeta);  
   
-   const int ninter = icd.interaction_chain.size();
+   //const int ninter = icd.interaction_chain.size(); // unused
    
-   const int ptv_size = icd.ptv_info.size();
+   //const int ptv_size = icd.ptv_info.size(); // unused
    
    //std::cout<<"intersize "<<ninter<<" ptv size "<<ptv_size<<std::endl;
   

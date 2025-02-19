@@ -135,7 +135,7 @@ namespace NeutrinoFluxReweight{
     else return false;
 
   bool can_reweight = false;
- int bin = -1; 
+ //int bin = -1; // this "bin" is not used
  ThinTargetpipCpipBins*  Thinbins =  ThinTargetpipCpipBins::getInstance();
 if(aa.Prod_pdg == 211) {
       int bin = Thinbins->pipC_pip_BinID(aa.Prod_P,aa.Theta,aa.Inc_pdg,aa.Prod_pdg);
@@ -179,7 +179,7 @@ return can_reweight;
     double wgt = 1.0;
     double low_value = 1.e-18;     
     int bin = -1;
-    bool right_inc = aa.Inc_pdg == 211;
+    //bool right_inc = aa.Inc_pdg == 211; // right_inc not used
    if(aa.Inc_pdg != 211){std::cout<<"Can reweight is not working properly, setting wgt 1"<<std::endl;
    return wgt; } 
 

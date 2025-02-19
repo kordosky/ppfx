@@ -144,11 +144,12 @@ void minos2nova(const char* inputFiles, const char* outputFile, const char* opti
     }//end of det
   }//end of hel
 
+// array bounds are ‘TH2D* [2]’ - presume that htrans[i][0] and htrans[i][1] are intended
   std::cout<<"storing general histos"<<std::endl;
   fOut->cd();
   for(int i=0;i<Nhel;i++){
+    htrans[i][0]->Write();
     htrans[i][1]->Write();
-    htrans[i][2]->Write();
     fOut->mkdir(Form("h%s",hel[i]));
     fOut->cd(Form("h%s",hel[i]));
     for(int j=0;j<Ndet;j++){

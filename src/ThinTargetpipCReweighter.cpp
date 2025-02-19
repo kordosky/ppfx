@@ -6,7 +6,8 @@ namespace NeutrinoFluxReweight{
   
   ThinTargetpipCReweighter::ThinTargetpipCReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars):iUniv(iuniv),cvPars(cv_pars),univPars(univ_pars){
     
-    ThinTargetBins* Thinbins =  ThinTargetBins::getInstance();
+    // not doing anything with Thinbins
+    //ThinTargetBins* Thinbins =  ThinTargetBins::getInstance();
     
     
     //1 incident particles, 8 produced particles:
