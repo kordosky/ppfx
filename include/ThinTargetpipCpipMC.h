@@ -60,7 +60,7 @@ namespace NeutrinoFluxReweight{
     bool ranges_p_already_filled;
     bool ranges_lam_already_filled;
     bool ranges_alam_already_filled;
-    bool ranges_already_filled;
+    //bool ranges_already_filled; // unused
     //double proton_no_interacting; // unused
 
     static ThinTargetpipCpipMC* instance;
